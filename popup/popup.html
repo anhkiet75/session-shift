@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SessionShift</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <div class="bg-mesh"></div>
+
+  <div class="container">
+
+    <!-- ── HEADER ─────────────────────── -->
+    <header class="header reveal" style="--d:0ms">
+      <div class="header-left">
+        <div class="logo-ring">
+          <img src="../icons/icon-128.png" alt="SessionShift">
+        </div>
+        <div>
+          <div class="header-title">SessionShift</div>
+          <div class="header-sub">Multi-account manager</div>
+        </div>
+      </div>
+      <span class="version-chip" id="versionChip"></span>
+    </header>
+
+    <!-- ── ACTIVE SESSION ─────────────── -->
+    <section class="card reveal" style="--d:60ms">
+      <div class="card-label">Active on this tab</div>
+      <div class="active-session-row">
+        <div id="currentSession" class="badge badge-default">Default</div>
+      </div>
+    </section>
+
+    <!-- ── NEW SESSION ────────────────── -->
+    <section class="card reveal" style="--d:120ms">
+      <div class="card-label">Create session</div>
+      <div class="new-session-row">
+        <input type="text" id="newSessionName" placeholder="Name (optional)" autocomplete="off" spellcheck="false">
+        <button id="btnNewSession">
+          <span class="btn-icon">+</span>
+          <span>New</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── SESSION LIST ───────────────── -->
+    <section class="card card-list reveal" style="--d:180ms" id="savedSessionsList">
+      <div class="card-label">All sessions</div>
+    </section>
+
+    <!-- ── FOOTER ─────────────────────── -->
+    <footer class="footer reveal" style="--d:240ms">
+      <button id="btnDefault" class="btn-ghost">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset to Default
+      </button>
+    </footer>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

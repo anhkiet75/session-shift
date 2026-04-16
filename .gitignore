@@ -1,0 +1,14 @@
+.agents
+.claude
+skills-lock.json
+extension.zip
+node_modules/
+coverage/
+vitest.config.js
+docs/
+package-lock.json
+package.json
+tests/
+.DS_Store
+scripts/
+GUIDE.md
