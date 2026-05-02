@@ -613,6 +613,32 @@ body {
   padding: 10px 16px 16px;
   border-top: 1px solid var(--border);
   margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.v2-options-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  padding: 7px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.12s ease, background 0.12s ease;
+}
+
+.v2-options-link:hover {
+  color: var(--text-dim);
+  background: var(--bg-2);
 }
 
 .v2-reset {

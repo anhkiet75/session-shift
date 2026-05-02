@@ -3,7 +3,7 @@
 A Chrome extension that gives each tab its own isolated session, letting you stay logged into multiple accounts on the same site simultaneously. A free, open-source alternative to SessionBox.
 
 **[Install from Chrome Web Store](https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp)**  
-**Current Version:** 0.1.0
+**Current Version:** 0.2.0
 
 ---
 
@@ -29,6 +29,8 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 - **Per-tab session isolation** — Cookies scoped to session, not browser profile
 - **Named sessions** — Create and switch between sessions with custom names
 - **All-sessions view** — Cross-origin list with search; switch from any site to any session
+- **Auto-assign rules** — Define rules like "github.com → Work session"; automatically applied on tab navigation
+- **Context menu integration** — Right-click any link → "Open in Session" to open with a specific session
 - **Badge indicator** — Toolbar badge shows active session at a glance
 - **Persistent across restarts** — Session assignments survive service worker restarts
 - **Works on any site** — No per-site configuration; covers all URLs
@@ -62,22 +64,27 @@ Tab 2 (Session B) ──DNR Rule──→ Cookie: session_b_cookie_1=value
 ```
 session-shift/
 ├── manifest.json              # MV3 manifest & permissions
-├── background.js              # Service worker (367 LOC)
+├── background.js              # Service worker (466 LOC)
 ├── content.js                 # ISOLATED world bridge (86 LOC)
 ├── page-api-proxy.js          # MAIN world API interception (222 LOC)
 ├── lib/
 │   ├── cookie-parser.js       # Set-Cookie parsing (170 LOC)
-│   └── session-store.js       # Storage abstraction (80 LOC)
+│   ├── session-store.js       # Storage abstraction (158 LOC)
+│   └── rule-matcher.js        # Hostname pattern matching (52 LOC)
 ├── popup/
 │   ├── popup.html             # UI structure
-│   ├── popup.js               # Session CRUD logic (359 LOC)
-│   └── popup.css              # Stacks design system (682 LOC)
+│   ├── popup.js               # Session CRUD logic (525 LOC)
+│   └── popup.css              # Stacks design system (788 LOC)
+├── options/
+│   ├── options.html           # Rule management UI (55 LOC)
+│   ├── options.js             # Rule CRUD (184 LOC)
+│   └── options.css            # Design tokens & layout (313 LOC)
 ├── icons/                     # Extension icons (16–128px)
-├── tests/                     # Vitest unit tests
+├── tests/                     # Vitest unit tests (36 tests passing)
 └── docs/                      # Project documentation
 ```
 
-**Total:** ~2,086 LOC (main source files, excl. assets)
+**Total:** ~3,064 LOC (main source files, excl. assets)
 
 ---
 
@@ -100,8 +107,9 @@ Read the docs for deeper understanding:
 | `declarativeNetRequest` | Rewrite Cookie headers per-tab |
 | `webRequest` | Intercept Set-Cookie responses |
 | `cookies` | Read browser's global cookie jar for snapshots |
-| `storage` | Persist session data and tab mapping |
+| `storage` | Persist session data, tab mapping, and auto-assign rules |
 | `tabs` | Track which tab maps to which session |
+| `contextMenus` | Create context menu for "Open in Session" |
 | `<all_urls>` | Operate on any website |
 
 ---
@@ -124,6 +132,18 @@ Read the docs for deeper understanding:
 2. Hover over a session, click **Delete**
 3. All cookies for that session are permanently removed
 4. Tabs in that session are reset to default
+
+### Configure Auto-Assign Rules
+1. Click the **⚙ Settings** button in the popup
+2. Add a rule: e.g., "github.com" → select "Work" session
+3. Save rule — now any tab navigating to github.com auto-switches to Work session
+4. Edit or delete rules anytime
+
+### Open Link in Session
+1. Right-click any link on a web page
+2. Hover over **Open in Session**
+3. Select a session from the submenu
+4. Link opens in a new tab with that session active
 
 ### Reset to Default
 Click **Reset to default** to return the current tab to the browser's global cookie jar
@@ -151,6 +171,8 @@ npm test          # Run Vitest unit tests
 Test files:
 - `tests/background-batch.test.js` — background.js message handlers
 - `tests/options-filter.test.js` — cookie-parser.js functionality
+- `tests/rule-matcher.test.js` — hostname pattern matching
+- `tests/auto-assign.test.js` — auto-assign rule application
 
 ---
 
@@ -176,7 +198,7 @@ Pull requests are welcome! For significant changes:
 ## Roadmap
 
 **Phase 1 (Shipped):** Core session isolation  
-**Phase 2 (Q3 2026):** Global session list, auto-assign rules, context menu  
+**Phase 2 (Shipped):** Global session list, auto-assign rules, context menu  
 **Phase 3 (Q4 2026):** Tab colors, export/import, session duplication  
 **Phase 4 (Q1 2027):** Keyboard shortcuts, analytics, accessibility audit  
 

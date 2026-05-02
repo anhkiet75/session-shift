@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const savedList      = document.getElementById('savedSessionsList');
   const resetArea      = document.getElementById('resetArea');
   const btnDefault     = document.getElementById('btnDefault');
+  const btnOptions     = document.getElementById('btnOptions');
+
+  btnOptions?.addEventListener('click', () => chrome.runtime.openOptionsPage());
 
   // Current session
   const activeSessionResponse = await chrome.runtime.sendMessage({

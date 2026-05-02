@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SessionShift — Auto-Assign Rules</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+
+  <div class="opt-page">
+
+    <header class="opt-header">
+      <img src="../icons/icon-48.png" class="opt-logo" alt="SessionShift">
+      <div>
+        <h1 class="opt-title">Auto-Assign Rules</h1>
+        <p class="opt-sub">Automatically assign a session when a tab navigates to a matching hostname.</p>
+      </div>
+    </header>
+
+    <!-- Add rule form -->
+    <section class="opt-section">
+      <h2 class="opt-section-title">New Rule</h2>
+      <div class="opt-form">
+        <div class="opt-field">
+          <label class="opt-label" for="patternInput">Hostname pattern</label>
+          <input id="patternInput" class="opt-input" type="text"
+                 placeholder="e.g. github.com or *.example.com"
+                 autocomplete="off" spellcheck="false" maxlength="253">
+          <span class="opt-hint" id="patternHint"></span>
+        </div>
+        <div class="opt-field">
+          <label class="opt-label" for="sessionSelect">Session</label>
+          <select id="sessionSelect" class="opt-select">
+            <option value="">— select a session —</option>
+          </select>
+        </div>
+        <button id="btnAddRule" class="opt-btn-primary" disabled>Add Rule</button>
+      </div>
+    </section>
+
+    <!-- Rules list -->
+    <section class="opt-section">
+      <h2 class="opt-section-title">
+        Rules
+        <span class="opt-count" id="ruleCount">0</span>
+      </h2>
+      <div id="rulesList"></div>
+      <p class="opt-empty hidden" id="emptyState">No rules yet. Add one above.</p>
+    </section>
+
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

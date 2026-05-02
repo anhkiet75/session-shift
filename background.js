@@ -1,7 +1,8 @@
 // background.js — Module Service Worker
 
 import { parseSetCookie, serializeCookieHeader, parseCookieString } from './lib/cookie-parser.js';
-import { getCookieStore, setCookieStore, getSessionList, setSessionList, isInternalSession } from './lib/session-store.js';
+import { getCookieStore, setCookieStore, getSessionList, setSessionList, isInternalSession, getAllSessions, getAssignRules, setAssignRules } from './lib/session-store.js';
+import { findMatchingRule } from './lib/rule-matcher.js';
 
 // ---------------------------------------------------------------------------
 // In-memory tab→session map (also persisted to chrome.storage.session)
@@ -30,6 +31,7 @@ async function persistTabSessions() {
 
 // Restore state on service worker start
 restoreTabSessions();
+setupContextMenu();
 
 // ---------------------------------------------------------------------------
 // Badge
@@ -292,6 +294,18 @@ export async function handleMessage(request, sender) {
       return { success: true, tabId: newTab.id };
     }
 
+    case 'getAssignRules': {
+      const rules = await getAssignRules();
+      return { rules };
+    }
+
+    case 'setAssignRules': {
+      const { rules } = payload ?? {};
+      if (!Array.isArray(rules)) return { error: 'invalid payload' };
+      await setAssignRules(rules);
+      return { success: true };
+    }
+
     default:
       return { error: `unknown action: ${action}` };
   }
@@ -369,11 +383,84 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
   updateBadge(tabId, sessionId);
 });
 
-// Reapply badge after navigation/reload — Chrome clears tab-specific badge text on navigate.
-// status:'loading' fires for both reloads and new-URL navigations (changeInfo.url is absent on reload).
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (changeInfo.status !== 'loading') return;
-  const sessionId = tabSessions[tabId] || 'default';
-  if (isInternalSession(sessionId)) return; // no badge to reapply
-  updateBadge(tabId, sessionId);
+// Reapply badge on navigation + auto-assign session when a rule matches the new URL.
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
+  // Badge refresh — fires on status:'loading' for both reloads and new-URL navigations.
+  if (changeInfo.status === 'loading') {
+    const sessionId = tabSessions[tabId] || 'default';
+    if (!isInternalSession(sessionId)) updateBadge(tabId, sessionId);
+  }
+
+  // Auto-assign — only when a real URL change has fully loaded.
+  if (!changeInfo.url || changeInfo.status !== 'complete') return;
+
+  // Never override an existing isolated session.
+  const current = tabSessions[tabId];
+  if (current && current !== 'default' && !current.startsWith('_snap_')) return;
+
+  let hostname;
+  try { hostname = new URL(changeInfo.url).hostname; } catch { return; }
+
+  const rules = await getAssignRules();
+  const rule = findMatchingRule(hostname, rules);
+  if (!rule) return;
+
+  // Verify the target session still exists.
+  const list = await getSessionList(rule.origin);
+  if (!list.find(s => s.id === rule.sessionId)) return;
+
+  tabSessions[tabId] = rule.sessionId;
+  await persistTabSessions();
+  await updateDNRRulesForTab(tabId, rule.sessionId);
+  updateBadge(tabId, rule.sessionId);
+});
+
+// ---------------------------------------------------------------------------
+// Context menu — "Open in Session"
+// ---------------------------------------------------------------------------
+const CTX_PARENT_ID = 'ss-open-in-session';
+
+async function setupContextMenu() {
+  try {
+    await chrome.contextMenus.removeAll();
+    const sessions = await getAllSessions();
+    if (sessions.length === 0) return;
+
+    chrome.contextMenus.create({
+      id: CTX_PARENT_ID,
+      title: 'Open in Session',
+      contexts: ['link'],
+    });
+
+    for (const session of sessions) {
+      let hostname;
+      try { hostname = new URL(session.origin).hostname; } catch { hostname = session.origin; }
+      chrome.contextMenus.create({
+        id: `ss-session-${session.id}`,
+        parentId: CTX_PARENT_ID,
+        title: `${session.name} — ${hostname}`,
+        contexts: ['link'],
+      });
+    }
+  } catch (e) {
+    // contextMenus API may be unavailable in some contexts (e.g. tests)
+    console.warn('[bg] setupContextMenu failed:', e);
+  }
+}
+
+// Rebuild menu whenever session lists change
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== 'local') return;
+  if (Object.keys(changes).some(k => k.startsWith('list_'))) setupContextMenu();
+});
+
+chrome.contextMenus.onClicked.addListener(async (info) => {
+  if (!info.linkUrl || !String(info.menuItemId).startsWith('ss-session-')) return;
+  const sessionId = String(info.menuItemId).replace('ss-session-', '');
+  let url;
+  try { url = new URL(info.linkUrl).href; } catch { return; }
+  await handleMessage(
+    { action: 'createSessionTab', payload: { url, sessionId } },
+    { id: chrome.runtime.id }
+  );
 });
