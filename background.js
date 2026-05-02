@@ -1,7 +1,7 @@
 // background.js — Module Service Worker
 
 import { parseSetCookie, serializeCookieHeader, parseCookieString } from './lib/cookie-parser.js';
-import { getCookieStore, setCookieStore, getSessionList, isInternalSession } from './lib/session-store.js';
+import { getCookieStore, setCookieStore, getSessionList, setSessionList, isInternalSession } from './lib/session-store.js';
 
 // ---------------------------------------------------------------------------
 // In-memory tab→session map (also persisted to chrome.storage.session)
@@ -168,7 +168,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return true; // keep channel open for async response
 });
 
-async function handleMessage(request, sender) {
+export async function handleMessage(request, sender) {
   const { action, payload } = request;
 
   switch (action) {
@@ -260,6 +260,18 @@ async function handleMessage(request, sender) {
         updateBadge(tid, 'default');
       }
       return { success: true, affectedTabIds };
+    }
+
+    case 'renameSessions': {
+      const { sessions } = payload ?? {};
+      if (!Array.isArray(sessions)) return { error: 'invalid payload' };
+      for (const { id, origin, name } of sessions) {
+        if (typeof id !== 'string' || typeof origin !== 'string' || typeof name !== 'string') continue;
+        const list = await getSessionList(origin);
+        const updated = list.map(s => s.id === id ? { ...s, name } : s);
+        await setSessionList(origin, updated);
+      }
+      return { success: true };
     }
 
     case 'createSessionTab': {

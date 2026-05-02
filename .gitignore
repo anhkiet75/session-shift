@@ -12,3 +12,8 @@ tests/
 .DS_Store
 scripts/
 GUIDE.md
+plans/
+AGENTS.md
+CLAUDE.md
+.repomixignore
+.opencode
