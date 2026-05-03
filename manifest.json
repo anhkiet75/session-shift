@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SessionShift",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Switch between multiple accounts on any site — each tab gets its own isolated session.",
   "icons": {
     "16": "icons/icon-16.png",

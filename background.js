@@ -1,7 +1,7 @@
 // background.js — Module Service Worker
 
 import { parseSetCookie, serializeCookieHeader, parseCookieString } from './lib/cookie-parser.js';
-import { getCookieStore, setCookieStore, getSessionList, setSessionList, isInternalSession, getAllSessions, getAssignRules, setAssignRules } from './lib/session-store.js';
+import { getCookieStore, setCookieStore, getSessionList, setSessionList, isInternalSession, getAllSessions, getAssignRules, setAssignRules, duplicateSession } from './lib/session-store.js';
 import { findMatchingRule } from './lib/rule-matcher.js';
 
 // ---------------------------------------------------------------------------
@@ -34,31 +34,72 @@ restoreTabSessions();
 setupContextMenu();
 
 // ---------------------------------------------------------------------------
-// Badge
+// Badge + per-tab colored icon
 // ---------------------------------------------------------------------------
+
+// Cache: hue → ImageData (cleared on service worker restart — regenerated on next updateBadge)
+const iconCache = new Map();
+
+function generateSessionIcon(hue) {
+  if (iconCache.has(hue)) return iconCache.get(hue);
+
+  const SIZE = 19;
+  const canvas = new OffscreenCanvas(SIZE, SIZE);
+  const ctx = canvas.getContext('2d');
+  const cx = SIZE / 2;
+  const r = 8;
+
+  ctx.beginPath();
+  ctx.arc(cx, cx, r + 1, 0, Math.PI * 2);
+  ctx.fillStyle = `hsla(${hue}, 70%, 55%, 0.25)`;
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(cx, cx, r, 0, Math.PI * 2);
+  ctx.fillStyle = `hsl(${hue}, 70%, 55%)`;
+  ctx.fill();
+
+  const imageData = ctx.getImageData(0, 0, SIZE, SIZE);
+  iconCache.set(hue, imageData);
+  return imageData;
+}
+
 async function updateBadge(tabId, sessionId) {
   if (isInternalSession(sessionId)) {
     chrome.action.setBadgeText({ text: '', tabId });
+    chrome.action.setIcon({ path: {
+      '16':  'icons/icon-16.png',
+      '32':  'icons/icon-32.png',
+      '48':  'icons/icon-48.png',
+      '128': 'icons/icon-128.png',
+    }, tabId }).catch(() => {});
     return;
   }
 
   let label = sessionId.replace(/^session_/, '').substring(0, 3).toUpperCase();
+  let hue = 212;
   try {
     const tab = await chrome.tabs.get(tabId);
     if (tab?.url && !tab.url.startsWith('chrome://')) {
       const origin = new URL(tab.url).origin;
       const list = await getSessionList(origin);
       const session = list.find((s) => s.id === sessionId);
-      if (session?.name) {
-        label = session.name.substring(0, 3).toUpperCase();
-      }
+      if (session?.name) label = session.name.substring(0, 3).toUpperCase();
+      if (session?.hue !== undefined) hue = session.hue;
     }
   } catch (_) {
     // Tab may be gone or URL unavailable — fall back to id-derived label
   }
 
-  chrome.action.setBadgeBackgroundColor({ color: '#7c3aed', tabId });
+  chrome.action.setBadgeBackgroundColor({ color: `hsl(${hue}, 70%, 45%)`, tabId });
   chrome.action.setBadgeText({ text: label, tabId });
+
+  if (typeof OffscreenCanvas !== 'undefined') {
+    try {
+      const imageData = generateSessionIcon(hue);
+      await chrome.action.setIcon({ imageData, tabId });
+    } catch (_) {}
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -304,6 +345,15 @@ export async function handleMessage(request, sender) {
       if (!Array.isArray(rules)) return { error: 'invalid payload' };
       await setAssignRules(rules);
       return { success: true };
+    }
+
+    case 'duplicateSession': {
+      const { sessionId, origin } = payload ?? {};
+      if (typeof sessionId !== 'string' || typeof origin !== 'string') {
+        return { error: 'invalid payload' };
+      }
+      const newSession = await duplicateSession(sessionId, origin);
+      return { success: true, session: newSession };
     }
 
     default:

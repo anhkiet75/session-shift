@@ -375,6 +375,22 @@ function renderSessionList(container, sessions, currentSessionId, origin, tabId)
       check.innerHTML = `<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
       actions.appendChild(check);
     } else {
+      // Duplicate button
+      const dupBtn = document.createElement('button');
+      dupBtn.className = 'v2-card-dup';
+      dupBtn.title = 'Duplicate session';
+      dupBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+      dupBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        dupBtn.disabled = true;
+        await chrome.runtime.sendMessage({
+          action: 'duplicateSession',
+          payload: { sessionId: session.id, origin }
+        });
+        const fresh = await getSavedSessions(origin);
+        renderSessionList(savedList, fresh, currentSessionId, origin, tabId);
+      });
+
       // Rename button
       const renameBtn = document.createElement('button');
       renameBtn.className = 'v2-card-rename';
@@ -406,6 +422,7 @@ function renderSessionList(container, sessions, currentSessionId, origin, tabId)
         if (countEl) countEl.textContent = Math.max(0, parseInt(countEl.textContent || '0') - 1);
       });
 
+      actions.appendChild(dupBtn);
       actions.appendChild(renameBtn);
       actions.appendChild(delBtn);
     }

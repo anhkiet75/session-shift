@@ -1,4 +1,4 @@
-/* options.css — Auto-assign rules page */
+/* options.css — Options page */
 
 /* ── TOKENS (mirrored from popup.css) ──────────────────── */
 :root {
@@ -311,3 +311,127 @@ body {
 }
 
 .hidden { display: none; }
+
+/* ── TAB NAVIGATION ─────────────────────────────────────── */
+.opt-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: -4px;
+}
+
+.opt-tab {
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.12s, border-color 0.12s;
+  margin-bottom: -1px;
+}
+
+.opt-tab:hover { color: var(--text-dim); }
+
+.opt-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+/* ── BACKUP TAB ─────────────────────────────────────────── */
+.opt-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px; }
+
+.opt-file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+  transition: border-color 0.12s, color 0.12s;
+}
+.opt-file-label:hover { border-color: var(--accent); color: var(--text); }
+.opt-file-input { display: none; }
+
+.opt-export-meta,
+.opt-import-status { font-size: 12px; color: var(--text-muted); margin-top: 8px; display: block; }
+.opt-status-ok { color: var(--success); }
+.opt-status-err { color: var(--danger); }
+
+/* ── SETTINGS TAB ───────────────────────────────────────── */
+.opt-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.opt-setting-info { flex: 1; min-width: 0; }
+
+.opt-setting-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  display: block;
+}
+
+.opt-setting-desc {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+/* ── ABOUT TAB ──────────────────────────────────────────── */
+.opt-about-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.opt-about-logo { width: 40px; height: 40px; border-radius: 10px; }
+.opt-about-name { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+.opt-about-version { font-size: 12px; color: var(--text-muted); font-family: var(--mono); margin-top: 2px; }
+
+.opt-about-links { display: flex; gap: 16px; margin-top: 12px; }
+
+.opt-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+}
+.opt-link:hover { text-decoration: underline; }
+
+.opt-changelog { display: flex; flex-direction: column; gap: 10px; }
+
+.opt-changelog-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.opt-changelog-version {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  flex-shrink: 0;
+  width: 52px;
+}
+
+.opt-changelog-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}

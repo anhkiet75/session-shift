@@ -1,6 +1,7 @@
-// options.js — Auto-assign rules management (ESM module)
+// options.js — Options page (ESM module)
 
 import { normalizePattern } from '../lib/rule-matcher.js'
+import { exportSessions, importSessions } from '../lib/session-store.js'
 
 // ---------------------------------------------------------------------------
 // Storage helpers (direct storage access — options page has storage permission)
@@ -139,7 +140,37 @@ function escapeHtml(str) {
 // Init
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Settings helpers
+// ---------------------------------------------------------------------------
+
+const SETTINGS_KEY = 'ext_settings'
+
+async function loadSettings() {
+  const result = await chrome.storage.local.get([SETTINGS_KEY])
+  return result[SETTINGS_KEY] || { notifyOnAutoAssign: false }
+}
+
+async function saveSettings(settings) {
+  await chrome.storage.local.set({ [SETTINGS_KEY]: settings })
+}
+
+// ---------------------------------------------------------------------------
+// Init
+// ---------------------------------------------------------------------------
+
 document.addEventListener('DOMContentLoaded', async () => {
+  // Tab switching
+  document.querySelectorAll('.opt-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.opt-tab').forEach(t => t.classList.remove('active'))
+      document.querySelectorAll('.opt-panel').forEach(p => p.classList.add('hidden'))
+      tab.classList.add('active')
+      document.getElementById(`panel-${tab.dataset.tab}`).classList.remove('hidden')
+    })
+  })
+
+  // Rules tab init
   const patternInput  = document.getElementById('patternInput')
   const patternHint   = document.getElementById('patternHint')
   const sessionSelect = document.getElementById('sessionSelect')
@@ -181,4 +212,57 @@ document.addEventListener('DOMContentLoaded', async () => {
   patternInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !btnAddRule.disabled) btnAddRule.click()
   })
+
+  // Backup tab — Export
+  document.getElementById('btnExport').addEventListener('click', async () => {
+    const allSessions = await exportSessions()
+    const payload = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      generator: `SessionShift/${chrome.runtime.getManifest().version}`,
+      sessions: allSessions,
+    }
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `sessionshift-backup-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+    document.getElementById('exportMeta').textContent = `${allSessions.length} session${allSessions.length !== 1 ? 's' : ''} exported`
+  })
+
+  // Backup tab — Import
+  document.getElementById('importFile').addEventListener('change', async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    const status = document.getElementById('importStatus')
+    status.className = 'opt-import-status'
+    try {
+      const text = await file.text()
+      const data = JSON.parse(text)
+      if (!data.sessions || !Array.isArray(data.sessions)) throw new Error('Invalid backup file')
+      const { imported } = await importSessions(data.sessions)
+      status.textContent = `✓ Imported ${imported} session${imported !== 1 ? 's' : ''}`
+      status.classList.add('opt-status-ok')
+    } catch (err) {
+      status.textContent = `✗ Import failed: ${err.message}`
+      status.classList.add('opt-status-err')
+    }
+    status.classList.remove('hidden')
+    e.target.value = ''
+  })
+
+  // Settings tab
+  const settings = await loadSettings()
+  const toggleNotify = document.getElementById('toggleNotify')
+  toggleNotify.checked = settings.notifyOnAutoAssign
+  toggleNotify.addEventListener('change', async () => {
+    const current = await loadSettings()
+    await saveSettings({ ...current, notifyOnAutoAssign: toggleNotify.checked })
+  })
+
+  // About tab
+  const { version } = chrome.runtime.getManifest()
+  document.getElementById('aboutVersion').textContent = `v${version}`
 })

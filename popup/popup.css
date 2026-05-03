@@ -522,7 +522,8 @@ body {
 }
 
 .v2-card-del,
-.v2-card-rename {
+.v2-card-rename,
+.v2-card-dup {
   width: 26px;
   height: 26px;
   display: grid;
@@ -537,7 +538,8 @@ body {
 }
 
 .v2-card:hover .v2-card-del,
-.v2-card:hover .v2-card-rename { opacity: 1; }
+.v2-card:hover .v2-card-rename,
+.v2-card:hover .v2-card-dup { opacity: 1; }
 
 .v2-card-del:hover {
   background: color-mix(in srgb, var(--danger) 12%, transparent);
@@ -546,6 +548,11 @@ body {
 
 .v2-card-rename:hover {
   background: var(--bg-3);
+  color: var(--accent);
+}
+
+.v2-card-dup:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
   color: var(--accent);
 }
 

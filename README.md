@@ -3,7 +3,7 @@
 A Chrome extension that gives each tab its own isolated session, letting you stay logged into multiple accounts on the same site simultaneously. A free, open-source alternative to SessionBox.
 
 **[Install from Chrome Web Store](https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp)**  
-**Current Version:** 0.2.0
+**Current Version:** 0.3.0
 
 ---
 
@@ -31,7 +31,10 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 - **All-sessions view** — Cross-origin list with search; switch from any site to any session
 - **Auto-assign rules** — Define rules like "github.com → Work session"; automatically applied on tab navigation
 - **Context menu integration** — Right-click any link → "Open in Session" to open with a specific session
-- **Badge indicator** — Toolbar badge shows active session at a glance
+- **Badge indicator** — Toolbar badge shows active session at a glance (color-coded by session hue)
+- **Duplicate session** — Clone a session's cookies into a new session with one click
+- **Export/import backup** — Export all sessions as JSON; import on another device
+- **Tab color labels** — Session colors appear in toolbar badge for visual identification
 - **Persistent across restarts** — Session assignments survive service worker restarts
 - **Works on any site** — No per-site configuration; covers all URLs
 - **No external dependencies** — Vanilla JS, Manifest V3, no bundler
@@ -64,27 +67,27 @@ Tab 2 (Session B) ──DNR Rule──→ Cookie: session_b_cookie_1=value
 ```
 session-shift/
 ├── manifest.json              # MV3 manifest & permissions
-├── background.js              # Service worker (466 LOC)
+├── background.js              # Service worker (516 LOC)
 ├── content.js                 # ISOLATED world bridge (86 LOC)
 ├── page-api-proxy.js          # MAIN world API interception (222 LOC)
 ├── lib/
 │   ├── cookie-parser.js       # Set-Cookie parsing (170 LOC)
-│   ├── session-store.js       # Storage abstraction (158 LOC)
+│   ├── session-store.js       # Storage abstraction (214 LOC)
 │   └── rule-matcher.js        # Hostname pattern matching (52 LOC)
 ├── popup/
 │   ├── popup.html             # UI structure
 │   ├── popup.js               # Session CRUD logic (525 LOC)
 │   └── popup.css              # Stacks design system (788 LOC)
 ├── options/
-│   ├── options.html           # Rule management UI (55 LOC)
-│   ├── options.js             # Rule CRUD (184 LOC)
-│   └── options.css            # Design tokens & layout (313 LOC)
+│   ├── options.html           # Multi-tab UI (153 LOC)
+│   ├── options.js             # Rules + settings + export/import (268 LOC)
+│   └── options.css            # Design system (437 LOC)
 ├── icons/                     # Extension icons (16–128px)
 ├── tests/                     # Vitest unit tests (36 tests passing)
 └── docs/                      # Project documentation
 ```
 
-**Total:** ~3,064 LOC (main source files, excl. assets)
+**Total:** ~3,431 LOC (main source files, excl. assets)
 
 ---
 
@@ -199,7 +202,7 @@ Pull requests are welcome! For significant changes:
 
 **Phase 1 (Shipped):** Core session isolation  
 **Phase 2 (Shipped):** Global session list, auto-assign rules, context menu  
-**Phase 3 (Q4 2026):** Tab colors, export/import, session duplication  
+**Phase 3 (Shipped v0.3.0):** Tab colors, export/import, session duplication, settings page  
 **Phase 4 (Q1 2027):** Keyboard shortcuts, analytics, accessibility audit  
 
 See [Project Roadmap](docs/project-roadmap.md) for detailed plan and feature backlog.
