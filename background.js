@@ -34,6 +34,24 @@ restoreTabSessions();
 setupContextMenu();
 
 // ---------------------------------------------------------------------------
+// Lazy DNR — debounce rewrite triggered by Set-Cookie bursts.
+// Cookie store writes are immediate; only the DNR rule update is deferred.
+// ---------------------------------------------------------------------------
+const dnrDebounceTimers = new Map(); // tabId → timer handle
+
+function scheduleDNRUpdate(tabId, sessionId) {
+  const existing = dnrDebounceTimers.get(tabId);
+  if (existing) clearTimeout(existing);
+  dnrDebounceTimers.set(tabId, setTimeout(async () => {
+    dnrDebounceTimers.delete(tabId);
+    // Guard: skip if session changed during the debounce window
+    if (tabSessions[tabId] === sessionId) {
+      await updateDNRRulesForTab(tabId, sessionId);
+    }
+  }, 50));
+}
+
+// ---------------------------------------------------------------------------
 // Badge + per-tab colored icon
 // ---------------------------------------------------------------------------
 
@@ -405,7 +423,7 @@ chrome.webRequest.onHeadersReceived.addListener(
     }
 
     await setCookieStore(sessionId, store);
-    await updateDNRRulesForTab(tabId, sessionId);
+    scheduleDNRUpdate(tabId, sessionId);
     // Note: we intentionally do NOT remove cookies from the global jar.
     // The DNR session rule overwrites the Cookie header for isolated tabs, making
     // the global jar irrelevant for them. Removing global cookies would log out
@@ -419,6 +437,10 @@ chrome.webRequest.onHeadersReceived.addListener(
 // Tab lifecycle
 // ---------------------------------------------------------------------------
 chrome.tabs.onRemoved.addListener(async (tabId) => {
+  // Cancel pending DNR debounce — tab is gone, no need to update
+  const timer = dnrDebounceTimers.get(tabId);
+  if (timer) { clearTimeout(timer); dnrDebounceTimers.delete(tabId); }
+
   if (tabSessions[tabId] !== undefined) {
     delete tabSessions[tabId];
     await persistTabSessions();
@@ -513,4 +535,39 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
     { action: 'createSessionTab', payload: { url, sessionId } },
     { id: chrome.runtime.id }
   );
+});
+
+// ---------------------------------------------------------------------------
+// Keyboard shortcuts — session cycling
+// ---------------------------------------------------------------------------
+chrome.commands.onCommand.addListener(async (command) => {
+  if (command !== 'session-next' && command !== 'session-prev') return;
+
+  let tab;
+  try {
+    [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  } catch (_) { return; }
+  if (!tab?.url || tab.url.startsWith('chrome://')) return;
+
+  let origin;
+  try { origin = new URL(tab.url).origin; } catch { return; }
+
+  const list = await getSessionList(origin);
+  if (list.length === 0) return;
+
+  const currentId = tabSessions[tab.id] || 'default';
+  const currentIdx = list.findIndex(s => s.id === currentId);
+
+  let nextIdx;
+  if (command === 'session-next') {
+    nextIdx = currentIdx === -1 ? 0 : (currentIdx + 1) % list.length;
+  } else {
+    nextIdx = currentIdx === -1 ? list.length - 1 : (currentIdx - 1 + list.length) % list.length;
+  }
+
+  await handleMessage(
+    { action: 'setSession', payload: { tabId: tab.id, sessionId: list[nextIdx].id } },
+    { id: chrome.runtime.id }
+  );
+  chrome.tabs.reload(tab.id);
 });

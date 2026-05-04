@@ -163,9 +163,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Tab switching
   document.querySelectorAll('.opt-tab').forEach(tab => {
     tab.addEventListener('click', () => {
-      document.querySelectorAll('.opt-tab').forEach(t => t.classList.remove('active'))
+      document.querySelectorAll('.opt-tab').forEach(t => {
+        t.classList.remove('active')
+        t.setAttribute('aria-selected', 'false')
+      })
       document.querySelectorAll('.opt-panel').forEach(p => p.classList.add('hidden'))
       tab.classList.add('active')
+      tab.setAttribute('aria-selected', 'true')
       document.getElementById(`panel-${tab.dataset.tab}`).classList.remove('hidden')
     })
   })

@@ -155,8 +155,13 @@ body {
 
 .opt-input:focus,
 .opt-select:focus {
-  outline: none;
+  outline: none; /* focus shown via border-color change */
   border-color: var(--accent);
+}
+.opt-input:focus-visible,
+.opt-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .opt-input::placeholder { color: var(--text-faint); }
@@ -191,6 +196,7 @@ body {
 }
 
 .opt-btn-primary:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+.opt-btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .opt-btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
 
 /* ── RULE CARDS ─────────────────────────────────────────── */
@@ -301,6 +307,7 @@ body {
   background: color-mix(in srgb, var(--danger) 12%, transparent);
   color: var(--danger);
 }
+.opt-btn-delete:focus-visible { outline: 2px solid var(--danger); outline-offset: 2px; }
 
 /* ── EMPTY STATE ────────────────────────────────────────── */
 .opt-empty {
@@ -340,6 +347,7 @@ body {
   color: var(--text);
   border-bottom-color: var(--accent);
 }
+.opt-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
 /* ── BACKUP TAB ─────────────────────────────────────────── */
 .opt-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px; }
@@ -359,6 +367,7 @@ body {
   transition: border-color 0.12s, color 0.12s;
 }
 .opt-file-label:hover { border-color: var(--accent); color: var(--text); }
+.opt-file-label:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
 .opt-file-input { display: none; }
 
 .opt-export-meta,
@@ -413,6 +422,7 @@ body {
   text-decoration: none;
 }
 .opt-link:hover { text-decoration: underline; }
+.opt-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 
 .opt-changelog { display: flex; flex-direction: column; gap: 10px; }
 

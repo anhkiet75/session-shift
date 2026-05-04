@@ -40,14 +40,14 @@
 
     <!-- VIEW TABS -->
     <div class="v2-tabs" role="tablist">
-      <button class="v2-tab active" data-mode="origin" role="tab" id="tabOrigin">This site</button>
-      <button class="v2-tab" data-mode="global" role="tab" id="tabGlobal">All sessions</button>
+      <button class="v2-tab active" data-mode="origin" role="tab" id="tabOrigin" aria-selected="true" aria-controls="panelOrigin">This site</button>
+      <button class="v2-tab" data-mode="global" role="tab" id="tabGlobal" aria-selected="false" aria-controls="panelGlobal">All sessions</button>
     </div>
 
     <!-- SEARCH (global mode only) -->
     <div class="v2-search-wrap" id="searchWrap" hidden>
       <svg class="v2-search-icon" width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <input type="search" id="searchInput" class="v2-search" placeholder="Search sessions or sites…" autocomplete="off" spellcheck="false">
+      <input type="search" id="searchInput" class="v2-search" placeholder="Search sessions or sites…" autocomplete="off" spellcheck="false" aria-label="Search sessions">
     </div>
 
     <!-- CREATE SESSION -->
@@ -66,7 +66,7 @@
     <div class="v2-list-wrap" id="savedSessionsList">
       <div class="v2-list-head">
         <span>Sessions</span>
-        <span class="v2-list-count" id="sessionCount">0</span>
+        <span class="v2-list-count" id="sessionCount" aria-live="polite" aria-atomic="true">0</span>
       </div>
     </div>
 

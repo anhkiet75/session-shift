@@ -19,14 +19,14 @@
 
     <!-- Tab navigation -->
     <nav class="opt-tabs" role="tablist">
-      <button class="opt-tab active" data-tab="rules" role="tab">Rules</button>
-      <button class="opt-tab" data-tab="backup" role="tab">Backup</button>
-      <button class="opt-tab" data-tab="settings" role="tab">Settings</button>
-      <button class="opt-tab" data-tab="about" role="tab">About</button>
+      <button class="opt-tab active" data-tab="rules" role="tab" id="tab-rules" aria-selected="true" aria-controls="panel-rules">Rules</button>
+      <button class="opt-tab" data-tab="backup" role="tab" id="tab-backup" aria-selected="false" aria-controls="panel-backup">Backup</button>
+      <button class="opt-tab" data-tab="settings" role="tab" id="tab-settings" aria-selected="false" aria-controls="panel-settings">Settings</button>
+      <button class="opt-tab" data-tab="about" role="tab" id="tab-about" aria-selected="false" aria-controls="panel-about">About</button>
     </nav>
 
     <!-- Rules panel -->
-    <div id="panel-rules" class="opt-panel">
+    <div id="panel-rules" class="opt-panel" role="tabpanel" aria-labelledby="tab-rules">
 
       <section class="opt-section">
         <h2 class="opt-section-title">New Rule</h2>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Backup panel -->
-    <div id="panel-backup" class="opt-panel hidden">
+    <div id="panel-backup" class="opt-panel hidden" role="tabpanel" aria-labelledby="tab-backup">
 
       <section class="opt-section">
         <h2 class="opt-section-title">Export</h2>
@@ -80,13 +80,13 @@
           Choose backup file
           <input type="file" id="importFile" accept=".json" class="opt-file-input">
         </label>
-        <div id="importStatus" class="opt-import-status hidden"></div>
+        <div id="importStatus" class="opt-import-status hidden" aria-live="polite" aria-atomic="true"></div>
       </section>
 
     </div>
 
     <!-- Settings panel -->
-    <div id="panel-settings" class="opt-panel hidden">
+    <div id="panel-settings" class="opt-panel hidden" role="tabpanel" aria-labelledby="tab-settings">
 
       <section class="opt-section">
         <h2 class="opt-section-title">Notifications</h2>
@@ -105,14 +105,14 @@
     </div>
 
     <!-- About panel -->
-    <div id="panel-about" class="opt-panel hidden">
+    <div id="panel-about" class="opt-panel hidden" role="tabpanel" aria-labelledby="tab-about">
 
       <section class="opt-section">
         <div class="opt-about-header">
           <img src="../icons/icon-48.png" class="opt-about-logo" alt="">
           <div>
             <div class="opt-about-name">SessionShift</div>
-            <div class="opt-about-version" id="aboutVersion">v0.3.0</div>
+            <div class="opt-about-version" id="aboutVersion">v0.4.0</div>
           </div>
         </div>
         <p class="opt-desc">A free, open-source Chrome extension for per-tab session isolation.</p>
@@ -125,6 +125,10 @@
       <section class="opt-section">
         <h2 class="opt-section-title">Changelog</h2>
         <div class="opt-changelog">
+          <div class="opt-changelog-entry">
+            <span class="opt-changelog-version">v0.4.0</span>
+            <span class="opt-changelog-desc">Keyboard shortcuts, lazy DNR optimization, expanded test coverage, accessibility (WCAG 2.1 AA)</span>
+          </div>
           <div class="opt-changelog-entry">
             <span class="opt-changelog-version">v0.3.0</span>
             <span class="opt-changelog-desc">Duplicate sessions, export/import backup, tab color labels, settings page</span>

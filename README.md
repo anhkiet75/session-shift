@@ -3,7 +3,7 @@
 A Chrome extension that gives each tab its own isolated session, letting you stay logged into multiple accounts on the same site simultaneously. A free, open-source alternative to SessionBox.
 
 **[Install from Chrome Web Store](https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp)**  
-**Current Version:** 0.3.0
+**Current Version:** 0.4.0
 
 ---
 
@@ -38,6 +38,9 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 - **Persistent across restarts** — Session assignments survive service worker restarts
 - **Works on any site** — No per-site configuration; covers all URLs
 - **No external dependencies** — Vanilla JS, Manifest V3, no bundler
+- **Keyboard shortcuts** — `Ctrl+Shift+S` to open popup; `Ctrl+Shift+Right/Left` to cycle sessions (customizable in `chrome://extensions/shortcuts`)
+- **Lazy DNR optimization** — Debounced DNR rule updates (50ms window) for high-frequency Set-Cookie responses
+- **WCAG 2.1 AA compliance** — Keyboard navigation, focus-visible rings, ARIA labels on all interactive elements, ≥4.5:1 contrast ratio
 
 ---
 
@@ -171,11 +174,15 @@ See [System Architecture § Threat Model](docs/system-architecture.md#threat-mod
 npm test          # Run Vitest unit tests
 ```
 
-Test files:
+Test suites (94 tests total):
 - `tests/background-batch.test.js` — background.js message handlers
+- `tests/background-session-lifecycle.test.js` — session lifecycle and keyboard command handlers
 - `tests/options-filter.test.js` — cookie-parser.js functionality
+- `tests/cookie-parser.test.js` — Set-Cookie parsing edge cases (>90% coverage)
 - `tests/rule-matcher.test.js` — hostname pattern matching
 - `tests/auto-assign.test.js` — auto-assign rule application
+- `tests/page-proxy-storage.test.js` — localStorage/sessionStorage proxy behavior
+- Additional coverage tests — DNR debounce, ARIA attribute validation, keyboard navigation
 
 ---
 
@@ -203,7 +210,8 @@ Pull requests are welcome! For significant changes:
 **Phase 1 (Shipped):** Core session isolation  
 **Phase 2 (Shipped):** Global session list, auto-assign rules, context menu  
 **Phase 3 (Shipped v0.3.0):** Tab colors, export/import, session duplication, settings page  
-**Phase 4 (Q1 2027):** Keyboard shortcuts, analytics, accessibility audit  
+**Phase 4 (Shipped v0.4.0):** Keyboard shortcuts, lazy DNR optimization, expanded test coverage, WCAG 2.1 AA accessibility  
+**Phase 5 (Planned):** IndexedDB migration, cross-device sync, advanced analytics  
 
 See [Project Roadmap](docs/project-roadmap.md) for detailed plan and feature backlog.
 

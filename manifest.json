@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SessionShift",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Switch between multiple accounts on any site — each tab gets its own isolated session.",
   "icons": {
     "16": "icons/icon-16.png",
@@ -27,6 +27,29 @@
   "background": {
     "service_worker": "background.js",
     "type": "module"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Open SessionShift popup"
+    },
+    "session-next": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Right",
+        "mac": "Command+Shift+Right"
+      },
+      "description": "Switch to next session for this tab"
+    },
+    "session-prev": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Left",
+        "mac": "Command+Shift+Left"
+      },
+      "description": "Switch to previous session for this tab"
+    }
   },
   "action": {
     "default_popup": "popup/popup.html"

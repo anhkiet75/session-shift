@@ -305,7 +305,7 @@ body {
   flex: 1;
   background: none;
   border: none;
-  outline: none;
+  outline: none; /* focus handled by parent .v2-create.focused border */
   font-family: var(--sans);
   font-size: 13px;
   color: var(--text);
@@ -333,6 +333,7 @@ body {
 }
 
 .v2-create-btn:hover { transform: translateY(-0.5px); }
+.v2-create-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .v2-create-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
 
 /* ── SESSION LIST ────────────────────────────────────── */
@@ -545,16 +546,19 @@ body {
   background: color-mix(in srgb, var(--danger) 12%, transparent);
   color: var(--danger);
 }
+.v2-card-del:focus-visible { outline: 2px solid var(--danger); outline-offset: 2px; opacity: 1; }
 
 .v2-card-rename:hover {
   background: var(--bg-3);
   color: var(--accent);
 }
+.v2-card-rename:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; opacity: 1; }
 
 .v2-card-dup:hover {
   background: color-mix(in srgb, var(--accent) 10%, transparent);
   color: var(--accent);
 }
+.v2-card-dup:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; opacity: 1; }
 
 /* Inline rename input */
 .v2-rename-input {
@@ -568,7 +572,7 @@ body {
   font-family: var(--sans);
   font-size: 13px;
   font-weight: 600;
-  outline: none;
+  outline: none; /* focus shown via border-color change below */
   min-width: 0;
 }
 
@@ -647,6 +651,7 @@ body {
   color: var(--text-dim);
   background: var(--bg-2);
 }
+.v2-options-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .v2-reset {
   width: 100%;
@@ -672,6 +677,7 @@ body {
   background: var(--bg-2);
 }
 
+.v2-reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .v2-reset:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .v2-confirm {
@@ -704,6 +710,7 @@ body {
 
 .v2-btn-ghost { color: var(--text-dim); }
 .v2-btn-ghost:hover { border-color: var(--border-strong); color: var(--text); }
+.v2-btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .v2-btn-danger {
   color: #fff;
@@ -712,6 +719,7 @@ body {
 }
 
 .v2-btn-danger:hover { filter: brightness(1.1); }
+.v2-btn-danger:focus-visible { outline: 2px solid var(--danger); outline-offset: 2px; }
 
 /* ── VIEW TABS (This site / All sessions) ──────────── */
 .v2-tabs {
@@ -744,6 +752,7 @@ body {
   background: var(--bg-3);
   border-color: var(--border);
 }
+.v2-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ── SEARCH (global mode) ──────────────────────────── */
 .v2-search-wrap {
@@ -775,10 +784,11 @@ body {
 .v2-search::placeholder { color: var(--text-muted); }
 
 .v2-search:focus {
-  outline: none;
+  outline: none; /* focus shown via border-color change */
   border-color: var(--accent);
   background: var(--bg-3);
 }
+.v2-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ── ORIGIN CHIP (global mode) ─────────────────────── */
 .v2-card-origin {
