@@ -148,11 +148,25 @@ const SETTINGS_KEY = 'ext_settings'
 
 async function loadSettings() {
   const result = await chrome.storage.local.get([SETTINGS_KEY])
-  return result[SETTINGS_KEY] || { notifyOnAutoAssign: false }
+  return result[SETTINGS_KEY] || { notifyOnAutoAssign: false, theme: 'system' }
 }
 
 async function saveSettings(settings) {
   await chrome.storage.local.set({ [SETTINGS_KEY]: settings })
+}
+
+function applyTheme(theme) {
+  if (theme === 'system') {
+    delete document.documentElement.dataset.theme
+  } else {
+    document.documentElement.dataset.theme = theme
+  }
+}
+
+function updateThemePicker(theme) {
+  document.querySelectorAll('.opt-theme-btn').forEach(btn => {
+    btn.setAttribute('aria-pressed', String(btn.dataset.themeVal === theme))
+  })
 }
 
 // ---------------------------------------------------------------------------
@@ -259,6 +273,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Settings tab
   const settings = await loadSettings()
+
+  // Theme picker
+  const currentTheme = settings.theme || 'system'
+  applyTheme(currentTheme)
+  updateThemePicker(currentTheme)
+  document.querySelectorAll('.opt-theme-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const newTheme = btn.dataset.themeVal
+      applyTheme(newTheme)
+      updateThemePicker(newTheme)
+      const s = await loadSettings()
+      await saveSettings({ ...s, theme: newTheme })
+    })
+  })
+
   const toggleNotify = document.getElementById('toggleNotify')
   toggleNotify.checked = settings.notifyOnAutoAssign
   toggleNotify.addEventListener('change', async () => {

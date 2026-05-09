@@ -20,7 +20,14 @@ function getSessionHue(session, index) {
   return HUE_PALETTE[index % HUE_PALETTE.length];
 }
 
+async function applyStoredTheme() {
+  const result = await chrome.storage.local.get(['ext_settings'])
+  const theme = result.ext_settings?.theme || 'system'
+  if (theme !== 'system') document.documentElement.dataset.theme = theme
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+  await applyStoredTheme();
   const { version } = chrome.runtime.getManifest();
   document.getElementById('versionChip').textContent = `v${version}`;
   const currentTab = await getCurrentTab();

@@ -59,6 +59,39 @@
   }
 }
 
+/* ── EXPLICIT THEME OVERRIDES ──────────────────────── */
+html[data-theme="light"] {
+  --bg:           #ffffff;
+  --bg-2:         #f6f8fb;
+  --bg-3:         #eef2f7;
+  --border:       rgba(17, 24, 39, 0.07);
+  --border-strong:rgba(17, 24, 39, 0.14);
+  --text:         #0f1623;
+  --text-dim:     #4b5563;
+  --text-muted:   #8b95a4;
+  --text-faint:   #c4ccd6;
+  --accent:       #1e6fe8;
+  --accent-strong:#0b4fc2;
+  --danger:       #d84545;
+  --success:      #16a34a;
+}
+
+html[data-theme="dark"] {
+  --bg:           #0e1014;
+  --bg-2:         #15181e;
+  --bg-3:         #1b1f26;
+  --border:       rgba(255, 255, 255, 0.06);
+  --border-strong:rgba(255, 255, 255, 0.12);
+  --text:         #eef0f3;
+  --text-dim:     #a1a9b5;
+  --text-muted:   #6b7582;
+  --text-faint:   #434a55;
+  --accent:       #4a9bff;
+  --accent-strong:#1e6fe8;
+  --danger:       #ef6b6b;
+  --success:      #4ade80;
+}
+
 /* ── RESET ──────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
