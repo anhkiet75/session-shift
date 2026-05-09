@@ -224,14 +224,18 @@ function renderGlobalList(container, sessions, currentSessionId, currentOrigin, 
 
     const meta = document.createElement('div');
     meta.className = 'v2-card-meta';
-    let host = session.origin;
-    try { host = new URL(session.origin).hostname; } catch (_) {}
-    const originChip = `<span class="v2-card-origin">${host}</span>`;
+    let host = '';
+    try { host = new URL(session.origin).hostname; } catch (_) { host = session.origin; }
+    const originChip = document.createElement('span');
+    originChip.className = 'v2-card-origin';
+    originChip.textContent = host;
     if (isActive) {
-      meta.innerHTML = `<span class="v2-card-active-pill"><span class="v2-live-dot"></span>active</span>${originChip}`;
-    } else {
-      meta.innerHTML = originChip;
+      const activePill = document.createElement('span');
+      activePill.className = 'v2-card-active-pill';
+      activePill.innerHTML = `<span class="v2-live-dot"></span>active`;
+      meta.appendChild(activePill);
     }
+    meta.appendChild(originChip);
     body.appendChild(meta);
 
     const actions = document.createElement('div');
