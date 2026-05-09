@@ -3,7 +3,7 @@
 A Chrome extension that gives each tab its own isolated session, letting you stay logged into multiple accounts on the same site simultaneously. A free, open-source alternative to SessionBox.
 
 **[Install from Chrome Web Store](https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp)**  
-**Current Version:** 0.4.0
+**Current Version:** 0.4.1
 
 ---
 
