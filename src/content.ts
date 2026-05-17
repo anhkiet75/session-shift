@@ -1,4 +1,4 @@
-// content.js
+// content.ts
 // Runs in the ISOLATED world at document_start.
 // 1. Injects session ID and nonce into page context via DOM attributes.
 // 2. Delivers cookie string to page-api-proxy.js via nonce-authenticated postMessage
@@ -12,14 +12,14 @@
   try {
     const response = await chrome.runtime.sendMessage({
       action: 'getSessionForBootstrap'
-    });
+    }) as { sessionId?: string; cookieStr?: string } | null;
     if (response) {
       sessionId = response.sessionId || 'default';
       cookieStr = response.cookieStr || '';
     }
   } catch (error) {
     // Background may not be available yet, use defaults
-    console.debug('Failed to get session for bootstrap:', error.message);
+    console.debug('Failed to get session for bootstrap:', (error as Error).message);
   }
 
   if (sessionId === 'default') return;
@@ -28,15 +28,23 @@
   // A forged postMessage from a malicious page script won't know this value.
   const nonce = crypto.randomUUID();
 
-  // Pass only the non-secret session ID and nonce via DOM attributes.
-  // Cookies are NOT written to DOM — other extensions with MAIN-world scripts could read them.
-  document.documentElement.dataset.extSessionId = sessionId;
-  document.documentElement.dataset.extNonce = nonce;
+  // Deliver sessionId and nonce to page-api-proxy.js (MAIN world) via postMessage.
+  // postMessage avoids DOM attribute exposure — another MAIN-world extension script
+  // cannot read a transient message event the way it could read a DOM attribute.
+  const initOrigin = window.location.origin;
+  if (initOrigin !== 'null') {
+    window.postMessage({
+      source: 'ext-content',
+      action: 'initNonce',
+      sessionId: sessionId,
+      nonce: nonce
+    }, initOrigin);
+  }
 
   // Listen for page-api-proxy.js requesting the cookie bootstrap.
   // It sends a requestCookies message; we reply with the actual cookie string.
   // This fires before any page JS runs because both scripts run at document_start.
-  window.addEventListener('message', function onRequest(event) {
+  window.addEventListener('message', function onRequest(event: MessageEvent) {
     if (
       event.source !== window ||
       !event.data ||
@@ -62,7 +70,7 @@
   });
 
   // Also relay updateCookie messages to background.
-  window.addEventListener('message', (event) => {
+  window.addEventListener('message', (event: MessageEvent) => {
     if (
       event.source !== window ||
       !event.data ||
@@ -80,7 +88,7 @@
       });
     } catch (error) {
       // Extension context may be invalidated (e.g., during update/reload)
-      console.debug('Failed to send updateCookie message:', error.message);
+      console.debug('Failed to send updateCookie message:', (error as Error).message);
     }
   });
 })();

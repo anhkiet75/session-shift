@@ -1,42 +1,51 @@
-// page-api-proxy.js
+// page-api-proxy.ts
 // Runs synchronously in the MAIN world at document_start.
 // Intercepts web APIs for session isolation.
 
 (function () {
-  // 1. Read session ID and nonce from DOM attributes (set by content.js in ISOLATED world).
-  // Only sessionId and nonce are in the DOM — cookies are never exposed there.
-  const root = document.documentElement;
-  const sessionId = root && root.dataset.extSessionId;
-  if (!sessionId || sessionId === 'default') return;
+  // 1. Wait for sessionId and nonce from content.ts (ISOLATED world) via postMessage.
+  // Using postMessage instead of DOM attributes avoids the brief window where
+  // another MAIN-world extension script could read the nonce before deletion.
+  window.addEventListener('message', function onInitNonce(event: MessageEvent) {
+    if (
+      event.source !== window ||
+      !event.data ||
+      event.data.source !== 'ext-content' ||
+      event.data.action !== 'initNonce' ||
+      !event.data.sessionId ||
+      event.data.sessionId === 'default'
+    ) {
+      return;
+    }
+    window.removeEventListener('message', onInitNonce);
+    initialize(event.data.sessionId as string, event.data.nonce as string || '');
+  });
 
-  const nonce = root.dataset.extNonce || '';
-  delete root.dataset.extSessionId;
-  delete root.dataset.extNonce;
-
+  function initialize(sessionId: string, nonce: string) {
   // 2. Prefix for storage isolation
   const prefix = '__ext_' + sessionId + '_';
 
   // 3. Storage proxy factory
-  function makeStorageProxy(realStorage) {
+  function makeStorageProxy(realStorage: Storage) {
     return {
-      getItem: function (key) {
+      getItem(key: string) {
         return realStorage.getItem(prefix + key);
       },
-      setItem: function (key, value) {
+      setItem(key: string, value: string) {
         realStorage.setItem(prefix + key, String(value));
       },
-      removeItem: function (key) {
+      removeItem(key: string) {
         realStorage.removeItem(prefix + key);
       },
-      clear: function () {
-        const keysToRemove = [];
+      clear() {
+        const keysToRemove: string[] = [];
         for (let i = 0; i < realStorage.length; i++) {
           const k = realStorage.key(i);
           if (k && k.startsWith(prefix)) keysToRemove.push(k);
         }
-        keysToRemove.forEach(function (k) { realStorage.removeItem(k); });
+        keysToRemove.forEach(k => realStorage.removeItem(k));
       },
-      key: function (index) {
+      key(index: number) {
         let currentIdx = 0;
         for (let i = 0; i < realStorage.length; i++) {
           const k = realStorage.key(i);
@@ -77,11 +86,11 @@
   // 5. Override document.cookie
   // cookieMap is populated asynchronously once content.js delivers the bootstrap cookies.
   // Until then, reads return '' — this is safe because the DNR rule handles network cookies.
-  const cookieMap = new Map();
+  const cookieMap = new Map<string, string>();
   let cookiesReady = false;
 
-  function serializeCookieMap() {
-    return Array.from(cookieMap.entries()).map(function (e) { return e[0] + '=' + e[1]; }).join('; ');
+  function serializeCookieMap(): string {
+    return Array.from(cookieMap.entries()).map(e => e[0] + '=' + e[1]).join('; ');
   }
 
   Object.defineProperty(document, 'cookie', {
@@ -90,7 +99,7 @@
     get: function () {
       return serializeCookieMap();
     },
-    set: function (val) {
+    set: function (val: string) {
       if (typeof val !== 'string') return;
       const parts = val.split(';');
       const kv = parts[0].trim();
@@ -129,7 +138,7 @@
 
   // 6. Request cookie bootstrap from content.js via nonce-authenticated postMessage.
   // Cookies are never stored in DOM attributes — content.js holds them and delivers on request.
-  window.addEventListener('message', function onBootstrap(event) {
+  window.addEventListener('message', function onBootstrap(event: MessageEvent) {
     if (
       event.source !== window ||
       !event.data ||
@@ -141,9 +150,9 @@
     }
     window.removeEventListener('message', onBootstrap);
     cookiesReady = true;
-    const str = event.data.cookieStr || '';
+    const str: string = event.data.cookieStr || '';
     if (str) {
-      str.split('; ').forEach(function (pair) {
+      str.split('; ').forEach(pair => {
         const eqIdx = pair.indexOf('=');
         if (eqIdx !== -1) {
           cookieMap.set(pair.substring(0, eqIdx), pair.substring(eqIdx + 1));
@@ -183,11 +192,13 @@
     const realIndexedDBOpen = window.indexedDB.open.bind(window.indexedDB);
     const realIndexedDBDeleteDatabase = window.indexedDB.deleteDatabase.bind(window.indexedDB);
 
-    window.indexedDB.open = function (name, version) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window.indexedDB as any).open = function (name: string, version?: number) {
       return realIndexedDBOpen(prefix + name, version);
     };
 
-    window.indexedDB.deleteDatabase = function (name) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window.indexedDB as any).deleteDatabase = function (name: string) {
       return realIndexedDBDeleteDatabase(prefix + name);
     };
   }
@@ -199,24 +210,29 @@
     const realCachesHas = window.caches.has.bind(window.caches);
     const realCachesKeys = window.caches.keys.bind(window.caches);
 
-    window.caches.open = function (name) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const caches = window.caches as any;
+
+    caches.open = function (name: string) {
       return realCachesOpen(prefix + name);
     };
 
-    window.caches.delete = function (name) {
+    caches.delete = function (name: string) {
       return realCachesDelete(prefix + name);
     };
 
-    window.caches.has = function (name) {
+    caches.has = function (name: string) {
       return realCachesHas(prefix + name);
     };
 
-    window.caches.keys = async function () {
+    caches.keys = async function () {
       const keys = await realCachesKeys();
       return keys
-        .filter(function (k) { return k.startsWith(prefix); })
-        .map(function (k) { return k.substring(prefix.length); });
+        .filter((k: string) => k.startsWith(prefix))
+        .map((k: string) => k.substring(prefix.length));
     };
   }
+
+  } // end initialize
 
 })();

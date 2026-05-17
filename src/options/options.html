@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SessionShift — Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+
+  <div class="opt-page">
+
+    <header class="opt-header">
+      <img src="../icons/icon-48.png" class="opt-logo" alt="SessionShift">
+      <div>
+        <h1 class="opt-title">SessionShift</h1>
+        <p class="opt-sub">Per-tab session isolation for Chrome.</p>
+      </div>
+    </header>
+
+    <!-- Tab navigation -->
+    <nav class="opt-tabs" role="tablist">
+      <button class="opt-tab active" data-tab="settings" role="tab" id="tab-settings" aria-selected="true" aria-controls="panel-settings">Settings</button>
+      <button class="opt-tab" data-tab="about" role="tab" id="tab-about" aria-selected="false" aria-controls="panel-about">About</button>
+    </nav>
+
+    <!-- Settings panel -->
+    <div id="panel-settings" class="opt-panel" role="tabpanel" aria-labelledby="tab-settings">
+
+      <section class="opt-section">
+        <h2 class="opt-section-title">Appearance</h2>
+        <label class="opt-setting-row">
+          <div class="opt-setting-info">
+            <span class="opt-setting-label">Theme</span>
+            <span class="opt-setting-desc">Override the OS color scheme preference</span>
+          </div>
+          <div class="opt-theme-picker" role="group" aria-label="Theme">
+            <button class="opt-theme-btn" data-theme-val="dark"   aria-pressed="false">Dark</button>
+            <button class="opt-theme-btn" data-theme-val="system" aria-pressed="true" >System</button>
+            <button class="opt-theme-btn" data-theme-val="light"  aria-pressed="false">Light</button>
+          </div>
+        </label>
+      </section>
+
+    </div>
+
+    <!-- About panel -->
+    <div id="panel-about" class="opt-panel hidden" role="tabpanel" aria-labelledby="tab-about">
+
+      <section class="opt-section">
+        <div class="opt-about-header">
+          <img src="../icons/icon-48.png" class="opt-about-logo" alt="">
+          <div>
+            <div class="opt-about-name">SessionShift</div>
+            <div class="opt-about-version" id="aboutVersion">v0.5.0</div>
+          </div>
+        </div>
+        <p class="opt-desc">A free, open-source Chrome extension for per-tab session isolation.</p>
+        <div class="opt-about-links">
+          <a href="https://github.com/anhkiet75/session-shift" target="_blank" class="opt-link">GitHub →</a>
+          <a href="https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp" target="_blank" class="opt-link">Chrome Web Store →</a>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

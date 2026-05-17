@@ -1,0 +1,23 @@
+{
+  "name": "sessionshift",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:e2e": "playwright test",
+    "pretest:e2e": "npm run build",
+    "test": "npm run test:unit && npm run test:e2e",
+    "type-check": "tsc --noEmit",
+    "build": "bash scripts/build.sh",
+    "package": "bash scripts/package.sh"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/chrome": "^0.1.42",
+    "@types/node": "^25.8.0",
+    "esbuild": "^0.28.0",
+    "jsdom": "^25.0.0",
+    "vitest": "^2.1.0"
+  }
+}

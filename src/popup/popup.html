@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SessionShift</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <div class="v2-popup">
+
+    <!-- HERO — brand + active session with ambient hue -->
+    <div class="v2-hero" id="heroSection">
+      <div class="v2-hero-bg"></div>
+
+      <div class="v2-hero-top">
+        <div class="v2-brand">
+          <img src="../icons/icon-128.png" alt="SessionShift" class="v2-logo">
+          <div>
+            <div class="v2-brand-title">SessionShift</div>
+            <div class="v2-brand-sub">Multi-account manager</div>
+          </div>
+        </div>
+        <div class="v2-hero-actions">
+          <button id="themeToggle" class="v2-theme-toggle" type="button"
+                  aria-label="Theme: system (click to change)"
+                  title="Theme: system (click to change)"></button>
+          <span class="v2-version" id="versionChip"></span>
+        </div>
+      </div>
+
+      <div class="v2-hero-active">
+        <div class="v2-hero-label">Active on this tab</div>
+        <div class="v2-hero-session" id="heroSession">
+          <div class="v2-hero-mark v2-mark-default" id="heroMark">
+            <span class="v2-hero-mark-dot"></span>
+          </div>
+          <div class="v2-hero-info">
+            <div class="v2-hero-name" id="heroName">Default</div>
+            <div class="v2-hero-meta" id="heroMeta">No session scoped</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW TABS -->
+    <div class="v2-tabs" role="tablist">
+      <button class="v2-tab active" data-mode="origin" role="tab" id="tabOrigin" aria-selected="true" aria-controls="panelOrigin">This site</button>
+      <button class="v2-tab" data-mode="global" role="tab" id="tabGlobal" aria-selected="false" aria-controls="panelGlobal">All sessions</button>
+    </div>
+
+    <!-- SEARCH (global mode only) -->
+    <div class="v2-search-wrap" id="searchWrap" hidden>
+      <svg class="v2-search-icon" width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input type="search" id="searchInput" class="v2-search" placeholder="Search sessions or sites…" autocomplete="off" spellcheck="false" aria-label="Search sessions">
+    </div>
+
+    <!-- CREATE SESSION -->
+    <div class="v2-create" id="createRow">
+      <div class="v2-create-icon">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3.5v9M3.5 8h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <input type="text" id="newSessionName" class="v2-create-input" placeholder="Name a new session…" autocomplete="off" spellcheck="false">
+      <button id="btnNewSession" class="v2-create-btn">
+        Create
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <!-- SESSION LIST -->
+    <div class="v2-list-wrap" id="savedSessionsList">
+      <div class="v2-list-head">
+        <span>Sessions</span>
+        <span class="v2-list-count" id="sessionCount" aria-live="polite" aria-atomic="true">0</span>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="v2-footer">
+      <div id="resetArea">
+        <button id="btnDefault" class="v2-reset">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8a5 5 0 1 0 1.5-3.5M3 3v3h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Reset to default
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

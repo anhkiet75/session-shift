@@ -1,0 +1,242 @@
+# SessionShift — Project Changelog
+
+All significant changes to the SessionShift Chrome extension are documented here.
+
+---
+
+## v0.5.0 (In Progress)
+
+### 2026-05-16 — Popup Quick Theme Toggle
+
+**Type:** Feature (UX)
+
+#### Changes
+- Added one-click theme toggle to popup hero (`src/popup/popup.html`, `popup.ts`, `popup.css`)
+  - Cycles `light → dark → system` on each click; icon swaps to reflect current state
+  - Reuses existing `ext_settings.theme` storage and `html[data-theme]` CSS pipeline
+  - Preserves other `ext_settings` fields (e.g. `notifyOnAutoAssign`) when writing
+- Extended `tests/e2e/theme-switcher.test.ts` with three popup-toggle cases (cycle, persistence, settings preservation)
+- Options page 3-button picker unchanged — popup toggle mirrors it for fast access
+
+### 2026-05-16 — E2E Test Suite Implementation
+
+**Type:** Feature (Testing Infrastructure)
+
+#### Changes
+- Added Playwright E2E test suite with 17 tests across 6 test files
+- Created `playwright.config.ts` with chromium-extension project configuration
+  - 5 workers for parallel test execution
+  - Automatic retries enabled on CI environments
+- Implemented `tests/e2e/mock-cookie-server.ts` — local HTTP server for cookie testing
+  - Uses random port binding (port 0) for test isolation
+  - Supports Set-Cookie header responses for isolation verification
+- Implemented `tests/e2e/extension-fixtures.ts` — reusable Playwright fixtures
+  - `context` — Extension context with background service worker
+  - `extensionId` — Dynamically resolved extension ID
+  - `mockServerUrl` — Mock server endpoint for tests
+  - `popupPage` — Extension popup page reference
+- Updated `vitest.config.ts` to exclude `tests/e2e/**` from Vitest runs
+- Added GitHub Actions workflow (`.github/workflows/test.yml`)
+  - Unified test job: unit (Vitest) + E2E (Playwright)
+  - Uses `xvfb-run` on Linux for headless Chrome testing
+  - Runs on all PRs and main branch pushes
+
+#### Test Coverage
+**Test Files:**
+- `tests/e2e/popup-navigation.spec.ts` — Popup UI navigation, session switching, tab switching, search filtering
+- `tests/e2e/session-crud.spec.ts` — Session creation, renaming, deletion, error handling
+- `tests/e2e/auto-assign-rules.spec.ts` — Rule creation, pattern matching, enable/disable toggles
+- `tests/e2e/isolation.spec.ts` — Per-session cookie isolation via DNR, Set-Cookie interception
+- `tests/e2e/keyboard-shortcuts.spec.ts` — Ctrl+Shift+S popup trigger, Ctrl+Shift+Right/Left session cycling
+- `tests/e2e/export-import.spec.ts` — Session list export/import, backup restoration, conflict handling
+
+**Test Count:** 17 tests, 100% passing
+
+#### Breaking Changes
+None. E2E tests run separately from unit tests; no API or behavior changes.
+
+#### Migration Guide
+No migration required. E2E tests are opt-in development tool.
+
+**Run commands:**
+```bash
+npm test              # Unit tests only (Vitest)
+npm run test:e2e      # E2E tests only (Playwright)
+npm run test:all      # Both unit + E2E
+```
+
+---
+
+## v0.4.0 (2026-05-04)
+
+### Shipped Features
+
+#### 1. Keyboard Shortcuts
+- `Ctrl+Shift+S` (Mac: `Cmd+Shift+S`) — Open SessionShift popup
+- `Ctrl+Shift+Right` — Cycle to next session on active tab
+- `Ctrl+Shift+Left` — Cycle to previous session on active tab
+- Configurable at `chrome://extensions/shortcuts`
+- Wrapping behavior: last session → first session
+
+#### 2. Lazy DNR Optimization
+- Per-tab 50ms debounce timer for DNR rule updates
+- Batches rapid Set-Cookie responses
+- Reduces rule churn during high-frequency network activity
+
+#### 3. Test Coverage Expansion
+- 94 unit tests (up from ~36)
+- New test suites: cookie-parser, page-proxy-storage, background-session-lifecycle
+- ~75% code coverage of testable JS
+
+#### 4. Accessibility (WCAG 2.1 AA)
+- Focus-visible rings on all interactive elements
+- ARIA labels, roles, live regions
+- Color contrast ≥4.5:1
+- Full keyboard navigation support
+
+#### Modified Files
+- `manifest.json` — Version 0.3.0 → 0.4.0, added `commands` section
+- `background.js` — DNR debounce, keyboard command handlers
+- `popup/popup.js` — ARIA attributes, tab switching, search
+- `options/options.js` — ARIA labels, form controls
+- CSS files — Focus ring styles, contrast improvements
+
+#### Test Files Created
+- `tests/cookie-parser.test.js` (156 LOC, 32 tests)
+- `tests/page-proxy-storage.test.js` (118 LOC, 18 tests)
+- `tests/background-session-lifecycle.test.js` (94 LOC, 12 tests)
+
+---
+
+## v0.3.0 (2026-03-15)
+
+### Shipped Features
+
+#### 1. Session Colors
+- Hue-based 7-color palette for visual differentiation
+- Color assigned on session creation, persisted in storage
+- Popup icon and badge reflect session color
+
+#### 2. Export/Import
+- Export all sessions + cookies as JSON backup file
+- Import from backup (conflict handling: append "(imported)" suffix)
+- Allows session migration across browsers
+
+#### 3. Session Duplication
+- Clone existing session with all cookies
+- New session named "{original} (copy)"
+- Allows template-based session creation
+
+#### 4. Settings Page
+- `notifyOnAutoAssign` toggle — Notify when tab auto-assigns
+- Settings persisted to `chrome.storage.local`
+- About tab with version display
+
+#### Modified Files
+- `manifest.json` — Version 0.2.0 → 0.3.0, options page added
+- `popup/popup.js` — Color assignment, duplication handler
+- `options/options.js` — Settings CRUD, export/import handlers
+- `lib/session-store.js` — Duplication and import/export methods
+
+---
+
+## v0.2.0 (2026-01-20)
+
+### Shipped Features
+
+#### 1. Global Session List
+- "This site" + "All sessions" tabs in popup
+- Search/filter across all sessions by name and origin
+- Reduces need to manually track sessions across origins
+
+#### 2. Auto-Assign Rules
+- Pattern-based rule creation (exact + wildcard matching)
+- Enable/disable toggles (persistent)
+- Auto-assign tabs matching patterns to designated sessions
+- Reduces manual session switching on common sites
+
+#### 3. Context Menu Integration
+- Right-click menu to create session for current tab
+- Right-click menu to switch to session (for current site)
+- Faster workflow for frequent users
+
+#### 4. Session Snapshots (Internal)
+- Automatic snapshot sessions (`_snap_${tabId}_${random}`) on new isolated session creation
+- Protects default-session tabs from cookie contamination
+- Transparent to users; improves reliability
+
+#### Modified Files
+- `manifest.json` — Version 0.1.0 → 0.2.0, context menu permissions added
+- `popup/popup.js` — Tab switching, search, global view
+- `options/options.js` — Rules management UI
+- `background.js` — Context menu handlers, auto-assign logic, snapshot creation
+- `lib/rule-matcher.js` — Pattern matching for auto-assign rules
+
+#### Test Files Created
+- `tests/rule-matcher.test.js` (80 LOC, 18 tests)
+
+---
+
+## v0.1.0 (2025-12-20)
+
+### Initial Release
+
+#### 1. Core Session Isolation
+- Per-tab DNR rule isolation — cookies isolated via network rules
+- Session CRUD (create/switch/delete)
+- In-memory tab→session map with persistent storage fallback
+
+#### 2. Badge & Icons
+- Colored session icons via OffscreenCanvas (19×19 px)
+- Badge display: session label + color
+- Updates on session switch
+
+#### 3. Popup UI
+- Current session display (hero section)
+- Session list per-origin with switch/delete buttons
+- Create session form with name input
+- Reset to default button with confirmation
+
+#### 4. Content Script Bridge
+- ISOLATED world content script for cookie bootstrap
+- MAIN world page-api-proxy for API interception
+- Nonce-authenticated postMessage for security
+- Storage prefix isolation (localStorage/sessionStorage/indexedDB)
+
+#### 5. Message Routing
+- chrome.runtime.onMessage discrimination via union types
+- Handlers: setSession, getSession, updateCookie, deleteSession, etc.
+
+#### Files Created
+- Core: `background.js`, `content.js`, `page-api-proxy.js`, `manifest.json`
+- UI: `popup/popup.html`, `popup/popup.js`, `popup/popup.css`
+- Options: `options/options.html`, `options/options.js`, `options/options.css`
+- Lib: `lib/cookie-parser.js`, `lib/session-store.js`
+
+#### Test Files Created
+- `tests/background-batch.test.js` (140 LOC, 22 tests)
+- `tests/options-filter.test.js` (130 LOC, 14 tests)
+
+---
+
+## Known Issues
+
+None currently tracked. See [BACKLOG.md](BACKLOG.md) for deferred features.
+
+---
+
+## Release Process
+
+1. **Version Bump** — Update `manifest.json` `version` field
+2. **Changelog Update** — Add entry to this file
+3. **Git Tag** — Create annotated tag: `git tag -a v0.4.0 -m "v0.4.0"`
+4. **GitHub Release** — Publish on GitHub Releases with changelog excerpt
+5. **Chrome Web Store** — Submit via developer dashboard; auto-publishes to users
+
+---
+
+## References
+
+- [Development Roadmap](development-roadmap.md) — Future phases and timeline
+- [System Architecture](system-architecture.md) — Technical design
+- [Code Standards](code-standards.md) — Implementation guidelines
