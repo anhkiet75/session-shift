@@ -20,6 +20,7 @@ document.addEventListener('click', closeActivePopover);
 document.addEventListener('keydown', (e: KeyboardEvent) => {
   if (e.key === 'Escape') closeActivePopover();
 });
+document.addEventListener('scroll', closeActivePopover, true);
 
 export function buildColorDot(
   session: PopupSession,
@@ -45,11 +46,12 @@ export function buildColorDot(
       return;
     }
     closeActivePopover();
-    const popover = buildPopover(session, card, onColorChange);
-    col.appendChild(popover);
+    const popover = buildPopover(session, card, onColorChange, () => placePopover(popover, col));
+    document.body.appendChild(popover);
     col.setAttribute('aria-expanded', 'true');
     activePopover = popover;
     activeCol = col;
+    placePopover(popover, col);
   }
 
   col.addEventListener('click', togglePopover);
@@ -60,10 +62,36 @@ export function buildColorDot(
   return col;
 }
 
+function placePopover(popover: HTMLElement, col: HTMLElement): void {
+  const colRect = col.getBoundingClientRect();
+  const popoverHeight = popover.offsetHeight || 80;
+  const popoverWidth = popover.offsetWidth || 196;
+  const viewportH = window.innerHeight;
+  const viewportW = window.innerWidth;
+  const gap = 4;
+  const margin = 4;
+
+  const spaceBelow = viewportH - colRect.bottom;
+  const spaceAbove = colRect.top;
+  const flipAbove = spaceBelow < popoverHeight + gap && spaceAbove > spaceBelow;
+
+  const top = flipAbove
+    ? Math.max(margin, colRect.top - popoverHeight - gap)
+    : colRect.bottom + gap;
+
+  let left = colRect.left;
+  if (left + popoverWidth > viewportW - margin) left = viewportW - popoverWidth - margin;
+  if (left < margin) left = margin;
+
+  popover.style.top = `${top}px`;
+  popover.style.left = `${left}px`;
+}
+
 function buildPopover(
   session: PopupSession,
   card: HTMLElement,
-  onColorChange: (hue: number) => void
+  onColorChange: (hue: number) => void,
+  onResize?: () => void
 ): HTMLElement {
   const popover = document.createElement('div');
   popover.className = 'v2-color-popover';
@@ -112,6 +140,7 @@ function buildPopover(
       popover.appendChild(sliderWrap);
       customBtn.setAttribute('aria-expanded', 'true');
     }
+    onResize?.();
   });
   swatchRow.appendChild(customBtn);
   popover.appendChild(swatchRow);

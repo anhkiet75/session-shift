@@ -881,9 +881,7 @@ body {
 }
 
 .v2-color-popover {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
+  position: fixed;
   z-index: 200;
   background: var(--bg-2);
   border: 1px solid var(--border-strong);
