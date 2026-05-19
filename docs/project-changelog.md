@@ -6,6 +6,35 @@ All significant changes to the SessionShift Chrome extension are documented here
 
 ## v0.5.0 (In Progress)
 
+### 2026-05-19 — Security Hardening (Phases 1–9)
+
+**Type:** Security
+
+#### Changes
+
+**High severity (all closed)**
+- H1: `getSessionForBootstrap` now filters HttpOnly cookies from the page-bound cookie string; `document.cookie` no longer exposes server-set HttpOnly tokens
+- H2: DNR rules are now host-scoped (`urlFilter: '|https://host^'`); cross-origin navigation clears the active session for that tab
+- H3: `updateCookie` handler derives `sessionId` from `tabSessions[sender.tab.id]` (not the page payload); switch to merge-into-existing semantics; empty payload no longer wipes the store; httpOnly cookies are immutable via this path
+
+**Medium severity**
+- M1: Per-sessionId write lock (`withCookieLock`) serializes concurrent `Set-Cookie` captures
+- M2: DNR rule condition uses `urlFilter` with scheme anchor to prevent HTTP-downgrade cookie leakage
+- M4: `Math.random()` → `crypto.randomUUID()` for session ID generation
+- M5: `parseSetCookie` rejects `Domain=` values that don't match or aren't a parent of the request host
+
+**Low / Info**
+- I3: Explicit `content_security_policy` block added to manifest (`base-uri 'none'`)
+- I4: Dead `renameSessions` handler removed
+- L1: Trust-model comment added to `updateCookie` handler
+- L2: Cookie name/value validation in `page-api-proxy.ts` (CRLF/control-char rejection)
+- L5: GitHub Actions workflow SHA-pinned
+- L6: IndexedDB and Cache API proxies use `Object.defineProperty({ configurable: false })`
+- I1: `npm audit` → 0 vulnerabilities (postcss, ws, vitest bumped)
+
+#### Test Coverage Added
+- 87 unit tests (up from 59): cookie-write-lock, session-manager, H3 merge semantics, H1 bootstrap filtering, M5 domain validation, M2 serializer options
+
 ### 2026-05-16 — Popup Quick Theme Toggle
 
 **Type:** Feature (UX)

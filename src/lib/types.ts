@@ -29,7 +29,7 @@ export type BackgroundMessage =
   | { action: 'setSession'; payload: { tabId: number; sessionId: string } }
   | { action: 'getSession'; payload?: { tabId?: number } }
   | { action: 'getSessionForBootstrap'; payload?: { tabId?: number } }
-  | { action: 'updateCookie'; payload: { sessionId: string; cookieStr: string } }
+  | { action: 'updateCookie'; payload: { cookieStr: string; deletedNames?: string[] } }
   | { action: 'refreshBadge'; payload: { tabId: number } }
   | { action: 'deleteSession'; payload: { sessionId: string } }
   | { action: 'createSessionTab'; payload: { url: string; sessionId: string } }

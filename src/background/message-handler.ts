@@ -1,9 +1,9 @@
 // message-handler.ts — Handles all chrome.runtime.onMessage dispatches.
 
 import { getCookieStore, setCookieStore, getSessionList, isInternalSession, duplicateSession, updateSessionHue } from '../lib/session-store.js';
+import { withCookieLock } from '../lib/cookie-write-lock.js';
 import { serializeCookieHeader, parseCookieString } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
-import type { CookieStoreEntry } from '../lib/session-store.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
 import { updateDNRRulesForTab, protectDefaultTabsOnHost } from './dnr-manager.js';
 
@@ -47,26 +47,41 @@ export async function handleMessage(
       const sessionId = tabSessions[tabId] || 'default';
       if (isInternalSession(sessionId)) return { sessionId: 'default', cookieStr: '' };
       const store = await getCookieStore(sessionId);
-      const cookieStr = serializeCookieHeader(store);
+      const cookieStr = serializeCookieHeader(store, { excludeHttpOnly: true });
       return { sessionId, cookieStr };
     }
 
+    // Trust model: sessionId is derived from tabSessions[sender.tab.id] (server-side
+    // authority). The cross-world nonce in page-api-proxy is defense-in-depth only;
+    // do not add new trust on it.
     case 'updateCookie': {
-      const { sessionId, cookieStr } = request.payload;
-      if (typeof sessionId !== 'string' || typeof cookieStr !== 'string') {
-        return { error: 'invalid payload' };
-      }
+      const { cookieStr, deletedNames } = request.payload;
+      if (typeof cookieStr !== 'string') return { error: 'invalid payload' };
       const tabId = sender.tab?.id;
-      if (isInternalSession(sessionId)) return { success: false, reason: 'default session' };
-      const existing = await getCookieStore(sessionId);
-      const newStore: Record<string, CookieStoreEntry> = {};
-      for (const [name, value] of parseCookieString(cookieStr)) {
-        newStore[name] = existing[name]
-          ? { ...existing[name], value }
-          : { value, expires: null };
+      if (tabId === undefined) return { error: 'no tab context' };
+      const sessionId = tabSessions[tabId];
+      if (!sessionId || isInternalSession(sessionId)) {
+        return { success: false, reason: 'no isolated session' };
       }
-      await setCookieStore(sessionId, newStore);
-      if (tabId !== undefined) await updateDNRRulesForTab(tabId, sessionId);
+      await withCookieLock(sessionId, async () => {
+        const existing = await getCookieStore(sessionId);
+        for (const [name, value] of parseCookieString(cookieStr)) {
+          // Page JS must not overwrite server-set HttpOnly cookies.
+          if (existing[name]?.httpOnly) continue;
+          existing[name] = existing[name]
+            ? { ...existing[name], value }
+            : { value, expires: null };
+        }
+        if (Array.isArray(deletedNames)) {
+          for (const name of deletedNames) {
+            if (typeof name !== 'string') continue;
+            if (existing[name]?.httpOnly) continue;
+            delete existing[name];
+          }
+        }
+        await setCookieStore(sessionId, existing);
+      });
+      await updateDNRRulesForTab(tabId, sessionId);
       return { success: true };
     }
 

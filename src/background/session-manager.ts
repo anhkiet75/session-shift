@@ -1,6 +1,40 @@
 // session-manager.ts — Tab→session map, badge updates, session icon generation.
 
-import { getSessionList, isInternalSession } from '../lib/session-store.js';
+import { getSessionList, getAllSessions, isInternalSession } from '../lib/session-store.js';
+
+// ---------------------------------------------------------------------------
+// Bound-host cache — sessionId → hostname from the session's origin.
+// Avoids full chrome.storage.local scan on every DNR rule rebuild.
+// Invalidated whenever any list_* key changes in storage.
+// ---------------------------------------------------------------------------
+const boundHostCache = new Map<string, string | null>();
+
+export async function getSessionBoundHost(sessionId: string): Promise<string | null> {
+  if (boundHostCache.has(sessionId)) return boundHostCache.get(sessionId)!;
+  const all = await getAllSessions();
+  const session = all.find(s => s.id === sessionId);
+  let host: string | null = null;
+  if (session?.origin) {
+    try { host = new URL(session.origin).hostname; } catch { host = null; }
+  }
+  boundHostCache.set(sessionId, host);
+  return host;
+}
+
+export function invalidateBoundHostCache(): void {
+  boundHostCache.clear();
+}
+
+export async function getSessionBoundOrigin(sessionId: string): Promise<URL | null> {
+  const all = await getAllSessions();
+  const session = all.find(s => s.id === sessionId);
+  if (!session?.origin) return null;
+  try { return new URL(session.origin); } catch { return null; }
+}
+
+export function hostMatches(actual: string, bound: string): boolean {
+  return actual === bound || actual.endsWith('.' + bound);
+}
 
 // ---------------------------------------------------------------------------
 // Tab→session in-memory map (persisted to chrome.storage.session)
@@ -29,8 +63,6 @@ export async function persistTabSessions(): Promise<void> {
 // ---------------------------------------------------------------------------
 // Badge + per-tab colored icon
 // ---------------------------------------------------------------------------
-const iconCache = new Map<number, ImageData>();
-
 export async function updateBadge(tabId: number, sessionId: string): Promise<void> {
   if (isInternalSession(sessionId)) {
     chrome.action.setBadgeText({ text: '', tabId });

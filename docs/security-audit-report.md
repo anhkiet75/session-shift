@@ -1,5 +1,49 @@
 # Security Audit Report: SessionShift Extension
 
+---
+
+## 2026-05-19 — Red-Team Audit + Security Fix Sprint
+
+**Auditor:** Red-team (4 personas: Security Adversary, Failure Mode Analyst, Assumption Destroyer, Scope Critic)  
+**Branch:** `security/audit-fixes` → PR #2  
+**Status:** All 3 High findings closed. 5 Medium, 7 Low, 5 Info addressed across 9 implementation phases.
+
+### High Findings — All Closed
+
+| ID | Title | Phase | Fix |
+|----|-------|-------|-----|
+| H1 | HttpOnly cookies exposed via `document.cookie` bootstrap | 4 | `serializeCookieHeader({ excludeHttpOnly: true })` in `getSessionForBootstrap` |
+| H2 | Session cookies leaked to cross-origin requests; no host-binding | 3 | DNR rule uses `urlFilter: '|https://host^'`; `tabs.onUpdated` clears session on cross-host nav |
+| H3 | `updateCookie` trusted page-supplied `sessionId`; empty payload wiped store | 2 | `sessionId` derived from `tabSessions[sender.tab.id]`; merge semantics; httpOnly rejection |
+
+### Medium Findings — All Closed
+
+| ID | Title | Phase | Fix |
+|----|-------|-------|-----|
+| M1 | Concurrent Set-Cookie responses race on cookie store writes | 5 | `withCookieLock` per-sessionId mutex in `cookie-write-lock.ts` |
+| M2 | DNR rule matched HTTP requests for HTTPS-bound sessions | 6 | `urlFilter: '|https://host^'` anchors rule to scheme |
+| M3 | Path attribute not enforced | — | Deferred to backlog (combinatorial DNR blowup; rated not worth complexity) |
+| M4 | `Math.random()` used for session ID generation | 1 | Replaced with `crypto.randomUUID()` |
+| M5 | `parseSetCookie` accepted arbitrary cross-domain `Domain=` attributes | 5 | `isValidDomainAttribute` rejects cookies whose Domain doesn't match the request host |
+
+### Low / Info Findings
+
+- L1–L6 addressed (L3/L4 dropped per red-team review); L5 already done in Phase 1
+- I1 (npm audit): postcss + ws + vitest bumped; 0 vulnerabilities
+- I3 (CSP): explicit `content_security_policy` added to manifest
+- I4 (dead code): `renameSessions` handler removed
+- I5 (README): misleading export/import bullet removed
+
+### Accepted Risk
+
+- **M3 (Path attribute):** deferred. Per-path DNR rules create combinatorial blowup; bulk emission is the status quo and is no worse than before.
+- **L3 (innerHTML):** deferred. All 14 sites use static strings; add `no-unsanitized/method` lint rule to catch regressions.
+- **Lock durability:** `withCookieLock` is in-memory only; cross-SW-restart races fall back to Chrome's event-loop order (same as before the fix; lock is a strict improvement).
+
+---
+
+## 2026-05-17 — Initial Audit
+
 **Date:** 2026-05-17  
 **Version Audited:** v0.0.1 (src) / v0.5.0 (dist)  
 **Manifest Version:** 3  

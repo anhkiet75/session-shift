@@ -1,6 +1,6 @@
 // index.ts — Service worker entry point: startup + Chrome API listener registration.
 
-import { restoreTabSessions, tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
+import { restoreTabSessions, tabSessions, persistTabSessions, updateBadge, getSessionBoundHost, hostMatches } from './session-manager.js';
 import { dnrDebounceTimers, dnrRuleId, registerWebRequestListener, updateDNRRulesForTab } from './dnr-manager.js';
 import { setupContextMenu, registerStorageListener } from './context-menu-manager.js';
 import { handleMessage } from './message-handler.js';
@@ -65,20 +65,40 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
     const sessionId = tabSessions[tabId] || 'default';
     if (!isInternalSession(sessionId)) updateBadge(tabId, sessionId);
   }
-  if (changeInfo.url) {
-    const snapId = tabSessions[tabId];
-    if (snapId?.startsWith('_snap_')) {
-      const snapPrefix = `_snap_${tabId}_`;
-      const snapHostname = snapId.startsWith(snapPrefix) ? snapId.slice(snapPrefix.length) : null;
-      let newHostname: string | null = null;
-      try { newHostname = new URL(changeInfo.url).hostname; } catch { /* ignore */ }
-      if (snapHostname === null || newHostname !== snapHostname) {
-        await chrome.storage.local.remove(`cookies_${snapId}`);
-        delete tabSessions[tabId];
-        await persistTabSessions();
-        await updateDNRRulesForTab(tabId, 'default');
-      }
+  if (!changeInfo.url) return;
+
+  // Capture before any await — prevents double-clear if onUpdated fires twice.
+  const capturedSessionId = tabSessions[tabId];
+  if (!capturedSessionId || capturedSessionId === 'default') return;
+
+  let newHostname: string | null = null;
+  try { newHostname = new URL(changeInfo.url).hostname; } catch { return; }
+
+  if (capturedSessionId.startsWith('_snap_')) {
+    const snapPrefix = `_snap_${tabId}_`;
+    const snapHostname = capturedSessionId.startsWith(snapPrefix) ? capturedSessionId.slice(snapPrefix.length) : null;
+    if (snapHostname === null || newHostname !== snapHostname) {
+      // Fail-closed: remove DNR rule before in-memory delete so a SW death mid-sequence
+      // doesn't leave an orphaned rule sending cookies to the wrong host.
+      await updateDNRRulesForTab(tabId, 'default');
+      if (tabSessions[tabId] !== capturedSessionId) return;
+      await chrome.storage.local.remove(`cookies_${capturedSessionId}`);
+      delete tabSessions[tabId];
+      await persistTabSessions();
     }
+    return;
+  }
+
+  // Regular sessions: clear on cross-host navigation.
+  const boundHost = await getSessionBoundHost(capturedSessionId);
+  if (!boundHost) return;
+  if (tabSessions[tabId] !== capturedSessionId) return;
+  if (!hostMatches(newHostname, boundHost)) {
+    await updateDNRRulesForTab(tabId, 'default');
+    if (tabSessions[tabId] !== capturedSessionId) return;
+    delete tabSessions[tabId];
+    await persistTabSessions();
+    updateBadge(tabId, 'default');
   }
 });
 

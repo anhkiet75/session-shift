@@ -1,6 +1,7 @@
 // context-menu-manager.ts — Context menu build/rebuild lifecycle.
 
 import { getAllSessions } from '../lib/session-store.js';
+import { invalidateBoundHostCache } from './session-manager.js';
 
 const CTX_PARENT_ID = 'ss-open-in-session';
 
@@ -35,6 +36,9 @@ export async function setupContextMenu(): Promise<void> {
 export function registerStorageListener(): void {
   chrome.storage.onChanged.addListener((changes, area) => {
     if (area !== 'local') return;
-    if (Object.keys(changes).some(k => k.startsWith('list_'))) setupContextMenu();
+    if (Object.keys(changes).some(k => k.startsWith('list_'))) {
+      invalidateBoundHostCache();
+      setupContextMenu();
+    }
   });
 }

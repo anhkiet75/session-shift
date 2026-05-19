@@ -2,6 +2,17 @@
 
 import type { ParsedCookie } from './types.js'
 
+function isValidDomainAttribute(domainAttr: string, requestHost: string): boolean {
+  const cleaned = domainAttr.replace(/^\./, '').toLowerCase();
+  const host = requestHost.toLowerCase();
+  if (!cleaned) return false;
+  // Exempt localhost and IP literals from single-label rejection.
+  const isIpLiteral = /^(\d+\.){3}\d+$/.test(cleaned) || /^\[?[0-9a-f:]+\]?$/.test(cleaned);
+  if (!cleaned.includes('.') && cleaned !== 'localhost' && !isIpLiteral) return false;
+  if (cleaned === host) return true;
+  return host.endsWith('.' + cleaned);
+}
+
 export function parseSetCookie(setCookieStr: string, requestUrl: string): ParsedCookie | null {
   const parts = setCookieStr.split(';');
   if (parts.length === 0) {
@@ -67,13 +78,15 @@ export function parseSetCookie(setCookieStr: string, requestUrl: string): Parsed
     }
 
     switch (attrName) {
-      case 'domain':
-        cookie.domain = attrValue;
-        // Normalize: prepend dot if not already present and not a localhost
+      case 'domain': {
+        const requestHost = url?.hostname;
+        if (!requestHost || !isValidDomainAttribute(attrValue, requestHost)) return null;
+        cookie.domain = attrValue.toLowerCase();
         if (cookie.domain && !cookie.domain.startsWith('.') && cookie.domain !== 'localhost') {
           cookie.domain = '.' + cookie.domain;
         }
         break;
+      }
       case 'path':
         cookie.path = attrValue;
         break;
@@ -114,18 +127,23 @@ export function parseSetCookie(setCookieStr: string, requestUrl: string): Parsed
   return cookie;
 }
 
-export function serializeCookieHeader(store: Record<string, { value: string; expires?: number | null }>): string {
-  const now = Date.now();
-  const cookiePairs = [];
+export interface SerializeOptions {
+  excludeHttpOnly?: boolean;
+  excludeSecure?: boolean;
+}
 
+export function serializeCookieHeader(
+  store: Record<string, { value: string; expires?: number | null; httpOnly?: boolean; secure?: boolean }>,
+  opts: SerializeOptions = {},
+): string {
+  const now = Date.now();
+  const cookiePairs: string[] = [];
   for (const [name, data] of Object.entries(store)) {
-    // Filter out expired cookies
-    if (data.expires !== null && data.expires !== undefined && data.expires <= now) {
-      continue;
-    }
+    if (data.expires != null && data.expires <= now) continue;
+    if (opts.excludeHttpOnly && data.httpOnly) continue;
+    if (opts.excludeSecure && data.secure) continue;
     cookiePairs.push(`${name}=${data.value}`);
   }
-
   return cookiePairs.join('; ');
 }
 

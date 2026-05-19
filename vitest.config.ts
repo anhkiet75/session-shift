@@ -3,6 +3,7 @@ import { resolve } from 'path'
 
 const root = process.cwd()
 const srcLib = resolve(root, 'src/lib')
+const srcBackground = resolve(root, 'src/background')
 
 export default defineConfig({
   resolve: {
@@ -10,6 +11,7 @@ export default defineConfig({
       // Absolute paths so aliases work from both tests/ and src/ contexts
       { find: /^\.\.\/lib\/(.+?)\.js$/, replacement: `${srcLib}/$1.ts` },
       { find: /^\.\.\/background\.js$/, replacement: resolve(root, 'src/background/index.ts') },
+      { find: /^\.\.\/background\/(.+?)\.js$/, replacement: `${srcBackground}/$1.ts` },
       // Intra-src relative imports: ./foo.js → ./foo.ts
       { find: /^(\.\/.+?)\.js$/, replacement: '$1.ts' },
     ],

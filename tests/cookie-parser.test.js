@@ -150,6 +150,75 @@ describe('parseCookieString', () => {
   })
 })
 
+describe('serializeCookieHeader — security options', () => {
+  it('excludes httpOnly cookies when excludeHttpOnly is true (H1)', () => {
+    const store = {
+      visible: { value: 'a', expires: null, httpOnly: false },
+      secret:  { value: 'b', expires: null, httpOnly: true },
+    }
+    const result = serializeCookieHeader(store, { excludeHttpOnly: true })
+    expect(result).toContain('visible=a')
+    expect(result).not.toContain('secret=b')
+  })
+
+  it('includes httpOnly cookies on the network (DNR) path — no option', () => {
+    const store = {
+      visible: { value: 'a', expires: null, httpOnly: false },
+      secret:  { value: 'b', expires: null, httpOnly: true },
+    }
+    const result = serializeCookieHeader(store)
+    expect(result).toContain('visible=a')
+    expect(result).toContain('secret=b')
+  })
+
+  it('excludes Secure cookies when excludeSecure is true (M2 HTTP-bound)', () => {
+    const store = {
+      normal: { value: 'x', expires: null, secure: false },
+      locked: { value: 'y', expires: null, secure: true },
+    }
+    const result = serializeCookieHeader(store, { excludeSecure: true })
+    expect(result).toContain('normal=x')
+    expect(result).not.toContain('locked=y')
+  })
+
+  it('includes all cookies when no options are set', () => {
+    const store = {
+      a: { value: '1', expires: null, httpOnly: true, secure: true },
+      b: { value: '2', expires: null },
+    }
+    const result = serializeCookieHeader(store)
+    expect(result).toContain('a=1')
+    expect(result).toContain('b=2')
+  })
+})
+
+describe('parseSetCookie — Domain validation (M5)', () => {
+  it('rejects cross-domain Domain attribute', () => {
+    expect(parseSetCookie('SID=val; Domain=evil.com', 'https://victim.com/')).toBeNull()
+  })
+
+  it('accepts Domain matching the request host exactly', () => {
+    const result = parseSetCookie('SID=val; Domain=example.com', 'https://example.com/')
+    expect(result).not.toBeNull()
+    expect(result.domain).toBe('.example.com')
+  })
+
+  it('accepts Domain that is a parent of the request host', () => {
+    const result = parseSetCookie('SID=val; Domain=example.com', 'https://api.example.com/')
+    expect(result).not.toBeNull()
+    expect(result.domain).toBe('.example.com')
+  })
+
+  it('rejects single-label Domain attribute', () => {
+    expect(parseSetCookie('SID=val; Domain=corp', 'https://corp/')).toBeNull()
+  })
+
+  it('accepts localhost Domain for local-dev cookies', () => {
+    const result = parseSetCookie('SID=val; Domain=localhost', 'http://localhost/')
+    expect(result).not.toBeNull()
+  })
+})
+
 describe('cookieKey', () => {
   it('builds composite key with pipe separators', () => {
     expect(cookieKey('token', 'github.com', '/')).toBe('token|github.com|/')

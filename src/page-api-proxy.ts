@@ -93,6 +93,14 @@
     return Array.from(cookieMap.entries()).map(e => e[0] + '=' + e[1]).join('; ');
   }
 
+  function isValidCookieName(n: string): boolean {
+    return n.length > 0 && n.length <= 1024 && /^[!#$%&'*+\-.0-9A-Z^_`a-z|~]+$/.test(n);
+  }
+
+  function isValidCookieValue(v: string): boolean {
+    return v.length <= 4096 && !/[\r\n\0]/.test(v);
+  }
+
   Object.defineProperty(document, 'cookie', {
     configurable: true,
     enumerable: true,
@@ -109,13 +117,17 @@
       const name = kv.substring(0, eqIdx);
       const value = kv.substring(eqIdx + 1);
 
+      if (!isValidCookieName(name) || !isValidCookieValue(value)) return;
+
       // Check for deletion via max-age=0 or negative max-age
       const lowerVal = val.toLowerCase();
       const maxAgeMatch = lowerVal.match(/max-age\s*=\s*(-?\d+)/);
       const isDeleting = maxAgeMatch && parseInt(maxAgeMatch[1], 10) <= 0;
 
+      const deletedNames: string[] = [];
       if (isDeleting) {
         cookieMap.delete(name);
+        deletedNames.push(name);
       } else {
         cookieMap.set(name, value);
       }
@@ -128,8 +140,8 @@
           nonce: nonce,
           action: 'updateCookie',
           payload: {
-            sessionId: sessionId,
-            cookieStr: serializeCookieMap()
+            cookieStr: serializeCookieMap(),
+            ...(deletedNames.length > 0 && { deletedNames }),
           }
         }, _updateOrigin);
       }
@@ -191,16 +203,14 @@
   if (window.indexedDB) {
     const realIndexedDBOpen = window.indexedDB.open.bind(window.indexedDB);
     const realIndexedDBDeleteDatabase = window.indexedDB.deleteDatabase.bind(window.indexedDB);
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window.indexedDB as any).open = function (name: string, version?: number) {
-      return realIndexedDBOpen(prefix + name, version);
-    };
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window.indexedDB as any).deleteDatabase = function (name: string) {
-      return realIndexedDBDeleteDatabase(prefix + name);
-    };
+    Object.defineProperty(window.indexedDB, 'open', {
+      configurable: false,
+      value: (name: string, version?: number) => realIndexedDBOpen(prefix + name, version),
+    });
+    Object.defineProperty(window.indexedDB, 'deleteDatabase', {
+      configurable: false,
+      value: (name: string) => realIndexedDBDeleteDatabase(prefix + name),
+    });
   }
 
   // 8. Proxy Cache API
@@ -209,28 +219,27 @@
     const realCachesDelete = window.caches.delete.bind(window.caches);
     const realCachesHas = window.caches.has.bind(window.caches);
     const realCachesKeys = window.caches.keys.bind(window.caches);
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const caches = window.caches as any;
-
-    caches.open = function (name: string) {
-      return realCachesOpen(prefix + name);
-    };
-
-    caches.delete = function (name: string) {
-      return realCachesDelete(prefix + name);
-    };
-
-    caches.has = function (name: string) {
-      return realCachesHas(prefix + name);
-    };
-
-    caches.keys = async function () {
-      const keys = await realCachesKeys();
-      return keys
-        .filter((k: string) => k.startsWith(prefix))
-        .map((k: string) => k.substring(prefix.length));
-    };
+    Object.defineProperty(window.caches, 'open', {
+      configurable: false,
+      value: (name: string) => realCachesOpen(prefix + name),
+    });
+    Object.defineProperty(window.caches, 'delete', {
+      configurable: false,
+      value: (name: string) => realCachesDelete(prefix + name),
+    });
+    Object.defineProperty(window.caches, 'has', {
+      configurable: false,
+      value: (name: string) => realCachesHas(prefix + name),
+    });
+    Object.defineProperty(window.caches, 'keys', {
+      configurable: false,
+      value: async () => {
+        const keys = await realCachesKeys();
+        return keys
+          .filter((k: string) => k.startsWith(prefix))
+          .map((k: string) => k.substring(prefix.length));
+      },
+    });
   }
 
   } // end initialize

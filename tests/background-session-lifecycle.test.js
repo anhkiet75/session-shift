@@ -98,6 +98,96 @@ describe('unknown action', () => {
   })
 })
 
+describe('updateCookie trust boundary (H3)', () => {
+  it('returns error when sender has no tab context', async () => {
+    const result = await handleMessage(
+      { action: 'updateCookie', payload: { cookieStr: 'a=1' } },
+      SENDER
+    )
+    expect(result.error).toBe('no tab context')
+  })
+
+  it('merges new cookies without wiping existing ones', async () => {
+    await chrome.storage.local.set({
+      'list_https://merge.com': [{ id: 'session_m1', name: 'M', hue: 0 }],
+      'cookies_session_m1': { existing: { value: 'old', expires: null } },
+    })
+    await handleMessage({ action: 'setSession', payload: { tabId: 200, sessionId: 'session_m1' } }, SENDER)
+    await handleMessage(
+      { action: 'updateCookie', payload: { cookieStr: 'newcookie=val' } },
+      { id: chrome.runtime.id, tab: { id: 200 } }
+    )
+    const stored = await chrome.storage.local.get(['cookies_session_m1'])
+    expect(stored['cookies_session_m1'].existing.value).toBe('old')
+    expect(stored['cookies_session_m1'].newcookie.value).toBe('val')
+  })
+
+  it('empty cookieStr does not wipe existing cookies', async () => {
+    await chrome.storage.local.set({
+      'list_https://wipe.com': [{ id: 'session_w1', name: 'W', hue: 0 }],
+      'cookies_session_w1': { precious: { value: 'keep', expires: null } },
+    })
+    await handleMessage({ action: 'setSession', payload: { tabId: 201, sessionId: 'session_w1' } }, SENDER)
+    await handleMessage(
+      { action: 'updateCookie', payload: { cookieStr: '' } },
+      { id: chrome.runtime.id, tab: { id: 201 } }
+    )
+    const stored = await chrome.storage.local.get(['cookies_session_w1'])
+    expect(stored['cookies_session_w1'].precious.value).toBe('keep')
+  })
+
+  it('deletedNames removes the named cookie', async () => {
+    await chrome.storage.local.set({
+      'list_https://del.com': [{ id: 'session_del1', name: 'D', hue: 0 }],
+      'cookies_session_del1': {
+        gone:  { value: 'bye', expires: null },
+        stays: { value: 'hi',  expires: null },
+      },
+    })
+    await handleMessage({ action: 'setSession', payload: { tabId: 202, sessionId: 'session_del1' } }, SENDER)
+    await handleMessage(
+      { action: 'updateCookie', payload: { cookieStr: '', deletedNames: ['gone'] } },
+      { id: chrome.runtime.id, tab: { id: 202 } }
+    )
+    const stored = await chrome.storage.local.get(['cookies_session_del1'])
+    expect(stored['cookies_session_del1'].gone).toBeUndefined()
+    expect(stored['cookies_session_del1'].stays.value).toBe('hi')
+  })
+
+  it('cannot overwrite a server-set httpOnly cookie via document.cookie path', async () => {
+    await chrome.storage.local.set({
+      'list_https://hp.com': [{ id: 'session_hp1', name: 'HP', hue: 0 }],
+      'cookies_session_hp1': { secret: { value: 'original', expires: null, httpOnly: true } },
+    })
+    await handleMessage({ action: 'setSession', payload: { tabId: 203, sessionId: 'session_hp1' } }, SENDER)
+    await handleMessage(
+      { action: 'updateCookie', payload: { cookieStr: 'secret=hacked' } },
+      { id: chrome.runtime.id, tab: { id: 203 } }
+    )
+    const stored = await chrome.storage.local.get(['cookies_session_hp1'])
+    expect(stored['cookies_session_hp1'].secret.value).toBe('original')
+  })
+})
+
+describe('getSessionForBootstrap httpOnly filtering (H1)', () => {
+  it('excludes httpOnly cookies from the bootstrap cookie string', async () => {
+    await chrome.storage.local.set({
+      'list_https://boot2.com': [{ id: 'session_b2', name: 'B2', hue: 0 }],
+      'cookies_session_b2': {
+        visible: { value: 'show', expires: null, httpOnly: false },
+        hidden:  { value: 'hide', expires: null, httpOnly: true },
+      },
+    })
+    await handleMessage({ action: 'setSession', payload: { tabId: 204, sessionId: 'session_b2' } }, SENDER)
+    const result = await handleMessage(
+      { action: 'getSessionForBootstrap', payload: { tabId: 204 } },
+      SENDER
+    )
+    expect(result.cookieStr).toContain('visible=show')
+    expect(result.cookieStr).not.toContain('hidden=hide')
+  })
+})
+
 describe('getSession', () => {
   it('returns default for tab with no session', async () => {
     const result = await handleMessage(
