@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   inputEl.addEventListener('blur',  () => createRow.classList.remove('focused'));
 
   btnNewSession.addEventListener('click', async () => {
-    const newId = 'session_' + Math.random().toString(36).substring(2, 9);
+    const newId = 'session_' + crypto.randomUUID();
     const name  = inputEl.value.trim() || `Session ${saved.length + 1}`;
     const hue   = HUE_PALETTE[saved.length % HUE_PALETTE.length];
     const newSession: PopupSession = { id: newId, name, hue };

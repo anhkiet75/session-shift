@@ -1,6 +1,6 @@
 // message-handler.ts — Handles all chrome.runtime.onMessage dispatches.
 
-import { getCookieStore, setCookieStore, getSessionList, setSessionList, isInternalSession, duplicateSession, updateSessionHue } from '../lib/session-store.js';
+import { getCookieStore, setCookieStore, getSessionList, isInternalSession, duplicateSession, updateSessionHue } from '../lib/session-store.js';
 import { serializeCookieHeader, parseCookieString } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import type { CookieStoreEntry } from '../lib/session-store.js';
@@ -94,17 +94,6 @@ export async function handleMessage(
         updateBadge(tid, 'default');
       }
       return { success: true, affectedTabIds };
-    }
-
-    case 'renameSessions': {
-      const sessions = request.payload?.sessions;
-      if (!Array.isArray(sessions)) return { error: 'invalid payload' };
-      for (const { id, origin, name } of sessions) {
-        const list = await getSessionList(origin);
-        const updated = list.map(s => s.id === id ? { ...s, name } : s);
-        await setSessionList(origin, updated);
-      }
-      return { success: true };
     }
 
     case 'createSessionTab': {

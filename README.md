@@ -34,7 +34,6 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 - **Context menu integration** — Right-click any link → "Open in Session" to open with a specific session
 - **Badge indicator** — Toolbar badge shows active session at a glance (color-coded by session hue)
 - **Duplicate session** — Clone a session's cookies into a new session with one click
-- **Export/import backup** — Export all sessions as JSON; import on another device
 - **Tab color labels** — Session colors appear in toolbar badge for visual identification
 - **Persistent across restarts** — Session assignments survive service worker restarts
 - **Works on any site** — No per-site configuration; covers all URLs

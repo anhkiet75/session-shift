@@ -32,7 +32,6 @@ export type BackgroundMessage =
   | { action: 'updateCookie'; payload: { sessionId: string; cookieStr: string } }
   | { action: 'refreshBadge'; payload: { tabId: number } }
   | { action: 'deleteSession'; payload: { sessionId: string } }
-  | { action: 'renameSessions'; payload?: { sessions: Array<{ id: string; origin: string; name: string }> } }
   | { action: 'createSessionTab'; payload: { url: string; sessionId: string } }
   | { action: 'duplicateSession'; payload?: { sessionId: string; origin: string } }
   | { action: 'colorSession'; payload: { sessionId: string; hue: number } }

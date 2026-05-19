@@ -91,7 +91,7 @@ export async function duplicateSession(sessionId: string, origin: string): Promi
   const source = list.find(s => s.id === sessionId);
   if (!source) throw new Error(`Session not found: ${sessionId}`);
 
-  const newId = 'session_' + Math.random().toString(36).slice(2, 9);
+  const newId = 'session_' + crypto.randomUUID();
   const store = await getCookieStore(sessionId);
   await setCookieStore(newId, { ...store });
 
