@@ -401,8 +401,8 @@ body {
 .v2-list-wrap {
   padding: 18px 16px 8px;
   flex: 1;
-  overflow-y: scroll;
-  max-height: 220px;
+  overflow-y: auto;
+  max-height: 222px;
 }
 
 .v2-list-head {

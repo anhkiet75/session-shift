@@ -53,13 +53,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   updateHero(currentSessionId, currentSessionObj, currentHue);
 
-  // Hero refresh when active session color changes
+  // Hero + global list sync when a session color changes
   savedList.addEventListener('sessionColorChanged', (e: Event) => {
     const { sessionId, hue } = (e as CustomEvent<{ sessionId: string; hue: number }>).detail;
     if (sessionId === currentSessionId && currentSessionObj) {
       currentSessionObj = { ...currentSessionObj, hue };
       currentHue = hue;
       updateHero(currentSessionId, currentSessionObj, hue);
+    }
+    if (cachedGlobal) {
+      const gs = cachedGlobal.find(s => s.id === sessionId);
+      if (gs) gs.hue = hue;
     }
   });
 
