@@ -1,15 +1,19 @@
-/**
- * Cookie Parser Module
- * Handles parsing Set-Cookie headers and serializing cookies for requests
- */
+// cookie-parser.ts — Parses Set-Cookie headers and serializes cookies for requests.
 
-/**
- * Parses a Set-Cookie header string into a structured object
- * @param {string} setCookieStr - The Set-Cookie header value
- * @param {string} requestUrl - The request URL for extracting default domain/path
- * @returns {Object} Parsed cookie object with fields: name, value, domain, path, expires, secure, httpOnly, sameSite
- */
-export function parseSetCookie(setCookieStr, requestUrl) {
+import type { ParsedCookie } from './types.js'
+
+function isValidDomainAttribute(domainAttr: string, requestHost: string): boolean {
+  const cleaned = domainAttr.replace(/^\./, '').toLowerCase();
+  const host = requestHost.toLowerCase();
+  if (!cleaned) return false;
+  // Exempt localhost and IP literals from single-label rejection.
+  const isIpLiteral = /^(\d+\.){3}\d+$/.test(cleaned) || /^\[?[0-9a-f:]+\]?$/.test(cleaned);
+  if (!cleaned.includes('.') && cleaned !== 'localhost' && !isIpLiteral) return false;
+  if (cleaned === host) return true;
+  return host.endsWith('.' + cleaned);
+}
+
+export function parseSetCookie(setCookieStr: string, requestUrl: string): ParsedCookie | null {
   const parts = setCookieStr.split(';');
   if (parts.length === 0) {
     return null;
@@ -28,7 +32,7 @@ export function parseSetCookie(setCookieStr, requestUrl) {
   const value = trimmed.substring(eqIndex + 1);
 
   // Parse attributes
-  const cookie = {
+  const cookie: ParsedCookie = {
     name,
     value,
     domain: null,
@@ -54,8 +58,8 @@ export function parseSetCookie(setCookieStr, requestUrl) {
   }
 
   // Parse cookie attributes
-  let maxAge = null;
-  let expiresStr = null;
+  let maxAge: number | null = null;
+  let expiresStr: string | null = null;
 
   for (let i = 1; i < parts.length; i++) {
     const attr = parts[i].trim();
@@ -74,13 +78,15 @@ export function parseSetCookie(setCookieStr, requestUrl) {
     }
 
     switch (attrName) {
-      case 'domain':
-        cookie.domain = attrValue;
-        // Normalize: prepend dot if not already present and not a localhost
+      case 'domain': {
+        const requestHost = url?.hostname;
+        if (!requestHost || !isValidDomainAttribute(attrValue, requestHost)) return null;
+        cookie.domain = attrValue.toLowerCase();
         if (cookie.domain && !cookie.domain.startsWith('.') && cookie.domain !== 'localhost') {
           cookie.domain = '.' + cookie.domain;
         }
         break;
+      }
       case 'path':
         cookie.path = attrValue;
         break;
@@ -121,43 +127,31 @@ export function parseSetCookie(setCookieStr, requestUrl) {
   return cookie;
 }
 
-/**
- * Serializes a cookie store into a Cookie header string
- * @param {Object} store - Object mapping cookie names to { value, expires } objects
- * @returns {string} Serialized cookie string in format "name1=val1; name2=val2"
- */
-export function serializeCookieHeader(store) {
-  const now = Date.now();
-  const cookiePairs = [];
+export interface SerializeOptions {
+  excludeHttpOnly?: boolean;
+  excludeSecure?: boolean;
+}
 
+export function serializeCookieHeader(
+  store: Record<string, { value: string; expires?: number | null; httpOnly?: boolean; secure?: boolean }>,
+  opts: SerializeOptions = {},
+): string {
+  const now = Date.now();
+  const cookiePairs: string[] = [];
   for (const [name, data] of Object.entries(store)) {
-    // Filter out expired cookies
-    if (data.expires !== null && data.expires !== undefined && data.expires <= now) {
-      continue;
-    }
+    if (data.expires != null && data.expires <= now) continue;
+    if (opts.excludeHttpOnly && data.httpOnly) continue;
+    if (opts.excludeSecure && data.secure) continue;
     cookiePairs.push(`${name}=${data.value}`);
   }
-
   return cookiePairs.join('; ');
 }
 
-/**
- * Creates a unique cookie key from name, domain, and path
- * @param {string} name - Cookie name
- * @param {string} domain - Cookie domain
- * @param {string} path - Cookie path
- * @returns {string} Unique cookie key in format "name|domain|path"
- */
-export function cookieKey(name, domain, path) {
+export function cookieKey(name: string, domain: string, path: string): string {
   return `${name}|${domain}|${path}`;
 }
 
-/**
- * Parses a serialized cookie string ("name1=val1; name2=val2") into a Map.
- * @param {string} cookieStr
- * @returns {Map<string, string>}
- */
-export function parseCookieString(cookieStr) {
+export function parseCookieString(cookieStr: string): Map<string, string> {
   const map = new Map();
   if (!cookieStr) return map;
   for (const pair of cookieStr.split('; ')) {
