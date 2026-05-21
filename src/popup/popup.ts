@@ -18,8 +18,10 @@ async function getCurrentTab(): Promise<chrome.tabs.Tab> {
 document.addEventListener('DOMContentLoaded', async () => {
   await applyStoredTheme();
   document.getElementById('themeToggle')?.addEventListener('click', cycleTheme);
-  const { version } = chrome.runtime.getManifest();
-  document.getElementById('versionChip')!.textContent = `v${version}`;
+  document.getElementById('openOptions')?.addEventListener('click', () => {
+    chrome.runtime.openOptionsPage();
+    window.close();
+  });
   const currentTab = await getCurrentTab();
 
   if (!currentTab.url || currentTab.url.startsWith('chrome://') || currentTab.url.startsWith('chrome-extension://') || currentTab.url.startsWith('about:')) {
