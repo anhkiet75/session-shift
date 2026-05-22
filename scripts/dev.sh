@@ -21,10 +21,4 @@ STATIC_PID=$!
 
 trap 'kill $STATIC_PID 2>/dev/null' EXIT INT TERM
 
-npx esbuild \
-  "$SRC"/background/*.ts "$SRC"/lib/*.ts \
-  "$SRC"/content.ts "$SRC"/page-api-proxy.ts \
-  "$SRC"/options/options.ts "$SRC"/popup/*.ts \
-  --bundle=false --format=esm --platform=browser \
-  --outbase="$SRC" --outdir="$DIST" \
-  --watch
+node "$ROOT/scripts/dev-esbuild.mjs"
