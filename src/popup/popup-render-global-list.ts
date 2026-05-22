@@ -3,6 +3,7 @@
 import type { PopupSession } from './popup-types.js';
 import { getSessionHue } from './popup-types.js';
 import { getSavedSessions, setSavedSessions } from './popup-session-storage.js';
+import { startDeleteConfirm, cancelActiveConfirm } from './popup-delete-handler.js';
 
 export function renderGlobalList(
   container: HTMLElement,
@@ -12,6 +13,8 @@ export function renderGlobalList(
   tabId: number,
   query: string
 ): void {
+  cancelActiveConfirm();
+
   const header = container.querySelector('.v2-list-head');
   while (container.lastChild && container.lastChild !== header) {
     container.removeChild(container.lastChild);
@@ -100,16 +103,17 @@ export function renderGlobalList(
       delBtn.title = 'Delete';
       delBtn.setAttribute('aria-label', `Delete session ${session.name || session.id}`);
       delBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
-      delBtn.addEventListener('click', async (e) => {
+      delBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (!confirm(`Delete session "${session.name || session.id}"?`)) return;
-        await chrome.runtime.sendMessage({ action: 'deleteSession', payload: { sessionId: session.id } });
-        const sessionList = await getSavedSessions(session.origin!);
-        await setSavedSessions(session.origin!, sessionList.filter(s => s.id !== session.id));
-        await new Promise<void>(r => chrome.storage.local.remove([`cookies_${session.id}`, `ls_${session.id}`], r));
-        card.remove();
-        const c = document.getElementById('sessionCount');
-        if (c) c.textContent = String(Math.max(0, parseInt(c.textContent || '0') - 1));
+        startDeleteConfirm(actions, [delBtn], async () => {
+          await chrome.runtime.sendMessage({ action: 'deleteSession', payload: { sessionId: session.id } });
+          const sessionList = await getSavedSessions(session.origin!);
+          await setSavedSessions(session.origin!, sessionList.filter(s => s.id !== session.id));
+          await new Promise<void>(r => chrome.storage.local.remove([`cookies_${session.id}`, `ls_${session.id}`], r));
+          card.remove();
+          const c = document.getElementById('sessionCount');
+          if (c) c.textContent = String(Math.max(0, parseInt(c.textContent || '0') - 1));
+        });
       });
       actions.appendChild(delBtn);
     }
