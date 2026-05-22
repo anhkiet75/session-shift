@@ -83,9 +83,9 @@ test.describe('Session CRUD', () => {
   test('delete session removes it from list', async ({ popupPage }) => {
     await createSession(popupPage, 'ToDelete')
 
-    // Delete uses window.confirm() — accept it via Playwright dialog handler
-    popupPage.once('dialog', dialog => dialog.accept())
+    // Delete now uses an inline confirm UI — click the card delete button, then confirm.
     await popupPage.locator('[aria-label="Delete session ToDelete"]').click()
+    await popupPage.locator('.v2-card-del-confirm').click()
 
     await expect(popupPage.locator('.v2-card-name', { hasText: 'ToDelete' })).not.toBeVisible()
   })
