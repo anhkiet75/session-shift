@@ -51,14 +51,12 @@ export function renderSessionList(
     card.style.setProperty('--hue', String(hue));
     card.style.setProperty('--i', String(i));
 
-    // Color dot — dispatches sessionColorChanged so popup.ts can update hero
+    // Color dot — dispatches sessionColorChanged so popup.ts can update hero + global cache
     const colorDot = buildColorDot(session, card, (newHue) => {
-      if (isActive) {
-        card.dispatchEvent(new CustomEvent('sessionColorChanged', {
-          bubbles: true,
-          detail: { sessionId: session.id, hue: newHue }
-        }));
-      }
+      card.dispatchEvent(new CustomEvent('sessionColorChanged', {
+        bubbles: true,
+        detail: { sessionId: session.id, hue: newHue }
+      }));
     });
 
     const bar = document.createElement('div');
