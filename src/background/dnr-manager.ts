@@ -22,9 +22,10 @@ export function dnrRuleId(tabId: number): number {
 export async function updateDNRRulesForTab(tabId: number, sessionId: string): Promise<void> {
   const ruleId = dnrRuleId(tabId);
 
-  await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: [ruleId], addRules: [] });
-
-  if (!sessionId || sessionId === 'default') return;
+  if (!sessionId || sessionId === 'default') {
+    await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: [ruleId], addRules: [] });
+    return;
+  }
 
   // Derive bound host and scheme. Snap sessions encode the host in their ID;
   // regular sessions look up from the stored origin. Snap scheme comes from the
@@ -70,7 +71,9 @@ export async function updateDNRRulesForTab(tabId: number, sessionId: string): Pr
     condition,
   };
 
-  await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: [], addRules: [rule] });
+  // Atomic remove+add: Chrome processes the removal before the addition within a
+  // single call, so concurrent callers for the same tab can't collide on rule ID.
+  await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: [ruleId], addRules: [rule] });
 }
 
 export function scheduleDNRUpdate(tabId: number, sessionId: string): void {
