@@ -64,10 +64,20 @@ export async function updateDNRRulesForTab(tabId: number, sessionId: string): Pr
         ? { tabIds: [tabId], requestDomains: [boundHost], resourceTypes: ALL_RESOURCE_TYPES }
         : { tabIds: [tabId], resourceTypes: ALL_RESOURCE_TYPES };
 
+  // Strip inbound Set-Cookie so isolated-tab responses never write to the global
+  // cookie jar. Without this, an isolated session's login cookies overwrite the
+  // default profile's cookies in the shared jar, and resetting a tab to default
+  // would surface the isolated session instead of the original default profile.
+  // The webRequest listener still captures Set-Cookie into the session store
+  // (it observes the response before this removal takes effect).
   const rule: DNRRule = {
     id: ruleId,
     priority: 100,
-    action: { type: 'modifyHeaders', requestHeaders: [headerAction] },
+    action: {
+      type: 'modifyHeaders',
+      requestHeaders: [headerAction],
+      responseHeaders: [{ header: 'set-cookie', operation: 'remove' }],
+    },
     condition,
   };
 

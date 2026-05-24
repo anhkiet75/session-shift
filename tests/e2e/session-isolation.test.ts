@@ -92,6 +92,72 @@ test.describe('Cookie isolation', () => {
   })
 
   /**
+   * Pollution test: an isolated session's Set-Cookie responses must NOT leak into
+   * the global cookie jar. Otherwise logging into an isolated session overwrites
+   * the default profile's cookies, and resetting a tab to default surfaces the
+   * isolated session instead of the original default profile.
+   */
+  test('isolated session does not pollute the default cookie jar', async ({
+    context, extensionId, mockServerUrl,
+  }) => {
+    const origin = mockServerUrl
+    const sessionBId = `session_e2e_pollute_b_${Date.now()}`
+
+    const helperPage = await context.newPage()
+    await helperPage.goto(`chrome-extension://${extensionId}/popup/popup.html`)
+
+    await helperPage.evaluate(async ({ origin, sessionB }) => {
+      await chrome.storage.local.set({
+        [`list_${origin}`]: [{ id: sessionB, name: 'Session B', hue: 30 }],
+        [`cookies_${sessionB}`]: {},
+      })
+    }, { origin, sessionB: sessionBId })
+
+    // Default tab (profile A): write user=alice to the global jar.
+    const defaultTab = await context.newPage()
+    await defaultTab.goto(`${mockServerUrl}/set?user=alice`)
+    await defaultTab.goto(`${mockServerUrl}/cookies?t=a`)
+    expect(JSON.parse(await defaultTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
+
+    // Tab B: assign isolated session B.
+    const tabB = await context.newPage()
+    await tabB.goto(`${mockServerUrl}/cookies?t=b`)
+    const { tabBId } = await helperPage.evaluate(async () => ({
+      tabBId: (await chrome.tabs.query({})).find(
+        (t: chrome.tabs.Tab) => t.url?.includes('t=b'),
+      )?.id,
+    }))
+    expect(tabBId).toBeDefined()
+    await helperPage.evaluate(
+      async ({ tabId, sessionId }) =>
+        chrome.runtime.sendMessage({ action: 'setSession', payload: { tabId, sessionId } }),
+      { tabId: tabBId, sessionId: sessionBId },
+    )
+
+    // B logs in (user=bob). Capture must still land in B's store (ordering oracle),
+    // but the global jar must stay clean.
+    await tabB.goto(`${mockServerUrl}/set?user=bob`)
+    await helperPage.waitForFunction(
+      async (id) => {
+        const r = await chrome.storage.local.get([`cookies_${id}`])
+        return Object.keys(r[`cookies_${id}`] ?? {}).length > 0
+      },
+      sessionBId,
+      { timeout: 5_000 },
+    )
+    await helperPage.waitForTimeout(150)
+
+    // Global jar must be untouched: a fresh default tab still sees alice, not bob.
+    const checkTab = await context.newPage()
+    await checkTab.goto(`${mockServerUrl}/cookies?t=check`)
+    expect(JSON.parse(await checkTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
+
+    // B's tab still sees its own cookie (capture + DNR injection both work).
+    await tabB.goto(`${mockServerUrl}/cookies?t=b`)
+    expect(JSON.parse(await tabB.textContent('body') ?? '{}').cookies.user).toBe('bob')
+  })
+
+  /**
    * Reset-to-default test: after calling setSession with 'default', the tab's
    * session ID returns to 'default' and the DNR rule is removed.
    *
