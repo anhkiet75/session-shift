@@ -1,7 +1,7 @@
 .agents
 .claude
 skills-lock.json
-extension.zip
+releases/
 dist/
 node_modules/
 coverage/
