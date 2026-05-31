@@ -3,6 +3,14 @@ import { handleMessage } from '../background.js'
 
 const SENDER = { id: chrome.runtime.id }
 
+function findCookieEntryByName(store, name) {
+  return Object.values(store).find((entry) => entry?.name === name) ?? store[name]
+}
+
+function tabSender(tabId, url) {
+  return { id: chrome.runtime.id, tab: { id: tabId, url } }
+}
+
 describe('getSessionForBootstrap', () => {
   it('returns default + empty cookieStr for unknown tab', async () => {
     const result = await handleMessage(
@@ -115,11 +123,11 @@ describe('updateCookie trust boundary (H3)', () => {
     await handleMessage({ action: 'setSession', payload: { tabId: 200, sessionId: 'session_m1' } }, SENDER)
     await handleMessage(
       { action: 'updateCookie', payload: { cookieStr: 'newcookie=val' } },
-      { id: chrome.runtime.id, tab: { id: 200 } }
+      tabSender(200, 'https://merge.com/page')
     )
     const stored = await chrome.storage.local.get(['cookies_session_m1'])
     expect(stored['cookies_session_m1'].existing.value).toBe('old')
-    expect(stored['cookies_session_m1'].newcookie.value).toBe('val')
+    expect(findCookieEntryByName(stored['cookies_session_m1'], 'newcookie')?.value).toBe('val')
   })
 
   it('empty cookieStr does not wipe existing cookies', async () => {
@@ -130,7 +138,7 @@ describe('updateCookie trust boundary (H3)', () => {
     await handleMessage({ action: 'setSession', payload: { tabId: 201, sessionId: 'session_w1' } }, SENDER)
     await handleMessage(
       { action: 'updateCookie', payload: { cookieStr: '' } },
-      { id: chrome.runtime.id, tab: { id: 201 } }
+      tabSender(201, 'https://wipe.com/page')
     )
     const stored = await chrome.storage.local.get(['cookies_session_w1'])
     expect(stored['cookies_session_w1'].precious.value).toBe('keep')
@@ -147,10 +155,10 @@ describe('updateCookie trust boundary (H3)', () => {
     await handleMessage({ action: 'setSession', payload: { tabId: 202, sessionId: 'session_del1' } }, SENDER)
     await handleMessage(
       { action: 'updateCookie', payload: { cookieStr: '', deletedNames: ['gone'] } },
-      { id: chrome.runtime.id, tab: { id: 202 } }
+      tabSender(202, 'https://del.com/page')
     )
     const stored = await chrome.storage.local.get(['cookies_session_del1'])
-    expect(stored['cookies_session_del1'].gone).toBeUndefined()
+    expect(findCookieEntryByName(stored['cookies_session_del1'], 'gone')).toBeUndefined()
     expect(stored['cookies_session_del1'].stays.value).toBe('hi')
   })
 
@@ -162,10 +170,57 @@ describe('updateCookie trust boundary (H3)', () => {
     await handleMessage({ action: 'setSession', payload: { tabId: 203, sessionId: 'session_hp1' } }, SENDER)
     await handleMessage(
       { action: 'updateCookie', payload: { cookieStr: 'secret=hacked' } },
-      { id: chrome.runtime.id, tab: { id: 203 } }
+      tabSender(203, 'https://hp.com/page')
     )
     const stored = await chrome.storage.local.get(['cookies_session_hp1'])
-    expect(stored['cookies_session_hp1'].secret.value).toBe('original')
+    expect(findCookieEntryByName(stored['cookies_session_hp1'], 'secret')?.value).toBe('original')
+  })
+
+  it('stores document.cookie writes under the current document host and default path', async () => {
+    await chrome.storage.local.set({
+      'list_https://www.google.com': [{ id: 'session_doc_host', name: 'Doc', hue: 0 }],
+      'cookies_session_doc_host': {},
+    })
+    await handleMessage({ action: 'setSession', payload: { tabId: 205, sessionId: 'session_doc_host' } }, SENDER)
+    await handleMessage(
+      { action: 'updateCookie', payload: { cookieStr: 'jsid=val' } },
+      tabSender(205, 'https://accounts.google.com/login/callback')
+    )
+
+    const stored = await chrome.storage.local.get(['cookies_session_doc_host'])
+    expect(stored['cookies_session_doc_host']['jsid|accounts.google.com|/login']?.value).toBe('val')
+    expect(stored['cookies_session_doc_host']['jsid|www.google.com|/']).toBeUndefined()
+  })
+
+  it('deletedNames only removes cookies matching the current document URL', async () => {
+    await chrome.storage.local.set({
+      'list_https://www.google.com': [{ id: 'session_doc_delete', name: 'Doc', hue: 0 }],
+      'cookies_session_doc_delete': {
+        'sid|accounts.google.com|/login': {
+          name: 'sid',
+          value: 'accounts',
+          domain: 'accounts.google.com',
+          path: '/login',
+          expires: null,
+        },
+        'sid|www.google.com|/': {
+          name: 'sid',
+          value: 'www',
+          domain: 'www.google.com',
+          path: '/',
+          expires: null,
+        },
+      },
+    })
+    await handleMessage({ action: 'setSession', payload: { tabId: 206, sessionId: 'session_doc_delete' } }, SENDER)
+    await handleMessage(
+      { action: 'updateCookie', payload: { cookieStr: '', deletedNames: ['sid'] } },
+      tabSender(206, 'https://accounts.google.com/login/callback')
+    )
+
+    const stored = await chrome.storage.local.get(['cookies_session_doc_delete'])
+    expect(stored['cookies_session_doc_delete']['sid|accounts.google.com|/login']).toBeUndefined()
+    expect(stored['cookies_session_doc_delete']['sid|www.google.com|/']?.value).toBe('www')
   })
 })
 

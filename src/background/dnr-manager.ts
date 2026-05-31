@@ -1,13 +1,15 @@
 // dnr-manager.ts — Declarative Net Request rules, debounce, and cookie-capture listener.
 
 import { getCookieStore, setCookieStore } from '../lib/session-store.js';
-import { serializeCookieHeader, parseSetCookie, type SerializeOptions } from '../lib/cookie-parser.js';
-import type { DNRRule } from '../lib/types.js';
+import { parseSetCookie, cookieKey, type SerializeOptions } from '../lib/cookie-parser.js';
 import type { CookieStoreEntry } from '../lib/session-store.js';
 import { tabSessions, persistTabSessions, getSessionBoundHost, getSessionBoundOrigin } from './session-manager.js';
 import { withCookieLock } from '../lib/cookie-write-lock.js';
+import { buildDnrRulesForCookieStore } from './dnr-cookie-rule-builder.js';
 
 export const dnrDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
+const MAX_DNR_RULES_PER_TAB = 100;
+const DNR_RULE_ID_STRIDE = 1_000_000;
 
 const ALL_RESOURCE_TYPES = [
   'main_frame', 'sub_frame', 'stylesheet', 'script', 'image',
@@ -19,11 +21,16 @@ export function dnrRuleId(tabId: number): number {
   return (tabId % 1000000) + 1;
 }
 
+export function dnrRuleIdsForTab(tabId: number): number[] {
+  const baseId = dnrRuleId(tabId);
+  return Array.from({ length: MAX_DNR_RULES_PER_TAB }, (_, index) => baseId + index * DNR_RULE_ID_STRIDE);
+}
+
 export async function updateDNRRulesForTab(tabId: number, sessionId: string): Promise<void> {
-  const ruleId = dnrRuleId(tabId);
+  const ruleIds = dnrRuleIdsForTab(tabId);
 
   if (!sessionId || sessionId === 'default') {
-    await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: [ruleId], addRules: [] });
+    await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: ruleIds, addRules: [] });
     return;
   }
 
@@ -49,20 +56,6 @@ export async function updateDNRRulesForTab(tabId: number, sessionId: string): Pr
   // For HTTP-bound sessions, Secure cookies must not be sent in plaintext.
   const serializeOpts: SerializeOptions = scheme === 'http' ? { excludeSecure: true } : {};
   const store = await getCookieStore(sessionId);
-  const cookieStr = serializeCookieHeader(store, serializeOpts);
-
-  const headerAction: chrome.declarativeNetRequest.ModifyHeaderInfo = cookieStr
-    ? { header: 'Cookie', operation: 'set', value: cookieStr }
-    : { header: 'Cookie', operation: 'remove' };
-
-  // Use urlFilter to anchor the rule by scheme+host, preventing cookie leakage
-  // on HTTP downgrade requests to an HTTPS-bound session's host.
-  const condition: chrome.declarativeNetRequest.RuleCondition =
-    boundHost && scheme
-      ? { tabIds: [tabId], urlFilter: `|${scheme}://${boundHost}^`, resourceTypes: ALL_RESOURCE_TYPES }
-      : boundHost
-        ? { tabIds: [tabId], requestDomains: [boundHost], resourceTypes: ALL_RESOURCE_TYPES }
-        : { tabIds: [tabId], resourceTypes: ALL_RESOURCE_TYPES };
 
   // Strip inbound Set-Cookie so isolated-tab responses never write to the global
   // cookie jar. Without this, an isolated session's login cookies overwrite the
@@ -70,20 +63,19 @@ export async function updateDNRRulesForTab(tabId: number, sessionId: string): Pr
   // would surface the isolated session instead of the original default profile.
   // The webRequest listener still captures Set-Cookie into the session store
   // (it observes the response before this removal takes effect).
-  const rule: DNRRule = {
-    id: ruleId,
-    priority: 100,
-    action: {
-      type: 'modifyHeaders',
-      requestHeaders: [headerAction],
-      responseHeaders: [{ header: 'set-cookie', operation: 'remove' }],
-    },
-    condition,
-  };
+  const addRules = buildDnrRulesForCookieStore({
+    tabId,
+    ruleIds,
+    boundHost,
+    scheme,
+    store,
+    serializeOpts,
+    resourceTypes: ALL_RESOURCE_TYPES,
+  });
 
   // Atomic remove+add: Chrome processes the removal before the addition within a
   // single call, so concurrent callers for the same tab can't collide on rule ID.
-  await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: [ruleId], addRules: [rule] });
+  await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: ruleIds, addRules });
 }
 
 export function scheduleDNRUpdate(tabId: number, sessionId: string): void {
@@ -114,9 +106,14 @@ export async function protectDefaultTabsOnHost(hostname: string, excludeTabId: n
     const cookies = await chrome.cookies.getAll({ domain: hostname });
     const store: Record<string, CookieStoreEntry> = {};
     for (const c of cookies) {
-      store[c.name] = {
+      store[cookieKey(c.name, c.domain, c.path)] = {
+        name: c.name,
         value: c.value,
         expires: c.expirationDate ? Math.round(c.expirationDate * 1000) : null,
+        domain: c.domain,
+        path: c.path,
+        secure: c.secure,
+        httpOnly: c.httpOnly,
       };
     }
     await setCookieStore(snapId, store);
@@ -145,24 +142,29 @@ export function registerWebRequestListener(): void {
         await withCookieLock(sessionId, async () => {
           const store = await getCookieStore(sessionId);
           if (tabSessions[tabId] !== sessionId) return;
+          const requestHost = new URL(requestUrl).hostname;
 
           for (const header of setCookieHeaders) {
             if (!header.value) continue;
             const parsed = parseSetCookie(header.value, requestUrl);
             if (!parsed) continue;
-            const key = parsed.name;
+            const domain = parsed.domain ?? requestHost;
+            const path = parsed.path ?? '/';
+            const key = cookieKey(parsed.name, domain, path);
             if (parsed.expires === 0) {
               delete store[key];
             } else {
               store[key] = {
+                name: parsed.name,
                 value: parsed.value,
                 expires: parsed.expires,
-                domain: parsed.domain,
-                path: parsed.path,
+                domain,
+                path,
                 secure: parsed.secure,
                 httpOnly: parsed.httpOnly,
               };
             }
+            if (key !== parsed.name && parsed.name in store) delete store[parsed.name];
           }
 
           await setCookieStore(sessionId, store);

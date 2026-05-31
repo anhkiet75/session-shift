@@ -2,7 +2,7 @@
 
 import { getCookieStore, setCookieStore, getSessionList, isInternalSession, duplicateSession, updateSessionHue } from '../lib/session-store.js';
 import { withCookieLock } from '../lib/cookie-write-lock.js';
-import { serializeCookieHeader, parseCookieString } from '../lib/cookie-parser.js';
+import { serializeCookieHeader, parseCookieString, cookieKey, cookieMatchesRequest, defaultCookiePath } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
 import { updateDNRRulesForTab, protectDefaultTabsOnHost } from './dnr-manager.js';
@@ -65,18 +65,42 @@ export async function handleMessage(
       }
       await withCookieLock(sessionId, async () => {
         const existing = await getCookieStore(sessionId);
+        let currentUrl: URL | null = null;
+        try {
+          currentUrl = new URL(request.payload.url ?? sender.tab?.url ?? '');
+        } catch {
+          currentUrl = null;
+        }
+        if (!currentUrl || (currentUrl.protocol !== 'https:' && currentUrl.protocol !== 'http:')) return;
+        const cookieDomain = currentUrl.hostname;
+        const cookiePath = defaultCookiePath(currentUrl.pathname);
+        const requestUrl = currentUrl.href;
+
+        const hasHttpOnlyCookie = (name: string) =>
+          Object.entries(existing).some(([key, entry]) =>
+            (entry?.name ?? key) === name &&
+            entry?.httpOnly &&
+            cookieMatchesRequest(entry, requestUrl)
+          );
+
         for (const [name, value] of parseCookieString(cookieStr)) {
           // Page JS must not overwrite server-set HttpOnly cookies.
-          if (existing[name]?.httpOnly) continue;
-          existing[name] = existing[name]
-            ? { ...existing[name], value }
-            : { value, expires: null };
+          if (hasHttpOnlyCookie(name)) continue;
+          const key = cookieKey(name, cookieDomain, cookiePath);
+          existing[key] = existing[key]
+            ? { ...existing[key], name, domain: cookieDomain, path: cookiePath, value }
+            : { name, domain: cookieDomain, path: cookiePath, value, expires: null };
+          if (key !== name && name in existing) delete existing[name];
         }
         if (Array.isArray(deletedNames)) {
           for (const name of deletedNames) {
             if (typeof name !== 'string') continue;
-            if (existing[name]?.httpOnly) continue;
-            delete existing[name];
+            if (hasHttpOnlyCookie(name)) continue;
+            for (const [key, entry] of Object.entries(existing)) {
+              if ((entry?.name ?? key) === name && !entry?.httpOnly && cookieMatchesRequest(entry, requestUrl)) {
+                delete existing[key];
+              }
+            }
           }
         }
         await setCookieStore(sessionId, existing);

@@ -7,10 +7,16 @@ describe('parseSetCookie', () => {
     expect(result.name).toBe('token')
     expect(result.value).toBe('abc123')
     expect(result.domain).toBe('github.com')
-    expect(result.path).toBe('/path')
+    expect(result.path).toBe('/')
     expect(result.secure).toBe(false)
     expect(result.httpOnly).toBe(false)
     expect(result.expires).toBeNull()
+  })
+
+  it('defaults missing Path to the request directory', () => {
+    expect(parseSetCookie('token=abc123', 'https://github.com/login/callback').path).toBe('/login')
+    expect(parseSetCookie('token=abc123', 'https://github.com/login/').path).toBe('/login')
+    expect(parseSetCookie('token=abc123', 'https://github.com/').path).toBe('/')
   })
 
   it('parses Secure and HttpOnly flags', () => {
@@ -120,6 +126,79 @@ describe('serializeCookieHeader', () => {
     const store = { sess: { value: 'v', expires: null } }
     expect(serializeCookieHeader(store)).toBe('sess=v')
   })
+
+  it('keeps same-name cookies with different composite keys', () => {
+    const store = {
+      [cookieKey('SID', '.google.com', '/')]: {
+        name: 'SID',
+        value: 'root',
+        domain: '.google.com',
+        path: '/',
+        expires: null,
+      },
+      [cookieKey('SID', 'accounts.google.com', '/')]: {
+        name: 'SID',
+        value: 'accounts',
+        domain: 'accounts.google.com',
+        path: '/',
+        expires: null,
+      },
+    }
+    expect(serializeCookieHeader(store)).toBe('SID=root; SID=accounts')
+  })
+
+  it('orders cookies by path length descending', () => {
+    const store = {
+      [cookieKey('SID', '.example.com', '/')]: {
+        name: 'SID',
+        value: 'root',
+        domain: '.example.com',
+        path: '/',
+        expires: null,
+      },
+      [cookieKey('SID', '.example.com', '/deep')]: {
+        name: 'SID',
+        value: 'deep',
+        domain: '.example.com',
+        path: '/deep',
+        expires: null,
+      },
+    }
+    expect(serializeCookieHeader(store)).toBe('SID=deep; SID=root')
+  })
+
+  it('keeps legacy flat-key entries working during lazy migration', () => {
+    expect(serializeCookieHeader({ SID: { value: 'legacy', expires: null } })).toBe('SID=legacy')
+  })
+
+  it('filters cookies by request host and path when requestUrl is provided', () => {
+    const store = {
+      [cookieKey('ROOT', '.google.com', '/')]: {
+        name: 'ROOT',
+        value: 'root',
+        domain: '.google.com',
+        path: '/',
+        expires: null,
+      },
+      [cookieKey('ACCT', 'accounts.google.com', '/')]: {
+        name: 'ACCT',
+        value: 'acct',
+        domain: 'accounts.google.com',
+        path: '/',
+        expires: null,
+      },
+      [cookieKey('ADMIN', '.google.com', '/admin')]: {
+        name: 'ADMIN',
+        value: 'admin',
+        domain: '.google.com',
+        path: '/admin',
+        expires: null,
+      },
+    }
+    expect(serializeCookieHeader(store, { requestUrl: 'https://www.google.com/' })).toBe('ROOT=root')
+    expect(serializeCookieHeader(store, { requestUrl: 'https://accounts.google.com/admin/panel' }))
+      .toBe('ADMIN=admin; ROOT=root; ACCT=acct')
+  })
 })
 
 describe('parseCookieString', () => {
@@ -216,6 +295,18 @@ describe('parseSetCookie — Domain validation (M5)', () => {
   it('accepts localhost Domain for local-dev cookies', () => {
     const result = parseSetCookie('SID=val; Domain=localhost', 'http://localhost/')
     expect(result).not.toBeNull()
+  })
+
+  it('rejects a public-suffix Domain attribute', () => {
+    expect(parseSetCookie('SID=val; Domain=co.il', 'https://foo.co.il/')).toBeNull()
+    expect(parseSetCookie('SID=val; Domain=.com', 'https://example.com/')).toBeNull()
+    expect(parseSetCookie('SID=val; Domain=github.io', 'https://foo.github.io/')).toBeNull()
+  })
+
+  it('accepts a registrable parent Domain attribute', () => {
+    const result = parseSetCookie('SID=val; Domain=.google.com', 'https://accounts.google.com/')
+    expect(result).not.toBeNull()
+    expect(result.domain).toBe('.google.com')
   })
 })
 

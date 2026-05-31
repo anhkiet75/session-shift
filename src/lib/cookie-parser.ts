@@ -1,6 +1,8 @@
 // cookie-parser.ts — Parses Set-Cookie headers and serializes cookies for requests.
 
 import type { ParsedCookie } from './types.js'
+import type { CookieStoreEntry } from './session-store.js'
+import { isPublicSuffix } from './public-suffix.js'
 
 function isValidDomainAttribute(domainAttr: string, requestHost: string): boolean {
   const cleaned = domainAttr.replace(/^\./, '').toLowerCase();
@@ -11,6 +13,48 @@ function isValidDomainAttribute(domainAttr: string, requestHost: string): boolea
   if (!cleaned.includes('.') && cleaned !== 'localhost' && !isIpLiteral) return false;
   if (cleaned === host) return true;
   return host.endsWith('.' + cleaned);
+}
+
+export function defaultCookiePath(pathname: string | null | undefined): string {
+  if (!pathname || !pathname.startsWith('/')) return '/';
+  const rightmostSlash = pathname.lastIndexOf('/');
+  if (rightmostSlash <= 0) return '/';
+  return pathname.slice(0, rightmostSlash);
+}
+
+function normalizeCookiePath(path: string | null | undefined): string {
+  return path && path.startsWith('/') ? path : '/';
+}
+
+function domainMatches(cookieDomain: string | null | undefined, requestHost: string): boolean {
+  if (!cookieDomain) return true;
+  const normalizedDomain = cookieDomain.toLowerCase();
+  const normalizedHost = requestHost.toLowerCase();
+  if (normalizedDomain.startsWith('.')) {
+    const parentDomain = normalizedDomain.slice(1);
+    return normalizedHost === parentDomain || normalizedHost.endsWith('.' + parentDomain);
+  }
+  return normalizedHost === normalizedDomain;
+}
+
+function pathMatches(cookiePath: string | null | undefined, requestPath: string): boolean {
+  const normalizedCookiePath = normalizeCookiePath(cookiePath);
+  const normalizedRequestPath = requestPath || '/';
+  if (normalizedCookiePath === '/') return true;
+  if (normalizedRequestPath === normalizedCookiePath) return true;
+  if (!normalizedRequestPath.startsWith(normalizedCookiePath)) return false;
+  if (normalizedCookiePath.endsWith('/')) return true;
+  return normalizedRequestPath.charAt(normalizedCookiePath.length) === '/';
+}
+
+export function cookieMatchesRequest(entry: CookieStoreEntry, requestUrl: string): boolean {
+  let url: URL;
+  try {
+    url = new URL(requestUrl);
+  } catch {
+    return true;
+  }
+  return domainMatches(entry.domain, url.hostname) && pathMatches(entry.path, url.pathname || '/');
 }
 
 export function parseSetCookie(setCookieStr: string, requestUrl: string): ParsedCookie | null {
@@ -54,7 +98,7 @@ export function parseSetCookie(setCookieStr: string, requestUrl: string): Parsed
 
   if (url) {
     cookie.domain = url.hostname;
-    cookie.path = url.pathname || '/';
+    cookie.path = defaultCookiePath(url.pathname);
   }
 
   // Parse cookie attributes
@@ -81,14 +125,16 @@ export function parseSetCookie(setCookieStr: string, requestUrl: string): Parsed
       case 'domain': {
         const requestHost = url?.hostname;
         if (!requestHost || !isValidDomainAttribute(attrValue, requestHost)) return null;
-        cookie.domain = attrValue.toLowerCase();
+        const cleaned = attrValue.replace(/^\./, '').toLowerCase();
+        if (isPublicSuffix(cleaned)) return null;
+        cookie.domain = cleaned;
         if (cookie.domain && !cookie.domain.startsWith('.') && cookie.domain !== 'localhost') {
           cookie.domain = '.' + cookie.domain;
         }
         break;
       }
       case 'path':
-        cookie.path = attrValue;
+        cookie.path = attrValue.startsWith('/') ? attrValue : defaultCookiePath(url?.pathname);
         break;
       case 'expires':
         expiresStr = attrValue;
@@ -130,21 +176,28 @@ export function parseSetCookie(setCookieStr: string, requestUrl: string): Parsed
 export interface SerializeOptions {
   excludeHttpOnly?: boolean;
   excludeSecure?: boolean;
+  requestUrl?: string;
 }
 
 export function serializeCookieHeader(
-  store: Record<string, { value: string; expires?: number | null; httpOnly?: boolean; secure?: boolean }>,
+  store: Record<string, CookieStoreEntry>,
   opts: SerializeOptions = {},
 ): string {
   const now = Date.now();
-  const cookiePairs: string[] = [];
-  for (const [name, data] of Object.entries(store)) {
+  const cookiePairs: Array<{ name: string; path: string; value: string }> = [];
+  for (const [key, data] of Object.entries(store)) {
     if (data.expires != null && data.expires <= now) continue;
     if (opts.excludeHttpOnly && data.httpOnly) continue;
     if (opts.excludeSecure && data.secure) continue;
-    cookiePairs.push(`${name}=${data.value}`);
+    if (opts.requestUrl && !cookieMatchesRequest(data, opts.requestUrl)) continue;
+    cookiePairs.push({
+      name: data.name ?? key,
+      path: data.path ?? '/',
+      value: data.value,
+    });
   }
-  return cookiePairs.join('; ');
+  cookiePairs.sort((left, right) => right.path.length - left.path.length);
+  return cookiePairs.map(({ name, value }) => `${name}=${value}`).join('; ');
 }
 
 export function cookieKey(name: string, domain: string, path: string): string {

@@ -9,6 +9,7 @@
     "pretest:e2e": "npm run build",
     "test": "npm run test:unit && npm run test:e2e",
     "type-check": "tsc --noEmit",
+    "generate:psl": "node scripts/generate-public-suffix-list.mjs",
     "dev": "bash scripts/dev.sh",
     "build": "bash scripts/build.sh",
     "package": "bash scripts/package.sh"

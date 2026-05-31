@@ -3,6 +3,7 @@
 import type { Session } from './types.js'
 
 export type CookieStoreEntry = {
+  name?: string
   value: string
   expires?: number | null
   domain?: string | null

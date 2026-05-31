@@ -1,7 +1,7 @@
 // index.ts — Service worker entry point: startup + Chrome API listener registration.
 
 import { restoreTabSessions, tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { dnrDebounceTimers, dnrRuleId, registerWebRequestListener, updateDNRRulesForTab } from './dnr-manager.js';
+import { dnrDebounceTimers, dnrRuleIdsForTab, registerWebRequestListener, updateDNRRulesForTab } from './dnr-manager.js';
 import { setupContextMenu, registerStorageListener } from './context-menu-manager.js';
 import { handleMessage } from './message-handler.js';
 import type { BackgroundMessage } from '../lib/types.js';
@@ -51,7 +51,7 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
     delete tabSessions[tabId];
     await persistTabSessions();
   }
-  chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: [dnrRuleId(tabId)] }).catch(() => {});
+  chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: dnrRuleIdsForTab(tabId) }).catch(() => {});
 });
 
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {

@@ -135,12 +135,16 @@
       // Skip postMessage on null-origin pages — broadcasting to '*' is unsafe.
       const _updateOrigin = window.location.origin;
       if (_updateOrigin !== 'null') {
+        // Send only the cookie that changed, not the whole map. The map is
+        // bootstrapped with cookies from other hosts/paths; re-sending it would
+        // re-key those under the current document scope and duplicate them.
         window.postMessage({
           source: 'page-api-proxy',
           nonce: nonce,
           action: 'updateCookie',
           payload: {
-            cookieStr: serializeCookieMap(),
+            cookieStr: isDeleting ? '' : `${name}=${value}`,
+            url: window.location.href,
             ...(deletedNames.length > 0 && { deletedNames }),
           }
         }, _updateOrigin);

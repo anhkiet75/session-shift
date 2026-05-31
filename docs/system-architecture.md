@@ -126,13 +126,15 @@ const rule = {
     requestHeaders: [
       {
         header: 'Cookie',
-        operation: 'set',         // Replace entire Cookie header
+        operation: 'set',         // Replace Cookie header for a matching host/path scope
         value: 'session_cookie_1=value; session_cookie_2=value'
       }
     ]
   },
   condition: {
     tabIds: [tabId],              // Only applies to this tab
+    urlFilter: '|https://',       // Preserve scheme boundary
+    requestDomains: ['google.com'], // eTLD+1 matches google.com + subdomains
     resourceTypes: [              // All request types
       'main_frame', 'sub_frame', 'stylesheet', 'script', 'image',
       'xmlhttprequest', 'ping', 'csp_report', 'media', 'websocket',
@@ -142,8 +144,8 @@ const rule = {
 }
 
 await chrome.declarativeNetRequest.updateSessionRules({
-  removeRuleIds: [oldRuleId],
-  addRules: [rule]
+  removeRuleIds: oldRuleIds,
+  addRules: [baseRemoveRule, ...scopedCookieRules]
 })
 ```
 
@@ -152,9 +154,21 @@ await chrome.declarativeNetRequest.updateSessionRules({
 | Property | Value | Why |
 |----------|-------|-----|
 | **Scope** | session-scoped | Cleared on service worker restart (OK; we reapply on next action) |
-| **Matching** | tabIds condition | Only affects one tab per rule |
-| **Header operation** | 'set' (replace) | Ensures exactly one Cookie header |
-| **Priority** | 100 | Lower than user-defined rules; prevents conflicts |
+| **Matching** | tabIds + eTLD+1 base rule + host/path cookie rules | One tab, registrable-domain response stripping, request-accurate cookie injection |
+| **Scheme guard** | `urlFilter: '|https://'` or `|http://` | Prevents HTTPS-bound sessions from leaking cookies on HTTP downgrades |
+| **Header operation** | base 'remove', scoped 'set' | Strips global cookies first, then injects only matching isolated cookies |
+| **Priority** | 100 base, higher for longer paths/exact hosts | Browser-like path ordering and host-only precedence |
+
+### Registrable-Domain Scoping (PSL)
+
+v0.5.0 widens the response-stripping match from exact host to registrable domain (eTLD+1) using a bundled Public Suffix List snapshot:
+
+- `src/lib/public-suffix-data.ts` is a committed ICANN + private PSL snapshot
+- `src/lib/public-suffix.ts` resolves `getEtld1(host)` and `isPublicSuffix(domain)`
+- `updateDNRRulesForTab()` adds a base `requestDomains:[getEtld1(boundHost)]` rule to strip global cookies and Set-Cookie writes
+- `src/background/dnr-cookie-rule-builder.ts` adds higher-priority host/path-specific rules that call `serializeCookieHeader(..., { requestUrl })`
+
+This fixes multi-subdomain login flows such as `www.google.com` → `accounts.google.com` while keeping host-only and path-scoped cookies from leaking to sibling subdomains or unrelated paths.
 
 ### Limitations
 
@@ -342,7 +356,8 @@ Cookies must persist across service worker restarts. DNR rules don't persist, so
 // Storage key pattern: cookies_${sessionId}
 {
   "cookies_session_abc123de": {
-    "github_session": {
+    "SID|.github.com|/": {
+      name: "SID",
       value: "ghp_abc123...",
       domain: ".github.com",
       path: "/",
@@ -350,10 +365,11 @@ Cookies must persist across service worker restarts. DNR rules don't persist, so
       secure: true,
       httpOnly: true
     },
-    "user_preferences": {
+    "prefs|www.github.com|/settings": {
+      name: "prefs",
       value: "dark_mode=true",
-      domain: ".github.com",
-      path: "/",
+      domain: "www.github.com",
+      path: "/settings",
       expires: null,
       secure: false,
       httpOnly: false
@@ -367,11 +383,13 @@ Cookies must persist across service worker restarts. DNR rules don't persist, so
 }
 ```
 
+Cookie entries are keyed by `cookieKey(name, domain, path)`, not just by cookie name. This lets same-name cookies from sibling subdomains coexist in one isolated session and preserves browser-like Cookie-header ordering by longest path first. Network serialization also filters by request URL before building the Cookie header.
+
 **Recovery on service worker restart:**
 1. restoreTabSessions() loads tab→session map
 2. User clicks a tab or opens popup
 3. updateDNRRulesForTab() reads from cookies_${sessionId}
-4. serializeCookieHeader() converts store back to Cookie header string
+4. serializeCookieHeader() converts matching store entries back to Cookie header strings for each host/path rule
 5. DNR rule is reapplied
 
 **No data loss** because:
