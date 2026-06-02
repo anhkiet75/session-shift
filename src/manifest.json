@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SessionShift",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Switch between multiple accounts on any site — each tab gets its own isolated session.",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; base-uri 'none'"

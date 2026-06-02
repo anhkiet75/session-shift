@@ -5,7 +5,7 @@ import { withCookieLock } from '../lib/cookie-write-lock.js';
 import { serializeCookieHeader, parseCookieString, cookieKey, cookieMatchesRequest, defaultCookiePath } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { updateDNRRulesForTab, protectDefaultTabsOnHost } from './dnr-manager.js';
+import { updateDNRRulesForTab } from './dnr-manager.js';
 
 export async function handleMessage(
   request: BackgroundMessage,
@@ -21,8 +21,7 @@ export async function handleMessage(
         let tab: chrome.tabs.Tab;
         try { tab = await chrome.tabs.get(tabId); } catch { return { error: 'tab not found' }; }
         if (tab?.url && !tab.url.startsWith('chrome://')) {
-          const { hostname, origin } = new URL(tab.url);
-          await protectDefaultTabsOnHost(hostname, tabId);
+          const { origin } = new URL(tab.url);
           const list = await getSessionList(origin);
           if (!list.find(s => s.id === sessionId)) return { error: 'unknown session' };
         }
@@ -147,12 +146,6 @@ export async function handleMessage(
       await persistTabSessions();
       await updateDNRRulesForTab(newTab.id, sessionId);
       updateBadge(newTab.id, sessionId);
-      // Snapshot default-session tabs on the same host before navigating so their
-      // global-jar cookies aren't overwritten by Set-Cookie responses from the new tab.
-      try {
-        const hostname = new URL(url).hostname;
-        if (hostname) await protectDefaultTabsOnHost(hostname, newTab.id);
-      } catch (_) {}
       await chrome.tabs.update(newTab.id, { url });
       return { success: true, tabId: newTab.id };
     }

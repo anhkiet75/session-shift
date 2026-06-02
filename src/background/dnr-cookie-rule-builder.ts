@@ -1,4 +1,4 @@
-import { serializeCookieHeader, type SerializeOptions } from '../lib/cookie-parser.js';
+import { serializeCookieHeader, normalizeCookiePath, type SerializeOptions } from '../lib/cookie-parser.js';
 import type { CookieStoreEntry } from '../lib/session-store.js';
 import type { DNRRule } from '../lib/types.js';
 import { getEtld1 } from '../lib/public-suffix.js';
@@ -21,10 +21,6 @@ type BuildRuleOptions = {
 
 function normalizeStoredDomain(domain: string | null | undefined, boundHost: string | null): string | null {
   return (domain ?? boundHost)?.replace(/\.$/, '').toLowerCase() ?? null;
-}
-
-function normalizeStoredPath(path: string | null | undefined): string {
-  return path && path.startsWith('/') ? path : '/';
 }
 
 function pathFilterSuffix(path: string): string {
@@ -62,7 +58,7 @@ function buildCookieRuleScopes(store: Record<string, CookieStoreEntry>, boundHos
   for (const entry of Object.values(store)) {
     const domain = normalizeStoredDomain(entry.domain, boundHost);
     if (!domain) continue;
-    const path = normalizeStoredPath(entry.path);
+    const path = normalizeCookiePath(entry.path);
     const domainWithoutDot = domain.replace(/^\./, '');
 
     if (domain.startsWith('.')) {

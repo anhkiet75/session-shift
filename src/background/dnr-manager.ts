@@ -2,8 +2,7 @@
 
 import { getCookieStore, setCookieStore } from '../lib/session-store.js';
 import { parseSetCookie, cookieKey, type SerializeOptions } from '../lib/cookie-parser.js';
-import type { CookieStoreEntry } from '../lib/session-store.js';
-import { tabSessions, persistTabSessions, getSessionBoundHost, getSessionBoundOrigin } from './session-manager.js';
+import { tabSessions, getSessionBoundHost, getSessionBoundOrigin } from './session-manager.js';
 import { withCookieLock } from '../lib/cookie-write-lock.js';
 import { buildDnrRulesForCookieStore } from './dnr-cookie-rule-builder.js';
 
@@ -87,40 +86,6 @@ export function scheduleDNRUpdate(tabId: number, sessionId: string): void {
       await updateDNRRulesForTab(tabId, sessionId);
     }
   }, 50));
-}
-
-// Snapshot default-session tabs on the same host to protect them from
-// cookie contamination when a new isolated session is created.
-export async function protectDefaultTabsOnHost(hostname: string, excludeTabId: number): Promise<void> {
-  let allTabs: chrome.tabs.Tab[];
-  try {
-    allTabs = await chrome.tabs.query({ url: [`*://${hostname}/*`, `https://${hostname}/*`] });
-  } catch (_) { return; }
-
-  for (const tab of allTabs) {
-    if (tab.id === undefined || tab.id === excludeTabId) continue;
-    const currentSession = tabSessions[tab.id] || 'default';
-    if (currentSession !== 'default') continue;
-
-    const snapId = `_snap_${tab.id}_${hostname}`;
-    const cookies = await chrome.cookies.getAll({ domain: hostname });
-    const store: Record<string, CookieStoreEntry> = {};
-    for (const c of cookies) {
-      store[cookieKey(c.name, c.domain, c.path)] = {
-        name: c.name,
-        value: c.value,
-        expires: c.expirationDate ? Math.round(c.expirationDate * 1000) : null,
-        domain: c.domain,
-        path: c.path,
-        secure: c.secure,
-        httpOnly: c.httpOnly,
-      };
-    }
-    await setCookieStore(snapId, store);
-    tabSessions[tab.id] = snapId;
-    await updateDNRRulesForTab(tab.id, snapId);
-  }
-  await persistTabSessions();
 }
 
 // webRequest listener — capture Set-Cookie headers for isolated tabs.

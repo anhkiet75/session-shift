@@ -22,7 +22,7 @@ export function defaultCookiePath(pathname: string | null | undefined): string {
   return pathname.slice(0, rightmostSlash);
 }
 
-function normalizeCookiePath(path: string | null | undefined): string {
+export function normalizeCookiePath(path: string | null | undefined): string {
   return path && path.startsWith('/') ? path : '/';
 }
 
@@ -127,10 +127,9 @@ export function parseSetCookie(setCookieStr: string, requestUrl: string): Parsed
         if (!requestHost || !isValidDomainAttribute(attrValue, requestHost)) return null;
         const cleaned = attrValue.replace(/^\./, '').toLowerCase();
         if (isPublicSuffix(cleaned)) return null;
-        cookie.domain = cleaned;
-        if (cookie.domain && !cookie.domain.startsWith('.') && cookie.domain !== 'localhost') {
-          cookie.domain = '.' + cookie.domain;
-        }
+        // `cleaned` is non-empty and dot-stripped here, so the leading-dot form
+        // is unconditional except for the host-only `localhost` case.
+        cookie.domain = cleaned === 'localhost' ? cleaned : '.' + cleaned;
         break;
       }
       case 'path':
