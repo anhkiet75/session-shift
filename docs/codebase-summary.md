@@ -6,7 +6,7 @@
 |------|-----|---------|
 | **background/index.ts** | 109 | Service worker entry point; listener registration for DNR, messages, commands, context menu |
 | **background/session-manager.ts** | 93 | In-memory tabSessions map, badge generation, icon creation via OffscreenCanvas |
-| **background/dnr-manager.ts** | 134 | DNR rule management with 50ms debounce per-tab; cookie capture; protectDefaultTabsOnHost |
+| **background/dnr-manager.ts** | 148 | DNR rule management with 50ms debounce per-tab; Set-Cookie capture into session store + jar-pollution strip on isolated tabs |
 | **background/context-menu-manager.ts** | 40 | Context menu creation and cleanup lifecycle |
 | **background/auto-assign-handler.ts** | 27 | Auto-assign navigation logic on chrome.webNavigation.onBeforeNavigate |
 | **background/message-handler.ts** | 137 | chrome.runtime.onMessage routing; all message types (setSession, updateCookie, deleteSession, etc.) |
@@ -55,17 +55,17 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 - `getTabSession(tabId)` — Retrieve session for tab
 - `setTabSession(tabId, sessionId)` — Assign session to tab, persist
 
-#### background/dnr-manager.ts (~134 LOC)
+#### background/dnr-manager.ts (~148 LOC)
 **Responsibilities:**
 - Manages DNR rules per-tab for cookie header rewriting
 - Implements 50ms debounce per-tab to batch rapid updates
-- Captures Set-Cookie responses and updates session store
-- Protects default-session tabs via snapshot sessions
+- Captures Set-Cookie responses into the session store (webRequest listener)
+- Strips Set-Cookie from isolated-tab responses so they never write to the shared global jar, keeping default-session tabs uncontaminated
 
 **Key Functions:**
 - `updateDNRRulesForTab(tabId, sessionId)` — Update DNR rules for cookie rewriting
 - `scheduleDNRUpdate(tabId, sessionId)` — Debounce DNR updates (50ms per-tab)
-- `protectDefaultTabsOnHost(hostname, excludeTabId)` — Create snapshots for default tabs
+- `registerWebRequestListener()` — Capture Set-Cookie into the per-session store
 - `dnrRuleId(tabId)` — Generate stable DNR rule ID
 
 #### background/context-menu-manager.ts (~40 LOC)
@@ -341,7 +341,7 @@ Key: `ext_settings`
 | Prefix | Type | Scope | Visibility |
 |--------|------|-------|------------|
 | `session_` | User session | Per-origin | Shown in badge, popup, UI |
-| `_snap_` | Internal snapshot | Per-tab, per-host | Hidden from user; protects default-session tabs |
+| `_snap_` | Internal snapshot (legacy) | Per-tab, per-host | Hidden from user; no longer created — handlers retained for backward-compat with snapshots persisted by older versions |
 | `default` | Global jar | Browser-wide | Shown as "Default" in reset button |
 
 ## Key Patterns
@@ -370,15 +370,20 @@ localStorage.setItem(prefix + key, value);  // Actual stored as: __ext_session_a
 ```
 Why: localStorage and sessionStorage are shared across all tabs for a domain. Prefix isolation ensures each session sees only its own data.
 
-### 4. Session Snapshot Protection
-When a new isolated session is created on a host:
-1. Find all tabs on that host using the default session
-2. Read their cookies from the browser's global jar
-3. Create a snapshot session (`_snap_${tabId}_${random}`)
-4. Assign DNR rule to lock those cookies in place
-5. Default-session tabs are now protected from contamination by other isolated sessions
+### 4. Set-Cookie Strip on Isolated Tabs
+Isolated-session tabs must not write to the browser's shared global cookie jar, or an
+isolated login would overwrite the default profile's cookies for the same domain.
 
-Why: Prevents the new isolated session's Set-Cookie responses from overwriting cookies in default-session tabs on the same host.
+1. The webRequest `onHeadersReceived` listener observes the response first and captures
+   each `Set-Cookie` into the per-session store
+2. A base DNR rule (priority 100, scoped to the tab) then strips `Set-Cookie` from the
+   response headers before they reach the browser
+3. The global jar is never mutated by isolated tabs, so default-session tabs on the same
+   host stay uncontaminated — no per-tab snapshotting needed
+
+Why: Capturing into the session store preserves the isolated session's own cookies, while
+stripping the outbound header keeps the shared jar (and thus default tabs) intact. This
+supersedes the earlier `_snap_` snapshot approach.
 
 ### 5. Badge Label Derivation
 ```javascript

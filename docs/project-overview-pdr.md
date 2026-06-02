@@ -93,7 +93,7 @@ Web browsers share cookies globally across all tabs for a given domain. This pre
 ### Security Principles
 1. Cookies never appear in DOM (only in chrome.storage.local and DNR rules)
 2. Nonce authentication prevents rogue page scripts from hijacking bootstrap
-3. Session IDs are opaque strings; internal snapshots prefixed `_snap_` to protect default-session tabs
+3. Session IDs are opaque strings; isolated tabs strip outbound `Set-Cookie` so they never write to the shared global jar, keeping default-session tabs uncontaminated (legacy `_snap_` snapshots retained only for backward-compat)
 4. Cross-origin isolation enforced by browser native sandbox; extension adds per-site layer
 
 ## Core Dependencies

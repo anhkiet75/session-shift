@@ -6,6 +6,20 @@ All significant changes to the SessionShift Chrome extension are documented here
 
 ## v0.5.0 (In Progress)
 
+### 2026-06-02 — Remove Snapshot Protection (Superseded by Set-Cookie Strip)
+
+**Type:** Refactor
+
+#### Changes
+
+- Removed `protectDefaultTabsOnHost` and its two call sites (`setSession`, `createSessionTab`). It snapshotted default-session tabs into hidden `_snap_` sessions to shield them from cookie contamination.
+- This is now redundant: isolated tabs already strip outbound `Set-Cookie` via a base DNR rule (`responseHeaders: set-cookie remove`), so they never write to the shared global jar and default-session tabs stay uncontaminated.
+- Side benefit: default tabs are no longer silently frozen into snapshots on session creation, so real logins/logouts in those tabs keep reflecting in the global jar.
+- `_snap_` handling paths in `dnr-manager.ts` / `message-handler.ts` are retained for backward-compat with snapshots persisted by older versions; nothing creates new `_snap_` sessions.
+- DRY: exported `normalizeCookiePath` from `cookie-parser.ts` and removed the duplicate `normalizeStoredPath` in `dnr-cookie-rule-builder.ts`.
+- Simplified the `Set-Cookie` `Domain=` leading-dot normalization (behavior-preserving).
+- Bumped manifest 0.0.5 → 0.0.6.
+
 ### 2026-05-26 — Multi-Domain Cookie Isolation (PSL + Composite Cookie Store)
 
 **Type:** Fix

@@ -669,50 +669,51 @@ window.indexedDB.deleteDatabase = function(name) {
 
 ---
 
-## Session Snapshot Protection
+## Global Jar Protection (Set-Cookie Strip)
 
 ### Problem
-When a new isolated session is created on a host, server Set-Cookie responses should not contaminate the global cookie jar or other sessions' cookies.
+An isolated session's server `Set-Cookie` responses must not contaminate the browser's
+shared global cookie jar. If they did, logging into an isolated session would overwrite
+the default profile's cookies for the same domain, and resetting a tab to default would
+surface the isolated session instead of the original profile.
 
-### Solution: Snapshot Sessions
+### Solution: Capture-then-Strip on Isolated Tabs
 
-**Concept:** When Tab A (default session) on host X creates a new isolated session, we:
-1. Read Tab A's cookies from the browser's global jar
-2. Create a snapshot session `_snap_${tabId}_${random}`
-3. Lock those cookies in a DNR rule
-4. Assign Tab A to the snapshot
-5. Tab A is now isolated from the new session's Set-Cookie responses
+**Concept:** Isolated tabs never write to the global jar. For each isolated-tab response:
+1. The webRequest `onHeadersReceived` listener observes the response *first* and captures
+   each `Set-Cookie` into the per-session store (`cookies_${sessionId}`)
+2. A base DNR rule (priority 100, scoped to that tab) then strips `Set-Cookie` from the
+   response headers before they reach the browser
+3. The global jar is left untouched, so default-session tabs on the same host keep their
+   original cookies with no per-tab snapshotting
 
 **Example:**
 ```
 1. User has Tab 1 on github.com (default session)
-   Cookies: github_session=original_token
+   Global jar: github_session=original_token
 
-2. User creates "Work" session on github.com
-   background.js calls protectDefaultTabsOnHost('github.com', excludeTabId=null)
+2. User opens Tab 2 on github.com in "Work" session
+   Tab 2 gets a DNR base rule: strip Set-Cookie + rewrite Cookie from session store
 
-3. Finds Tab 1 is on github.com with default session
-   Reads global cookies: { github_session: 'original_token' }
-   Creates snapshot: cookies__snap_1_xyz789 = { github_session: 'original_token' }
-   Assigns Tab 1 to _snap_1_xyz789
-   DNR rule locks Tab 1's cookies to 'original_token'
-
-4. User logs into "Work" session on github.com as a different account
+3. User logs into "Work" on Tab 2 as a different account
    Server sends: Set-Cookie: github_session=work_token
-   DNR rule on Tab 2 (Work session) stores it
-   DNR rule on Tab 1 (snapshot) ignores it — locked to 'original_token'
+   webRequest listener captures it into cookies_session_work
+   DNR base rule strips Set-Cookie before it reaches the browser
+   Global jar still: github_session=original_token  (untouched)
 
-5. Result: Tab 1 and Tab 2 have separate sessions, no contamination
+4. Result: Tab 1 (default) and Tab 2 (Work) have separate sessions, no contamination
 ```
 
 **Why important:**
-Without snapshots, Tab 1's original login would be overwritten by Tab 2's login, breaking the default session.
+Stripping the outbound header at the source removes the contamination vector entirely, so
+default-session tabs no longer need to be defensively converted into frozen snapshots.
 
-**Snapshot Sessions are Hidden:**
-- Badge doesn't show for `_snap_*` sessions
-- Popup doesn't list them
-- User is unaware of them
-- Only visible in storage inspection
+### Legacy `_snap_` Sessions
+Earlier versions protected default tabs by snapshotting them into hidden `_snap_${tabId}_${host}`
+sessions (`protectDefaultTabsOnHost`). That function has been removed — the Set-Cookie strip
+supersedes it. The `_snap_` handling paths in `dnr-manager.ts` / `message-handler.ts` are
+retained only for backward-compat with snapshots persisted by older versions; nothing creates
+new `_snap_` sessions. They remain hidden from badge and popup.
 
 ---
 
