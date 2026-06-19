@@ -30,6 +30,12 @@ function createChromeMock() {
     runtime: {
       id: 'test-ext-id',
       onMessage: { addListener: vi.fn() },
+      onStartup: { addListener: vi.fn() },
+      onInstalled: { addListener: vi.fn() },
+    },
+    alarms: {
+      create: vi.fn(),
+      onAlarm: { addListener: vi.fn() },
     },
     declarativeNetRequest: {
       updateSessionRules: vi.fn().mockResolvedValue({}),
@@ -50,6 +56,7 @@ function createChromeMock() {
     tabs: {
       get: vi.fn(),
       create: vi.fn(),
+      sendMessage: vi.fn().mockResolvedValue({}),
       update: vi.fn(),
       query: vi.fn(),
       onRemoved: { addListener: vi.fn() },
@@ -62,7 +69,10 @@ function createChromeMock() {
       setIcon: vi.fn().mockResolvedValue({}),
     },
     webRequest: {
+      onBeforeSendHeaders: { addListener: vi.fn() },
       onHeadersReceived: { addListener: vi.fn() },
+      onCompleted: { addListener: vi.fn() },
+      onErrorOccurred: { addListener: vi.fn() },
     },
     commands: {
       onCommand: { addListener: vi.fn() },

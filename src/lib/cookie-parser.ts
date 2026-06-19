@@ -203,6 +203,81 @@ export function cookieKey(name: string, domain: string, path: string): string {
   return `${name}|${domain}|${path}`;
 }
 
+// Authoritative cookie name/value validation. The page-proxy validates too, but
+// the cross-world nonce is defense-in-depth only (a co-MAIN-world script can forge
+// updateCookie), so the background MUST re-validate before a value reaches a DNR
+// `Cookie: set` rule. Rejects CRLF/NUL injection and oversize tokens.
+export function isValidCookieName(name: string): boolean {
+  return name.length > 0 && name.length <= 1024 && /^[!#$%&'*+\-.0-9A-Z^_`a-z|~]+$/.test(name);
+}
+
+export function isValidCookieValue(value: string): boolean {
+  return value.length <= 4096 && !/[\r\n\0]/.test(value);
+}
+
+export interface ParsedDocumentCookie {
+  name: string;
+  value: string;
+  /** Page-supplied Path or the document's default path. Host-relative. */
+  path: string;
+  /** Epoch ms; null = session cookie; 0 = deletion (Max-Age<=0 / past Expires). */
+  expires: number | null;
+}
+
+/**
+ * Parse a `document.cookie` / `cookieStore.set` string. This is a DIFFERENT
+ * grammar from Set-Cookie (`parseSetCookie`): a cousin/invalid `Domain=` must be
+ * IGNORED (store host-only), never drop the whole cookie. Domain is intentionally
+ * not returned — the background host-pins it to prevent cookie injection across
+ * subdomains. Only Path / Max-Age / Expires are adopted from the page.
+ */
+export function parseDocumentCookie(cookieStr: string, requestUrl: string): ParsedDocumentCookie | null {
+  const parts = cookieStr.split(';');
+  const trimmed = (parts[0] ?? '').trim();
+  const eqIndex = trimmed.indexOf('=');
+  if (eqIndex === -1) return null;
+  const name = trimmed.substring(0, eqIndex);
+  const value = trimmed.substring(eqIndex + 1);
+  if (!name) return null;
+
+  let url: URL | null = null;
+  try { url = new URL(requestUrl); } catch { url = null; }
+
+  let path = defaultCookiePath(url?.pathname);
+  let maxAge: number | null = null;
+  let expiresStr: string | null = null;
+
+  for (let i = 1; i < parts.length; i++) {
+    const attr = parts[i].trim();
+    if (!attr) continue;
+    const attrEq = attr.indexOf('=');
+    const attrName = (attrEq === -1 ? attr : attr.substring(0, attrEq)).trim().toLowerCase();
+    const attrValue = attrEq === -1 ? '' : attr.substring(attrEq + 1).trim();
+    switch (attrName) {
+      case 'path':
+        path = attrValue.startsWith('/') ? attrValue : defaultCookiePath(url?.pathname);
+        break;
+      case 'expires':
+        expiresStr = attrValue;
+        break;
+      case 'max-age':
+        maxAge = parseInt(attrValue, 10);
+        break;
+      // 'domain' intentionally ignored — host-pinning enforced in background.
+    }
+  }
+
+  let expires: number | null = null;
+  if (maxAge !== null && !Number.isNaN(maxAge)) {
+    expires = maxAge <= 0 ? 0 : Date.now() + maxAge * 1000;
+  } else if (expiresStr) {
+    const d = new Date(expiresStr);
+    if (!Number.isNaN(d.getTime())) expires = d.getTime();
+  }
+
+  return { name, value, path, expires };
+}
+
 export function parseCookieString(cookieStr: string): Map<string, string> {
   const map = new Map();
   if (!cookieStr) return map;

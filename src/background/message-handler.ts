@@ -1,11 +1,11 @@
 // message-handler.ts — Handles all chrome.runtime.onMessage dispatches.
 
-import { getCookieStore, setCookieStore, getSessionList, isInternalSession, duplicateSession, updateSessionHue } from '../lib/session-store.js';
+import { getCookieStore, setCookieStore, getProfiles, isInternalSession, duplicateSession, updateSessionHue } from '../lib/session-store.js';
 import { withCookieLock } from '../lib/cookie-write-lock.js';
-import { serializeCookieHeader, parseCookieString, cookieKey, cookieMatchesRequest, defaultCookiePath } from '../lib/cookie-parser.js';
+import { serializeCookieHeader, parseCookieString, parseDocumentCookie, cookieKey, cookieMatchesRequest, defaultCookiePath, normalizeCookiePath, isValidCookieName, isValidCookieValue } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { updateDNRRulesForTab } from './dnr-manager.js';
+import { updateDNRRulesForTab, stripCookiesOnNextNavigation } from './dnr-manager.js';
 
 export async function handleMessage(
   request: BackgroundMessage,
@@ -18,26 +18,25 @@ export async function handleMessage(
         return { error: 'invalid payload' };
       }
       if (sessionId !== 'default') {
-        let tab: chrome.tabs.Tab;
-        try { tab = await chrome.tabs.get(tabId); } catch { return { error: 'tab not found' }; }
-        if (tab?.url && !tab.url.startsWith('chrome://')) {
-          const { origin } = new URL(tab.url);
-          const list = await getSessionList(origin);
-          if (!list.find(s => s.id === sessionId)) return { error: 'unknown session' };
-        }
+        // Profiles are global — validate the id against the single profile list,
+        // not a per-origin one. A profile created on any site is selectable here.
+        const list = await getProfiles();
+        if (!list.find(s => s.id === sessionId)) return { error: 'unknown session' };
       }
       tabSessions[tabId] = sessionId;
       await persistTabSessions();
       await updateDNRRulesForTab(tabId, sessionId);
       updateBadge(tabId, sessionId);
+      if (sessionId !== 'default') {
+        await chrome.tabs.sendMessage(tabId, { action: 'sessionBootstrapChanged' }).catch(() => null);
+      }
       return { success: true, sessionId };
     }
 
     case 'getSession': {
       const tabId = request.payload?.tabId ?? sender.tab?.id;
       if (tabId === undefined) return { sessionId: 'default' };
-      const raw = tabSessions[tabId] || 'default';
-      return { sessionId: raw.startsWith('_snap_') ? 'default' : raw };
+      return { sessionId: tabSessions[tabId] || 'default' };
     }
 
     case 'getSessionForBootstrap': {
@@ -54,8 +53,10 @@ export async function handleMessage(
     // authority). The cross-world nonce in page-api-proxy is defense-in-depth only;
     // do not add new trust on it.
     case 'updateCookie': {
-      const { cookieStr, deletedNames } = request.payload;
-      if (typeof cookieStr !== 'string') return { error: 'invalid payload' };
+      const { cookieStr, setCookieStr, deletedNames, deleteTargets } = request.payload;
+      const hasSet = typeof setCookieStr === 'string' || typeof cookieStr === 'string';
+      const hasDelete = Array.isArray(deletedNames) || Array.isArray(deleteTargets);
+      if (!hasSet && !hasDelete) return { error: 'invalid payload' };
       const tabId = sender.tab?.id;
       if (tabId === undefined) return { error: 'no tab context' };
       const sessionId = tabSessions[tabId];
@@ -71,8 +72,10 @@ export async function handleMessage(
           currentUrl = null;
         }
         if (!currentUrl || (currentUrl.protocol !== 'https:' && currentUrl.protocol !== 'http:')) return;
+        // Domain is ALWAYS host-pinned to the document host — never page-supplied.
+        // A page setting Domain=.victim.com must not widen the stored cookie's
+        // domain (would emit a domain-wide DNR set-rule = cookie injection).
         const cookieDomain = currentUrl.hostname;
-        const cookiePath = defaultCookiePath(currentUrl.pathname);
         const requestUrl = currentUrl.href;
 
         const hasHttpOnlyCookie = (name: string) =>
@@ -82,26 +85,68 @@ export async function handleMessage(
             cookieMatchesRequest(entry, requestUrl)
           );
 
-        for (const [name, value] of parseCookieString(cookieStr)) {
-          // Page JS must not overwrite server-set HttpOnly cookies.
-          if (hasHttpOnlyCookie(name)) continue;
-          const key = cookieKey(name, cookieDomain, cookiePath);
+        const deleteByName = (name: string) => {
+          for (const [key, entry] of Object.entries(existing)) {
+            if ((entry?.name ?? key) === name && !entry?.httpOnly && cookieMatchesRequest(entry, requestUrl)) {
+              delete existing[key];
+            }
+          }
+        };
+
+        const setCookie = (name: string, value: string, path: string, expires: number | null) => {
+          if (hasHttpOnlyCookie(name)) return;
+          const key = cookieKey(name, cookieDomain, path);
           existing[key] = existing[key]
-            ? { ...existing[key], name, domain: cookieDomain, path: cookiePath, value }
-            : { name, domain: cookieDomain, path: cookiePath, value, expires: null };
+            ? { ...existing[key], name, domain: cookieDomain, path, value, expires }
+            : { name, domain: cookieDomain, path, value, expires };
           if (key !== name && name in existing) delete existing[name];
+        };
+
+        // Preferred set path: full cookie string with Path/Max-Age/Expires.
+        if (typeof setCookieStr === 'string') {
+          const parsed = parseDocumentCookie(setCookieStr, requestUrl);
+          // Authoritative validation — the nonce is defense-in-depth only.
+          if (parsed && isValidCookieName(parsed.name) && isValidCookieValue(parsed.value)) {
+            if (parsed.expires !== null && parsed.expires <= Date.now()) {
+              if (!hasHttpOnlyCookie(parsed.name)) deleteByName(parsed.name);
+            } else {
+              setCookie(parsed.name, parsed.value, parsed.path, parsed.expires);
+            }
+          }
+        } else if (typeof cookieStr === 'string') {
+          // Legacy attribute-less path (no setCookieStr); host-pinned, session expiry.
+          for (const [name, value] of parseCookieString(cookieStr)) {
+            if (!isValidCookieName(name) || !isValidCookieValue(value)) continue;
+            setCookie(name, value, defaultCookiePath(currentUrl.pathname), null);
+          }
         }
+
         if (Array.isArray(deletedNames)) {
           for (const name of deletedNames) {
             if (typeof name !== 'string') continue;
             if (hasHttpOnlyCookie(name)) continue;
+            deleteByName(name);
+          }
+        }
+
+        // Structured deletes (cookieStore.delete) — match by name + optional
+        // domain/path, NOT the document URL, so delete({name, path:'/admin'})
+        // from /app targets the right entry.
+        if (Array.isArray(deleteTargets)) {
+          for (const target of deleteTargets) {
+            if (typeof target?.name !== 'string') continue;
+            const targetPath = typeof target.path === 'string' ? normalizeCookiePath(target.path) : null;
+            const targetDomain = typeof target.domain === 'string'
+              ? target.domain.replace(/^\./, '').toLowerCase() : null;
             for (const [key, entry] of Object.entries(existing)) {
-              if ((entry?.name ?? key) === name && !entry?.httpOnly && cookieMatchesRequest(entry, requestUrl)) {
-                delete existing[key];
-              }
+              if ((entry?.name ?? key) !== target.name || entry?.httpOnly) continue;
+              if (targetPath && normalizeCookiePath(entry.path) !== targetPath) continue;
+              if (targetDomain && (entry.domain ?? '').replace(/^\./, '').toLowerCase() !== targetDomain) continue;
+              delete existing[key];
             }
           }
         }
+
         await setCookieStore(sessionId, existing);
       });
       await updateDNRRulesForTab(tabId, sessionId);
@@ -144,6 +189,10 @@ export async function handleMessage(
       if (newTab.id === undefined) return { error: 'tab creation failed' };
       tabSessions[newTab.id] = sessionId;
       await persistTabSessions();
+      // The new profile has no captured cookies for this host yet, so no
+      // per-host override rule exists to cover navigation. Force a clean first
+      // load instead of letting the default jar's stale cookie pass through.
+      stripCookiesOnNextNavigation(newTab.id, url);
       await updateDNRRulesForTab(newTab.id, sessionId);
       updateBadge(newTab.id, sessionId);
       await chrome.tabs.update(newTab.id, { url });
@@ -151,11 +200,11 @@ export async function handleMessage(
     }
 
     case 'duplicateSession': {
-      const { sessionId, origin } = request.payload ?? {};
-      if (typeof sessionId !== 'string' || typeof origin !== 'string') {
+      const { sessionId } = request.payload ?? {};
+      if (typeof sessionId !== 'string') {
         return { error: 'invalid payload' };
       }
-      const newSession = await duplicateSession(sessionId, origin);
+      const newSession = await duplicateSession(sessionId);
       return { success: true, session: newSession };
     }
 

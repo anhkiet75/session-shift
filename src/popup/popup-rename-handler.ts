@@ -8,7 +8,6 @@ export function startRename(
   nameEl: HTMLElement,
   renameBtn: HTMLButtonElement,
   session: PopupSession,
-  origin: string,
   tabId: number,
   currentSessionId: string
 ): void {
@@ -35,7 +34,7 @@ export function startRename(
 
     const newName = input.value.trim() || session.name || session.id;
     session.name = newName;
-    await renameSession(origin, session.id, newName);
+    await renameSession(session.id, newName);
 
     const newSpan = document.createElement('div');
     newSpan.className = 'v2-card-name';
@@ -47,7 +46,7 @@ export function startRename(
     renameBtn.style.pointerEvents = '';
     renameBtn.onclick = (e) => {
       e.stopPropagation();
-      startRename(card, newSpan, renameBtn, session, origin, tabId, currentSessionId);
+      startRename(card, newSpan, renameBtn, session, tabId, currentSessionId);
     };
 
     if (session.id === currentSessionId) {
@@ -70,7 +69,7 @@ export function startRename(
       renameBtn.style.pointerEvents = '';
       renameBtn.onclick = (e2) => {
         e2.stopPropagation();
-        startRename(card, span, renameBtn, session, origin, tabId, currentSessionId);
+        startRename(card, span, renameBtn, session, tabId, currentSessionId);
       };
     }
   });

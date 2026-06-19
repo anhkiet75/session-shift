@@ -1,11 +1,13 @@
 // index.ts — Service worker entry point: startup + Chrome API listener registration.
 
 import { restoreTabSessions, tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { dnrDebounceTimers, dnrRuleIdsForTab, registerWebRequestListener, updateDNRRulesForTab } from './dnr-manager.js';
+import { dnrRuleIdsForTab, registerWebRequestListener, clearBridgeNavigationStrip } from './dnr-manager.js';
 import { setupContextMenu, registerStorageListener } from './context-menu-manager.js';
 import { handleMessage } from './message-handler.js';
 import type { BackgroundMessage } from '../lib/types.js';
-import { getSessionList, isInternalSession } from '../lib/session-store.js';
+import { getProfiles, isInternalSession } from '../lib/session-store.js';
+import { runExpiredPurge, runOrphanPurge } from './storage-gc.js';
+import { migrateToProfiles } from '../lib/profile-migration.js';
 
 export { handleMessage };
 
@@ -20,6 +22,35 @@ const restored: Promise<void> = restoreTabSessions();
 setupContextMenu();
 registerStorageListener();
 registerWebRequestListener();
+
+// Upgrade legacy per-origin `list_*` sessions into the global `profiles` key.
+// Idempotent — fires on install and on every version update.
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install' || details.reason === 'update') {
+    void migrateToProfiles();
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Storage GC — periodic purge of expired cookies + orphaned stores.
+// ---------------------------------------------------------------------------
+// Register listeners at top level (required in MV3), but NEVER call the purge
+// functions from the top-level block: that block re-runs on every service-worker
+// wake, so a top-level call would run GC many times an hour. The persisted alarm
+// drives the cadence; onStartup runs only the safe expired purge.
+chrome.alarms.create('session-gc', { periodInMinutes: 1440 });
+
+chrome.runtime.onStartup.addListener(() => {
+  void runExpiredPurge(); // orphan purge is NOT startup-safe — alarm only
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name !== 'session-gc') return;
+  void (async () => {
+    await runExpiredPurge();
+    await runOrphanPurge();
+  })();
+});
 
 // ---------------------------------------------------------------------------
 // Message routing
@@ -44,14 +75,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // ---------------------------------------------------------------------------
 chrome.tabs.onRemoved.addListener(async (tabId) => {
   await restored;
-  const timer = dnrDebounceTimers.get(tabId);
-  if (timer) { clearTimeout(timer); dnrDebounceTimers.delete(tabId); }
-
   if (tabSessions[tabId] !== undefined) {
     delete tabSessions[tabId];
     await persistTabSessions();
   }
   chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: dnrRuleIdsForTab(tabId) }).catch(() => {});
+  clearBridgeNavigationStrip(tabId);
 });
 
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {
@@ -64,21 +93,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   if (changeInfo.status === 'loading') {
     const sessionId = tabSessions[tabId] || 'default';
     if (!isInternalSession(sessionId)) updateBadge(tabId, sessionId);
-  }
-  if (changeInfo.url) {
-    const snapId = tabSessions[tabId];
-    if (snapId?.startsWith('_snap_')) {
-      const snapPrefix = `_snap_${tabId}_`;
-      const snapHostname = snapId.startsWith(snapPrefix) ? snapId.slice(snapPrefix.length) : null;
-      let newHostname: string | null = null;
-      try { newHostname = new URL(changeInfo.url).hostname; } catch { /* ignore */ }
-      if (snapHostname === null || newHostname !== snapHostname) {
-        await updateDNRRulesForTab(tabId, 'default');
-        await chrome.storage.local.remove(`cookies_${snapId}`);
-        delete tabSessions[tabId];
-        await persistTabSessions();
-      }
-    }
   }
 });
 
@@ -110,10 +124,8 @@ chrome.commands.onCommand.addListener(async (command) => {
   } catch (_) { return; }
   if (!tab?.url || tab.url.startsWith('chrome://') || tab.id === undefined) return;
 
-  let origin: string;
-  try { origin = new URL(tab.url).origin; } catch { return; }
-
-  const list = await getSessionList(origin);
+  // Cycle through the global profile list (order = profiles array order).
+  const list = await getProfiles();
   if (list.length === 0) return;
 
   const currentId = tabSessions[tab.id] || 'default';

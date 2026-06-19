@@ -1,4 +1,6 @@
-// popup-render-origin-list.ts — Renders the per-origin session list with rename + color picker.
+// popup-render-profile-list.ts — Renders the single global profile list with
+// search, rename, recolor, duplicate, and delete. A profile spans all sites, so
+// switching applies to the current tab.
 
 import type { PopupSession } from './popup-types.js';
 import { getSessionHue } from './popup-types.js';
@@ -11,8 +13,8 @@ export function renderSessionList(
   container: HTMLElement,
   sessions: PopupSession[],
   currentSessionId: string,
-  origin: string,
-  tabId: number
+  tabId: number,
+  query = ''
 ): void {
   cancelActiveConfirm();
 
@@ -21,19 +23,29 @@ export function renderSessionList(
     container.removeChild(container.lastChild);
   }
 
-  const countEl = document.getElementById('sessionCount');
-  if (countEl) countEl.textContent = String(sessions.length);
+  const q = query.toLowerCase().trim();
+  const filtered = q
+    ? sessions.filter(s => (s.name || '').toLowerCase().includes(q))
+    : sessions;
 
-  if (sessions.length === 0) {
+  const countEl = document.getElementById('sessionCount');
+  if (countEl) countEl.textContent = String(filtered.length);
+
+  if (filtered.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'v2-empty';
-    empty.innerHTML = `
-      <div class="v2-empty-icon">
-        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.2 3.8L13 7l-3.8 1.2L8 12 6.8 8.2 3 7l3.8-1.2L8 2Z" fill="currentColor"/></svg>
-      </div>
-      <div class="v2-empty-title">No sessions yet</div>
-      <div class="v2-empty-sub">Create one above to start isolating accounts.</div>
-    `;
+    empty.innerHTML = sessions.length === 0
+      ? `
+        <div class="v2-empty-icon">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.2 3.8L13 7l-3.8 1.2L8 12 6.8 8.2 3 7l3.8-1.2L8 2Z" fill="currentColor"/></svg>
+        </div>
+        <div class="v2-empty-title">No profiles yet</div>
+        <div class="v2-empty-sub">Create one above to start isolating accounts.</div>
+      `
+      : `
+        <div class="v2-empty-title">No matches</div>
+        <div class="v2-empty-sub">Try a different search.</div>
+      `;
     container.appendChild(empty);
     return;
   }
@@ -42,7 +54,7 @@ export function renderSessionList(
   list.className = 'v2-list';
   container.appendChild(list);
 
-  sessions.forEach((session, i) => {
+  filtered.forEach((session, i) => {
     const isActive = session.id === currentSessionId;
     const hue = getSessionHue(session, i);
 
@@ -51,7 +63,7 @@ export function renderSessionList(
     card.style.setProperty('--hue', String(hue));
     card.style.setProperty('--i', String(i));
 
-    // Color dot — dispatches sessionColorChanged so popup.ts can update hero + global cache
+    // Color dot — dispatches sessionColorChanged so popup.ts can update the hero
     const colorDot = buildColorDot(session, card, (newHue) => {
       card.dispatchEvent(new CustomEvent('sessionColorChanged', {
         bubbles: true,
@@ -89,25 +101,25 @@ export function renderSessionList(
 
     const dupBtn = document.createElement('button');
     dupBtn.className = 'v2-card-dup';
-    dupBtn.title = 'Duplicate session';
-    dupBtn.setAttribute('aria-label', `Duplicate session ${session.name || session.id}`);
+    dupBtn.title = 'Duplicate profile';
+    dupBtn.setAttribute('aria-label', `Duplicate profile ${session.name || session.id}`);
     dupBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
     dupBtn.addEventListener('click', async (e) => {
       e.stopPropagation();
       dupBtn.disabled = true;
-      await chrome.runtime.sendMessage({ action: 'duplicateSession', payload: { sessionId: session.id, origin } });
-      const fresh = await getSavedSessions(origin);
-      renderSessionList(container, fresh, currentSessionId, origin, tabId);
+      await chrome.runtime.sendMessage({ action: 'duplicateSession', payload: { sessionId: session.id } });
+      const fresh = await getSavedSessions();
+      renderSessionList(container, fresh, currentSessionId, tabId, query);
     });
 
     const renameBtn = document.createElement('button');
     renameBtn.className = 'v2-card-rename';
     renameBtn.title = 'Rename';
-    renameBtn.setAttribute('aria-label', `Rename session ${session.name || session.id}`);
+    renameBtn.setAttribute('aria-label', `Rename profile ${session.name || session.id}`);
     renameBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2.5a1.5 1.5 0 0 1 2.12 2.12L4.85 12.88l-2.83.7.7-2.83L11 2.5Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     renameBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      startRename(card, nameEl, renameBtn, session, origin, tabId, currentSessionId);
+      startRename(card, nameEl, renameBtn, session, tabId, currentSessionId);
     });
 
     actions.appendChild(dupBtn);
@@ -122,15 +134,15 @@ export function renderSessionList(
       const delBtn = document.createElement('button');
       delBtn.className = 'v2-card-del';
       delBtn.title = 'Delete';
-      delBtn.setAttribute('aria-label', `Delete session ${session.name || session.id}`);
+      delBtn.setAttribute('aria-label', `Delete profile ${session.name || session.id}`);
       delBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
       delBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         startDeleteConfirm(actions, [dupBtn, renameBtn, delBtn], async () => {
           await chrome.runtime.sendMessage({ action: 'deleteSession', payload: { sessionId: session.id } });
-          const current = await getSavedSessions(origin);
-          await setSavedSessions(origin, current.filter(s => s.id !== session.id));
-          await new Promise<void>(resolve => chrome.storage.local.remove([`cookies_${session.id}`, `ls_${session.id}`], resolve));
+          const current = await getSavedSessions();
+          await setSavedSessions(current.filter(s => s.id !== session.id));
+          await new Promise<void>(resolve => chrome.storage.local.remove([`cookies_${session.id}`], resolve));
           card.remove();
           const c = document.getElementById('sessionCount');
           if (c) c.textContent = String(Math.max(0, parseInt(c.textContent || '0') - 1));

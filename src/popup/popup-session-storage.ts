@@ -1,27 +1,30 @@
-// popup-session-storage.ts — chrome.storage helpers scoped to the popup.
+// popup-session-storage.ts — chrome.storage helpers for the global profiles list.
 
 import type { PopupSession } from './popup-types.js';
 
-export function getSavedSessions(origin: string): Promise<PopupSession[]> {
+const PROFILES_KEY = 'profiles';
+
+export function getSavedSessions(): Promise<PopupSession[]> {
   return new Promise(resolve => {
-    chrome.storage.local.get([`list_${origin}`], result =>
-      resolve((result[`list_${origin}`] as PopupSession[]) || [])
-    );
+    chrome.storage.local.get([PROFILES_KEY], result => {
+      const value = result[PROFILES_KEY];
+      resolve(Array.isArray(value) ? (value as PopupSession[]) : []);
+    });
   });
 }
 
-export function setSavedSessions(origin: string, list: PopupSession[]): Promise<void> {
+export function setSavedSessions(list: PopupSession[]): Promise<void> {
   return new Promise(resolve => {
-    chrome.storage.local.set({ [`list_${origin}`]: list }, resolve);
+    chrome.storage.local.set({ [PROFILES_KEY]: list }, resolve);
   });
 }
 
-export async function renameSession(origin: string, sessionId: string, newName: string): Promise<PopupSession | false> {
+export async function renameSession(sessionId: string, newName: string): Promise<PopupSession | false> {
   if (!newName || !newName.trim()) return false;
-  const sessions = await getSavedSessions(origin);
+  const sessions = await getSavedSessions();
   const idx = sessions.findIndex(s => s.id === sessionId);
   if (idx === -1) return false;
   sessions[idx].name = newName.trim();
-  await setSavedSessions(origin, sessions);
+  await setSavedSessions(sessions);
   return sessions[idx];
 }

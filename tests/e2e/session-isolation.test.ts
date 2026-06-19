@@ -24,6 +24,10 @@ test.describe('Cookie isolation', () => {
           { id: sessionA, name: 'Session A', hue: 200 },
           { id: sessionB, name: 'Session B', hue: 30 },
         ],
+        profiles: [
+          { id: sessionA, name: 'Session A', hue: 200 },
+          { id: sessionB, name: 'Session B', hue: 30 },
+        ],
         [`cookies_${sessionA}`]: {},
         [`cookies_${sessionB}`]: {},
       })
@@ -59,8 +63,8 @@ test.describe('Cookie isolation', () => {
       { tabId: tab2Id, sessionId: sessionBId },
     )
 
-    // Set cookies via mock server — webRequest listener captures Set-Cookie
-    // and stores per session; DNR rule is updated after 50ms debounce
+    // Set cookies via mock server — webRequest listener captures Set-Cookie,
+    // stores per session, and republishes DNR rules.
     await tab1.goto(`${mockServerUrl}/set?user=alice`)
     await tab2.goto(`${mockServerUrl}/set?user=bob`)
 
@@ -77,7 +81,7 @@ test.describe('Cookie isolation', () => {
       [sessionAId, sessionBId],
       { timeout: 5_000 },
     )
-    // Wait for DNR debounce (50ms) + async updateSessionRules to complete
+    // Wait for async updateSessionRules calls to complete.
     await helperPage.waitForTimeout(150)
 
     // tab1 → DNR injects only Session A cookies
@@ -92,15 +96,15 @@ test.describe('Cookie isolation', () => {
   })
 
   /**
-   * Pollution test: an isolated session's Set-Cookie responses must NOT leak into
-   * the global cookie jar. Otherwise logging into an isolated session overwrites
-   * the default profile's cookies, and resetting a tab to default surfaces the
-   * isolated session instead of the original default profile.
+   * Pollution test: an isolated session's third-party subresource Set-Cookie
+   * responses must NOT leak into that third party's global cookie jar. Same-site
+   * subresources are allowed so browser login flows can carry auth cookies.
    */
-  test('isolated session does not pollute the default cookie jar', async ({
+  test('isolated third-party subresource Set-Cookie does not pollute the default cookie jar', async ({
     context, extensionId, mockServerUrl,
   }) => {
     const origin = mockServerUrl
+    const thirdPartyUrl = mockServerUrl.replace('localhost', '127.0.0.1')
     const sessionBId = `session_e2e_pollute_b_${Date.now()}`
 
     const helperPage = await context.newPage()
@@ -109,6 +113,7 @@ test.describe('Cookie isolation', () => {
     await helperPage.evaluate(async ({ origin, sessionB }) => {
       await chrome.storage.local.set({
         [`list_${origin}`]: [{ id: sessionB, name: 'Session B', hue: 30 }],
+        profiles: [{ id: sessionB, name: 'Session B', hue: 30 }],
         [`cookies_${sessionB}`]: {},
       })
     }, { origin, sessionB: sessionBId })
@@ -134,9 +139,16 @@ test.describe('Cookie isolation', () => {
       { tabId: tabBId, sessionId: sessionBId },
     )
 
-    // B logs in (user=bob). Capture must still land in B's store (ordering oracle),
-    // but the global jar must stay clean.
-    await tabB.goto(`${mockServerUrl}/set?user=bob`)
+    // B receives a third-party subresource Set-Cookie. Capture must still land in
+    // B's store, but the third-party global jar must stay clean.
+    await tabB.evaluate(async (url) => {
+      await new Promise<void>((resolve) => {
+        const img = new Image()
+        img.onload = () => resolve()
+        img.onerror = () => resolve()
+        img.src = `${url}/set-resource?user=bob&cache=${Date.now()}`
+      })
+    }, thirdPartyUrl)
     await helperPage.waitForFunction(
       async (id) => {
         const r = await chrome.storage.local.get([`cookies_${id}`])
@@ -147,14 +159,102 @@ test.describe('Cookie isolation', () => {
     )
     await helperPage.waitForTimeout(150)
 
-    // Global jar must be untouched: a fresh default tab still sees alice, not bob.
+    // First-party global jar must be untouched: a fresh default tab still sees alice.
     const checkTab = await context.newPage()
     await checkTab.goto(`${mockServerUrl}/cookies?t=check`)
     expect(JSON.parse(await checkTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
 
+    // Third-party global jar must not receive bob from the isolated subresource.
+    const thirdPartyCheckTab = await context.newPage()
+    await thirdPartyCheckTab.goto(`${thirdPartyUrl}/cookies?t=check`)
+    expect(JSON.parse(await thirdPartyCheckTab.textContent('body') ?? '{}').cookies.user).toBeUndefined()
+
     // B's tab still sees its own cookie (capture + DNR injection both work).
-    await tabB.goto(`${mockServerUrl}/cookies?t=b`)
+    await tabB.goto(`${thirdPartyUrl}/cookies?t=b`)
     expect(JSON.parse(await tabB.textContent('body') ?? '{}').cookies.user).toBe('bob')
+  })
+
+  test('isolated navigation redirect carries Set-Cookie to redirected request', async ({
+    context, extensionId, mockServerUrl,
+  }) => {
+    const origin = mockServerUrl
+    const sessionId = `session_e2e_redirect_${Date.now()}`
+
+    const helperPage = await context.newPage()
+    await helperPage.goto(`chrome-extension://${extensionId}/popup/popup.html`)
+    await helperPage.evaluate(async ({ origin, sessionId }) => {
+      await chrome.storage.local.set({
+        [`list_${origin}`]: [{ id: sessionId, name: 'Redirect', hue: 210 }],
+        profiles: [{ id: sessionId, name: 'Redirect', hue: 210 }],
+        [`cookies_${sessionId}`]: {},
+      })
+    }, { origin, sessionId })
+
+    const tab = await context.newPage()
+    await tab.goto(`${mockServerUrl}/cookies?t=redirect`)
+    const { tabId } = await helperPage.evaluate(async () => ({
+      tabId: (await chrome.tabs.query({})).find(
+        (t: chrome.tabs.Tab) => t.url?.includes('t=redirect'),
+      )?.id,
+    }))
+    expect(tabId).toBeDefined()
+
+    await helperPage.evaluate(
+      async ({ tabId, sessionId }) =>
+        chrome.runtime.sendMessage({ action: 'setSession', payload: { tabId, sessionId } }),
+      { tabId, sessionId },
+    )
+
+    await tab.goto(`${mockServerUrl}/set?user=bob`)
+    expect(JSON.parse(await tab.textContent('body') ?? '{}').cookies.user).toBe('bob')
+  })
+
+  test('isolated same-site auth fetch can set cookie before immediate navigation', async ({
+    context, extensionId, mockServerUrl,
+  }) => {
+    const origin = mockServerUrl
+    const sessionId = `session_e2e_fetch_nav_${Date.now()}`
+
+    const helperPage = await context.newPage()
+    await helperPage.goto(`chrome-extension://${extensionId}/popup/popup.html`)
+    await helperPage.evaluate(async ({ origin, sessionId }) => {
+      await chrome.storage.local.set({
+        [`list_${origin}`]: [{ id: sessionId, name: 'FetchNav', hue: 250 }],
+        profiles: [{ id: sessionId, name: 'FetchNav', hue: 250 }],
+        [`cookies_${sessionId}`]: {},
+      })
+    }, { origin, sessionId })
+
+    const defaultTab = await context.newPage()
+    await defaultTab.goto(`${mockServerUrl}/set?user=alice`)
+    await defaultTab.goto(`${mockServerUrl}/cookies?t=default-before-fetch`)
+    expect(JSON.parse(await defaultTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
+
+    const tab = await context.newPage()
+    await tab.goto(`${mockServerUrl}/cookies?t=fetch-nav`)
+    const { tabId } = await helperPage.evaluate(async () => ({
+      tabId: (await chrome.tabs.query({})).find(
+        (t: chrome.tabs.Tab) => t.url?.includes('t=fetch-nav'),
+      )?.id,
+    }))
+    expect(tabId).toBeDefined()
+
+    await helperPage.evaluate(
+      async ({ tabId, sessionId }) =>
+        chrome.runtime.sendMessage({ action: 'setSession', payload: { tabId, sessionId } }),
+      { tabId, sessionId },
+    )
+
+    await tab.evaluate(async (url) => {
+      await fetch(`${url}/set-resource?user=bob`, { credentials: 'include' })
+      window.location.href = `${url}/cookies?t=after-fetch`
+    }, mockServerUrl)
+    await tab.waitForURL('**/cookies?t=after-fetch')
+    expect(JSON.parse(await tab.textContent('body') ?? '{}').cookies.user).toBe('bob')
+
+    const checkTab = await context.newPage()
+    await checkTab.goto(`${mockServerUrl}/cookies?t=default-after-fetch`)
+    expect(JSON.parse(await checkTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
   })
 
   /**
@@ -176,6 +276,7 @@ test.describe('Cookie isolation', () => {
     await helperPage.evaluate(async ({ origin, sessionId }) => {
       await chrome.storage.local.set({
         [`list_${origin}`]: [{ id: sessionId, name: 'TempSession', hue: 120 }],
+        profiles: [{ id: sessionId, name: 'TempSession', hue: 120 }],
         [`cookies_${sessionId}`]: {},
       })
     }, { origin, sessionId })

@@ -1,14 +1,11 @@
 // popup.ts — Entry point. Wires DOM events and delegates to focused modules.
 
-import { getAllSessions } from '../lib/session-store.js';
-import type { Session } from '../lib/types.js';
 import { HUE_PALETTE, getSessionHue } from './popup-types.js';
 import type { PopupSession } from './popup-types.js';
 import { applyStoredTheme, cycleTheme } from './popup-theme.js';
 import { getSavedSessions, setSavedSessions } from './popup-session-storage.js';
 import { updateHero } from './popup-hero-updater.js';
-import { renderSessionList } from './popup-render-origin-list.js';
-import { renderGlobalList } from './popup-render-global-list.js';
+import { renderSessionList } from './popup-render-profile-list.js';
 
 async function getCurrentTab(): Promise<chrome.tabs.Tab> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -32,8 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  const origin = new URL(currentTab.url!).origin;
-
   const inputEl       = document.getElementById('newSessionName') as HTMLInputElement;
   const createRow     = document.getElementById('createRow')!;
   const btnNewSession = document.getElementById('btnNewSession') as HTMLButtonElement;
@@ -47,13 +42,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }) as { sessionId?: string } | null;
   const currentSessionId = activeSessionResponse?.sessionId || 'default';
 
-  const saved = await getSavedSessions(origin);
+  let saved = await getSavedSessions();
   let currentSessionObj = saved.find(s => s.id === currentSessionId);
   let currentHue = currentSessionObj ? getSessionHue(currentSessionObj, saved.indexOf(currentSessionObj)) : null;
 
   updateHero(currentSessionId, currentSessionObj, currentHue);
 
-  // Hero + global list sync when a session color changes
+  // Hero + cached list sync when a profile color changes
   savedList.addEventListener('sessionColorChanged', (e: Event) => {
     const { sessionId, hue } = (e as CustomEvent<{ sessionId: string; hue: number }>).detail;
     if (sessionId === currentSessionId && currentSessionObj) {
@@ -61,10 +56,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       currentHue = hue;
       updateHero(currentSessionId, currentSessionObj, hue);
     }
-    if (cachedGlobal) {
-      const gs = cachedGlobal.find(s => s.id === sessionId);
-      if (gs) gs.hue = hue;
-    }
+    const cached = saved.find(s => s.id === sessionId);
+    if (cached) cached.hue = hue;
   });
 
   btnDefault.disabled = currentSessionId === 'default';
@@ -107,9 +100,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const name  = inputEl.value.trim() || `Session ${saved.length + 1}`;
     const hue   = HUE_PALETTE[saved.length % HUE_PALETTE.length];
     const newSession: PopupSession = { id: newId, name, hue };
-    const sessions = await getSavedSessions(origin);
+    const sessions = await getSavedSessions();
     sessions.push(newSession);
-    await setSavedSessions(origin, sessions);
+    await setSavedSessions(sessions);
     await chrome.runtime.sendMessage({ action: 'createSessionTab', payload: { url: currentTab.url, sessionId: newId } });
     window.close();
   });
@@ -118,48 +111,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (e.key === 'Enter') btnNewSession.click();
   });
 
-  renderSessionList(savedList, saved, currentSessionId, origin, currentTab.id!);
-
-  // View mode toggle
-  let viewMode = 'origin';
-  let cachedGlobal: Session[] | null = null;
   let searchQuery = '';
   let searchTimer: ReturnType<typeof setTimeout> | null = null;
-
-  const tabOrigin   = document.getElementById('tabOrigin')!;
-  const tabGlobal   = document.getElementById('tabGlobal')!;
-  const searchWrap  = document.getElementById('searchWrap')!;
   const searchInput = document.getElementById('searchInput') as HTMLInputElement;
 
-  async function setViewMode(mode: string): Promise<void> {
-    if (mode === viewMode) return;
-    viewMode = mode;
-    tabOrigin.classList.toggle('active', mode === 'origin');
-    tabOrigin.setAttribute('aria-selected', String(mode === 'origin'));
-    tabGlobal.classList.toggle('active', mode === 'global');
-    tabGlobal.setAttribute('aria-selected', String(mode === 'global'));
-    (createRow as HTMLElement & { hidden: boolean }).hidden = mode === 'global';
-    (searchWrap as HTMLElement & { hidden: boolean }).hidden = mode !== 'global';
-    if (mode === 'global') {
-      if (!cachedGlobal) cachedGlobal = await getAllSessions();
-      renderGlobalList(savedList, cachedGlobal as PopupSession[], currentSessionId, origin, currentTab.id!, searchQuery);
-    } else {
-      const fresh = await getSavedSessions(origin);
-      renderSessionList(savedList, fresh, currentSessionId, origin, currentTab.id!);
-    }
+  function renderList(): void {
+    renderSessionList(savedList, saved, currentSessionId, currentTab.id!, searchQuery);
   }
 
-  tabOrigin.addEventListener('click', () => setViewMode('origin'));
-  tabGlobal.addEventListener('click', () => setViewMode('global'));
+  renderList();
 
   searchInput.addEventListener('input', (e) => {
     searchQuery = (e.target as HTMLInputElement).value;
     if (searchTimer) clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => {
-      if (viewMode === 'global' && cachedGlobal) {
-        renderGlobalList(savedList, cachedGlobal as PopupSession[], currentSessionId, origin, currentTab.id!, searchQuery);
-      }
-    }, 80);
+    searchTimer = setTimeout(renderList, 80);
   });
 
 });

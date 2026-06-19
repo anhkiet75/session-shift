@@ -1,40 +1,6 @@
 // session-manager.ts — Tab→session map, badge updates, session icon generation.
 
-import { getSessionList, getAllSessions, isInternalSession } from '../lib/session-store.js';
-
-// ---------------------------------------------------------------------------
-// Bound-host cache — sessionId → hostname from the session's origin.
-// Avoids full chrome.storage.local scan on every DNR rule rebuild.
-// Invalidated whenever any list_* key changes in storage.
-// ---------------------------------------------------------------------------
-const boundHostCache = new Map<string, string | null>();
-
-export async function getSessionBoundHost(sessionId: string): Promise<string | null> {
-  if (boundHostCache.has(sessionId)) return boundHostCache.get(sessionId)!;
-  const all = await getAllSessions();
-  const session = all.find(s => s.id === sessionId);
-  let host: string | null = null;
-  if (session?.origin) {
-    try { host = new URL(session.origin).hostname; } catch { host = null; }
-  }
-  boundHostCache.set(sessionId, host);
-  return host;
-}
-
-export function invalidateBoundHostCache(): void {
-  boundHostCache.clear();
-}
-
-export async function getSessionBoundOrigin(sessionId: string): Promise<URL | null> {
-  const all = await getAllSessions();
-  const session = all.find(s => s.id === sessionId);
-  if (!session?.origin) return null;
-  try { return new URL(session.origin); } catch { return null; }
-}
-
-export function hostMatches(actual: string, bound: string): boolean {
-  return actual === bound || actual.endsWith('.' + bound);
-}
+import { getProfiles, isInternalSession } from '../lib/session-store.js';
 
 // ---------------------------------------------------------------------------
 // Tab→session in-memory map (persisted to chrome.storage.session)
@@ -75,17 +41,16 @@ export async function updateBadge(tabId: number, sessionId: string): Promise<voi
     return;
   }
 
+  // Badge text is capped to 3 chars by design — Chrome action badges only render
+  // ~4 narrow glyphs, so the session name is truncated to a short tag.
   let label = sessionId.replace(/^session_/, '').substring(0, 3).toUpperCase();
   let hue = 212;
   try {
-    const tab = await chrome.tabs.get(tabId);
-    if (tab?.url && !tab.url.startsWith('chrome://')) {
-      const origin = new URL(tab.url).origin;
-      const list = await getSessionList(origin);
-      const session = list.find((s) => s.id === sessionId);
-      if (session?.name) label = session.name.substring(0, 3).toUpperCase();
-      if (session?.hue !== undefined) hue = session.hue;
-    }
+    // Profiles are global — look the active profile up by id, no origin needed.
+    const list = await getProfiles();
+    const session = list.find((s) => s.id === sessionId);
+    if (session?.name) label = session.name.substring(0, 3).toUpperCase();
+    if (session?.hue !== undefined) hue = session.hue;
   } catch (_) {}
 
   chrome.action.setBadgeBackgroundColor({ color: `hsl(${hue}, 70%, 45%)`, tabId });

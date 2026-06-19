@@ -22,59 +22,35 @@ export async function setCookieStore(sessionId: string, store: CookieStore): Pro
   await chrome.storage.local.set({ [`cookies_${sessionId}`]: store });
 }
 
-export async function getSessionList(origin: string): Promise<Session[]> {
-  const result = await chrome.storage.local.get([`list_${origin}`]);
-  return (result[`list_${origin}`] as Session[]) || [];
+// Profiles are global containers: a single `profiles` key holds every profile.
+// Cookie data stays in per-profile `cookies_${id}` stores (already global).
+const PROFILES_KEY = 'profiles';
+
+export async function getProfiles(): Promise<Session[]> {
+  const result = await chrome.storage.local.get([PROFILES_KEY]);
+  const value = result[PROFILES_KEY];
+  return Array.isArray(value) ? (value as Session[]) : [];
 }
 
-export async function setSessionList(origin: string, list: Session[]): Promise<void> {
-  await chrome.storage.local.set({ [`list_${origin}`]: list });
+export async function setProfiles(list: Session[]): Promise<void> {
+  await chrome.storage.local.set({ [PROFILES_KEY]: list });
 }
 
 export function isInternalSession(sessionId: string): boolean {
-  return !sessionId || sessionId === 'default' || sessionId.startsWith('_snap_');
-}
-
-export async function getAllSessions(): Promise<Session[]> {
-  const all = await chrome.storage.local.get(null);
-  const seen = new Set<string>();
-  const out: Session[] = [];
-
-  for (const [key, value] of Object.entries(all)) {
-    if (!key.startsWith('list_') || !Array.isArray(value)) continue;
-    const origin = key.slice('list_'.length);
-    for (const s of value) {
-      if (!s || typeof s.id !== 'string') continue;
-      if (seen.has(s.id)) {
-        console.warn('[session-store] duplicate session id across origins:', s.id);
-        continue;
-      }
-      seen.add(s.id);
-      out.push({ id: s.id, name: s.name || s.id, hue: s.hue, origin });
-    }
-  }
-
-  out.sort((a, b) =>
-    (a.origin ?? '').localeCompare(b.origin ?? '') ||
-    (a.name || '').localeCompare(b.name || '') ||
-    a.id.localeCompare(b.id)
-  );
-  return out;
+  return !sessionId || sessionId === 'default';
 }
 
 /**
- * Find cookie stores (`cookies_${id}`) with no corresponding entry in any
- * `list_${origin}`. Skips internal sessions (default, _snap_*).
- *
- * @returns {Promise<string[]>} Orphan session ids
+ * Find cookie stores (`cookies_${id}`) not referenced by any profile. Skips
+ * internal sessions (default). Returns orphan session ids.
  */
-export async function findOrphanedCookieStores() {
+export async function findOrphanedCookieStores(): Promise<string[]> {
   const all = await chrome.storage.local.get(null);
-  const referenced = new Set();
+  const referenced = new Set<string>();
 
-  for (const [key, value] of Object.entries(all)) {
-    if (!key.startsWith('list_') || !Array.isArray(value)) continue;
-    for (const s of value) if (s && typeof s.id === 'string') referenced.add(s.id);
+  const profiles = all[PROFILES_KEY];
+  if (Array.isArray(profiles)) {
+    for (const s of profiles) if (s && typeof s.id === 'string') referenced.add(s.id);
   }
 
   const orphans = [];
@@ -87,35 +63,34 @@ export async function findOrphanedCookieStores() {
   return orphans;
 }
 
-export async function duplicateSession(sessionId: string, origin: string): Promise<Session> {
-  const list = await getSessionList(origin);
+export async function duplicateSession(sessionId: string): Promise<Session> {
+  const list = await getProfiles();
   const source = list.find(s => s.id === sessionId);
   if (!source) throw new Error(`Session not found: ${sessionId}`);
 
   const newId = 'session_' + crypto.randomUUID();
+  const newSession = { id: newId, name: source.name + ' (copy)', hue: source.hue };
+
+  // List-then-store ordering: write the profiles reference BEFORE the cookie store.
+  // A GC snapshot taken mid-flight then sees a referenced (recoverable) store, never
+  // an unreferenced one to delete — so orphan GC can't collect a live new profile's
+  // cookies. (The reverse order created a window where the store existed with no
+  // profile entry and looked like an orphan.)
+  await setProfiles([...list, newSession]);
   const store = await getCookieStore(sessionId);
   await setCookieStore(newId, { ...store });
-
-  const newSession = { id: newId, name: source.name + ' (copy)', hue: source.hue };
-  await setSessionList(origin, [...list, newSession]);
   return newSession;
 }
 
 export async function updateSessionHue(sessionId: string, hue: number): Promise<void> {
-  const all = await chrome.storage.local.get(null);
-  const updates: Record<string, Session[]> = {};
-  for (const [key, value] of Object.entries(all)) {
-    if (!key.startsWith('list_') || !Array.isArray(value)) continue;
-    const patched = (value as Session[]).map(s =>
-      s.id === sessionId ? { ...s, hue } : s
-    );
-    if (patched.some((s, i) => s !== (value as Session[])[i])) {
-      updates[key] = patched;
-    }
-  }
-  if (Object.keys(updates).length > 0) {
-    await chrome.storage.local.set(updates);
-  }
+  const list = await getProfiles();
+  let changed = false;
+  const patched = list.map(s => {
+    if (s.id !== sessionId) return s;
+    changed = true;
+    return { ...s, hue };
+  });
+  if (changed) await setProfiles(patched);
 }
 
 export async function deleteSessionData(sessionId: string): Promise<void> {

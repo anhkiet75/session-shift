@@ -1,14 +1,13 @@
 // context-menu-manager.ts — Context menu build/rebuild lifecycle.
 
-import { getAllSessions } from '../lib/session-store.js';
-import { invalidateBoundHostCache } from './session-manager.js';
+import { getProfiles } from '../lib/session-store.js';
 
 const CTX_PARENT_ID = 'ss-open-in-session';
 
 export async function setupContextMenu(): Promise<void> {
   try {
     await chrome.contextMenus.removeAll();
-    const sessions = await getAllSessions();
+    const sessions = await getProfiles();
     if (sessions.length === 0) return;
 
     chrome.contextMenus.create({
@@ -18,12 +17,10 @@ export async function setupContextMenu(): Promise<void> {
     });
 
     for (const session of sessions) {
-      let hostname: string;
-      try { hostname = new URL(session.origin!).hostname; } catch { hostname = session.origin ?? ''; }
       chrome.contextMenus.create({
         id: `ss-session-${session.id}`,
         parentId: CTX_PARENT_ID,
-        title: `${session.name} — ${hostname}`,
+        title: session.name,
         contexts: ['link'],
       });
     }
@@ -32,12 +29,11 @@ export async function setupContextMenu(): Promise<void> {
   }
 }
 
-// Rebuild context menu whenever session lists change in storage.
+// Rebuild context menu whenever the global profiles list changes in storage.
 export function registerStorageListener(): void {
   chrome.storage.onChanged.addListener((changes, area) => {
     if (area !== 'local') return;
-    if (Object.keys(changes).some(k => k.startsWith('list_'))) {
-      invalidateBoundHostCache();
+    if ('profiles' in changes) {
       setupContextMenu();
     }
   });

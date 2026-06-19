@@ -17,6 +17,10 @@ type BuildRuleOptions = {
   store: Record<string, CookieStoreEntry>
   serializeOpts: SerializeOptions
   resourceTypes: chrome.declarativeNetRequest.ResourceType[]
+  firstPartyDomain?: string | null
+  requestStripResourceTypes?: chrome.declarativeNetRequest.ResourceType[]
+  responseStripResourceTypes?: chrome.declarativeNetRequest.ResourceType[]
+  bridgeNavigationUrl?: string | null
 }
 
 function normalizeStoredDomain(domain: string | null | undefined, boundHost: string | null): string | null {
@@ -98,16 +102,47 @@ function buildCookieRuleScopes(store: Record<string, CookieStoreEntry>, boundHos
   );
 }
 
-function buildBaseCondition(
+// Bound-host-scoped condition: matches only requests to the session's eTLD+1.
+function boundHostCondition(
+  boundHost: string,
+  scheme: 'https' | 'http' | null,
+  resourceTypes: chrome.declarativeNetRequest.ResourceType[]
+): chrome.declarativeNetRequest.RuleCondition {
+  if (scheme) {
+    return { urlFilter: `|${scheme}://`, requestDomains: [getEtld1(boundHost)], resourceTypes };
+  }
+  return { requestDomains: [getEtld1(boundHost)], resourceTypes };
+}
+
+// Request-side `Cookie: remove` condition.
+// For global profiles this is tab-scoped, all schemes, no requestDomains. An
+// http/ws subresource in an https-bound tab must also be stripped or the default
+// jar leaks.
+function buildRequestStripCondition(
+  boundHost: string | null,
+  scheme: 'https' | 'http' | null,
+  resourceTypes: chrome.declarativeNetRequest.ResourceType[],
+  firstPartyDomain: string | null | undefined
+): chrome.declarativeNetRequest.RuleCondition {
+  if (!boundHost) {
+    void firstPartyDomain;
+    return { resourceTypes };
+  }
+  return boundHostCondition(boundHost, scheme, resourceTypes);
+}
+
+// Response-side `set-cookie: remove` condition. The caller controls resource
+// types because top-level navigation redirects need Chrome's jar write to happen
+// before the redirected request is sent.
+function buildResponseStripCondition(
   boundHost: string | null,
   scheme: 'https' | 'http' | null,
   resourceTypes: chrome.declarativeNetRequest.ResourceType[]
 ): chrome.declarativeNetRequest.RuleCondition {
-  if (boundHost && scheme) {
-    return { urlFilter: `|${scheme}://`, requestDomains: [getEtld1(boundHost)], resourceTypes };
+  if (!boundHost) {
+    return { resourceTypes };
   }
-  if (boundHost) return { requestDomains: [getEtld1(boundHost)], resourceTypes };
-  return { resourceTypes };
+  return boundHostCondition(boundHost, scheme, resourceTypes);
 }
 
 function buildCookieCondition(
@@ -128,22 +163,80 @@ function buildCookieCondition(
   return { requestDomains: [scope.host], resourceTypes };
 }
 
-export function buildDnrRulesForCookieStore(options: BuildRuleOptions): DNRRule[] {
-  const baseCondition = buildBaseCondition(options.boundHost, options.scheme, options.resourceTypes);
-  baseCondition.tabIds = [options.tabId];
-  const addRules: DNRRule[] = [{
-    id: options.ruleIds[0],
-    priority: 100,
-    action: {
-      type: 'modifyHeaders',
-      requestHeaders: [{ header: 'Cookie', operation: 'remove' }],
-      responseHeaders: [{ header: 'set-cookie', operation: 'remove' }],
-    },
-    condition: baseCondition,
-  }];
+function buildBridgeNavigationStripCondition(
+  bridgeNavigationUrl: string
+): chrome.declarativeNetRequest.RuleCondition | null {
+  try {
+    const url = new URL(bridgeNavigationUrl);
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
+    return {
+      regexFilter: exactHostRegexFilter(url.protocol === 'https:' ? 'https' : 'http', url.hostname, '/'),
+      resourceTypes: ['main_frame', 'sub_frame'],
+    };
+  } catch {
+    return null;
+  }
+}
 
-  for (const scope of buildCookieRuleScopes(options.store, options.boundHost)) {
-    if (addRules.length >= options.ruleIds.length) break;
+export function buildDnrRulesForCookieStore(options: BuildRuleOptions): DNRRule[] {
+  // Split the legacy combined rule so request and response sides can scope
+  // independently. Request-side stripping is tab-scoped for all subresources so
+  // the shared jar never competes with an isolated cookie on same-site fetches
+  // or later navigations; response-side stripping stays strict and the auth
+  // bridge handles the timing gap between capture and the next navigation.
+  const requestStripResourceTypes = options.requestStripResourceTypes ?? options.resourceTypes;
+  const requestCondition = buildRequestStripCondition(
+    options.boundHost, options.scheme, requestStripResourceTypes, options.firstPartyDomain);
+  requestCondition.tabIds = [options.tabId];
+  const strictResponseResourceTypes = options.responseStripResourceTypes ?? options.resourceTypes;
+
+  const addRules: DNRRule[] = [
+    {
+      id: options.ruleIds[0],
+      priority: 100,
+      action: { type: 'modifyHeaders', requestHeaders: [{ header: 'Cookie', operation: 'remove' }] },
+      condition: requestCondition,
+    },
+  ];
+
+  if (strictResponseResourceTypes.length > 0) {
+    const responseCondition = buildResponseStripCondition(
+      options.boundHost, options.scheme, strictResponseResourceTypes);
+    responseCondition.tabIds = [options.tabId];
+    addRules.push({
+      id: options.ruleIds[addRules.length],
+      priority: 100,
+      action: { type: 'modifyHeaders', responseHeaders: [{ header: 'set-cookie', operation: 'remove' }] },
+      condition: responseCondition,
+    });
+  }
+
+  if (options.bridgeNavigationUrl) {
+    const bridgeNavigationCondition = buildBridgeNavigationStripCondition(options.bridgeNavigationUrl);
+    if (bridgeNavigationCondition) {
+      bridgeNavigationCondition.tabIds = [options.tabId];
+      addRules.push({
+        id: options.ruleIds[addRules.length],
+        priority: 100,
+        action: { type: 'modifyHeaders', requestHeaders: [{ header: 'Cookie', operation: 'remove' }] },
+        condition: bridgeNavigationCondition,
+      });
+    }
+  }
+
+  const scopes = buildCookieRuleScopes(options.store, options.boundHost);
+  for (let i = 0; i < scopes.length; i++) {
+    const scope = scopes[i];
+    if (addRules.length >= options.ruleIds.length) {
+      // Budget exhausted: deeper-path scopes are dropped (shortest-path-first sort
+      // makes this safe — root rules survive). Surface it so a user hitting the cap
+      // can diagnose missing cookies on deep paths.
+      console.warn(
+        `[dnr] rule budget (${options.ruleIds.length}) exhausted for tab ${options.tabId}; ` +
+        `${scopes.length - i} cookie scope(s) dropped`,
+      );
+      break;
+    }
     const requestScheme = options.scheme ?? 'https';
     const requestUrl = `${requestScheme}://${scope.host}${scope.path}`;
     const cookieStr = serializeCookieHeader(options.store, { ...options.serializeOpts, requestUrl });

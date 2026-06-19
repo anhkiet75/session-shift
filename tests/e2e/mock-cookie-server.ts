@@ -12,6 +12,7 @@ export interface MockCookieServer {
  *
  * Routes:
  *   GET /set?name=value  → Set-Cookie header + 302 to /cookies
+ *   GET /set-resource?name=value  → Set-Cookie header + 204
  *   GET /cookies         → reflects cookies as JSON { cookies: { ... } }
  */
 export function startMockCookieServer(): MockCookieServer {
@@ -25,6 +26,11 @@ export function startMockCookieServer(): MockCookieServer {
       const cookies = [...url.searchParams].map(([n, v]) => `${n}=${v}; Path=/`)
       res.setHeader('Set-Cookie', cookies)
       res.writeHead(302, { Location: '/cookies' })
+      res.end()
+    } else if (url.pathname === '/set-resource') {
+      const cookies = [...url.searchParams].map(([n, v]) => `${n}=${v}; Path=/`)
+      res.setHeader('Set-Cookie', cookies)
+      res.writeHead(204)
       res.end()
     } else {
       const raw = req.headers.cookie ?? ''

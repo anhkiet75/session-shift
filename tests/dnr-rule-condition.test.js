@@ -1,21 +1,20 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { updateDNRRulesForTab } from '../background/dnr-manager.js'
 import { cookieKey } from '../lib/cookie-parser.js'
 
-async function setupBoundSession({ sessionId, tabId, origin, tabUrl, store = {} }) {
+async function setupProfile({ sessionId, tabId, tabUrl, store = {} }) {
   await chrome.storage.local.set({
-    [`list_${origin}`]: [{ id: sessionId, name: 'Test', hue: 212, origin }],
+    profiles: [{ id: sessionId, name: 'Test', hue: 212 }],
     [`cookies_${sessionId}`]: store,
   })
   chrome.tabs.get.mockResolvedValue({ id: tabId, url: tabUrl })
 }
 
 describe('updateDNRRulesForTab', () => {
-  it('uses eTLD+1 requestDomains plus scheme anchor for https-bound sessions', async () => {
-    await setupBoundSession({
+  it('base-strips Cookie and Set-Cookie for non-navigation resources', async () => {
+    await setupProfile({
       sessionId: 'session_google',
       tabId: 10,
-      origin: 'https://www.google.com',
       tabUrl: 'https://www.google.com/',
     })
 
@@ -23,40 +22,63 @@ describe('updateDNRRulesForTab', () => {
 
     expect(chrome.declarativeNetRequest.updateSessionRules).toHaveBeenCalledTimes(1)
     const [{ addRules }] = chrome.declarativeNetRequest.updateSessionRules.mock.calls[0]
-    expect(addRules[0].condition.requestDomains).toEqual(['google.com'])
-    expect(addRules[0].condition.urlFilter).toBe('|https://')
+    // addRules[0] = request-side Cookie strip, tab-scoped for subresources.
+    expect(addRules[0].action.requestHeaders[0]).toEqual({ header: 'Cookie', operation: 'remove' })
+    expect(addRules[0].condition.requestDomains).toBeUndefined()
+    expect(addRules[0].condition.urlFilter).toBeUndefined()
+    expect(addRules[0].condition.excludedRequestDomains).toBeUndefined()
+    expect(addRules[0].condition.resourceTypes).not.toContain('main_frame')
+    expect(addRules[0].condition.resourceTypes).not.toContain('sub_frame')
+    const responseRules = addRules.filter((rule) => rule.action.responseHeaders?.[0]?.header === 'set-cookie')
+    expect(responseRules.length).toBe(1)
+    const [strictResponseRule] = responseRules
+    expect(strictResponseRule.condition.excludedRequestDomains).toBeUndefined()
+    expect(strictResponseRule.condition.requestDomains).toBeUndefined()
+    expect(strictResponseRule.condition.urlFilter).toBeUndefined()
+    expect(strictResponseRule.condition.resourceTypes).not.toContain('main_frame')
+    expect(strictResponseRule.condition.resourceTypes).not.toContain('sub_frame')
   })
 
-  it('keeps scheme anchoring for http-bound sessions', async () => {
-    await setupBoundSession({
+  it('keeps base stripping subresource-only for an http profile too', async () => {
+    await setupProfile({
       sessionId: 'session_http',
       tabId: 11,
-      origin: 'http://www.google.com',
       tabUrl: 'http://www.google.com/',
     })
 
     await updateDNRRulesForTab(11, 'session_http')
 
     const [{ addRules }] = chrome.declarativeNetRequest.updateSessionRules.mock.calls.at(-1)
-    expect(addRules[0].condition.requestDomains).toEqual(['google.com'])
-    expect(addRules[0].condition.urlFilter).toBe('|http://')
+    // The http scheme is still derived from the tab URL for cookie SET rules
+    // (Secure exclusion), but base strips stay navigation-safe.
+    const responseRules = addRules.filter((rule) => rule.action.responseHeaders?.[0]?.header === 'set-cookie')
+    expect(addRules[0].condition.requestDomains).toBeUndefined()
+    expect(addRules[0].condition.excludedRequestDomains).toBeUndefined()
+    expect(responseRules.every((rule) => !rule.condition.excludedRequestDomains)).toBe(true)
+    expect(addRules[0].condition.resourceTypes).not.toContain('main_frame')
+    expect(responseRules.every((rule) => !rule.condition.resourceTypes.includes('main_frame'))).toBe(true)
   })
 
-  it('omits urlFilter when a snap session has no http(s) scheme but still scopes by registrable domain', async () => {
-    chrome.tabs.get.mockResolvedValue({ id: 12, url: 'chrome://settings/' })
+  it('strips same-site subresource cookies too while response-side stripping stays strict', async () => {
+    await setupProfile({
+      sessionId: 'session_github',
+      tabId: 12,
+      tabUrl: 'https://github.com/login',
+    })
 
-    await updateDNRRulesForTab(12, '_snap_12_www.google.com')
+    await updateDNRRulesForTab(12, 'session_github')
 
     const [{ addRules }] = chrome.declarativeNetRequest.updateSessionRules.mock.calls.at(-1)
-    expect(addRules[0].condition.requestDomains).toEqual(['google.com'])
-    expect(addRules[0].condition.urlFilter).toBeUndefined()
+    expect(addRules[0].condition.excludedRequestDomains).toBeUndefined()
+    const responseRules = addRules.filter((rule) => rule.action.responseHeaders?.[0]?.header === 'set-cookie')
+    expect(responseRules).toHaveLength(1)
+    expect(responseRules[0].condition.excludedRequestDomains).toBeUndefined()
   })
 
   it('creates host/path-specific cookie rules so sibling subdomains do not receive host-only cookies', async () => {
-    await setupBoundSession({
+    await setupProfile({
       sessionId: 'session_scoped',
       tabId: 13,
-      origin: 'https://www.google.com',
       tabUrl: 'https://www.google.com/',
       store: {
         [cookieKey('ROOT', '.google.com', '/')]: {
@@ -102,10 +124,9 @@ describe('updateDNRRulesForTab', () => {
   })
 
   it('allows ports on exact-host rules for localhost development origins', async () => {
-    await setupBoundSession({
+    await setupProfile({
       sessionId: 'session_localhost',
       tabId: 14,
-      origin: 'http://localhost:3000',
       tabUrl: 'http://localhost:3000/',
       store: {
         [cookieKey('user', 'localhost', '/')]: {

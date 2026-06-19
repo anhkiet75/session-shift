@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { parseSetCookie, serializeCookieHeader, parseCookieString, cookieKey } from '../lib/cookie-parser.js'
+import { parseSetCookie, serializeCookieHeader, parseCookieString, cookieKey, parseDocumentCookie, isValidCookieName, isValidCookieValue } from '../lib/cookie-parser.js'
 
 describe('parseSetCookie', () => {
   it('parses basic name=value with defaults from URL', () => {
@@ -307,6 +307,60 @@ describe('parseSetCookie — Domain validation (M5)', () => {
     const result = parseSetCookie('SID=val; Domain=.google.com', 'https://accounts.google.com/')
     expect(result).not.toBeNull()
     expect(result.domain).toBe('.google.com')
+  })
+})
+
+describe('parseDocumentCookie', () => {
+  const URL = 'https://app.example.com/sub/page'
+
+  it('parses name=value with default path from the request URL', () => {
+    const c = parseDocumentCookie('foo=bar', URL)
+    expect(c).toEqual({ name: 'foo', value: 'bar', path: '/sub', expires: null })
+  })
+
+  it('adopts a page-supplied Path', () => {
+    expect(parseDocumentCookie('foo=bar; Path=/admin', URL).path).toBe('/admin')
+  })
+
+  it('IGNORES a cousin/invalid Domain instead of dropping the cookie', () => {
+    // parseSetCookie returns null for a public-suffix domain; parseDocumentCookie must NOT.
+    const c = parseDocumentCookie('foo=bar; Domain=com', URL)
+    expect(c).not.toBeNull()
+    expect(c.name).toBe('foo')
+    expect(c).not.toHaveProperty('domain')
+  })
+
+  it('does not drop the cookie for a sibling Domain (no null-drop)', () => {
+    const c = parseDocumentCookie('foo=bar; Domain=.evil.com', URL)
+    expect(c).not.toBeNull()
+    expect(JSON.stringify(c)).not.toContain('evil')
+  })
+
+  it('Max-Age=0 yields expires:0 (deletion sentinel)', () => {
+    expect(parseDocumentCookie('foo=bar; Max-Age=0', URL).expires).toBe(0)
+  })
+
+  it('negative Max-Age yields expires:0', () => {
+    expect(parseDocumentCookie('foo=bar; Max-Age=-1', URL).expires).toBe(0)
+  })
+
+  it('returns null when there is no =', () => {
+    expect(parseDocumentCookie('novalue', URL)).toBeNull()
+  })
+})
+
+describe('cookie name/value validators', () => {
+  it('rejects CRLF and NUL in values', () => {
+    expect(isValidCookieValue('ok')).toBe(true)
+    expect(isValidCookieValue('a\r\nSet-Cookie: evil=1')).toBe(false)
+    expect(isValidCookieValue('a\u0000b')).toBe(false)
+  })
+
+  it('rejects empty/space/oversize names', () => {
+    expect(isValidCookieName('sid')).toBe(true)
+    expect(isValidCookieName('')).toBe(false)
+    expect(isValidCookieName('bad name')).toBe(false)
+    expect(isValidCookieName('a'.repeat(1025))).toBe(false)
   })
 })
 
