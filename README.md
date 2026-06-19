@@ -3,7 +3,7 @@
 A Chrome extension that gives each tab its own isolated session, letting you stay logged into multiple accounts on the same site simultaneously. A free, open-source alternative to SessionBox.
 
 **[Install from Chrome Web Store](https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp)**  
-**Current Version:** 0.5.0
+**Current Version:** 0.6.0
 
 ---
 
@@ -27,18 +27,17 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 
 ## Features
 
-- **Per-tab session isolation** — Cookies scoped to session, not browser profile
-- **Named sessions** — Create and switch between sessions with custom names
-- **All-sessions view** — Cross-origin list with search; switch from any site to any session
-- **Auto-assign rules** — Define rules like "github.com → Work session"; automatically applied on tab navigation
-- **Context menu integration** — Right-click any link → "Open in Session" to open with a specific session
-- **Badge indicator** — Toolbar badge shows active session at a glance (color-coded by session hue)
-- **Duplicate session** — Clone a session's cookies into a new session with one click
+- **Profile-based isolation** — Each profile is a global cookie container (like a Chrome profile); assign a tab to a profile and its cookies apply on every site that tab visits
+- **Named profiles** — Create and switch between profiles with custom names
+- **One global profile list** — A single searchable list; a profile created on one site is selectable on every site
+- **Context menu integration** — Right-click any link → "Open in Session" to open it in a specific profile
+- **Badge indicator** — Toolbar badge shows the active profile at a glance (color-coded by hue)
+- **Duplicate profile** — Clone a profile's cookies into a new profile with one click
 - **Tab color labels** — Session colors appear in toolbar badge for visual identification
 - **Persistent across restarts** — Session assignments survive service worker restarts
 - **Works on any site** — No per-site configuration; covers all URLs
 - **No external dependencies** — Vanilla JS, Manifest V3, no bundler
-- **Keyboard shortcuts** — `Ctrl+Shift+S` to open popup; `Ctrl+Shift+Right/Left` to cycle sessions (customizable in `chrome://extensions/shortcuts`)
+- **Keyboard shortcuts** — `Ctrl+Shift+S` to open popup; `Ctrl+Shift+Right/Left` to cycle profiles (customizable in `chrome://extensions/shortcuts`)
 - **Lazy DNR optimization** — Debounced DNR rule updates (50ms window) for high-frequency Set-Cookie responses
 - **WCAG 2.1 AA compliance** — Keyboard navigation, focus-visible rings, ARIA labels on all interactive elements, ≥4.5:1 contrast ratio
 - **Theme switcher** — Dark / Light / System preference in Options, plus a quick toggle in the popup hero (cycles Light → Dark → System on click)

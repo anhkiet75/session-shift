@@ -4,7 +4,87 @@ All significant changes to the SessionShift Chrome extension are documented here
 
 ---
 
+## v0.6.0 (In Progress)
+
+### 2026-06-20 — New Profile First-Navigation Cookie Leak Fix
+
+**Type:** Fix
+
+Creating a new profile via "New session" showed the default/old account's cookie on the first page load, because brand-new profiles have an empty cookie store, so no per-host DNR override rule existed yet to shadow the navigation-exemption that lets auth redirects through. The new tab's first navigation fell through to Chrome's native (shared) cookie jar.
+
+#### Cookie isolation
+- Added `stripCookiesOnNextNavigation()` (`src/background/dnr-manager.ts`), which forces a one-shot `Cookie: remove` DNR rule for `main_frame`/`sub_frame` on the new tab's exact host, self-clearing once that navigation completes. `createSessionTab` calls it before navigating the new tab to its first URL.
+- Added `clearBridgeNavigationStrip()` and wired it into `chrome.tabs.onRemoved` so a closed tab's pending strip entry can't leak into a reused tab id.
+- This fix is intentionally **not** applied to `setSession` (switching an already-open tab to a profile): that flow can race a same-navigation Set-Cookie + redirect (e.g. a login flow) against the async DNR rebuild, since MV3's non-blocking `webRequest` can't make Chrome wait for the rebuild before following the redirect. `tests/e2e/session-isolation.test.ts`'s `isolated navigation redirect carries Set-Cookie to redirected request` case caught this regression when the same approach was tried there.
+
+### 2026-06-19 — Auth Transition Bridge
+
+**Type:** Fix
+
+Plan: `plans/260619-2256-auth-transition-bridge`. Restores strict same-site subresource `Set-Cookie` stripping without breaking same-site auth fetch → immediate navigation.
+
+#### Cookie isolation
+- Added an auth transition bridge (`src/lib/auth-transition-bridge.ts`): `page-api-proxy.ts` wraps same-origin `fetch` with a bridge header; `dnr-manager.ts` captures `Set-Cookie`, rebuilds DNR, and signals completion back through `content.ts` before the wrapped fetch resolves. Fails open after a 2s timeout so pages never hang.
+- Restored strict response-side `Set-Cookie` stripping for **all** subresources, including same-site ones — the previous same-site passthrough exemption is removed. The default/global jar no longer receives same-site auth cookies from isolated tabs.
+- `tests/e2e/session-isolation.test.ts` case `isolated same-site auth fetch can set cookie before immediate navigation` now passes under strict stripping via the bridge instead of a jar passthrough.
+
+### 2026-06-19 — Navigation Login Redirect Fix
+
+**Type:** Fix
+
+#### Cookie isolation
+- Base DNR stripping now exempts **navigation only**. GitHub-style auth flows can still set `_gh_sess` on a redirect and continue to 2FA without waiting for async DNR rebuilds.
+- Request-side `Cookie` stripping still excludes the active top-level site's eTLD+1 so same-site auth fetch/XHR can proceed, while response-side subresource `Set-Cookie` is always stripped to avoid polluting Chrome's shared jar.
+- Captured `Set-Cookie` responses now rebuild DNR immediately instead of waiting for the 50ms debounce; added focused regression coverage for navigation redirects, same-site auth fetch → immediate navigation, and third-party subresource jar-pollution protection.
+- Removed the ineffective `settings_stripAllThirdPartyCookies` kill switch and its Options toggle. In the global-profile model it could not change runtime behavior because profiles have no `boundHost` fallback path.
+
+### 2026-06-19 — Profile-Based Session Model
+
+**Type:** Feature / Refactor
+
+Plan: `plans/260619-1902-profile-based-session-model`. Replaces per-origin sessions with global profile containers. 168 unit tests pass; type-check + build clean.
+
+#### Data model
+- **Single `profiles` storage key** replaces N per-origin `list_${origin}` keys. A profile is `{ id, name, hue }` — the `origin` field is dropped. Cookie stores (`cookies_${id}`) were already global and are unchanged.
+- `lib/session-store.ts`: `getSessionList`/`setSessionList` → `getProfiles`/`setProfiles`; `getAllSessions` is now an alias of `getProfiles`; `duplicateSession(id)` and `updateSessionHue` operate on the single list (duplicate keeps the list-then-store ordering for orphan-GC safety).
+
+#### Global profiles (cookies span all sites)
+- A profile created on site A is selectable/switchable on site B — `setSession` validates the id against the global list, not a per-origin one.
+- Regular profiles have no bound host, so request-side DNR stripping covers cross-site subresource `Cookie` traffic tab-wide while excluding the active top-level site's eTLD+1. Response-side `Set-Cookie` stripping applies to all subresources, including same-site ones, and only navigations are exempt. DNR scheme is derived from the current tab URL; Secure cookies are sent only on an explicitly-https tab (fail-closed otherwise).
+- Removed the dead bound-host machinery (`getSessionBoundHost`, `getSessionBoundOrigin`, `invalidateBoundHostCache`, `boundHostCache`, `hostMatches`).
+
+#### Migration (auto, on upgrade)
+- `lib/profile-migration.ts` `migrateToProfiles()` folds every legacy `list_*` entry into `profiles` (deduped by id, `origin` stripped), deletes the old keys, leaves cookie stores intact. Idempotent; wired to `chrome.runtime.onInstalled`. Same-named sessions from different origins remain distinct profiles (separate jars) — no merge by name.
+
+#### Popup
+- Collapsed the "This site" / "All sessions" tabs into a **single searchable profile list**. Switching applies to the current tab. Replaced `popup-render-origin-list.ts` + `popup-render-global-list.ts` with one `popup-render-profile-list.ts`.
+
+> Note: `docs/codebase-summary.md` still references a removed "auto-assign rules" subsystem (`auto-assign-handler.ts`, `rule-matcher.ts`, `getAssignRules`) that no longer exists in `src/`. This is pre-existing drift unrelated to this change and is flagged for a separate docs refresh.
+
 ## v0.5.0 (In Progress)
+
+### 2026-06-14 — Isolation Hardening (P1 + P2 + P4)
+
+**Type:** Fix / Security / Housekeeping
+
+Plan: `plans/260614-1726-isolation-hardening-p1-p2-p4`. Closes page-API isolation leaks flagged in `docs/enhancement-recommendations.md`. 161 unit + 17 e2e tests pass.
+
+#### Page-API isolation (P1)
+- **`window.cookieStore` proxy** (`page-api-proxy.ts`): get/getAll/set/delete resolve against the session cookie map and route writes through the nonce-authenticated `updateCookie` path — never the real jar. `onchange` intentionally unsupported. Secure-context guarded.
+- **`document.cookie` attributes**: the setter forwards the full cookie string (`setCookieStr`) so `Path`/`Max-Age`/`Expires` persist. New `parseDocumentCookie()` parses document.cookie grammar (ignores `Domain`, never null-drops). Background **host-pins the domain** to the document host — a page-supplied `Domain=` can no longer widen the stored cookie's scope (cookie-injection guard). Background re-validates name/value (rejects CRLF/oversize) since the nonce is defense-in-depth only.
+- **Storage proxy identity**: `localStorage`/`sessionStorage` are cached singletons with `Storage.prototype` so `===` and `instanceof Storage` hold. `storage` events are remapped (prefix stripped, other-session writes swallowed, `storageArea` points at the singleton) via a `Symbol.for` sentinel + microtask re-dispatch. Direct/bracket property access remains a documented limitation.
+- **`indexedDB.databases()`** and **`caches.match()`** are now proxied (prefix-filtered/scoped) so cross-session DB names and cache hits don't leak.
+
+#### CWS review surface (P2)
+- Removed the unused `cookies` permission from the manifest (verified zero `chrome.cookies` usage).
+
+#### Third-party cookie strip (P4, gated)
+- Split the base DNR rule: the request-side `Cookie: remove` is **widened** for cross-site subresources (all schemes incl. http/ws, tab-scoped, excluding the active top-level site's eTLD+1) so third-party subresources stop leaking the default jar; the response-side `set-cookie: remove` uses the same cross-site subresource scope so same-site SSO/payment/login steps keep their own `Set-Cookie`.
+- Added a runtime **kill switch** (`settings_stripAllThirdPartyCookies`, options-toggleable) that reverts request-side stripping to bound-host scope without a CWS release.
+- **Manual follow-up:** SSO/CDN breakage eval against real providers before relying on strip-all in production.
+
+#### Housekeeping (P4)
+- Added `chrome.alarms`-driven storage GC (`storage-gc.ts`): expired-cookie purge (compare-and-retry, predicate excludes session/tombstone entries) on startup + alarm; orphaned-store purge (two-run confirmation, alarm-only). `duplicateSession` now writes list-then-store so GC can't collect a live new session. DNR rule-budget exhaustion now logs a warning. Added `alarms` permission.
 
 ### 2026-06-02 — Remove Snapshot Protection (Superseded by Set-Cookie Strip)
 

@@ -87,33 +87,16 @@ background.js parses and stores in session A's cookie store (chrome.storage.loca
 Next request from Tab 1 uses updated DNR rule with new_cookie included
 ```
 
-### DNR Debounce Strategy
+### DNR Rebuild Strategy
 
-v0.4.0 introduces lazy debouncing to reduce DNR rule thrashing during cookie cascades:
+Captured `Set-Cookie` responses rebuild DNR immediately:
 
 ```javascript
-// background.js
-const dnrDebounceTimers = new Map(); // tabId → timer handle
-
-function scheduleDNRUpdate(tabId, sessionId) {
-  const existing = dnrDebounceTimers.get(tabId);
-  if (existing) clearTimeout(existing); // Cancel pending update
-  
-  dnrDebounceTimers.set(tabId, setTimeout(async () => {
-    dnrDebounceTimers.delete(tabId);
-    await updateDNRRulesForTab(tabId, sessionId); // Apply batched update
-  }, 50)); // 50ms per-tab timer
-}
-
-// Called from updateCookie handler (batched)
-scheduleDNRUpdate(tabId, sessionId);
-
-// Called from setSession handler (immediate, no debounce)
-clearImmediate(dnrDebounceTimers.get(tabId));
+await setCookieStore(sessionId, store);
 await updateDNRRulesForTab(tabId, sessionId);
 ```
 
-**Why:** Server responses may include multiple Set-Cookie headers in quick succession. Instead of regenerating the DNR rule on each cookie, we batch them into a single 50ms window per tab. Explicit session switches bypass the timer and apply immediately.
+**Why:** Auth flows can set a cookie from a navigation, fetch, or XHR response and immediately issue the next request. Delaying DNR publication can make that next request miss the newly captured profile cookie.
 
 ### DNR Rule Structure
 
@@ -154,9 +137,9 @@ await chrome.declarativeNetRequest.updateSessionRules({
 | Property | Value | Why |
 |----------|-------|-----|
 | **Scope** | session-scoped | Cleared on service worker restart (OK; we reapply on next action) |
-| **Matching** | tabIds + eTLD+1 base rule + host/path cookie rules | One tab, registrable-domain response stripping, request-accurate cookie injection |
-| **Scheme guard** | `urlFilter: '|https://'` or `|http://` | Prevents HTTPS-bound sessions from leaking cookies on HTTP downgrades |
-| **Header operation** | base 'remove', scoped 'set' | Strips global cookies first, then injects only matching isolated cookies |
+| **Matching** | tabIds + split base rules + host/path cookie rules | One tab; base Cookie/Set-Cookie stripping covers cross-site subresources, then request-accurate cookie injection covers stored isolated cookies |
+| **Scheme guard** | scoped `set` rules use `urlFilter: '|https://'` / `|http://'`; base subresource stripping matches all schemes | Per-host cookie injection respects the scheme boundary; subresource stripping also catches http/ws requests |
+| **Header operation** | two base rules for cross-site subresources: request `Cookie: remove` + response `set-cookie: remove`; scoped 'set' | Strips global cookies from third-party subresources, then injects matching isolated cookies; navigation and same-site auth requests can still carry freshly set login cookies |
 | **Priority** | 100 base, higher for longer paths/exact hosts | Browser-like path ordering and host-only precedence |
 
 ### Registrable-Domain Scoping (PSL)
@@ -165,10 +148,22 @@ v0.5.0 widens the response-stripping match from exact host to registrable domain
 
 - `src/lib/public-suffix-data.ts` is a committed ICANN + private PSL snapshot
 - `src/lib/public-suffix.ts` resolves `getEtld1(host)` and `isPublicSuffix(domain)`
-- `updateDNRRulesForTab()` adds a base `requestDomains:[getEtld1(boundHost)]` rule to strip global cookies and Set-Cookie writes
+- `updateDNRRulesForTab()` adds two base rules for **cross-site subresource** traffic: a request-side `Cookie: remove` and a response-side `set-cookie: remove`
 - `src/background/dnr-cookie-rule-builder.ts` adds higher-priority host/path-specific rules that call `serializeCookieHeader(..., { requestUrl })`
 
 This fixes multi-subdomain login flows such as `www.google.com` → `accounts.google.com` while keeping host-only and path-scoped cookies from leaking to sibling subdomains or unrelated paths.
+
+**Third-party Cookie strip:** the request-side `Cookie: remove` is widened to match cross-site subresources/iframes in the tab (every scheme, excluding the active top-level site's eTLD+1) so they stop sending the user's default-jar cookies to third parties. Navigation requests are excluded so login redirects can carry freshly set cookies before async DNR rebuilds complete. The response-side `set-cookie: remove` applies to all subresources, including same-site ones, so isolated tabs never write auth cookies into Chrome's shared jar — same-site fetch/XHR auth responses get strict response stripping with no jar passthrough.
+
+### Auth Transition Bridge
+
+Strict response-side `Set-Cookie` stripping on same-site subresources removes the shared-jar fallback that auth flows like `await fetch('/login'); location.href = '/dashboard'` used to rely on. The bridge (`src/lib/auth-transition-bridge.ts`) closes that gap without reopening the jar:
+
+1. `src/page-api-proxy.ts` wraps `window.fetch` in the MAIN world. Eligible requests (same-origin, `http`/`https`) get a unique `X-SessionShift-Bridge` header and the wrapped fetch does not resolve until a completion signal arrives or `AUTH_BRIDGE_TIMEOUT_MS` (2s) elapses — fail-open by design.
+2. `src/background/dnr-manager.ts` maps the bridge header to the originating `requestId`/`tabId`/`frameId` on `onBeforeSendHeaders`. On `onHeadersReceived`, it captures any `Set-Cookie`, calls `updateDNRRulesForTab()`, then sends `bridgeCookieSyncDone` to the tab so the page only resumes after isolated cookies are live in DNR. If no `Set-Cookie` arrives, `onCompleted`/`onErrorOccurred` resolve the bridge after a short settle delay (`AUTH_BRIDGE_DNR_SETTLE_MS`) instead of leaving it pending.
+3. `src/content.ts` relays `bridgeCookieSyncDone` from the service worker into the page's nonce-authenticated message channel.
+
+This is fetch-only; XHR is an explicit follow-up rather than bridged today. The page-side constants are duplicated in `page-api-proxy.ts` (rather than imported) because that file is injected as a standalone MAIN-world script with no module imports.
 
 ### Limitations
 
@@ -376,12 +371,22 @@ Cookies must persist across service worker restarts. DNR rules don't persist, so
     }
   },
   "cookies_session_def456gh": { ... },
-  "list_https://github.com": [
+  "profiles": [
     { id: "session_abc123de", name: "Work", hue: 212 },
     { id: "session_def456gh", name: "Personal", hue: 158 }
   ]
 }
 ```
+
+**Profile model (v0.6.0+):** Sessions are **global profile containers** — a single `profiles`
+key holds every profile `{ id, name, hue }` (no `origin`). A profile's cookie jar
+(`cookies_${id}`, already global) applies on every site a tab assigned to it visits.
+This replaced the former per-origin `list_${origin}` keys; `migrateToProfiles()`
+(`lib/profile-migration.ts`) folds legacy `list_*` entries into `profiles` on
+`onInstalled` (deduped by id, idempotent). Profiles have no bound host, so the DNR
+rules base-strip `Cookie` and `Set-Cookie` for cross-site subresource traffic.
+DNR scheme is taken from the current tab URL, and Secure cookies are emitted only
+for an explicitly-https tab.
 
 Cookie entries are keyed by `cookieKey(name, domain, path)`, not just by cookie name. This lets same-name cookies from sibling subdomains coexist in one isolated session and preserves browser-like Cookie-header ordering by longest path first. Network serialization also filters by request URL before building the Cookie header.
 
@@ -706,14 +711,8 @@ surface the isolated session instead of the original profile.
 
 **Why important:**
 Stripping the outbound header at the source removes the contamination vector entirely, so
-default-session tabs no longer need to be defensively converted into frozen snapshots.
-
-### Legacy `_snap_` Sessions
-Earlier versions protected default tabs by snapshotting them into hidden `_snap_${tabId}_${host}`
-sessions (`protectDefaultTabsOnHost`). That function has been removed — the Set-Cookie strip
-supersedes it. The `_snap_` handling paths in `dnr-manager.ts` / `message-handler.ts` are
-retained only for backward-compat with snapshots persisted by older versions; nothing creates
-new `_snap_` sessions. They remain hidden from badge and popup.
+default-session tabs no longer need to be defensively converted into frozen snapshots. The
+former `_snap_` snapshot machinery and all its handling paths have been removed.
 
 ---
 
