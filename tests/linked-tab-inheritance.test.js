@@ -12,14 +12,13 @@ describe('registerLinkedTabInheritance', () => {
     for (const key of Object.keys(tabSessions)) delete tabSessions[key]
   })
 
-  it('setting off: does nothing even when opener is on a profile', async () => {
+  it('no settings saved (default on): still inherits', async () => {
     tabSessions[1] = 'session_work'
     const onCreatedNavigationTarget = register()
 
     await onCreatedNavigationTarget({ sourceTabId: 1, tabId: 2, url: 'https://example.com/' })
 
-    expect(tabSessions[2]).toBeUndefined()
-    expect(chrome.declarativeNetRequest.updateSessionRules).not.toHaveBeenCalled()
+    expect(tabSessions[2]).toBe('session_work')
   })
 
   it('setting explicitly false: does nothing even when opener is on a profile', async () => {

@@ -81,7 +81,7 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 #### background/linked-tab-inheritance.ts (~35 LOC, v0.6.0+)
 **Responsibilities:**
 - Listens for `chrome.webNavigation.onCreatedNavigationTarget` (link-opened tabs)
-- Auto-inherits opener's profile if setting `autoInheritProfileForLinkedTabs` is enabled
+- Auto-inherits opener's profile unless setting `autoInheritProfileForLinkedTabs` is explicitly `false` (default: on)
 - Filters out internal sessions and already-assigned tabs
 - Installs cookie-strip DNR rule for first navigation to avoid first-request cookie leak
 
@@ -192,8 +192,8 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 **Usage:**
 ```typescript
 const settings = await getExtSettings();
-if (settings.autoInheritProfileForLinkedTabs) {
-  // enable feature
+if (settings.autoInheritProfileForLinkedTabs === false) {
+  // user explicitly opted out; feature is on by default otherwise
 }
 ```
 

@@ -26,10 +26,10 @@ All significant changes to the SessionShift Chrome extension are documented here
 
 #### Changes
 
-- Added opt-in "Auto-open linked tabs in the same profile" toggle to Options → Settings (default: off)
+- Added "Auto-open linked tabs in the same profile" toggle to Options → Settings (default: **on**; opt-out, not opt-in — an explicit `false` disables it)
 - New background module (`src/background/linked-tab-inheritance.ts`) listens for `chrome.webNavigation.onCreatedNavigationTarget` to detect tabs opened via `target="_blank"`, Ctrl+Click, middle-click
 - Automatically assigns new tab to opener's profile if:
-  - Setting `autoInheritProfileForLinkedTabs` is enabled
+  - Setting `autoInheritProfileForLinkedTabs` is not explicitly `false`
   - Opener has a non-internal profile assigned
   - New tab not already assigned
 - Added `webNavigation` permission to manifest (required to detect link-opened tabs synchronously with URL)
@@ -51,7 +51,7 @@ All significant changes to the SessionShift Chrome extension are documented here
 - Added e2e test: `tests/e2e/linked-tab-profile-inheritance.test.ts`
 
 #### Backward Compatibility
-Feature is opt-in and off by default. No breaking changes.
+Feature is on by default (opt-out). Existing users with no `autoInheritProfileForLinkedTabs` value stored get the new behavior automatically; they can disable it via the toggle if they prefer the old default-jar behavior for linked tabs.
 
 ---
 

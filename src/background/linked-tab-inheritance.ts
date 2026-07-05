@@ -1,4 +1,6 @@
-// linked-tab-inheritance.ts — Opt-in: new tabs opened from a link inherit the opener's profile.
+// linked-tab-inheritance.ts — Opt-out: new tabs opened from a link inherit the opener's profile.
+// Default on — `autoInheritProfileForLinkedTabs === false` is the only way to disable it;
+// absent/undefined (e.g. pre-existing users, freshly-installed extension) means enabled.
 
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js'
 import { updateDNRRulesForTab, stripCookiesOnNextNavigation } from './dnr-manager.js'
@@ -18,7 +20,7 @@ export function registerLinkedTabInheritance(restored: Promise<void>): void {
     if (tabSessions[tabId] !== undefined) return // already assigned; don't clobber
 
     const settings = await getExtSettings()
-    if (!settings.autoInheritProfileForLinkedTabs) return
+    if (settings.autoInheritProfileForLinkedTabs === false) return
 
     const openerSessionId = tabSessions[sourceTabId]
     if (!openerSessionId || isInternalSession(openerSessionId)) return

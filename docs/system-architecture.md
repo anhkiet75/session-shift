@@ -124,10 +124,10 @@ New tab inherits Work profile's cookies
 **First-request cookie leak (known limitation):**
 The very first network request from a newly-linked tab may not be hard-guaranteed cookie-clean because Chrome starts navigating the link-opened tab in a single browser-driven step the extension can't delay (unlike `createSessionTab`, which creates the tab as about:blank, installs DNR rules, then triggers navigation — fully controlling timing). Isolation is deterministic from the second request onward. This mirrors the existing behavior of `createSessionTab` itself.
 
-**Opt-in via toggle:**
-- Default: Off (backward compatible)
-- User enables via Options → Settings → "Auto-open linked tabs in the same profile"
-- Persisted in `chrome.storage.local` as `ext_settings.autoInheritProfileForLinkedTabs`
+**Opt-out via toggle:**
+- Default: On
+- User disables via Options → Settings → "Auto-open linked tabs in the same profile"
+- Persisted in `chrome.storage.local` as `ext_settings.autoInheritProfileForLinkedTabs`; only an explicit `false` disables it — absent/`undefined` (pre-existing users, fresh installs) means enabled
 
 ---
 

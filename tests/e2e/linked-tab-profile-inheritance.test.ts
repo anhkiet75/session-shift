@@ -20,18 +20,11 @@ async function openLinkInNewTab(context: import('@playwright/test').BrowserConte
 }
 
 test.describe('Linked tab profile inheritance', () => {
-  test('setting ON: a tab opened from a link inherits the opener profile, not the default jar', async ({
+  test('default (no toggle interaction): a tab opened from a link inherits the opener profile, not the default jar', async ({
     context, extensionId, mockServerUrl,
   }) => {
     const origin = mockServerUrl
     const sessionId = `session_e2e_linked_on_${Date.now()}`
-
-    // Enable the opt-in setting.
-    const options = await context.newPage()
-    await options.goto(`chrome-extension://${extensionId}/options/options.html`)
-    await options.click('#tab-settings')
-    await options.click('#autoInheritToggle')
-    await options.close()
 
     const helperPage = await context.newPage()
     await helperPage.goto(`chrome-extension://${extensionId}/popup/popup.html`)
@@ -98,11 +91,18 @@ test.describe('Linked tab profile inheritance', () => {
     expect(fetchResult.cookies.user).toBeUndefined()
   })
 
-  test('setting OFF (default): a tab opened from a link stays on the default jar', async ({
+  test('toggled OFF: a tab opened from a link stays on the default jar', async ({
     context, extensionId, mockServerUrl,
   }) => {
     const origin = mockServerUrl
     const sessionId = `session_e2e_linked_off_${Date.now()}`
+
+    // Explicitly opt out — the setting is on by default.
+    const options = await context.newPage()
+    await options.goto(`chrome-extension://${extensionId}/options/options.html`)
+    await options.click('#tab-settings')
+    await options.click('#autoInheritToggle')
+    await options.close()
 
     const helperPage = await context.newPage()
     await helperPage.goto(`chrome-extension://${extensionId}/popup/popup.html`)

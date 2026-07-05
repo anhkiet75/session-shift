@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   const autoInheritToggle = document.getElementById('autoInheritToggle') as HTMLInputElement
-  autoInheritToggle.checked = !!settings.autoInheritProfileForLinkedTabs
+  autoInheritToggle.checked = settings.autoInheritProfileForLinkedTabs !== false
   autoInheritToggle.addEventListener('change', async () => {
     const s = await getExtSettings()
     await setExtSettings({ ...s, autoInheritProfileForLinkedTabs: autoInheritToggle.checked })
