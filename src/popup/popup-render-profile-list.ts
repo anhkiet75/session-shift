@@ -8,12 +8,14 @@ import { getSavedSessions, setSavedSessions } from './popup-session-storage.js';
 import { buildColorDot } from './popup-color-picker.js';
 import { startRename } from './popup-rename-handler.js';
 import { startDeleteConfirm, cancelActiveConfirm } from './popup-delete-handler.js';
+import { attachOpenInTabMenu } from './popup-open-in-tab-menu.js';
 
 export function renderSessionList(
   container: HTMLElement,
   sessions: PopupSession[],
   currentSessionId: string,
   tabId: number,
+  currentUrl: string,
   query = ''
 ): void {
   cancelActiveConfirm();
@@ -109,7 +111,7 @@ export function renderSessionList(
       dupBtn.disabled = true;
       await chrome.runtime.sendMessage({ action: 'duplicateSession', payload: { sessionId: session.id } });
       const fresh = await getSavedSessions();
-      renderSessionList(container, fresh, currentSessionId, tabId, query);
+      renderSessionList(container, fresh, currentSessionId, tabId, currentUrl, query);
     });
 
     const renameBtn = document.createElement('button');
@@ -156,6 +158,7 @@ export function renderSessionList(
     card.appendChild(mark);
     card.appendChild(body);
     card.appendChild(actions);
+    attachOpenInTabMenu(card, session, () => currentUrl);
 
     if (!isActive) {
       card.addEventListener('click', () => {

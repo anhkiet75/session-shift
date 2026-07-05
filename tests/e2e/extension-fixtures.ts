@@ -94,10 +94,13 @@ export const test = base.extend<ExtensionFixtures>({
 
       // 3. Suppress createSessionTab — prevents a background tab from opening during tests.
       const originalSendMessage = cr.runtime.sendMessage.bind(cr.runtime)
-      cr.runtime.sendMessage = async (message: { action?: string }) => {
-        if (message?.action === 'createSessionTab') return
-        return originalSendMessage(message)
-      }
+      Object.defineProperty(cr.runtime, 'sendMessage', {
+        configurable: true,
+        value: async (message: { action?: string }) => {
+          if (message?.action === 'createSessionTab') return
+          return originalSendMessage(message)
+        },
+      })
     }, { fakeUrl: `${mockServerUrl}/cookies` })
 
     await page.goto(popupUrl)

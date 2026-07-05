@@ -13,6 +13,22 @@ async function createSession(page: import('@playwright/test').Page, name: string
   await expect(page.locator('.v2-card-name', { hasText: name })).toBeVisible({ timeout: 10_000 })
 }
 
+async function seedSession(page: import('@playwright/test').Page, name: string, extraNames: string[] = []) {
+  await page.evaluate(async (profileName) => {
+    const names = [profileName.name, ...profileName.extraNames]
+    await chrome.storage.local.set({
+      profiles: names.map((name, index) => ({
+        id: `session_${name.toLowerCase()}`,
+        name,
+        hue: index === 0 ? 212 : 30,
+      })),
+    })
+  }, { name, extraNames })
+  await page.reload()
+  await page.waitForSelector('#btnNewSession', { state: 'visible', timeout: 10_000 })
+  await expect(page.locator('.v2-card-name', { hasText: name })).toBeVisible({ timeout: 10_000 })
+}
+
 test.describe('Session CRUD', () => {
   test('create a session via popup', async ({ popupPage }) => {
     await createSession(popupPage, 'Work')
@@ -58,8 +74,11 @@ test.describe('Session CRUD', () => {
           : orig(q)
       window.close = () => window.location.reload()
       const origSend = cr.runtime.sendMessage.bind(cr.runtime)
-      cr.runtime.sendMessage = async (msg: { action?: string }) =>
-        msg?.action === 'createSessionTab' ? undefined : origSend(msg)
+      Object.defineProperty(cr.runtime, 'sendMessage', {
+        configurable: true,
+        value: async (msg: { action?: string }) =>
+          msg?.action === 'createSessionTab' ? undefined : origSend(msg),
+      })
     }, { tabId: realTabId, url: fakeUrl })
     await page.goto(popupUrl)
     await page.waitForSelector('#btnNewSession', { state: 'visible' })
@@ -81,20 +100,22 @@ test.describe('Session CRUD', () => {
   })
 
   test('delete session removes it from list', async ({ popupPage }) => {
-    await createSession(popupPage, 'ToDelete')
+    await seedSession(popupPage, 'ToDelete', ['Keep'])
 
     // Delete now uses an inline confirm UI — click the card delete button, then confirm.
-    await popupPage.locator('[aria-label="Delete session ToDelete"]').click()
+    await popupPage.locator('.v2-card', { hasText: 'ToDelete' }).hover()
+    await popupPage.locator('[aria-label="Delete profile ToDelete"]').click()
     await popupPage.locator('.v2-card-del-confirm').click()
 
     await expect(popupPage.locator('.v2-card-name', { hasText: 'ToDelete' })).not.toBeVisible()
   })
 
   test('duplicate session creates a copy', async ({ popupPage }) => {
-    await createSession(popupPage, 'Original')
+    await seedSession(popupPage, 'Original')
     const countBefore = await popupPage.locator('.v2-card').count()
 
-    await popupPage.locator('[aria-label="Duplicate session Original"]').click()
+    await popupPage.locator('.v2-card', { hasText: 'Original' }).hover()
+    await popupPage.locator('[aria-label="Duplicate profile Original"]').click()
     await expect(popupPage.locator('.v2-card')).toHaveCount(countBefore + 1)
   })
 })

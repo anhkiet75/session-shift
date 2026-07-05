@@ -4,8 +4,8 @@
 
 ## Current Status
 
-**Latest Release:** v0.4.0 (2026-05-04)  
-**Status:** Stable, feature-complete for Phase 4  
+**Latest Release:** v0.6.0 (in progress)  
+**Status:** Active hardening and profile UX work  
 **Repository:** https://github.com/anhkiet75/session-shift  
 **Chrome Web Store:** https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp
 
@@ -20,6 +20,7 @@
 | **3** | UX Polish | v0.3.0 | ✅ Shipped | 2026-03 | Session colors, export/import, duplication, settings page |
 | **4** | Advanced Features | v0.4.0 | ✅ Shipped | 2026-05-04 | Keyboard shortcuts, lazy DNR debounce, test coverage, WCAG 2.1 AA |
 | **5** | Infrastructure & Sync | v0.5.0 | 🟡 In Progress | TBD | TypeScript + modularization (done), IndexedDB migration, cross-device sync, privacy audit |
+| **6** | Profile Model Hardening | v0.6.0 | 🟡 In Progress | TBD | Global profile model, auth transition bridge, first-navigation strip, popup profile open-in-tab |
 
 ---
 

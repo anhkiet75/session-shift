@@ -185,6 +185,8 @@ export async function handleMessage(
         return { error: 'invalid payload' };
       }
       if (!/^https?:/.test(url)) return { error: 'invalid url scheme' };
+      const list = await getProfiles();
+      if (!list.find(s => s.id === sessionId)) return { error: 'unknown session' };
       const newTab = await chrome.tabs.create({ url: 'about:blank', active: true });
       if (newTab.id === undefined) return { error: 'tab creation failed' };
       tabSessions[newTab.id] = sessionId;

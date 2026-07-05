@@ -6,6 +6,20 @@ All significant changes to the SessionShift Chrome extension are documented here
 
 ## v0.6.0 (In Progress)
 
+### 2026-07-05 — Popup Profile Right-Click Open in New Tab
+
+**Type:** Feature / Test
+
+#### Popup profiles
+- Added a custom right-click menu on popup profile cards with "Open in new tab".
+- The action opens the current tab URL in the selected profile session through the existing `createSessionTab` background path, preserving first-navigation cookie stripping.
+- Hardened `createSessionTab` so forged or stale profile ids return `{ error: 'unknown session' }` before any tab is created.
+
+#### Test coverage
+- Added unit coverage for invalid `createSessionTab` profile ids.
+- Added Playwright coverage for no default-cookie leakage on the opened profile tab and for multiple tabs sharing the selected profile's cookie store.
+- Updated stale popup e2e selectors/fixtures to match the current single global profile-list UI.
+
 ### 2026-06-20 — New Profile First-Navigation Cookie Leak Fix
 
 **Type:** Fix

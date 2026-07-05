@@ -91,6 +91,18 @@ describe('duplicateSession via handleMessage', () => {
 })
 
 describe('createSessionTab — new profile must not leak the default jar cookie', () => {
+  it('rejects unknown session ids before creating a tab', async () => {
+    await chrome.storage.local.set({ profiles: [{ id: 'session_known', name: 'Known', hue: 0 }] })
+
+    const result = await handleMessage(
+      { action: 'createSessionTab', payload: { url: 'https://example.com/dashboard', sessionId: 'session_does_not_exist' } },
+      SENDER
+    )
+
+    expect(result).toEqual({ error: 'unknown session' })
+    expect(chrome.tabs.create).not.toHaveBeenCalled()
+  })
+
   it('strips Cookie on the first navigation, then clears the strip once that navigation completes', async () => {
     await chrome.storage.local.set({ profiles: [{ id: 'session_new1', name: 'New', hue: 0 }] })
     chrome.tabs.create.mockResolvedValue({ id: 401 })

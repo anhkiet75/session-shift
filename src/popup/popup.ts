@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   const currentTab = await getCurrentTab();
 
-  if (!currentTab.url || currentTab.url.startsWith('chrome://') || currentTab.url.startsWith('chrome-extension://') || currentTab.url.startsWith('about:')) {
+  if (!currentTab.url || !/^https?:/.test(currentTab.url)) {
     const msg = document.createElement('div');
     msg.style.cssText = 'padding:24px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--text-muted);';
     msg.textContent = 'Cannot isolate this page.';
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const searchInput = document.getElementById('searchInput') as HTMLInputElement;
 
   function renderList(): void {
-    renderSessionList(savedList, saved, currentSessionId, currentTab.id!, searchQuery);
+    renderSessionList(savedList, saved, currentSessionId, currentTab.id!, currentTab.url!, searchQuery);
   }
 
   renderList();
