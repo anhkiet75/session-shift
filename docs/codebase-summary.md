@@ -8,15 +8,15 @@
 | **background/session-manager.ts** | 93 | In-memory tabSessions map, badge generation, icon creation via OffscreenCanvas |
 | **background/dnr-manager.ts** | 148 | DNR rule management; Set-Cookie capture into session store + jar-pollution strip on isolated tabs |
 | **background/context-menu-manager.ts** | 40 | Context menu creation and cleanup lifecycle |
-| **background/auto-assign-handler.ts** | 27 | Auto-assign navigation logic on chrome.webNavigation.onBeforeNavigate |
+| **background/linked-tab-inheritance.ts** | 35 | Listen for link-opened tabs; auto-assign profile if setting enabled (v0.6.0+) |
 | **background/message-handler.ts** | 137 | chrome.runtime.onMessage routing; all message types (setSession, updateCookie, deleteSession, etc.) |
 | **content.ts** | 86 | ISOLATED world bridge; session bootstrap; relays updateCookie to background |
 | **page-api-proxy.ts** | 222 | MAIN world API interception; document.cookie, localStorage, sessionStorage, indexedDB proxying; uses lib/storage-proxy |
 | **lib/cookie-parser.ts** | 170 | Parse/serialize Set-Cookie headers; cookie store serialization |
 | **lib/session-store.ts** | 214 | Centralized chrome.storage.local access; session CRUD; export/import; duplication; auto-assign rules CRUD |
-| **lib/rule-matcher.ts** | 52 | Pure hostname pattern matching for auto-assign rules; normalizePattern, findMatchingRule |
+| **lib/settings-store.ts** | 14 | Shared ExtSettings read/write (getExtSettings, setExtSettings); extracted for options page + background use (v0.6.0+) |
 | **lib/storage-proxy.ts** | 50 | Storage proxy factory for per-session localStorage/sessionStorage isolation (testable) |
-| **lib/types.ts** | 45+ | TypeScript types: BackgroundMessage, DNRRule, CookieStoreEntry, SessionConfig |
+| **lib/types.ts** | 45+ | TypeScript types: BackgroundMessage, DNRRule, CookieStoreEntry, SessionConfig, ExtSettings |
 | **popup/popup.html** | 81 | Popup UI structure; form, session list, footer; ARIA roles, aria-selected, aria-live |
 | **popup/popup.ts** | 537 | Session CRUD, hue-based color system, UI event handlers, global view + search, options button; ARIA toggle |
 | **popup/popup.css** | 796 | Stacks design system; CSS custom properties; hue theming; view tabs + search + options link styles; :focus-visible rings |
@@ -38,9 +38,10 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 #### background/index.ts (~109 LOC)
 **Responsibilities:**
 - Entry point for service worker
-- Registers listeners for DNR events, messages, commands, context menu
+- Registers listeners for DNR events, messages, commands, context menu, linked-tab-inheritance
 - Imports and initializes all submodules
 - Exports unified message handler
+- Manages storage GC alarms
 
 #### background/session-manager.ts (~93 LOC)
 **Responsibilities:**
@@ -77,14 +78,15 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 - `setupContextMenus()` — Create context menu items
 - `cleanupContextMenus()` — Remove all context menus
 
-#### background/auto-assign-handler.ts (~27 LOC)
+#### background/linked-tab-inheritance.ts (~35 LOC, v0.6.0+)
 **Responsibilities:**
-- Listens for webNavigation.onBeforeNavigate events
-- Matches URL against auto-assign rules
-- Auto-assigns tab to matching session
+- Listens for `chrome.webNavigation.onCreatedNavigationTarget` (link-opened tabs)
+- Auto-inherits opener's profile if setting `autoInheritProfileForLinkedTabs` is enabled
+- Filters out internal sessions and already-assigned tabs
+- Installs cookie-strip DNR rule for first navigation to avoid first-request cookie leak
 
 **Key Functions:**
-- `handleAutoAssign(details)` — Check rules, auto-assign if match
+- `registerLinkedTabInheritance(restored)` — Register webNavigation listener; awaits restoration before operating on tabSessions
 
 #### background/message-handler.ts (~137 LOC)
 **Responsibilities:**
@@ -177,7 +179,25 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 
 **Purpose:** Pure pattern matching logic; no chrome APIs; safe for unit testing without mocks
 
-### lib/storage-proxy.js (v0.4.0)
+### lib/settings-store.ts (v0.6.0)
+**Exports:**
+- `getExtSettings()` → Promise<ExtSettings> — Fetch settings from chrome.storage.local (defaults to `{ theme: 'system' }`)
+- `setExtSettings(settings)` → Promise<void> — Persist settings to chrome.storage.local
+
+**Purpose:**
+- Single source of truth for extension-wide settings (theme, autoInheritProfileForLinkedTabs, etc.)
+- Extracted from options.ts so background service worker can also read/write settings
+- Type-safe via `ExtSettings` interface
+
+**Usage:**
+```typescript
+const settings = await getExtSettings();
+if (settings.autoInheritProfileForLinkedTabs) {
+  // enable feature
+}
+```
+
+### lib/storage-proxy.ts (v0.4.0)
 **Exports:**
 - `makeStorageProxy(realStorage, prefix)` → Object — Create Storage-compatible proxy with per-session prefix isolation
 

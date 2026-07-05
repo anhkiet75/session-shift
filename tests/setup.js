@@ -63,6 +63,9 @@ function createChromeMock() {
       onActivated: { addListener: vi.fn() },
       onUpdated: { addListener: vi.fn() },
     },
+    webNavigation: {
+      onCreatedNavigationTarget: { addListener: vi.fn() },
+    },
     action: {
       setBadgeText: vi.fn(),
       setBadgeBackgroundColor: vi.fn(),
