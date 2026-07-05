@@ -15,6 +15,22 @@ Each layer is independent; cookies don't leak because:
 
 ---
 
+## Permissions & Capabilities
+
+The extension requires the following permissions in `manifest.json`:
+
+| Permission | Used For | v0.6.0 |
+|-----------|----------|--------|
+| `declarativeNetRequest` | Per-tab cookie header rewriting via DNR rules | Core |
+| `storage` | Persist profiles, cookies, settings to chrome.storage.local/.session | Core |
+| `tabs` | Monitor tab lifecycle (onRemoved, onActivated, onUpdated) | Core |
+| `webRequest` | Capture Set-Cookie responses for session stores (webRequest.onHeadersReceived) | Core |
+| `webNavigation` | Detect link-opened tabs for profile inheritance (onCreatedNavigationTarget) | v0.6.0 |
+| `contextMenus` | Right-click menu to create/switch sessions | v0.2.0+ |
+| `alarms` | Schedule periodic storage garbage collection (1440 min = 24h) | v0.5.0+ |
+
+---
+
 ## Service Worker Lifecycle
 
 ### Startup Sequence
@@ -59,6 +75,59 @@ Chrome may restart the service worker at any time:
 1. restoreTabSessions() reloads tab→session map from storage.session
 2. DNR rules are gone; background.js reapplies them on next setSession or tab activation
 3. Badge text is reset; refreshBadge rebuilds it from session list
+
+---
+
+## Linked Tab Inheritance (v0.6.0+)
+
+### Problem
+
+When a user clicks a link with `target="_blank"`, uses Ctrl+Click, or middle-clicks in a tab assigned to an isolated profile, the new tab opens in Chrome's default cookie jar instead of inheriting the opener's profile. Users had to manually re-assign the new tab to the same profile.
+
+### Solution: Automatic Profile Inheritance on Link Click
+
+**Concept:** If enabled, new tabs opened from links automatically inherit their opener's profile, maintaining cookie isolation across the browsing session.
+
+```
+User in Tab 1 (Work profile) clicks a link (target="_blank")
+  ↓
+chrome.webNavigation.onCreatedNavigationTarget fires synchronously with url
+  ↓
+Check: autoInheritProfileForLinkedTabs setting enabled?
+  ↓
+Check: opener has non-internal profile?
+  ↓
+tabSessions[newTabId] = openerProfileId
+  ↓
+Install cookie-strip DNR rule for first navigation
+  ↓
+Apply DNR rules for inherited profile
+  ↓
+New tab inherits Work profile's cookies
+```
+
+### Design Details
+
+**When it triggers:**
+- `chrome.webNavigation.onCreatedNavigationTarget` listener fires when:
+  - Link has `target="_blank"`
+  - Link is Ctrl+Clicked
+  - Link is middle-clicked
+- **Not** triggered by:
+  - `window.open()` calls (page JavaScript, not declarative links)
+  - `createSessionTab` flow (already explicitly isolated)
+  - Tabs already assigned to a profile
+
+**Why not `chrome.tabs.onCreated`:**
+`tabs.onCreated` fires before the destination URL is known for link-opened tabs (tab.url is empty, tab.pendingUrl is undefined). Too late to install a Cookie-strip DNR rule before the first request. `chrome.webNavigation.onCreatedNavigationTarget` is purpose-built for this case and delivers the URL synchronously.
+
+**First-request cookie leak (known limitation):**
+The very first network request from a newly-linked tab may not be hard-guaranteed cookie-clean because Chrome starts navigating the link-opened tab in a single browser-driven step the extension can't delay (unlike `createSessionTab`, which creates the tab as about:blank, installs DNR rules, then triggers navigation — fully controlling timing). Isolation is deterministic from the second request onward. This mirrors the existing behavior of `createSessionTab` itself.
+
+**Opt-in via toggle:**
+- Default: Off (backward compatible)
+- User enables via Options → Settings → "Auto-open linked tabs in the same profile"
+- Persisted in `chrome.storage.local` as `ext_settings.autoInheritProfileForLinkedTabs`
 
 ---
 

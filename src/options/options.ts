@@ -1,17 +1,7 @@
 // options.ts — Options page (ESM module)
 
 import type { ExtSettings } from '../lib/types.js'
-
-const SETTINGS_KEY = 'ext_settings'
-
-async function loadSettings(): Promise<ExtSettings> {
-  const result = await chrome.storage.local.get([SETTINGS_KEY])
-  return (result[SETTINGS_KEY] as ExtSettings) || { theme: 'system' }
-}
-
-async function saveSettings(settings: ExtSettings): Promise<void> {
-  await chrome.storage.local.set({ [SETTINGS_KEY]: settings })
-}
+import { getExtSettings, setExtSettings } from '../lib/settings-store.js'
 
 function applyTheme(theme: string): void {
   if (theme === 'system') {
@@ -43,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   // Settings tab
-  const settings = await loadSettings()
+  const settings = await getExtSettings()
   const currentTheme = settings.theme || 'system'
   applyTheme(currentTheme)
   updateThemePicker(currentTheme)
@@ -52,9 +42,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       const newTheme = (btn as HTMLElement).dataset.themeVal || 'system'
       applyTheme(newTheme)
       updateThemePicker(newTheme)
-      const s = await loadSettings()
-      await saveSettings({ ...s, theme: newTheme as ExtSettings['theme'] })
+      const s = await getExtSettings()
+      await setExtSettings({ ...s, theme: newTheme as ExtSettings['theme'] })
     })
+  })
+
+  const autoInheritToggle = document.getElementById('autoInheritToggle') as HTMLInputElement
+  autoInheritToggle.checked = !!settings.autoInheritProfileForLinkedTabs
+  autoInheritToggle.addEventListener('change', async () => {
+    const s = await getExtSettings()
+    await setExtSettings({ ...s, autoInheritProfileForLinkedTabs: autoInheritToggle.checked })
   })
 
   // About tab

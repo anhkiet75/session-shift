@@ -11,6 +11,7 @@ export type Theme = 'dark' | 'light' | 'system'
 
 export interface ExtSettings {
   theme: Theme
+  autoInheritProfileForLinkedTabs?: boolean
 }
 
 export interface ParsedCookie {

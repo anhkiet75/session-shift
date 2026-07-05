@@ -3,6 +3,7 @@
 import { restoreTabSessions, tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
 import { dnrRuleIdsForTab, registerWebRequestListener, clearBridgeNavigationStrip } from './dnr-manager.js';
 import { setupContextMenu, registerStorageListener } from './context-menu-manager.js';
+import { registerLinkedTabInheritance } from './linked-tab-inheritance.js';
 import { handleMessage } from './message-handler.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { getProfiles, isInternalSession } from '../lib/session-store.js';
@@ -22,6 +23,7 @@ const restored: Promise<void> = restoreTabSessions();
 setupContextMenu();
 registerStorageListener();
 registerWebRequestListener();
+registerLinkedTabInheritance(restored);
 
 // Upgrade legacy per-origin `list_*` sessions into the global `profiles` key.
 // Idempotent — fires on install and on every version update.

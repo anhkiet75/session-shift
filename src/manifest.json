@@ -17,6 +17,7 @@
     "storage",
     "tabs",
     "webRequest",
+    "webNavigation",
     "contextMenus",
     "alarms"
   ],

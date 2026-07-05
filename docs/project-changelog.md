@@ -20,6 +20,41 @@ All significant changes to the SessionShift Chrome extension are documented here
 - Added Playwright coverage for no default-cookie leakage on the opened profile tab and for multiple tabs sharing the selected profile's cookie store.
 - Updated stale popup e2e selectors/fixtures to match the current single global profile-list UI.
 
+### 2026-07-05 — Auto-Inherit Profile for Linked Tabs (v0.6.0+)
+
+**Type:** Feature (UX)
+
+#### Changes
+
+- Added opt-in "Auto-open linked tabs in the same profile" toggle to Options → Settings (default: off)
+- New background module (`src/background/linked-tab-inheritance.ts`) listens for `chrome.webNavigation.onCreatedNavigationTarget` to detect tabs opened via `target="_blank"`, Ctrl+Click, middle-click
+- Automatically assigns new tab to opener's profile if:
+  - Setting `autoInheritProfileForLinkedTabs` is enabled
+  - Opener has a non-internal profile assigned
+  - New tab not already assigned
+- Added `webNavigation` permission to manifest (required to detect link-opened tabs synchronously with URL)
+- New shared settings store (`src/lib/settings-store.ts`): `getExtSettings()` and `setExtSettings()` extracted from options.ts for use by background service worker
+- New settings field: `ExtSettings.autoInheritProfileForLinkedTabs?: boolean`
+- Known limitation (documented in system-architecture.md): first network request may not be hard-guaranteed cookie-clean due to browser timing; isolation deterministic from second request onward
+
+#### Files Modified
+- `manifest.json` — Added `webNavigation` permission
+- `src/lib/types.ts` — Added `autoInheritProfileForLinkedTabs` to ExtSettings interface
+- `src/options/options.ts`, `options.html`, `options.css` — New toggle UI
+
+#### Files Created
+- `src/background/linked-tab-inheritance.ts` — Listener registration for link-opened tab profile inheritance
+- `src/lib/settings-store.ts` — Shared ExtSettings persistence (options page + background)
+
+#### Test Coverage
+- Added unit tests: `tests/linked-tab-inheritance.test.js`
+- Added e2e test: `tests/e2e/linked-tab-profile-inheritance.test.ts`
+
+#### Backward Compatibility
+Feature is opt-in and off by default. No breaking changes.
+
+---
+
 ### 2026-06-20 — New Profile First-Navigation Cookie Leak Fix
 
 **Type:** Fix
