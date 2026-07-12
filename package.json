@@ -7,6 +7,7 @@
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
     "pretest:e2e": "npm run build",
+    "test:e2e:docker": "bash scripts/docker-test-e2e.sh",
     "test": "npm run test:unit && npm run test:e2e",
     "type-check": "tsc --noEmit",
     "validate:locales": "node scripts/validate-locales.mjs",

@@ -1,0 +1,8 @@
+node_modules
+dist
+releases
+test-results
+playwright-report
+coverage
+.git
+.DS_Store

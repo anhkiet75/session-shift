@@ -1,0 +1,18 @@
+# Dockerfile.e2e — Runs the Playwright e2e suite in a Linux container via Xvfb,
+# mirroring .github/workflows/test.yml's `e2e` job locally on machines (e.g.
+# macOS) where `xvfb-run` isn't available. Chrome extensions require a real
+# display (headless:false in tests/e2e/extension-fixtures.ts), so this image
+# already bundles Xvfb + the exact Playwright/browser versions pinned in
+# package.json — no `npx playwright install` step needed.
+
+FROM mcr.microsoft.com/playwright:v1.60.0-noble
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+CMD ["./scripts/docker-entrypoint-e2e.sh"]
