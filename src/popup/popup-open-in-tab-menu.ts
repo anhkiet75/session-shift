@@ -76,7 +76,17 @@ export function attachOpenInTabMenu(
     document.body.appendChild(menu);
     activeMenu = menu;
     const cardRect = card.getBoundingClientRect();
-    placeMenu(menu, clientX || cardRect.left + 16, clientY || cardRect.top + 16);
+    // Real clicks pass their own viewport coordinates (correct in any
+    // direction — the menu should open at the cursor). Only the
+    // keyboard-invoked fallback needs a direction-aware inline-start anchor.
+    // placeMenu treats (x, y) as the menu's own top-left and grows it
+    // rightward/downward, so the rtl branch must subtract the menu's own
+    // width to anchor its *right* edge near the card — mirroring the ltr
+    // case, not just picking a different point that grows away from the card.
+    const isRtl = document.documentElement.dir === 'rtl';
+    const menuWidth = menu.offsetWidth || 160;
+    const fallbackX = isRtl ? cardRect.right - 16 - menuWidth : cardRect.left + 16;
+    placeMenu(menu, clientX || fallbackX, clientY || cardRect.top + 16);
   };
 
   card.addEventListener('contextmenu', (e: MouseEvent) => {

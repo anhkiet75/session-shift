@@ -342,12 +342,14 @@ body {
   content: '';
   position: absolute;
   top: 2px;
-  left: 2px;
+  inset-inline-start: 2px;
   width: 14px;
   height: 14px;
   border-radius: 50%;
   background: var(--text-muted);
-  transition: transform 0.15s ease, background 0.15s ease;
+  /* inset-inline-start (not transform: translateX) so the thumb travels
+     toward the correct visual edge under both ltr and rtl. */
+  transition: inset-inline-start 0.15s ease, background 0.15s ease;
 }
 
 .opt-toggle-checkbox:checked {
@@ -356,7 +358,7 @@ body {
 }
 
 .opt-toggle-checkbox:checked::before {
-  transform: translateX(14px);
+  inset-inline-start: 16px;
   background: var(--accent-ink);
 }
 
@@ -523,6 +525,12 @@ body {
 }
 .opt-cta:hover .opt-cta-arrow { transform: translateX(3px); }
 
+/* Narrow mirrored exception: the arrow glyph is a physical "→" character and
+   its hover nudge is a physical translateX — both need an explicit rtl flip,
+   logical properties alone don't affect glyph shape or transform direction. */
+[dir="rtl"] .opt-cta-arrow { transform: scaleX(-1); }
+[dir="rtl"] .opt-cta:hover .opt-cta-arrow { transform: scaleX(-1) translateX(3px); }
+
 /* ── GHOST LINKS ────────────────────────────────────────── */
 .opt-about-links {
   display: flex;
@@ -579,7 +587,7 @@ body {
 @media (max-width: 480px) {
   .opt-page { padding: 32px 16px 64px; gap: 20px; }
   .opt-header { flex-wrap: wrap; }
-  .opt-version-chip { order: -1; margin-left: auto; }
+  .opt-version-chip { order: -1; margin-inline-start: auto; }
   .opt-about-hero { padding: 28px 16px 24px; }
   .opt-about-logo-wrap { width: 72px; height: 72px; border-radius: 18px; }
   .opt-about-logo { width: 48px; height: 48px; }

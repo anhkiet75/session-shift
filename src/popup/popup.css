@@ -337,7 +337,8 @@ body {
   align-items: center;
   gap: 8px;
   margin: 8px 16px 0;
-  padding: 6px 6px 6px 12px;
+  padding-block: 6px;
+  padding-inline: 12px 6px;
   background: var(--bg-2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -380,7 +381,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 7px 10px 7px 12px;
+  padding-block: 7px;
+  padding-inline: 12px 10px;
   border: none;
   border-radius: 7px;
   font-family: var(--sans);
@@ -448,7 +450,8 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 12px 10px 16px;
+  padding-block: 10px;
+  padding-inline: 16px 12px;
   background: var(--bg-2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -480,14 +483,15 @@ body {
 
 .v2-card-bar {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 0;
   bottom: 0;
   width: 3px;
   background: hsl(var(--hue, 210), 70%, 60%);
   opacity: 0;
   transition: opacity 0.2s ease;
-  border-radius: 0 2px 2px 0;
+  border-start-end-radius: 2px;
+  border-end-end-radius: 2px;
 }
 
 .v2-card.active .v2-card-bar { opacity: 1; }
@@ -750,7 +754,8 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 8px 10px 8px 14px;
+  padding-block: 8px;
+  padding-inline: 14px 10px;
   background: var(--bg-2);
   border: 1px solid var(--border-strong);
   border-radius: 8px;
@@ -827,7 +832,7 @@ body {
 
 .v2-search-icon {
   position: absolute;
-  left: 22px;
+  inset-inline-start: 22px;
   top: 50%;
   transform: translateY(-25%);
   color: var(--text-muted);
@@ -836,7 +841,8 @@ body {
 
 .v2-search {
   width: 100%;
-  padding: 7px 10px 7px 30px;
+  padding-block: 7px;
+  padding-inline: 30px 10px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--bg-2);
@@ -861,12 +867,12 @@ body {
   font-family: var(--mono);
   font-size: 10px;
   color: var(--text-muted);
-  margin-left: 0;
+  margin-inline-start: 0;
   letter-spacing: -0.01em;
 }
 
 .v2-card-meta .v2-card-active-pill + .v2-card-origin {
-  margin-left: 6px;
+  margin-inline-start: 6px;
 }
 
 /* ── COLOR PICKER ─────────────────────────────────────── */
@@ -879,7 +885,7 @@ body {
   justify-content: center;
   align-self: stretch;
   cursor: pointer;
-  border-right: 1px solid var(--border);
+  border-inline-end: 1px solid var(--border);
   position: relative;
 }
 
@@ -932,7 +938,7 @@ body {
   font: inherit;
   font-size: 12px;
   font-weight: 600;
-  text-align: left;
+  text-align: start;
   padding: 6px 9px;
 }
 

@@ -100,6 +100,7 @@ export function renderSessionList(
 
     const nameEl = document.createElement('div');
     nameEl.className = 'v2-card-name';
+    nameEl.dir = 'auto'; // user-supplied name: isolate its own direction from the surrounding UI
     nameEl.textContent = displayName;
     nameEl.title = displayName;
     body.appendChild(nameEl);

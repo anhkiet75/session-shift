@@ -81,7 +81,10 @@ function placePopover(popover: HTMLElement, col: HTMLElement): void {
     ? Math.max(margin, colRect.top - popoverHeight - gap)
     : colRect.bottom + gap;
 
-  let left = colRect.left;
+  // Anchor from the inline-start edge of the color dot: in rtl that's its
+  // right edge (the popover extends toward inline-end, i.e. leftward).
+  const isRtl = document.documentElement.dir === 'rtl';
+  let left = isRtl ? colRect.right - popoverWidth : colRect.left;
   if (left + popoverWidth > viewportW - margin) left = viewportW - popoverWidth - margin;
   if (left < margin) left = margin;
 

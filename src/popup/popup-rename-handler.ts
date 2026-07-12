@@ -16,6 +16,7 @@ export function startRename(
   const input = document.createElement('input');
   input.type = 'text';
   input.className = 'v2-rename-input';
+  input.dir = 'auto'; // user-supplied name: isolate its own direction while typing
   input.value = session.name || session.id;
   input.maxLength = 40;
 
@@ -38,6 +39,7 @@ export function startRename(
 
     const newSpan = document.createElement('div');
     newSpan.className = 'v2-card-name';
+    newSpan.dir = 'auto';
     newSpan.textContent = newName;
     newSpan.title = newName;
     input.replaceWith(newSpan);
@@ -62,6 +64,7 @@ export function startRename(
       input.disabled = true;
       const span = document.createElement('div');
       span.className = 'v2-card-name';
+      span.dir = 'auto';
       span.textContent = session.name || session.id;
       span.title = session.name || session.id;
       input.replaceWith(span);

@@ -1,8 +1,8 @@
 import { test, expect, seedLocalePreference } from './extension-fixtures'
 
 // Baseline surface-switching/completeness coverage for Phase 3 (English +
-// System + one representative manual locale). RTL-specific mixed-direction
-// and layout assertions are expanded in Phase 4.
+// System + one representative manual locale). Phase 4 adds RTL-specific
+// mixed-direction, layout, positioning, and focus-order assertions below.
 
 test.describe('Options — language picker', () => {
   test('switching to German localizes Options immediately and persists across reload', async ({ context, optionsUrl }) => {
@@ -84,5 +84,173 @@ test.describe('Popup — manual locale reflected on open', () => {
     expect(await page.locator('.v2-popup').getAttribute('inert')).toBeNull()
     expect(await page.locator('.v2-popup').getAttribute('aria-busy')).toBeNull()
     await page.close()
+  })
+})
+
+test.describe('Phase 4 — RTL/bidirectional hardening', () => {
+  test('popup full flow under ar: RTL chrome, mixed-script name isolated, no horizontal overflow', async ({ popupPage }) => {
+    await popupPage.evaluate(async () => {
+      await chrome.storage.local.set({
+        profiles: [{ id: 'session_mixed', name: 'Work حساب 123', hue: 24 }],
+      })
+    })
+    await seedLocalePreference(popupPage, 'ar')
+    await popupPage.reload()
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+
+    await expect(popupPage.locator('html')).toHaveAttribute('dir', 'rtl')
+    const nameEl = popupPage.locator('.v2-card-name', { hasText: 'Work حساب 123' })
+    await expect(nameEl).toBeVisible()
+    await expect(nameEl).toHaveAttribute('dir', 'auto')
+
+    // No horizontal overflow: content never exceeds the popup's own width.
+    const overflow = await popupPage.evaluate(() => {
+      const el = document.documentElement
+      return el.scrollWidth - el.clientWidth
+    })
+    expect(overflow).toBeLessThanOrEqual(1) // sub-pixel rounding tolerance
+
+    // CRUD still works with the reversed reading direction.
+    await popupPage.fill('#newSessionName', 'Second')
+    await Promise.all([
+      popupPage.waitForLoadState('load'),
+      popupPage.click('#btnNewSession'),
+    ])
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+    await expect(popupPage.locator('.v2-card-name', { hasText: 'Second' })).toBeVisible()
+  })
+
+  test('options toggle/CTA under ar: correct inline placement, tab order unchanged', async ({ context, optionsUrl }) => {
+    const options = await context.newPage()
+    await options.goto(optionsUrl)
+    await seedLocalePreference(options, 'ar')
+    await options.reload()
+    await options.waitForSelector('#languageSelect')
+
+    await expect(options.locator('html')).toHaveAttribute('dir', 'rtl')
+
+    // Toggle thumb travels via inset-inline-start (not a physical transform),
+    // so its computed `left` must actually change between states even under
+    // rtl — a physical translateX would have looked identical either way.
+    const toggle = options.locator('#autoInheritToggle')
+    const thumbLeft = () => toggle.evaluate((el) => parseFloat(getComputedStyle(el, '::before').insetInlineStart))
+
+    if (!(await toggle.isChecked())) await toggle.click()
+    await expect(toggle).toBeChecked()
+    await options.waitForTimeout(200) // let the 0.15s inset-inline-start transition settle
+    const leftWhenChecked = await thumbLeft()
+
+    await toggle.click()
+    await expect(toggle).not.toBeChecked()
+    await options.waitForTimeout(200)
+    const leftWhenUnchecked = await thumbLeft()
+
+    expect(Number.isFinite(leftWhenChecked)).toBe(true)
+    expect(Number.isFinite(leftWhenUnchecked)).toBe(true)
+    expect(leftWhenChecked).not.toBe(leftWhenUnchecked)
+
+    // DOM/tab order must not reverse under rtl: Tab from the last theme
+    // button still reaches auto-inherit then language select in source order.
+    await options.locator('.opt-theme-btn[data-theme-val="light"]').focus()
+    await options.keyboard.press('Tab') // -> auto-inherit toggle
+    const focusedAfterFirstTab = await options.evaluate(() => document.activeElement?.id)
+    expect(focusedAfterFirstTab).toBe('autoInheritToggle')
+
+    await options.keyboard.press('Tab') // -> language select
+    const focusedAfterSecondTab = await options.evaluate(() => document.activeElement?.id)
+    expect(focusedAfterSecondTab).toBe('languageSelect')
+
+    await options.close()
+  })
+
+  test('color picker popover anchors from the dot\'s left edge under en and clamps in-viewport', async ({ popupPage }) => {
+    await popupPage.evaluate(async () => {
+      await chrome.storage.local.set({
+        profiles: [{ id: 'session_a', name: 'A', hue: 10 }],
+      })
+    })
+    await popupPage.reload()
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+
+    const colorDot = popupPage.locator('.v2-card-color').first()
+    const dotBox = await colorDot.boundingBox()
+    await colorDot.click()
+    const popover = popupPage.locator('.v2-color-popover')
+    await expect(popover).toBeVisible()
+    const box = await popover.boundingBox()
+    const viewport = popupPage.viewportSize()
+    expect(box).not.toBeNull()
+    expect(dotBox).not.toBeNull()
+    if (box && viewport) {
+      expect(box.x).toBeGreaterThanOrEqual(0)
+      expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1)
+    }
+    if (box && dotBox) {
+      // ltr anchors from the dot's own left edge (no width subtraction needed).
+      expect(Math.abs(box.x - dotBox.x)).toBeLessThan(2)
+    }
+  })
+
+  test('color picker popover anchors from the dot\'s right edge under ar and clamps in-viewport', async ({ popupPage }) => {
+    await popupPage.evaluate(async () => {
+      await chrome.storage.local.set({
+        profiles: [{ id: 'session_a', name: 'A', hue: 10 }],
+      })
+    })
+    await seedLocalePreference(popupPage, 'ar')
+    await popupPage.reload()
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+    await expect(popupPage.locator('html')).toHaveAttribute('dir', 'rtl')
+
+    const colorDot = popupPage.locator('.v2-card-color').first()
+    const dotBox = await colorDot.boundingBox()
+    await colorDot.click()
+    const popover = popupPage.locator('.v2-color-popover')
+    await expect(popover).toBeVisible()
+    const box = await popover.boundingBox()
+    const viewport = popupPage.viewportSize()
+    expect(box).not.toBeNull()
+    expect(dotBox).not.toBeNull()
+    if (box && viewport) {
+      expect(box.x).toBeGreaterThanOrEqual(0)
+      expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1)
+    }
+    if (box && dotBox) {
+      // rtl anchors so the popover's right edge sits near the dot's right
+      // edge (mirroring ltr), not merely "somewhere onscreen" by luck of
+      // the viewport clamp.
+      expect(Math.abs(box.x + box.width - (dotBox.x + dotBox.width))).toBeLessThan(2)
+    }
+  })
+
+  test('keyboard-invoked open-in-tab menu anchors near the card under ar (not just clamped onscreen)', async ({ popupPage }) => {
+    await popupPage.evaluate(async () => {
+      await chrome.storage.local.set({
+        profiles: [{ id: 'session_kb', name: 'KeyboardTarget', hue: 40 }],
+      })
+    })
+    await seedLocalePreference(popupPage, 'ar')
+    await popupPage.reload()
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+    await expect(popupPage.locator('html')).toHaveAttribute('dir', 'rtl')
+
+    const card = popupPage.locator('.v2-card', { hasText: 'KeyboardTarget' })
+    const cardBox = await card.boundingBox()
+    await card.focus()
+    await popupPage.keyboard.press('Shift+F10')
+    const menuItem = popupPage.locator('[data-action="open-in-new-tab"]')
+    await expect(menuItem).toBeVisible()
+    const menuBox = await menuItem.evaluate((el) => {
+      const menu = el.closest('.v2-open-tab-menu') as HTMLElement
+      const rect = menu.getBoundingClientRect()
+      return { x: rect.x, width: rect.width }
+    })
+    expect(cardBox).not.toBeNull()
+    if (cardBox) {
+      // Anchored near the card's own right edge (fallbackX = cardRect.right -
+      // 16 - menuWidth), not dumped at the clamped far edge of the viewport.
+      const expectedRight = cardBox.x + cardBox.width - 16
+      expect(Math.abs(menuBox.x + menuBox.width - expectedRight)).toBeLessThan(4)
+    }
   })
 })
