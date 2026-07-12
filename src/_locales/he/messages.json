@@ -1,0 +1,236 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "עברו בין כמה חשבונות בכל אתר — לכל כרטיסייה יש הפעלה מבודדת משלה."
+  },
+  "commandExecuteActionDescription": {
+    "message": "פתיחת חלונית SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "מעבר להפעלה הבאה עבור כרטיסייה זו"
+  },
+  "commandSessionPrevDescription": {
+    "message": "מעבר להפעלה הקודמת עבור כרטיסייה זו"
+  },
+  "popupBrandSub": {
+    "message": "ניהול ריבוי חשבונות"
+  },
+  "themeToggleLabel": {
+    "message": "ערכת נושא: $theme$ (לחצו לשינוי)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "בהיר"
+  },
+  "themeNameDark": {
+    "message": "כהה"
+  },
+  "themeNameSystem": {
+    "message": "מערכת"
+  },
+  "openOptionsLabel": {
+    "message": "פתיחת הגדרות"
+  },
+  "heroActiveLabel": {
+    "message": "פעיל בכרטיסייה זו"
+  },
+  "heroDefaultName": {
+    "message": "ברירת מחדל"
+  },
+  "heroNoSessionMeta": {
+    "message": "לא הוקצתה הפעלה"
+  },
+  "searchPlaceholder": {
+    "message": "חיפוש פרופילים…"
+  },
+  "searchAriaLabel": {
+    "message": "חיפוש פרופילים"
+  },
+  "createPlaceholder": {
+    "message": "שם לפרופיל חדש…"
+  },
+  "createButton": {
+    "message": "יצירה"
+  },
+  "listHeadProfiles": {
+    "message": "פרופילים"
+  },
+  "resetToDefault": {
+    "message": "איפוס לברירת המחדל"
+  },
+  "switchToDefaultConfirm": {
+    "message": "לעבור לברירת המחדל?"
+  },
+  "cancelButton": {
+    "message": "ביטול"
+  },
+  "resetButton": {
+    "message": "איפוס"
+  },
+  "cannotIsolatePage": {
+    "message": "לא ניתן לבודד דף זה."
+  },
+  "generatedSessionName": {
+    "message": "הפעלה $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (עותק)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "אין עדיין פרופילים"
+  },
+  "emptyNoProfilesSub": {
+    "message": "צרו אחד למעלה כדי להתחיל לבודד חשבונות."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "אין התאמות"
+  },
+  "emptyNoMatchesSub": {
+    "message": "נסו חיפוש אחר."
+  },
+  "duplicateProfileTitle": {
+    "message": "שכפול פרופיל"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "שכפול הפרופיל $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "שינוי שם"
+  },
+  "renameAriaLabel": {
+    "message": "שינוי שם הפרופיל $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "מחיקה"
+  },
+  "deleteAriaLabel": {
+    "message": "מחיקת הפרופיל $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "ביטול מחיקה"
+  },
+  "confirmDeleteTitle": {
+    "message": "אישור מחיקה"
+  },
+  "activeStatusPill": {
+    "message": "פעיל"
+  },
+  "openInNewTab": {
+    "message": "פתיחה בכרטיסייה חדשה"
+  },
+  "changeColorTitle": {
+    "message": "שינוי צבע"
+  },
+  "changeColorAriaLabel": {
+    "message": "שינוי צבע ההפעלה"
+  },
+  "pickColorAriaLabel": {
+    "message": "בחירת צבע ההפעלה"
+  },
+  "sessionColorLabel": {
+    "message": "צבע ההפעלה"
+  },
+  "customHueTitle": {
+    "message": "גוון מותאם אישית"
+  },
+  "customHueAriaLabel": {
+    "message": "גוון מותאם אישית"
+  },
+  "customLabel": {
+    "message": "מותאם אישית"
+  },
+  "customHueValueAriaLabel": {
+    "message": "ערך גוון מותאם אישית"
+  },
+  "optionsSubtitle": {
+    "message": "בידוד הפעלות לכל כרטיסייה עבור Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "גרסת ההרחבה"
+  },
+  "tabSettings": {
+    "message": "הגדרות"
+  },
+  "tabAbout": {
+    "message": "אודות"
+  },
+  "appearanceSectionTitle": {
+    "message": "מראה"
+  },
+  "themeSettingLabel": {
+    "message": "ערכת נושא"
+  },
+  "themeSettingDesc": {
+    "message": "עקיפת העדפת ערכת הצבעים של מערכת ההפעלה"
+  },
+  "themeGroupAriaLabel": {
+    "message": "ערכת נושא"
+  },
+  "autoInheritLabel": {
+    "message": "פתיחה אוטומטית של כרטיסיות מקושרות באותו פרופיל"
+  },
+  "autoInheritDesc": {
+    "message": "כאשר האפשרות פעילה, כרטיסיות שנפתחות מקישור (קישורי כרטיסייה חדשה, Ctrl-קליק, קליק אמצעי) בפרופיל מבודד נשארות באותו פרופיל במקום להשתמש בעוגיות ברירת המחדל של Chrome."
+  },
+  "aboutTagline": {
+    "message": "הרחבת Chrome חינמית וקוד פתוח לבידוד הפעלות לכל כרטיסייה. הישארו מחוברים למספר חשבונות באותו אתר בו-זמנית."
+  },
+  "supportSectionTitle": {
+    "message": "תמיכה בפרויקט"
+  },
+  "supportDesc": {
+    "message": "SessionShift חינמי וקוד פתוח. אם זה חוסך לכם זמן, שקלו תמיכה קטנה — היא שומרת על הפרויקט חי וללא פרסומות."
+  },
+  "supportCta": {
+    "message": "תמיכה ב-Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "קישורים"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "חנות האינטרנט של Chrome"
+  },
+  "contextMenuParentTitle": {
+    "message": "פתיחה בהפעלה"
+  }
+}

@@ -18,10 +18,14 @@ const SRC = path.join(ROOT, 'src')
 const LOCALES_DIR = path.join(SRC, '_locales')
 export const KEY_PATTERN = /^[A-Za-z][A-Za-z0-9_]*$/
 
-// Bidi controls + default-ignorable characters not approved in any message.
-// (LRE/RLE/PDF/LRO/RLO, LRI/RLI/FSI/PDI, LRM/RLM, ALM, zero-width chars, BOM.)
+// Bidi overrides/isolates/marks and invisible-spoofing characters not approved
+// in any message: LRE/RLE/PDF/LRO/RLO (U+202A-202E), LRI/RLI/FSI/PDI
+// (U+2066-2069), LRM/RLM (U+200E/F), ALM (U+061C), zero-width space (U+200B),
+// BOM (U+FEFF), soft hyphen (U+00AD).
+// Deliberately EXCLUDES ZWNJ/ZWJ (U+200C/U+200D): required orthographic
+// characters in Persian/Arabic/Indic scripts and emoji sequences, not spoofing.
 export const DISALLOWED_CHAR_PATTERN =
-  /[‪-‮⁦-⁩‎‏؜​-‍﻿­]/
+  /[‪-‮⁦-⁩‎‏؜​﻿­]/
 
 function loadLocaleData() {
   const raw = readFileSync(path.join(SRC, 'lib', 'locale-data.json'), 'utf8')
@@ -32,17 +36,22 @@ function fail(errors, message) {
   errors.push(message)
 }
 
-function checkTreeSafety(errors, allowedLocales) {
+/**
+ * Rejects symlinks, non-regular files, and any entry outside the allowlist —
+ * reusable against `src/_locales`, `dist/_locales`, or an extracted ZIP's
+ * `_locales` so every delivery stage gets the same tree-safety guarantee.
+ */
+export function checkTreeSafety(errors, allowedLocales, localesDir = LOCALES_DIR) {
   let entries
   try {
-    entries = readdirSync(LOCALES_DIR, { withFileTypes: true })
+    entries = readdirSync(localesDir, { withFileTypes: true })
   } catch {
-    fail(errors, `_locales directory missing: ${LOCALES_DIR}`)
+    fail(errors, `_locales directory missing: ${localesDir}`)
     return
   }
 
   for (const entry of entries) {
-    const entryPath = path.join(LOCALES_DIR, entry.name)
+    const entryPath = path.join(localesDir, entry.name)
     const stat = lstatSync(entryPath)
     if (stat.isSymbolicLink()) {
       fail(errors, `_locales/${entry.name}: symlinks are not allowed`)

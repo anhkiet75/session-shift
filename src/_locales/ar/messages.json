@@ -1,0 +1,236 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "بدّل بين عدة حسابات على أي موقع — يحصل كل تبويب على جلسة معزولة خاصة به."
+  },
+  "commandExecuteActionDescription": {
+    "message": "فتح نافذة SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "التبديل إلى الجلسة التالية لهذا التبويب"
+  },
+  "commandSessionPrevDescription": {
+    "message": "التبديل إلى الجلسة السابقة لهذا التبويب"
+  },
+  "popupBrandSub": {
+    "message": "مدير حسابات متعددة"
+  },
+  "themeToggleLabel": {
+    "message": "المظهر: $theme$ (انقر للتغيير)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "فاتح"
+  },
+  "themeNameDark": {
+    "message": "داكن"
+  },
+  "themeNameSystem": {
+    "message": "النظام"
+  },
+  "openOptionsLabel": {
+    "message": "فتح الإعدادات"
+  },
+  "heroActiveLabel": {
+    "message": "نشط في هذا التبويب"
+  },
+  "heroDefaultName": {
+    "message": "افتراضي"
+  },
+  "heroNoSessionMeta": {
+    "message": "لا توجد جلسة محددة"
+  },
+  "searchPlaceholder": {
+    "message": "بحث في الملفات الشخصية…"
+  },
+  "searchAriaLabel": {
+    "message": "بحث في الملفات الشخصية"
+  },
+  "createPlaceholder": {
+    "message": "اسم ملف شخصي جديد…"
+  },
+  "createButton": {
+    "message": "إنشاء"
+  },
+  "listHeadProfiles": {
+    "message": "الملفات الشخصية"
+  },
+  "resetToDefault": {
+    "message": "إعادة الضبط إلى الافتراضي"
+  },
+  "switchToDefaultConfirm": {
+    "message": "التبديل إلى الافتراضي؟"
+  },
+  "cancelButton": {
+    "message": "إلغاء"
+  },
+  "resetButton": {
+    "message": "إعادة ضبط"
+  },
+  "cannotIsolatePage": {
+    "message": "لا يمكن عزل هذه الصفحة."
+  },
+  "generatedSessionName": {
+    "message": "جلسة $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (نسخة)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "لا توجد ملفات شخصية بعد"
+  },
+  "emptyNoProfilesSub": {
+    "message": "أنشئ واحدًا أعلاه لبدء عزل الحسابات."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "لا توجد نتائج"
+  },
+  "emptyNoMatchesSub": {
+    "message": "جرّب بحثًا مختلفًا."
+  },
+  "duplicateProfileTitle": {
+    "message": "تكرار الملف الشخصي"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "تكرار الملف الشخصي $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "إعادة تسمية"
+  },
+  "renameAriaLabel": {
+    "message": "إعادة تسمية الملف الشخصي $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "حذف"
+  },
+  "deleteAriaLabel": {
+    "message": "حذف الملف الشخصي $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "إلغاء الحذف"
+  },
+  "confirmDeleteTitle": {
+    "message": "تأكيد الحذف"
+  },
+  "activeStatusPill": {
+    "message": "نشط"
+  },
+  "openInNewTab": {
+    "message": "فتح في تبويب جديد"
+  },
+  "changeColorTitle": {
+    "message": "تغيير اللون"
+  },
+  "changeColorAriaLabel": {
+    "message": "تغيير لون الجلسة"
+  },
+  "pickColorAriaLabel": {
+    "message": "اختيار لون الجلسة"
+  },
+  "sessionColorLabel": {
+    "message": "لون الجلسة"
+  },
+  "customHueTitle": {
+    "message": "درجة لون مخصصة"
+  },
+  "customHueAriaLabel": {
+    "message": "درجة لون مخصصة"
+  },
+  "customLabel": {
+    "message": "مخصص"
+  },
+  "customHueValueAriaLabel": {
+    "message": "قيمة درجة اللون المخصصة"
+  },
+  "optionsSubtitle": {
+    "message": "عزل الجلسات لكل تبويب في Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "إصدار الإضافة"
+  },
+  "tabSettings": {
+    "message": "الإعدادات"
+  },
+  "tabAbout": {
+    "message": "حول"
+  },
+  "appearanceSectionTitle": {
+    "message": "المظهر"
+  },
+  "themeSettingLabel": {
+    "message": "المظهر"
+  },
+  "themeSettingDesc": {
+    "message": "تجاوز إعداد نظام الألوان لنظام التشغيل"
+  },
+  "themeGroupAriaLabel": {
+    "message": "المظهر"
+  },
+  "autoInheritLabel": {
+    "message": "فتح التبويبات المرتبطة تلقائيًا في نفس الملف الشخصي"
+  },
+  "autoInheritDesc": {
+    "message": "عند التفعيل، تبقى التبويبات المفتوحة من رابط (روابط تبويب جديد، Ctrl+نقر، النقر الأوسط) على ملف شخصي معزول ضمن نفس الملف الشخصي بدلاً من استخدام ملفات تعريف الارتباط الافتراضية في Chrome."
+  },
+  "aboutTagline": {
+    "message": "إضافة Chrome مجانية ومفتوحة المصدر لعزل الجلسات لكل تبويب. ابقَ مسجّلاً في عدة حسابات على نفس الموقع في وقت واحد."
+  },
+  "supportSectionTitle": {
+    "message": "دعم المشروع"
+  },
+  "supportDesc": {
+    "message": "SessionShift مجاني ومفتوح المصدر. إذا كان يوفر عليك الوقت، ففكّر في تقديم دعم بسيط — فهذا يبقي المشروع حيًا وخاليًا من الإعلانات."
+  },
+  "supportCta": {
+    "message": "الدعم عبر Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "روابط"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "متجر Chrome الإلكتروني"
+  },
+  "contextMenuParentTitle": {
+    "message": "فتح في جلسة"
+  }
+}

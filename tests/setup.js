@@ -12,6 +12,7 @@ function createI18nMock() {
     // 1-based position), so this maps $name$/$index$/etc to substitutions[N-1]
     // in the order they're declared in the English catalog entry.
     getMessage: vi.fn((key, substitutions) => {
+      if (key === '@@bidi_dir') return 'ltr'; // native English UI locale is LTR
       const entry = englishCatalog[key];
       if (!entry) return '';
       if (!substitutions || substitutions.length === 0) return entry.message;
@@ -22,6 +23,7 @@ function createI18nMock() {
         return String(substitutions[position]);
       });
     }),
+    getUILanguage: vi.fn(() => 'en-US'),
   };
 }
 
@@ -57,6 +59,9 @@ function createChromeMock() {
       onMessage: { addListener: vi.fn() },
       onStartup: { addListener: vi.fn() },
       onInstalled: { addListener: vi.fn() },
+      // Mirrors chrome.runtime.getURL's package-relative-path -> URL shape
+      // closely enough for the fetch mock below to resolve real disk files.
+      getURL: vi.fn((path) => path),
     },
     i18n: createI18nMock(),
     alarms: {
@@ -109,9 +114,25 @@ function createChromeMock() {
   };
 }
 
+// Resolves package-relative paths (what chrome.runtime.getURL returns in the
+// mock above) against real files under src/ — an offline stand-in for
+// fetching a packaged extension resource.
+function createFetchMock() {
+  return vi.fn(async (url) => {
+    try {
+      const text = readFileSync(resolve(process.cwd(), 'src', String(url)), 'utf8');
+      return { ok: true, status: 200, json: async () => JSON.parse(text), text: async () => text };
+    } catch {
+      return { ok: false, status: 404, json: async () => { throw new Error('not found') } };
+    }
+  });
+}
+
 // Must be set at module level so background.js top-level code sees chrome on import
 globalThis.chrome = createChromeMock();
+globalThis.fetch = createFetchMock();
 
 beforeEach(() => {
   globalThis.chrome = createChromeMock();
+  globalThis.fetch = createFetchMock();
 });

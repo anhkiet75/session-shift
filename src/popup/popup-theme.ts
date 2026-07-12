@@ -1,6 +1,7 @@
 // popup-theme.ts — Theme cycle, apply, and toggle logic for the popup.
 
 import type { Theme } from '../lib/types.js';
+import { mutateExtSettingsField } from '../lib/settings-store.js';
 
 export const THEME_CYCLE: Theme[] = ['light', 'dark', 'system'];
 
@@ -60,7 +61,7 @@ export async function cycleTheme(): Promise<void> {
     const settings = await readSettings();
     const current = (settings.theme as Theme | undefined) || 'system';
     const next = THEME_CYCLE[(THEME_CYCLE.indexOf(current) + 1) % THEME_CYCLE.length];
-    await chrome.storage.local.set({ ext_settings: { ...settings, theme: next } });
+    await mutateExtSettingsField('theme', next);
     applyTheme(next);
     updateThemeToggle(next);
   } finally {

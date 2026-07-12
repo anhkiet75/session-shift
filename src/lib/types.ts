@@ -12,6 +12,8 @@ export type Theme = 'dark' | 'light' | 'system'
 export interface ExtSettings {
   theme: Theme
   autoInheritProfileForLinkedTabs?: boolean
+  /** `'system'` or absent delegates to Chrome's UI locale; otherwise a pinned SupportedLocale code. */
+  language?: string
 }
 
 export interface ParsedCookie {

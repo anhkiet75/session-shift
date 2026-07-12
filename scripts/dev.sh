@@ -10,6 +10,7 @@ mkdir -p "$DIST/options" "$DIST/popup"
 
 cp "$SRC/manifest.json" "$DIST/"
 cp -r "$SRC/icons" "$DIST/"
+cp -r "$SRC/_locales" "$DIST/"
 cp "$SRC"/options/options.html "$SRC"/options/options.css "$DIST/options/"
 cp "$SRC"/popup/popup.html "$SRC"/popup/popup.css "$DIST/popup/"
 cp -r "$SRC/popup/fonts" "$DIST/popup/"

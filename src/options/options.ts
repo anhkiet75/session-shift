@@ -1,7 +1,7 @@
 // options.ts — Options page (ESM module)
 
 import type { ExtSettings } from '../lib/types.js'
-import { getExtSettings, setExtSettings } from '../lib/settings-store.js'
+import { getExtSettings, mutateExtSettingsField } from '../lib/settings-store.js'
 
 function applyTheme(theme: string): void {
   if (theme === 'system') {
@@ -42,16 +42,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       const newTheme = (btn as HTMLElement).dataset.themeVal || 'system'
       applyTheme(newTheme)
       updateThemePicker(newTheme)
-      const s = await getExtSettings()
-      await setExtSettings({ ...s, theme: newTheme as ExtSettings['theme'] })
+      await mutateExtSettingsField('theme', newTheme as ExtSettings['theme'])
     })
   })
 
   const autoInheritToggle = document.getElementById('autoInheritToggle') as HTMLInputElement
   autoInheritToggle.checked = settings.autoInheritProfileForLinkedTabs !== false
   autoInheritToggle.addEventListener('change', async () => {
-    const s = await getExtSettings()
-    await setExtSettings({ ...s, autoInheritProfileForLinkedTabs: autoInheritToggle.checked })
+    await mutateExtSettingsField('autoInheritProfileForLinkedTabs', autoInheritToggle.checked)
   })
 
   // About tab

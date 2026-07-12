@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "SessionShift",
+  "name": "__MSG_extensionName__",
   "version": "0.0.8",
-  "description": "Switch between multiple accounts on any site — each tab gets its own isolated session.",
+  "default_locale": "en",
+  "description": "__MSG_extensionDescription__",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; base-uri 'none'"
   },
@@ -38,21 +39,21 @@
         "default": "Ctrl+Shift+S",
         "mac": "Command+Shift+S"
       },
-      "description": "Open SessionShift popup"
+      "description": "__MSG_commandExecuteActionDescription__"
     },
     "session-next": {
       "suggested_key": {
         "default": "Ctrl+Shift+Right",
         "mac": "Command+Shift+Right"
       },
-      "description": "Switch to next session for this tab"
+      "description": "__MSG_commandSessionNextDescription__"
     },
     "session-prev": {
       "suggested_key": {
         "default": "Ctrl+Shift+Left",
         "mac": "Command+Shift+Left"
       },
-      "description": "Switch to previous session for this tab"
+      "description": "__MSG_commandSessionPrevDescription__"
     }
   },
   "action": {

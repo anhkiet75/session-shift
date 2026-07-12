@@ -17,6 +17,7 @@ const STATIC_COPY_MAP = [
 const STATIC_COPY_DIRS = [
   { src: path.join(SRC, "icons"), dest: path.join(DIST, "icons") },
   { src: path.join(SRC, "popup", "fonts"), dest: path.join(DIST, "popup", "fonts") },
+  { src: path.join(SRC, "_locales"), dest: path.join(DIST, "_locales") },
 ];
 
 function copyFile(src, dest) {

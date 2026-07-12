@@ -1,0 +1,236 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "بین چند حساب کاربری در هر سایتی جابه‌جا شوید — هر برگه نشست ایزوله‌شدهٔ خودش را دارد."
+  },
+  "commandExecuteActionDescription": {
+    "message": "باز کردن پنجرهٔ SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "رفتن به نشست بعدی برای این برگه"
+  },
+  "commandSessionPrevDescription": {
+    "message": "رفتن به نشست قبلی برای این برگه"
+  },
+  "popupBrandSub": {
+    "message": "مدیریت چند حساب"
+  },
+  "themeToggleLabel": {
+    "message": "پوسته: $theme$ (برای تغییر کلیک کنید)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "روشن"
+  },
+  "themeNameDark": {
+    "message": "تیره"
+  },
+  "themeNameSystem": {
+    "message": "سیستم"
+  },
+  "openOptionsLabel": {
+    "message": "باز کردن تنظیمات"
+  },
+  "heroActiveLabel": {
+    "message": "فعال در این برگه"
+  },
+  "heroDefaultName": {
+    "message": "پیش‌فرض"
+  },
+  "heroNoSessionMeta": {
+    "message": "نشستی تعیین نشده"
+  },
+  "searchPlaceholder": {
+    "message": "جستجوی نمایه‌ها…"
+  },
+  "searchAriaLabel": {
+    "message": "جستجوی نمایه‌ها"
+  },
+  "createPlaceholder": {
+    "message": "نام‌گذاری نمایهٔ جدید…"
+  },
+  "createButton": {
+    "message": "ایجاد"
+  },
+  "listHeadProfiles": {
+    "message": "نمایه‌ها"
+  },
+  "resetToDefault": {
+    "message": "بازنشانی به پیش‌فرض"
+  },
+  "switchToDefaultConfirm": {
+    "message": "به پیش‌فرض تغییر یابد؟"
+  },
+  "cancelButton": {
+    "message": "انصراف"
+  },
+  "resetButton": {
+    "message": "بازنشانی"
+  },
+  "cannotIsolatePage": {
+    "message": "این صفحه قابل ایزوله‌سازی نیست."
+  },
+  "generatedSessionName": {
+    "message": "نشست $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (کپی)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "هنوز نمایه‌ای وجود ندارد"
+  },
+  "emptyNoProfilesSub": {
+    "message": "برای شروع ایزوله‌سازی حساب‌ها، یکی در بالا بسازید."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "موردی یافت نشد"
+  },
+  "emptyNoMatchesSub": {
+    "message": "جستجوی دیگری را امتحان کنید."
+  },
+  "duplicateProfileTitle": {
+    "message": "تکثیر نمایه"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "تکثیر نمایهٔ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "تغییر نام"
+  },
+  "renameAriaLabel": {
+    "message": "تغییر نام نمایهٔ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "حذف"
+  },
+  "deleteAriaLabel": {
+    "message": "حذف نمایهٔ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "انصراف از حذف"
+  },
+  "confirmDeleteTitle": {
+    "message": "تأیید حذف"
+  },
+  "activeStatusPill": {
+    "message": "فعال"
+  },
+  "openInNewTab": {
+    "message": "باز کردن در برگهٔ جدید"
+  },
+  "changeColorTitle": {
+    "message": "تغییر رنگ"
+  },
+  "changeColorAriaLabel": {
+    "message": "تغییر رنگ نشست"
+  },
+  "pickColorAriaLabel": {
+    "message": "انتخاب رنگ نشست"
+  },
+  "sessionColorLabel": {
+    "message": "رنگ نشست"
+  },
+  "customHueTitle": {
+    "message": "طیف رنگ سفارشی"
+  },
+  "customHueAriaLabel": {
+    "message": "طیف رنگ سفارشی"
+  },
+  "customLabel": {
+    "message": "سفارشی"
+  },
+  "customHueValueAriaLabel": {
+    "message": "مقدار طیف رنگ سفارشی"
+  },
+  "optionsSubtitle": {
+    "message": "ایزوله‌سازی نشست برای هر برگه در Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "نسخهٔ افزونه"
+  },
+  "tabSettings": {
+    "message": "تنظیمات"
+  },
+  "tabAbout": {
+    "message": "درباره"
+  },
+  "appearanceSectionTitle": {
+    "message": "ظاهر"
+  },
+  "themeSettingLabel": {
+    "message": "پوسته"
+  },
+  "themeSettingDesc": {
+    "message": "لغو ترجیح طرح رنگ سیستم‌عامل"
+  },
+  "themeGroupAriaLabel": {
+    "message": "پوسته"
+  },
+  "autoInheritLabel": {
+    "message": "باز کردن خودکار برگه‌های پیوندی در همان نمایه"
+  },
+  "autoInheritDesc": {
+    "message": "در صورت فعال بودن، برگه‌های بازشده از یک پیوند (پیوندهای برگهٔ جدید، Ctrl-کلیک، کلیک وسط) روی یک نمایهٔ ایزوله، در همان نمایه باقی می‌مانند به‌جای استفاده از کوکی‌های پیش‌فرض Chrome."
+  },
+  "aboutTagline": {
+    "message": "یک افزونهٔ رایگان و متن‌باز Chrome برای ایزوله‌سازی نشست در هر برگه. هم‌زمان در چند حساب روی یک سایت واردشده بمانید."
+  },
+  "supportSectionTitle": {
+    "message": "حمایت از پروژه"
+  },
+  "supportDesc": {
+    "message": "SessionShift رایگان و متن‌باز است. اگر در وقت شما صرفه‌جویی می‌کند، یک کمک کوچک در نظر بگیرید — این کار پروژه را زنده و بدون تبلیغ نگه می‌دارد."
+  },
+  "supportCta": {
+    "message": "حمایت در Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "پیوندها"
+  },
+  "githubLink": {
+    "message": "گیت‌هاب"
+  },
+  "chromeWebStoreLink": {
+    "message": "فروشگاه وب Chrome"
+  },
+  "contextMenuParentTitle": {
+    "message": "باز کردن در نشست"
+  }
+}

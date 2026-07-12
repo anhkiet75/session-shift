@@ -1,0 +1,236 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Wechseln Sie auf jeder Website zwischen mehreren Konten — jeder Tab erhält seine eigene isolierte Sitzung."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift-Popup öffnen"
+  },
+  "commandSessionNextDescription": {
+    "message": "Zur nächsten Sitzung für diesen Tab wechseln"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Zur vorherigen Sitzung für diesen Tab wechseln"
+  },
+  "popupBrandSub": {
+    "message": "Multi-Konto-Manager"
+  },
+  "themeToggleLabel": {
+    "message": "Design: $theme$ (klicken zum Ändern)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "hell"
+  },
+  "themeNameDark": {
+    "message": "dunkel"
+  },
+  "themeNameSystem": {
+    "message": "System"
+  },
+  "openOptionsLabel": {
+    "message": "Optionen öffnen"
+  },
+  "heroActiveLabel": {
+    "message": "Aktiv auf diesem Tab"
+  },
+  "heroDefaultName": {
+    "message": "Standard"
+  },
+  "heroNoSessionMeta": {
+    "message": "Keine Sitzung zugewiesen"
+  },
+  "searchPlaceholder": {
+    "message": "Profile durchsuchen…"
+  },
+  "searchAriaLabel": {
+    "message": "Profile durchsuchen"
+  },
+  "createPlaceholder": {
+    "message": "Neues Profil benennen…"
+  },
+  "createButton": {
+    "message": "Erstellen"
+  },
+  "listHeadProfiles": {
+    "message": "Profile"
+  },
+  "resetToDefault": {
+    "message": "Auf Standard zurücksetzen"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Zum Standard wechseln?"
+  },
+  "cancelButton": {
+    "message": "Abbrechen"
+  },
+  "resetButton": {
+    "message": "Zurücksetzen"
+  },
+  "cannotIsolatePage": {
+    "message": "Diese Seite kann nicht isoliert werden."
+  },
+  "generatedSessionName": {
+    "message": "Sitzung $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (Kopie)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Noch keine Profile"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Erstellen Sie oben eines, um Konten zu isolieren."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Keine Treffer"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Versuchen Sie eine andere Suche."
+  },
+  "duplicateProfileTitle": {
+    "message": "Profil duplizieren"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Profil $name$ duplizieren",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Umbenennen"
+  },
+  "renameAriaLabel": {
+    "message": "Profil $name$ umbenennen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Löschen"
+  },
+  "deleteAriaLabel": {
+    "message": "Profil $name$ löschen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Löschen abbrechen"
+  },
+  "confirmDeleteTitle": {
+    "message": "Löschen bestätigen"
+  },
+  "activeStatusPill": {
+    "message": "aktiv"
+  },
+  "openInNewTab": {
+    "message": "In neuem Tab öffnen"
+  },
+  "changeColorTitle": {
+    "message": "Farbe ändern"
+  },
+  "changeColorAriaLabel": {
+    "message": "Sitzungsfarbe ändern"
+  },
+  "pickColorAriaLabel": {
+    "message": "Sitzungsfarbe auswählen"
+  },
+  "sessionColorLabel": {
+    "message": "Sitzungsfarbe"
+  },
+  "customHueTitle": {
+    "message": "Eigener Farbton"
+  },
+  "customHueAriaLabel": {
+    "message": "Eigener Farbton"
+  },
+  "customLabel": {
+    "message": "Eigene"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Wert des eigenen Farbtons"
+  },
+  "optionsSubtitle": {
+    "message": "Sitzungsisolierung pro Tab für Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Erweiterungsversion"
+  },
+  "tabSettings": {
+    "message": "Einstellungen"
+  },
+  "tabAbout": {
+    "message": "Über"
+  },
+  "appearanceSectionTitle": {
+    "message": "Erscheinungsbild"
+  },
+  "themeSettingLabel": {
+    "message": "Design"
+  },
+  "themeSettingDesc": {
+    "message": "Systemfarbschema-Einstellung überschreiben"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Design"
+  },
+  "autoInheritLabel": {
+    "message": "Verknüpfte Tabs automatisch im selben Profil öffnen"
+  },
+  "autoInheritDesc": {
+    "message": "Wenn aktiviert, bleiben Tabs, die über einen Link (neue Tab-Links, Strg-Klick, mittlere Maustaste) aus einem isolierten Profil geöffnet werden, in diesem Profil, statt Chromes Standard-Cookies zu verwenden."
+  },
+  "aboutTagline": {
+    "message": "Eine kostenlose, quelloffene Chrome-Erweiterung für Sitzungsisolierung pro Tab. Bleiben Sie gleichzeitig bei mehreren Konten auf derselben Website angemeldet."
+  },
+  "supportSectionTitle": {
+    "message": "Das Projekt unterstützen"
+  },
+  "supportDesc": {
+    "message": "SessionShift ist kostenlos und quelloffen. Wenn es Ihnen Zeit spart, erwägen Sie ein kleines Trinkgeld — es hält das Projekt am Leben und werbefrei."
+  },
+  "supportCta": {
+    "message": "Auf Ko-fi unterstützen"
+  },
+  "linksSectionTitle": {
+    "message": "Links"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "In Sitzung öffnen"
+  }
+}
