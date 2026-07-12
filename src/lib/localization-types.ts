@@ -115,11 +115,13 @@ export type MessageKey =
   | 'cancelDeleteTitle'
   | 'confirmDeleteTitle'
   | 'activeStatusPill'
+  | 'heroLiveLabel'
   | 'openInNewTab'
   | 'changeColorTitle'
   | 'changeColorAriaLabel'
   | 'pickColorAriaLabel'
   | 'sessionColorLabel'
+  | 'hueSwatchTitle'
   | 'customHueTitle'
   | 'customHueAriaLabel'
   | 'customLabel'
@@ -141,7 +143,10 @@ export type MessageKey =
   | 'linksSectionTitle'
   | 'githubLink'
   | 'chromeWebStoreLink'
-  | 'contextMenuParentTitle';
+  | 'contextMenuParentTitle'
+  | 'languageSettingLabel'
+  | 'languageSettingDesc'
+  | 'languageOptionSystem';
 
 /** Keys only ever read from `manifest.json` via `__MSG_key__` tokens. */
 export const MANIFEST_ONLY_KEYS: readonly MessageKey[] = [
@@ -160,4 +165,5 @@ export const MESSAGE_PLACEHOLDERS: Partial<Record<MessageKey, readonly string[]>
   duplicateProfileAriaLabel: ['name'],
   renameAriaLabel: ['name'],
   deleteAriaLabel: ['name'],
+  hueSwatchTitle: ['hue'],
 };

@@ -152,6 +152,9 @@
   "activeStatusPill": {
     "message": "פעיל"
   },
+  "heroLiveLabel": {
+    "message": "פעיל"
+  },
   "openInNewTab": {
     "message": "פתיחה בכרטיסייה חדשה"
   },
@@ -166,6 +169,15 @@
   },
   "sessionColorLabel": {
     "message": "צבע ההפעלה"
+  },
+  "hueSwatchTitle": {
+    "message": "גוון $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
   },
   "customHueTitle": {
     "message": "גוון מותאם אישית"
@@ -232,5 +244,14 @@
   },
   "contextMenuParentTitle": {
     "message": "פתיחה בהפעלה"
+  },
+  "languageSettingLabel": {
+    "message": "שפה"
+  },
+  "languageSettingDesc": {
+    "message": "חל על חלונית זו, ההגדרות ותפריטי ההקשר. קיצורי המקלדת של Chrome עצמו, שם ההרחבה והתיאור תמיד עוקבים אחר שפת הדפדפן שלך."
+  },
+  "languageOptionSystem": {
+    "message": "מערכת (התאמה לדפדפן)"
   }
 }

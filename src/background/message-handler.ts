@@ -6,6 +6,7 @@ import { serializeCookieHeader, parseCookieString, parseDocumentCookie, cookieKe
 import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
 import { updateDNRRulesForTab, stripCookiesOnNextNavigation } from './dnr-manager.js';
+import { getLanguagePreference, createLocalizer } from '../lib/localization.js';
 
 export async function handleMessage(
   request: BackgroundMessage,
@@ -206,8 +207,9 @@ export async function handleMessage(
       if (typeof sessionId !== 'string') {
         return { error: 'invalid payload' };
       }
+      const localizer = await createLocalizer(await getLanguagePreference());
       const newSession = await duplicateSession(sessionId, (name) =>
-        chrome.i18n.getMessage('duplicatedSessionName', [name]) || `${name} (copy)`
+        localizer.getMessage('duplicatedSessionName', [name]) || `${name} (copy)`
       );
       return { success: true, session: newSession };
     }

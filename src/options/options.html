@@ -9,7 +9,7 @@
 
   <div class="opt-bg-glow" aria-hidden="true"></div>
 
-  <div class="opt-page">
+  <div class="opt-page" inert aria-busy="true">
 
     <header class="opt-header">
       <div class="opt-logo-wrap">
@@ -17,9 +17,9 @@
       </div>
       <div class="opt-header-text">
         <h1 class="opt-title">SessionShift</h1>
-        <p class="opt-sub">Per-tab session isolation for Chrome.</p>
+        <p class="opt-sub" data-i18n="optionsSubtitle">Per-tab session isolation for Chrome.</p>
       </div>
-      <span class="opt-version-chip" id="aboutVersion" aria-label="Extension version">v0.0.0</span>
+      <span class="opt-version-chip" id="aboutVersion" data-i18n-aria-label="extensionVersionAriaLabel" aria-label="Extension version">v0.0.0</span>
     </header>
 
     <!-- Tab navigation -->
@@ -29,14 +29,14 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"/>
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
         </svg>
-        Settings
+        <span data-i18n="tabSettings">Settings</span>
       </button>
       <button class="opt-tab" data-tab="about" role="tab" id="tab-about" aria-selected="false" aria-controls="panel-about">
         <svg class="opt-tab-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <circle cx="12" cy="12" r="9"/>
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 8h.01M11 12h1v4h1"/>
         </svg>
-        About
+        <span data-i18n="tabAbout">About</span>
       </button>
     </nav>
 
@@ -49,25 +49,32 @@
             <circle cx="12" cy="12" r="4"/>
             <path stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
           </svg>
-          Appearance
+          <span data-i18n="appearanceSectionTitle">Appearance</span>
         </h2>
         <label class="opt-setting-row">
           <div class="opt-setting-info">
-            <span class="opt-setting-label">Theme</span>
-            <span class="opt-setting-desc">Override the OS color scheme preference</span>
+            <span class="opt-setting-label" data-i18n="themeSettingLabel">Theme</span>
+            <span class="opt-setting-desc" data-i18n="themeSettingDesc">Override the OS color scheme preference</span>
           </div>
-          <div class="opt-theme-picker" role="group" aria-label="Theme">
-            <button class="opt-theme-btn" data-theme-val="dark"   aria-pressed="false">Dark</button>
-            <button class="opt-theme-btn" data-theme-val="system" aria-pressed="true" >System</button>
-            <button class="opt-theme-btn" data-theme-val="light"  aria-pressed="false">Light</button>
+          <div class="opt-theme-picker" role="group" data-i18n-aria-label="themeGroupAriaLabel" aria-label="Theme">
+            <button class="opt-theme-btn" data-theme-val="dark"   data-i18n="themeNameDark"   aria-pressed="false">Dark</button>
+            <button class="opt-theme-btn" data-theme-val="system" data-i18n="themeNameSystem" aria-pressed="true" >System</button>
+            <button class="opt-theme-btn" data-theme-val="light"  data-i18n="themeNameLight"  aria-pressed="false">Light</button>
           </div>
         </label>
         <label class="opt-setting-row">
           <div class="opt-setting-info">
-            <span class="opt-setting-label">Auto-open linked tabs in the same profile</span>
-            <span class="opt-setting-desc">When enabled, tabs opened from a link (new-tab links, Ctrl-click, middle-click) on an isolated profile stay in that profile instead of using Chrome's default cookies.</span>
+            <span class="opt-setting-label" data-i18n="autoInheritLabel">Auto-open linked tabs in the same profile</span>
+            <span class="opt-setting-desc" data-i18n="autoInheritDesc">When enabled, tabs opened from a link (new-tab links, Ctrl-click, middle-click) on an isolated profile stay in that profile instead of using Chrome's default cookies.</span>
           </div>
           <input type="checkbox" id="autoInheritToggle" class="opt-toggle-checkbox">
+        </label>
+        <label class="opt-setting-row">
+          <div class="opt-setting-info">
+            <span class="opt-setting-label" data-i18n="languageSettingLabel">Language</span>
+            <span class="opt-setting-desc" data-i18n="languageSettingDesc">Applies to this popup, Options, and context menus. Chrome's own keyboard shortcuts, extension name, and description always follow your browser's language.</span>
+          </div>
+          <select id="languageSelect" class="opt-language-select" data-i18n-aria-label="languageSettingLabel" aria-label="Language"></select>
         </label>
       </section>
 
@@ -81,7 +88,7 @@
           <img src="../icons/icon-128.png" class="opt-about-logo" alt="">
         </div>
         <div class="opt-about-name">SessionShift</div>
-        <p class="opt-about-tagline">A free, open-source Chrome extension for per-tab session isolation. Stay logged into multiple accounts on the same site, simultaneously.</p>
+        <p class="opt-about-tagline" data-i18n="aboutTagline">A free, open-source Chrome extension for per-tab session isolation. Stay logged into multiple accounts on the same site, simultaneously.</p>
       </section>
 
       <section class="opt-section opt-support">
@@ -89,16 +96,16 @@
           <svg class="opt-section-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
-          Support the project
+          <span data-i18n="supportSectionTitle">Support the project</span>
         </h2>
-        <p class="opt-support-desc">SessionShift is free and open-source. If it saves you time, consider a small tip — it keeps the project alive and ad-free.</p>
+        <p class="opt-support-desc" data-i18n="supportDesc">SessionShift is free and open-source. If it saves you time, consider a small tip — it keeps the project alive and ad-free.</p>
         <a href="https://ko-fi.com/sessionshift" target="_blank" rel="noopener noreferrer" class="opt-cta">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M17 8h1a4 4 0 0 1 0 8h-1"/>
             <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/>
             <path d="M6 1v3M10 1v3M14 1v3"/>
           </svg>
-          <span>Support on Ko-fi</span>
+          <span data-i18n="supportCta">Support on Ko-fi</span>
           <span class="opt-cta-arrow" aria-hidden="true">→</span>
         </a>
       </section>
@@ -108,7 +115,7 @@
           <svg class="opt-section-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1 1M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1-1"/>
           </svg>
-          Links
+          <span data-i18n="linksSectionTitle">Links</span>
         </h2>
         <div class="opt-about-links">
           <a href="https://github.com/anhkiet75/session-shift" target="_blank" rel="noopener noreferrer" class="opt-ghost-link">
@@ -116,13 +123,13 @@
               <polyline points="16 18 22 12 16 6"/>
               <polyline points="8 6 2 12 8 18"/>
             </svg>
-            <span>GitHub</span>
+            <span data-i18n="githubLink">GitHub</span>
           </a>
           <a href="https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp" target="_blank" rel="noopener noreferrer" class="opt-ghost-link">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M14 3h7v7M10 14L21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/>
             </svg>
-            <span>Chrome Web Store</span>
+            <span data-i18n="chromeWebStoreLink">Chrome Web Store</span>
           </a>
         </div>
       </section>

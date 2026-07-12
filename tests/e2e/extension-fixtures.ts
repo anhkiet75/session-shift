@@ -25,7 +25,10 @@ export const test = base.extend<ExtensionFixtures>({
       path.join(os.tmpdir(), `pw-ext-${testInfo.workerIndex}-`),
     )
     const ctx = await chromium.launchPersistentContext(userDataDir, {
-      headless: false,
+      // Chrome's "new" headless mode (Chrome 109+) supports extensions, unlike
+      // classic headless. Default stays headed (matches playwright.config.ts);
+      // set PW_HEADLESS=1 to force headless for this run only.
+      headless: process.env.PW_HEADLESS === '1',
       args: [
         `--disable-extensions-except=${EXTENSION_PATH}`,
         `--load-extension=${EXTENSION_PATH}`,
@@ -109,5 +112,14 @@ export const test = base.extend<ExtensionFixtures>({
     await page.close()
   },
 })
+
+/** Seeds `ext_settings.language` (preserving other fields) before a page reads it. */
+export async function seedLocalePreference(page: Page, language: string | undefined): Promise<void> {
+  await page.evaluate(async (lang) => {
+    const result = await chrome.storage.local.get(['ext_settings'])
+    const existing = (result.ext_settings as Record<string, unknown>) || {}
+    await chrome.storage.local.set({ ext_settings: { ...existing, language: lang } })
+  }, language)
+}
 
 export { expect } from '@playwright/test'

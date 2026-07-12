@@ -173,6 +173,10 @@
     "message": "active",
     "description": "Small status pill shown on the currently active profile card."
   },
+  "heroLiveLabel": {
+    "message": "live",
+    "description": "Status word shown next to the active session name in the popup hero."
+  },
   "openInNewTab": {
     "message": "Open in new tab",
     "description": "Menu item to open the current page in the selected profile via a new tab."
@@ -192,6 +196,13 @@
   "sessionColorLabel": {
     "message": "Session color",
     "description": "Heading text inside the color picker popover."
+  },
+  "hueSwatchTitle": {
+    "message": "Hue $hue$",
+    "description": "Title tooltip for a preset color swatch in the color picker, naming its numeric hue value.",
+    "placeholders": {
+      "hue": { "content": "$1", "example": "212" }
+    }
   },
   "customHueTitle": {
     "message": "Custom hue",
@@ -279,6 +290,18 @@
   },
   "contextMenuParentTitle": {
     "message": "Open in Session",
-    "description": "Parent title of the right-click context menu group. Chrome-owned surface: follows Chrome's UI locale only, not the manual in-extension override."
+    "description": "Parent title of the right-click context menu group. Extension-owned: created at runtime via chrome.contextMenus, so it follows the manual in-extension locale override, not only Chrome's UI locale."
+  },
+  "languageSettingLabel": {
+    "message": "Language",
+    "description": "Options page label for the language preference picker."
+  },
+  "languageSettingDesc": {
+    "message": "Applies to this popup, Options, and context menus. Chrome's own keyboard shortcuts, extension name, and description always follow your browser's language.",
+    "description": "Options page description clarifying the manual language override's scope versus Chrome-owned surfaces."
+  },
+  "languageOptionSystem": {
+    "message": "System (match browser)",
+    "description": "Language picker option that delegates to Chrome's own UI locale instead of a pinned locale."
   }
 }

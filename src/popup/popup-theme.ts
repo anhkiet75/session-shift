@@ -2,6 +2,13 @@
 
 import type { Theme } from '../lib/types.js';
 import { mutateExtSettingsField } from '../lib/settings-store.js';
+import type { Localizer } from '../lib/localization.js';
+
+const THEME_NAME_KEY: Record<Theme, string> = {
+  light: 'themeNameLight',
+  dark: 'themeNameDark',
+  system: 'themeNameSystem',
+};
 
 export const THEME_CYCLE: Theme[] = ['light', 'dark', 'system'];
 
@@ -31,11 +38,12 @@ export function applyTheme(theme: Theme): void {
   }
 }
 
-export function updateThemeToggle(theme: Theme): void {
+export function updateThemeToggle(theme: Theme, localizer: Localizer): void {
   const btn = document.getElementById('themeToggle');
   if (!btn) return;
   btn.innerHTML = THEME_ICONS[theme];
-  const label = `Theme: ${theme} (click to change)`;
+  const themeName = localizer.getMessage(THEME_NAME_KEY[theme]) || theme;
+  const label = localizer.getMessage('themeToggleLabel', [themeName]) || `Theme: ${theme} (click to change)`;
   btn.setAttribute('aria-label', label);
   btn.title = label;
 }
@@ -45,16 +53,16 @@ async function readSettings(): Promise<Record<string, unknown>> {
   return (result.ext_settings as Record<string, unknown>) || {};
 }
 
-export async function applyStoredTheme(): Promise<void> {
+export async function applyStoredTheme(localizer: Localizer): Promise<void> {
   const settings = await readSettings();
   const theme = (settings.theme as Theme | undefined) || 'system';
   applyTheme(theme);
-  updateThemeToggle(theme);
+  updateThemeToggle(theme, localizer);
 }
 
 let cyclingTheme = false;
 
-export async function cycleTheme(): Promise<void> {
+export async function cycleTheme(localizer: Localizer): Promise<void> {
   if (cyclingTheme) return;
   cyclingTheme = true;
   try {
@@ -63,7 +71,7 @@ export async function cycleTheme(): Promise<void> {
     const next = THEME_CYCLE[(THEME_CYCLE.indexOf(current) + 1) % THEME_CYCLE.length];
     await mutateExtSettingsField('theme', next);
     applyTheme(next);
-    updateThemeToggle(next);
+    updateThemeToggle(next, localizer);
   } finally {
     cyclingTheme = false;
   }

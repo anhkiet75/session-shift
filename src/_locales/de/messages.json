@@ -152,6 +152,9 @@
   "activeStatusPill": {
     "message": "aktiv"
   },
+  "heroLiveLabel": {
+    "message": "live"
+  },
   "openInNewTab": {
     "message": "In neuem Tab öffnen"
   },
@@ -166,6 +169,15 @@
   },
   "sessionColorLabel": {
     "message": "Sitzungsfarbe"
+  },
+  "hueSwatchTitle": {
+    "message": "Farbton $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
   },
   "customHueTitle": {
     "message": "Eigener Farbton"
@@ -232,5 +244,14 @@
   },
   "contextMenuParentTitle": {
     "message": "In Sitzung öffnen"
+  },
+  "languageSettingLabel": {
+    "message": "Sprache"
+  },
+  "languageSettingDesc": {
+    "message": "Gilt für dieses Popup, die Optionen und Kontextmenüs. Chromes eigene Tastenkürzel, der Erweiterungsname und die Beschreibung folgen immer der Sprache Ihres Browsers."
+  },
+  "languageOptionSystem": {
+    "message": "System (wie Browser)"
   }
 }

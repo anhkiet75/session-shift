@@ -2,6 +2,7 @@
 
 import type { PopupSession } from './popup-types.js';
 import { HUE_PALETTE } from './popup-types.js';
+import type { Localizer } from '../lib/localization.js';
 
 let activePopover: HTMLElement | null = null;
 let activeCol: HTMLElement | null = null;
@@ -25,12 +26,13 @@ document.addEventListener('scroll', closeActivePopover, true);
 export function buildColorDot(
   session: PopupSession,
   card: HTMLElement,
-  onColorChange: (hue: number) => void
+  onColorChange: (hue: number) => void,
+  localizer: Localizer
 ): HTMLElement {
   const col = document.createElement('div');
   col.className = 'v2-card-color';
-  col.title = 'Change color';
-  col.setAttribute('aria-label', 'Change session color');
+  col.title = localizer.getMessage('changeColorTitle') || 'Change color';
+  col.setAttribute('aria-label', localizer.getMessage('changeColorAriaLabel') || 'Change session color');
   col.setAttribute('aria-expanded', 'false');
   col.setAttribute('role', 'button');
   col.tabIndex = 0;
@@ -46,7 +48,7 @@ export function buildColorDot(
       return;
     }
     closeActivePopover();
-    const popover = buildPopover(session, card, onColorChange, () => placePopover(popover, col));
+    const popover = buildPopover(session, card, onColorChange, localizer, () => placePopover(popover, col));
     document.body.appendChild(popover);
     col.setAttribute('aria-expanded', 'true');
     activePopover = popover;
@@ -91,17 +93,18 @@ function buildPopover(
   session: PopupSession,
   card: HTMLElement,
   onColorChange: (hue: number) => void,
+  localizer: Localizer,
   onResize?: () => void
 ): HTMLElement {
   const popover = document.createElement('div');
   popover.className = 'v2-color-popover';
   popover.setAttribute('role', 'dialog');
-  popover.setAttribute('aria-label', 'Pick session color');
+  popover.setAttribute('aria-label', localizer.getMessage('pickColorAriaLabel') || 'Pick session color');
   popover.addEventListener('click', (e) => e.stopPropagation());
 
   const label = document.createElement('div');
   label.className = 'v2-color-popover-label';
-  label.textContent = 'Session color';
+  label.textContent = localizer.getMessage('sessionColorLabel') || 'Session color';
   popover.appendChild(label);
 
   const swatchRow = document.createElement('div');
@@ -112,7 +115,7 @@ function buildPopover(
     sw.type = 'button';
     sw.className = 'v2-color-swatch';
     sw.style.background = `hsl(${h},70%,55%)`;
-    sw.title = `Hue ${h}`;
+    sw.title = localizer.getMessage('hueSwatchTitle', [String(h)]) || `Hue ${h}`;
     sw.setAttribute('aria-pressed', String(session.hue === h));
     sw.addEventListener('click', async () => {
       await applyColor(h);
@@ -126,8 +129,8 @@ function buildPopover(
   const customBtn = document.createElement('button');
   customBtn.type = 'button';
   customBtn.className = 'v2-color-swatch-custom';
-  customBtn.title = 'Custom hue';
-  customBtn.setAttribute('aria-label', 'Custom hue');
+  customBtn.title = localizer.getMessage('customHueTitle') || 'Custom hue';
+  customBtn.setAttribute('aria-label', localizer.getMessage('customHueAriaLabel') || 'Custom hue');
   customBtn.setAttribute('aria-expanded', 'false');
   customBtn.textContent = '+';
   customBtn.addEventListener('click', () => {
@@ -136,7 +139,7 @@ function buildPopover(
       sliderWrap = null;
       customBtn.setAttribute('aria-expanded', 'false');
     } else {
-      sliderWrap = buildSlider(session, card, onColorChange);
+      sliderWrap = buildSlider(session, card, onColorChange, localizer);
       popover.appendChild(sliderWrap);
       customBtn.setAttribute('aria-expanded', 'true');
     }
@@ -163,7 +166,8 @@ function buildPopover(
 function buildSlider(
   session: PopupSession,
   card: HTMLElement,
-  onColorChange: (hue: number) => void
+  onColorChange: (hue: number) => void,
+  localizer: Localizer
 ): HTMLElement {
   const wrap = document.createElement('div');
   wrap.className = 'v2-hue-slider-wrap';
@@ -171,7 +175,7 @@ function buildSlider(
   const labelRow = document.createElement('div');
   labelRow.className = 'v2-hue-slider-label';
   const spanLeft = document.createElement('span');
-  spanLeft.textContent = 'Custom';
+  spanLeft.textContent = localizer.getMessage('customLabel') || 'Custom';
   const spanRight = document.createElement('span');
   spanRight.textContent = `${session.hue ?? 212}°`;
   labelRow.appendChild(spanLeft);
@@ -184,7 +188,7 @@ function buildSlider(
   slider.max = '360';
   slider.value = String(session.hue ?? 212);
   slider.className = 'v2-hue-slider';
-  slider.setAttribute('aria-label', 'Custom hue value');
+  slider.setAttribute('aria-label', localizer.getMessage('customHueValueAriaLabel') || 'Custom hue value');
 
   const preview = document.createElement('div');
   preview.className = 'v2-hue-preview';

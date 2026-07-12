@@ -7,7 +7,7 @@
 </head>
 <body>
 
-  <div class="v2-popup">
+  <div class="v2-popup" inert aria-busy="true">
 
     <!-- HERO — brand + active session with ambient hue -->
     <div class="v2-hero" id="heroSection">
@@ -18,7 +18,7 @@
           <img src="../icons/icon-128.png" alt="SessionShift" class="v2-logo">
           <div>
             <div class="v2-brand-title">SessionShift</div>
-            <div class="v2-brand-sub">Multi-account manager</div>
+            <div class="v2-brand-sub" data-i18n="popupBrandSub">Multi-account manager</div>
           </div>
         </div>
         <div class="v2-hero-actions">
@@ -26,6 +26,7 @@
                   aria-label="Theme: system (click to change)"
                   title="Theme: system (click to change)"></button>
           <button id="openOptions" class="v2-options-btn" type="button"
+                  data-i18n-aria-label="openOptionsLabel" data-i18n-title="openOptionsLabel"
                   aria-label="Open options"
                   title="Open options">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -37,7 +38,7 @@
       </div>
 
       <div class="v2-hero-active">
-        <div class="v2-hero-label">Active on this tab</div>
+        <div class="v2-hero-label" data-i18n="heroActiveLabel">Active on this tab</div>
         <div class="v2-hero-session" id="heroSession">
           <div class="v2-hero-mark v2-mark-default" id="heroMark">
             <span class="v2-hero-mark-dot"></span>
@@ -53,7 +54,8 @@
     <!-- SEARCH -->
     <div class="v2-search-wrap" id="searchWrap">
       <svg class="v2-search-icon" width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <input type="search" id="searchInput" class="v2-search" placeholder="Search profiles…" autocomplete="off" spellcheck="false" aria-label="Search profiles">
+      <input type="search" id="searchInput" class="v2-search" placeholder="Search profiles…" autocomplete="off" spellcheck="false"
+             data-i18n-placeholder="searchPlaceholder" data-i18n-aria-label="searchAriaLabel" aria-label="Search profiles">
     </div>
 
     <!-- CREATE PROFILE -->
@@ -61,9 +63,10 @@
       <div class="v2-create-icon">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3.5v9M3.5 8h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
-      <input type="text" id="newSessionName" class="v2-create-input" placeholder="Name a new profile…" autocomplete="off" spellcheck="false">
+      <input type="text" id="newSessionName" class="v2-create-input" placeholder="Name a new profile…" autocomplete="off" spellcheck="false"
+             data-i18n-placeholder="createPlaceholder">
       <button id="btnNewSession" class="v2-create-btn">
-        Create
+        <span data-i18n="createButton">Create</span>
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
@@ -71,7 +74,7 @@
     <!-- SESSION LIST -->
     <div class="v2-list-wrap" id="savedSessionsList">
       <div class="v2-list-head">
-        <span>Profiles</span>
+        <span data-i18n="listHeadProfiles">Profiles</span>
         <span class="v2-list-count" id="sessionCount" aria-live="polite" aria-atomic="true">0</span>
       </div>
     </div>
@@ -81,7 +84,7 @@
       <div id="resetArea">
         <button id="btnDefault" class="v2-reset">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8a5 5 0 1 0 1.5-3.5M3 3v3h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Reset to default
+          <span data-i18n="resetToDefault">Reset to default</span>
         </button>
       </div>
     </div>

@@ -138,6 +138,20 @@ export function getResolvedLanguageTag(localizer: Localizer): string {
   return localizer.languageTag
 }
 
+/**
+ * Native-language display name for a locale (e.g. `de` -> "Deutsch"), via the
+ * built-in `Intl.DisplayNames` — no hand-maintained 55-row name table needed.
+ * Falls back to the locale code itself if the runtime can't resolve it.
+ */
+export function getLocaleDisplayName(locale: SupportedLocale): string {
+  try {
+    const tag = LOCALE_METADATA[locale].languageTag
+    return new Intl.DisplayNames([tag], { type: 'language' }).of(tag) ?? locale
+  } catch {
+    return locale
+  }
+}
+
 export function getTextDirection(localizer: Localizer): TextDirection {
   return localizer.direction
 }
@@ -160,5 +174,35 @@ export function createGenerationGuard() {
   return {
     next: (): number => ++current,
     isLatest: (generation: number): boolean => generation === current,
+  }
+}
+
+const MARKER_ATTRIBUTES: Record<string, string> = {
+  'data-i18n': 'textContent',
+  'data-i18n-aria-label': 'aria-label',
+  'data-i18n-title': 'title',
+  'data-i18n-placeholder': 'placeholder',
+}
+
+/**
+ * Localizes every element under `root` carrying a `data-i18n*` marker.
+ * Idempotent — re-running against the same tree with a different localizer
+ * simply overwrites the previous text/attribute values. Unknown keys resolve
+ * to an empty string upstream; here they're additionally reported so a typo'd
+ * marker doesn't silently render blank in development/tests.
+ */
+export function localizeDocument(root: ParentNode, localizer: Localizer): void {
+  for (const [attribute, target] of Object.entries(MARKER_ATTRIBUTES)) {
+    for (const element of Array.from(root.querySelectorAll(`[${attribute}]`))) {
+      const key = element.getAttribute(attribute)
+      if (!key) continue
+      const message = localizer.getMessage(key)
+      if (!message) {
+        console.warn(`[i18n] unresolved key "${key}" for ${attribute} on`, element)
+        continue
+      }
+      if (target === 'textContent') element.textContent = message
+      else element.setAttribute(target, message)
+    }
   }
 }

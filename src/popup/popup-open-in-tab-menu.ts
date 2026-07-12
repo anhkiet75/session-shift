@@ -1,6 +1,7 @@
 // popup-open-in-tab-menu.ts — Custom right-click menu for opening a profile in a new tab.
 
 import type { PopupSession } from './popup-types.js';
+import type { Localizer } from '../lib/localization.js';
 
 let activeMenu: HTMLElement | null = null;
 
@@ -35,7 +36,7 @@ function placeMenu(menu: HTMLElement, clientX: number, clientY: number): void {
   menu.style.left = `${left}px`;
 }
 
-function buildMenu(session: PopupSession, getCurrentUrl: () => string): HTMLElement {
+function buildMenu(session: PopupSession, getCurrentUrl: () => string, localizer: Localizer): HTMLElement {
   const menu = document.createElement('div');
   menu.className = 'v2-open-tab-menu';
   menu.setAttribute('role', 'menu');
@@ -46,7 +47,7 @@ function buildMenu(session: PopupSession, getCurrentUrl: () => string): HTMLElem
   menuItem.className = 'v2-open-tab-menu-item';
   menuItem.setAttribute('role', 'menuitem');
   menuItem.setAttribute('data-action', 'open-in-new-tab');
-  menuItem.textContent = 'Open in new tab';
+  menuItem.textContent = localizer.getMessage('openInNewTab') || 'Open in new tab';
   menuItem.addEventListener('click', async (e) => {
     e.stopPropagation();
     menuItem.disabled = true;
@@ -66,11 +67,12 @@ export function attachOpenInTabMenu(
   card: HTMLElement,
   session: PopupSession,
   getCurrentUrl: () => string,
+  localizer: Localizer,
 ): void {
   card.tabIndex = 0;
   const openMenu = (clientX: number, clientY: number): void => {
     closeActiveMenu();
-    const menu = buildMenu(session, getCurrentUrl);
+    const menu = buildMenu(session, getCurrentUrl, localizer);
     document.body.appendChild(menu);
     activeMenu = menu;
     const cardRect = card.getBoundingClientRect();

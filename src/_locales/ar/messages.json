@@ -152,6 +152,9 @@
   "activeStatusPill": {
     "message": "نشط"
   },
+  "heroLiveLabel": {
+    "message": "مباشر"
+  },
   "openInNewTab": {
     "message": "فتح في تبويب جديد"
   },
@@ -166,6 +169,15 @@
   },
   "sessionColorLabel": {
     "message": "لون الجلسة"
+  },
+  "hueSwatchTitle": {
+    "message": "درجة اللون $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
   },
   "customHueTitle": {
     "message": "درجة لون مخصصة"
@@ -232,5 +244,14 @@
   },
   "contextMenuParentTitle": {
     "message": "فتح في جلسة"
+  },
+  "languageSettingLabel": {
+    "message": "اللغة"
+  },
+  "languageSettingDesc": {
+    "message": "ينطبق على هذه النافذة المنبثقة والإعدادات وقوائم السياق. تتبع اختصارات لوحة المفاتيح الخاصة بـ Chrome واسم الإضافة ووصفها دائمًا لغة متصفحك."
+  },
+  "languageOptionSystem": {
+    "message": "النظام (مطابقة المتصفح)"
   }
 }

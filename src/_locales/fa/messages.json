@@ -152,6 +152,9 @@
   "activeStatusPill": {
     "message": "فعال"
   },
+  "heroLiveLabel": {
+    "message": "زنده"
+  },
   "openInNewTab": {
     "message": "باز کردن در برگهٔ جدید"
   },
@@ -166,6 +169,15 @@
   },
   "sessionColorLabel": {
     "message": "رنگ نشست"
+  },
+  "hueSwatchTitle": {
+    "message": "طیف رنگ $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
   },
   "customHueTitle": {
     "message": "طیف رنگ سفارشی"
@@ -232,5 +244,14 @@
   },
   "contextMenuParentTitle": {
     "message": "باز کردن در نشست"
+  },
+  "languageSettingLabel": {
+    "message": "زبان"
+  },
+  "languageSettingDesc": {
+    "message": "روی این پنجرهٔ بازشو، تنظیمات و منوهای زمینه اعمال می‌شود. میان‌برهای صفحه‌کلید Chrome، نام و توضیحات افزونه همیشه از زبان مرورگر شما پیروی می‌کنند."
+  },
+  "languageOptionSystem": {
+    "message": "سیستم (مطابق مرورگر)"
   }
 }

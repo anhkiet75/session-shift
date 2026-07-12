@@ -9,6 +9,7 @@ import { buildColorDot } from './popup-color-picker.js';
 import { startRename } from './popup-rename-handler.js';
 import { startDeleteConfirm, cancelActiveConfirm } from './popup-delete-handler.js';
 import { attachOpenInTabMenu } from './popup-open-in-tab-menu.js';
+import type { Localizer } from '../lib/localization.js';
 
 export function renderSessionList(
   container: HTMLElement,
@@ -16,6 +17,7 @@ export function renderSessionList(
   currentSessionId: string,
   tabId: number,
   currentUrl: string,
+  localizer: Localizer,
   query = ''
 ): void {
   cancelActiveConfirm();
@@ -36,18 +38,28 @@ export function renderSessionList(
   if (filtered.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'v2-empty';
-    empty.innerHTML = sessions.length === 0
-      ? `
-        <div class="v2-empty-icon">
-          <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.2 3.8L13 7l-3.8 1.2L8 12 6.8 8.2 3 7l3.8-1.2L8 2Z" fill="currentColor"/></svg>
-        </div>
-        <div class="v2-empty-title">No profiles yet</div>
-        <div class="v2-empty-sub">Create one above to start isolating accounts.</div>
-      `
-      : `
-        <div class="v2-empty-title">No matches</div>
-        <div class="v2-empty-sub">Try a different search.</div>
-      `;
+
+    if (sessions.length === 0) {
+      const iconWrap = document.createElement('div');
+      iconWrap.className = 'v2-empty-icon';
+      iconWrap.innerHTML = '<svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.2 3.8L13 7l-3.8 1.2L8 12 6.8 8.2 3 7l3.8-1.2L8 2Z" fill="currentColor"/></svg>';
+      const title = document.createElement('div');
+      title.className = 'v2-empty-title';
+      title.textContent = localizer.getMessage('emptyNoProfilesTitle') || 'No profiles yet';
+      const sub = document.createElement('div');
+      sub.className = 'v2-empty-sub';
+      sub.textContent = localizer.getMessage('emptyNoProfilesSub') || 'Create one above to start isolating accounts.';
+      empty.append(iconWrap, title, sub);
+    } else {
+      const title = document.createElement('div');
+      title.className = 'v2-empty-title';
+      title.textContent = localizer.getMessage('emptyNoMatchesTitle') || 'No matches';
+      const sub = document.createElement('div');
+      sub.className = 'v2-empty-sub';
+      sub.textContent = localizer.getMessage('emptyNoMatchesSub') || 'Try a different search.';
+      empty.append(title, sub);
+    }
+
     container.appendChild(empty);
     return;
   }
@@ -59,6 +71,7 @@ export function renderSessionList(
   filtered.forEach((session, i) => {
     const isActive = session.id === currentSessionId;
     const hue = getSessionHue(session, i);
+    const displayName = session.name || session.id;
 
     const card = document.createElement('div');
     card.className = 'v2-card' + (isActive ? ' active' : '');
@@ -71,7 +84,7 @@ export function renderSessionList(
         bubbles: true,
         detail: { sessionId: session.id, hue: newHue }
       }));
-    });
+    }, localizer);
 
     const bar = document.createElement('div');
     bar.className = 'v2-card-bar';
@@ -87,14 +100,20 @@ export function renderSessionList(
 
     const nameEl = document.createElement('div');
     nameEl.className = 'v2-card-name';
-    nameEl.textContent = session.name || session.id;
-    nameEl.title = session.name || session.id;
+    nameEl.textContent = displayName;
+    nameEl.title = displayName;
     body.appendChild(nameEl);
 
     if (isActive) {
       const meta = document.createElement('div');
       meta.className = 'v2-card-meta';
-      meta.innerHTML = `<span class="v2-card-active-pill"><span class="v2-live-dot"></span>active</span>`;
+      const pill = document.createElement('span');
+      pill.className = 'v2-card-active-pill';
+      const liveDot = document.createElement('span');
+      liveDot.className = 'v2-live-dot';
+      pill.appendChild(liveDot);
+      pill.appendChild(document.createTextNode(localizer.getMessage('activeStatusPill') || 'active'));
+      meta.appendChild(pill);
       body.appendChild(meta);
     }
 
@@ -103,23 +122,23 @@ export function renderSessionList(
 
     const dupBtn = document.createElement('button');
     dupBtn.className = 'v2-card-dup';
-    dupBtn.title = 'Duplicate profile';
+    dupBtn.title = localizer.getMessage('duplicateProfileTitle') || 'Duplicate profile';
     dupBtn.setAttribute('data-action', 'duplicate-profile');
-    dupBtn.setAttribute('aria-label', `Duplicate profile ${session.name || session.id}`);
+    dupBtn.setAttribute('aria-label', localizer.getMessage('duplicateProfileAriaLabel', [displayName]) || `Duplicate profile ${displayName}`);
     dupBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
     dupBtn.addEventListener('click', async (e) => {
       e.stopPropagation();
       dupBtn.disabled = true;
       await chrome.runtime.sendMessage({ action: 'duplicateSession', payload: { sessionId: session.id } });
       const fresh = await getSavedSessions();
-      renderSessionList(container, fresh, currentSessionId, tabId, currentUrl, query);
+      renderSessionList(container, fresh, currentSessionId, tabId, currentUrl, localizer, query);
     });
 
     const renameBtn = document.createElement('button');
     renameBtn.className = 'v2-card-rename';
-    renameBtn.title = 'Rename';
+    renameBtn.title = localizer.getMessage('renameTitle') || 'Rename';
     renameBtn.setAttribute('data-action', 'rename-profile');
-    renameBtn.setAttribute('aria-label', `Rename profile ${session.name || session.id}`);
+    renameBtn.setAttribute('aria-label', localizer.getMessage('renameAriaLabel', [displayName]) || `Rename profile ${displayName}`);
     renameBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2.5a1.5 1.5 0 0 1 2.12 2.12L4.85 12.88l-2.83.7.7-2.83L11 2.5Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     renameBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -137,9 +156,9 @@ export function renderSessionList(
     } else {
       const delBtn = document.createElement('button');
       delBtn.className = 'v2-card-del';
-      delBtn.title = 'Delete';
+      delBtn.title = localizer.getMessage('deleteTitle') || 'Delete';
       delBtn.setAttribute('data-action', 'delete-profile');
-      delBtn.setAttribute('aria-label', `Delete profile ${session.name || session.id}`);
+      delBtn.setAttribute('aria-label', localizer.getMessage('deleteAriaLabel', [displayName]) || `Delete profile ${displayName}`);
       delBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
       delBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -151,7 +170,7 @@ export function renderSessionList(
           card.remove();
           const c = document.getElementById('sessionCount');
           if (c) c.textContent = String(Math.max(0, parseInt(c.textContent || '0') - 1));
-        });
+        }, localizer);
       });
       actions.appendChild(delBtn);
     }
@@ -161,7 +180,7 @@ export function renderSessionList(
     card.appendChild(mark);
     card.appendChild(body);
     card.appendChild(actions);
-    attachOpenInTabMenu(card, session, () => currentUrl);
+    attachOpenInTabMenu(card, session, () => currentUrl, localizer);
 
     if (!isActive) {
       card.addEventListener('click', () => {
