@@ -9,6 +9,7 @@
     "pretest:e2e": "npm run build",
     "test": "npm run test:unit && npm run test:e2e",
     "type-check": "tsc --noEmit",
+    "validate:locales": "node scripts/validate-locales.mjs",
     "generate:psl": "node scripts/generate-public-suffix-list.mjs",
     "dev": "bash scripts/dev.sh",
     "build": "bash scripts/build.sh",

@@ -18,11 +18,13 @@ export function startDeleteConfirm(
 
   const cancelBtn = document.createElement('button');
   cancelBtn.className = 'v2-card-del-cancel';
+  cancelBtn.setAttribute('data-action', 'cancel-delete');
   cancelBtn.textContent = 'Cancel';
   cancelBtn.title = 'Cancel delete';
 
   const confirmBtn = document.createElement('button');
   confirmBtn.className = 'v2-card-del-confirm';
+  confirmBtn.setAttribute('data-action', 'confirm-delete');
   confirmBtn.textContent = 'Delete';
   confirmBtn.title = 'Confirm delete';
 

@@ -1,4 +1,29 @@
 import { beforeEach, vi } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+const englishCatalog = JSON.parse(
+  readFileSync(resolve(process.cwd(), 'src/_locales/en/messages.json'), 'utf8'),
+);
+
+function createI18nMock() {
+  return {
+    // Positional only: each declared placeholder's "content" is "$N$" (N = its
+    // 1-based position), so this maps $name$/$index$/etc to substitutions[N-1]
+    // in the order they're declared in the English catalog entry.
+    getMessage: vi.fn((key, substitutions) => {
+      const entry = englishCatalog[key];
+      if (!entry) return '';
+      if (!substitutions || substitutions.length === 0) return entry.message;
+      const order = Object.keys(entry.placeholders ?? {});
+      return entry.message.replace(/\$([A-Za-z0-9_]+)\$/g, (_full, name) => {
+        const position = order.indexOf(name);
+        if (position === -1) throw new Error(`i18n mock: "${key}" references undeclared placeholder "${name}"`);
+        return String(substitutions[position]);
+      });
+    }),
+  };
+}
 
 function createStorageMock() {
   let data = {};
@@ -33,6 +58,7 @@ function createChromeMock() {
       onStartup: { addListener: vi.fn() },
       onInstalled: { addListener: vi.fn() },
     },
+    i18n: createI18nMock(),
     alarms: {
       create: vi.fn(),
       onAlarm: { addListener: vi.fn() },

@@ -63,13 +63,21 @@ export async function findOrphanedCookieStores(): Promise<string[]> {
   return orphans;
 }
 
-export async function duplicateSession(sessionId: string): Promise<Session> {
+/**
+ * `buildDuplicateName` resolves the full stored name from the source name at
+ * duplication time (e.g. localized "$name$ (copy)"). Called once here; the
+ * result is stored and never re-localized on later locale changes.
+ */
+export async function duplicateSession(
+  sessionId: string,
+  buildDuplicateName: (sourceName: string) => string = (name) => `${name} (copy)`
+): Promise<Session> {
   const list = await getProfiles();
   const source = list.find(s => s.id === sessionId);
   if (!source) throw new Error(`Session not found: ${sessionId}`);
 
   const newId = 'session_' + crypto.randomUUID();
-  const newSession = { id: newId, name: source.name + ' (copy)', hue: source.hue };
+  const newSession = { id: newId, name: buildDuplicateName(source.name), hue: source.hue };
 
   // List-then-store ordering: write the profiles reference BEFORE the cookie store.
   // A GC snapshot taken mid-flight then sees a referenced (recoverable) store, never

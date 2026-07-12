@@ -45,6 +45,7 @@ function buildMenu(session: PopupSession, getCurrentUrl: () => string): HTMLElem
   menuItem.type = 'button';
   menuItem.className = 'v2-open-tab-menu-item';
   menuItem.setAttribute('role', 'menuitem');
+  menuItem.setAttribute('data-action', 'open-in-new-tab');
   menuItem.textContent = 'Open in new tab';
   menuItem.addEventListener('click', async (e) => {
     e.stopPropagation();

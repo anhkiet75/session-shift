@@ -102,10 +102,16 @@ test.describe('Session CRUD', () => {
   test('delete session removes it from list', async ({ popupPage }) => {
     await seedSession(popupPage, 'ToDelete', ['Keep'])
 
-    // Delete now uses an inline confirm UI — click the card delete button, then confirm.
-    await popupPage.locator('.v2-card', { hasText: 'ToDelete' }).hover()
-    await popupPage.locator('[aria-label="Delete profile ToDelete"]').click()
-    await popupPage.locator('.v2-card-del-confirm').click()
+    // Delete now uses an inline confirm UI — stable `data-action` selectors (not
+    // English aria-label text) locate the controls; the card is still scoped by
+    // its current (English-seeded) name.
+    const toDeleteCard = popupPage.locator('.v2-card', { hasText: 'ToDelete' })
+    await toDeleteCard.hover()
+    // Separate localized-semantics check: the delete control's aria-label still
+    // names the profile, independent of the stable data-action used to click it.
+    await expect(toDeleteCard.locator('[data-action="delete-profile"]')).toHaveAttribute('aria-label', 'Delete profile ToDelete')
+    await toDeleteCard.locator('[data-action="delete-profile"]').click()
+    await toDeleteCard.locator('[data-action="confirm-delete"]').click()
 
     await expect(popupPage.locator('.v2-card-name', { hasText: 'ToDelete' })).not.toBeVisible()
   })
@@ -114,8 +120,10 @@ test.describe('Session CRUD', () => {
     await seedSession(popupPage, 'Original')
     const countBefore = await popupPage.locator('.v2-card').count()
 
-    await popupPage.locator('.v2-card', { hasText: 'Original' }).hover()
-    await popupPage.locator('[aria-label="Duplicate profile Original"]').click()
+    const originalCard = popupPage.locator('.v2-card', { hasText: 'Original' })
+    await originalCard.hover()
+    await expect(originalCard.locator('[data-action="duplicate-profile"]')).toHaveAttribute('aria-label', 'Duplicate profile Original')
+    await originalCard.locator('[data-action="duplicate-profile"]').click()
     await expect(popupPage.locator('.v2-card')).toHaveCount(countBefore + 1)
   })
 })

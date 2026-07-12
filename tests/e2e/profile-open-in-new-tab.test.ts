@@ -34,10 +34,12 @@ async function openPopupForTab(
 
 async function openProfileFromRightClick(page: Page, profileName: string): Promise<void> {
   await page.locator('.v2-card', { hasText: profileName }).click({ button: 'right' })
-  await expect(page.locator('.v2-open-tab-menu-item', { hasText: 'Open in new tab' })).toBeVisible()
+  // Stable `data-action` selector for interaction; the visibility/text check
+  // below is the separate localized-semantics assertion.
+  await expect(page.locator('[data-action="open-in-new-tab"]', { hasText: 'Open in new tab' })).toBeVisible()
   await Promise.all([
     page.waitForLoadState('load'),
-    page.locator('.v2-open-tab-menu-item', { hasText: 'Open in new tab' }).click(),
+    page.locator('[data-action="open-in-new-tab"]').click(),
   ])
 }
 
@@ -84,9 +86,9 @@ test.describe('Profile right-click open in new tab', () => {
     await expect(popup.locator('.v2-card-name', { hasText: profileName })).toBeVisible()
     await popup.locator('.v2-card', { hasText: profileName }).focus()
     await popup.keyboard.press('Shift+F10')
-    await expect(popup.locator('.v2-open-tab-menu-item', { hasText: 'Open in new tab' })).toBeVisible()
+    await expect(popup.locator('[data-action="open-in-new-tab"]', { hasText: 'Open in new tab' })).toBeVisible()
     await popup.keyboard.press('Escape')
-    await expect(popup.locator('.v2-open-tab-menu-item', { hasText: 'Open in new tab' })).not.toBeVisible()
+    await expect(popup.locator('[data-action="open-in-new-tab"]', { hasText: 'Open in new tab' })).not.toBeVisible()
 
     await openProfileFromRightClick(popup, profileName)
     const firstProfileTab = await waitForOpenedPage(context, originUrl, [defaultTab, helperPage, popup])

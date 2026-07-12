@@ -97,7 +97,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   btnNewSession.addEventListener('click', async () => {
     const newId = 'session_' + crypto.randomUUID();
-    const name  = inputEl.value.trim() || `Session ${saved.length + 1}`;
+    const name  = inputEl.value.trim()
+      || chrome.i18n.getMessage('generatedSessionName', [String(saved.length + 1)])
+      || `Session ${saved.length + 1}`;
     const hue   = HUE_PALETTE[saved.length % HUE_PALETTE.length];
     const newSession: PopupSession = { id: newId, name, hue };
     const sessions = await getSavedSessions();

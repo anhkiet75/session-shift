@@ -206,7 +206,9 @@ export async function handleMessage(
       if (typeof sessionId !== 'string') {
         return { error: 'invalid payload' };
       }
-      const newSession = await duplicateSession(sessionId);
+      const newSession = await duplicateSession(sessionId, (name) =>
+        chrome.i18n.getMessage('duplicatedSessionName', [name]) || `${name} (copy)`
+      );
       return { success: true, session: newSession };
     }
 

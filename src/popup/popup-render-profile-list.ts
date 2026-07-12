@@ -104,6 +104,7 @@ export function renderSessionList(
     const dupBtn = document.createElement('button');
     dupBtn.className = 'v2-card-dup';
     dupBtn.title = 'Duplicate profile';
+    dupBtn.setAttribute('data-action', 'duplicate-profile');
     dupBtn.setAttribute('aria-label', `Duplicate profile ${session.name || session.id}`);
     dupBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
     dupBtn.addEventListener('click', async (e) => {
@@ -117,6 +118,7 @@ export function renderSessionList(
     const renameBtn = document.createElement('button');
     renameBtn.className = 'v2-card-rename';
     renameBtn.title = 'Rename';
+    renameBtn.setAttribute('data-action', 'rename-profile');
     renameBtn.setAttribute('aria-label', `Rename profile ${session.name || session.id}`);
     renameBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2.5a1.5 1.5 0 0 1 2.12 2.12L4.85 12.88l-2.83.7.7-2.83L11 2.5Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     renameBtn.addEventListener('click', (e) => {
@@ -136,6 +138,7 @@ export function renderSessionList(
       const delBtn = document.createElement('button');
       delBtn.className = 'v2-card-del';
       delBtn.title = 'Delete';
+      delBtn.setAttribute('data-action', 'delete-profile');
       delBtn.setAttribute('aria-label', `Delete profile ${session.name || session.id}`);
       delBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
       delBtn.addEventListener('click', (e) => {

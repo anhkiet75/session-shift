@@ -1,0 +1,284 @@
+{
+  "extensionName": {
+    "message": "SessionShift",
+    "description": "Extension name shown in chrome://extensions and the Chrome Web Store."
+  },
+  "extensionDescription": {
+    "message": "Switch between multiple accounts on any site — each tab gets its own isolated session.",
+    "description": "Extension description shown in chrome://extensions and the Chrome Web Store."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Open SessionShift popup",
+    "description": "Keyboard shortcut description for the default browser action command."
+  },
+  "commandSessionNextDescription": {
+    "message": "Switch to next session for this tab",
+    "description": "Keyboard shortcut description for the session-next command."
+  },
+  "commandSessionPrevDescription": {
+    "message": "Switch to previous session for this tab",
+    "description": "Keyboard shortcut description for the session-prev command."
+  },
+  "popupBrandSub": {
+    "message": "Multi-account manager",
+    "description": "Subtitle under the brand name in the popup header."
+  },
+  "themeToggleLabel": {
+    "message": "Theme: $theme$ (click to change)",
+    "description": "Title/aria-label for the popup quick theme toggle button.",
+    "placeholders": {
+      "theme": { "content": "$1", "example": "system" }
+    }
+  },
+  "themeNameLight": {
+    "message": "light",
+    "description": "Theme name substituted into themeToggleLabel."
+  },
+  "themeNameDark": {
+    "message": "dark",
+    "description": "Theme name substituted into themeToggleLabel."
+  },
+  "themeNameSystem": {
+    "message": "system",
+    "description": "Theme name substituted into themeToggleLabel."
+  },
+  "openOptionsLabel": {
+    "message": "Open options",
+    "description": "Title/aria-label for the popup button that opens the Options page."
+  },
+  "heroActiveLabel": {
+    "message": "Active on this tab",
+    "description": "Label above the active session name in the popup hero."
+  },
+  "heroDefaultName": {
+    "message": "Default",
+    "description": "Name shown in the hero when no profile is active for the tab."
+  },
+  "heroNoSessionMeta": {
+    "message": "No session scoped",
+    "description": "Meta line shown under the hero name when no profile is active."
+  },
+  "searchPlaceholder": {
+    "message": "Search profiles…",
+    "description": "Placeholder text for the popup profile search input."
+  },
+  "searchAriaLabel": {
+    "message": "Search profiles",
+    "description": "Aria-label for the popup profile search input."
+  },
+  "createPlaceholder": {
+    "message": "Name a new profile…",
+    "description": "Placeholder text for the new-profile name input."
+  },
+  "createButton": {
+    "message": "Create",
+    "description": "Button label to create a new profile."
+  },
+  "listHeadProfiles": {
+    "message": "Profiles",
+    "description": "Header label above the profile list."
+  },
+  "resetToDefault": {
+    "message": "Reset to default",
+    "description": "Button label to switch the current tab back to the default (unscoped) session."
+  },
+  "switchToDefaultConfirm": {
+    "message": "Switch to default?",
+    "description": "Inline confirmation prompt shown before resetting to the default session."
+  },
+  "cancelButton": {
+    "message": "Cancel",
+    "description": "Generic cancel button label used in inline confirmations."
+  },
+  "resetButton": {
+    "message": "Reset",
+    "description": "Confirm button label for the reset-to-default action."
+  },
+  "cannotIsolatePage": {
+    "message": "Cannot isolate this page.",
+    "description": "Message shown when the popup is opened on a page that cannot be session-isolated (e.g. chrome:// pages)."
+  },
+  "generatedSessionName": {
+    "message": "Session $index$",
+    "description": "Default name assigned to a new profile when the user leaves the name field empty. Generated once at creation time and stored unchanged thereafter — never re-localized on later locale changes.",
+    "placeholders": {
+      "index": { "content": "$1", "example": "3" }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (copy)",
+    "description": "Name assigned to a duplicated profile. Generated once at duplication time from the source profile's stored name and then kept unchanged — never re-localized on later locale changes.",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "No profiles yet",
+    "description": "Empty-state title shown when no profiles exist."
+  },
+  "emptyNoProfilesSub": {
+    "message": "Create one above to start isolating accounts.",
+    "description": "Empty-state subtitle shown when no profiles exist."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "No matches",
+    "description": "Empty-state title shown when a search query matches no profiles."
+  },
+  "emptyNoMatchesSub": {
+    "message": "Try a different search.",
+    "description": "Empty-state subtitle shown when a search query matches no profiles."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplicate profile",
+    "description": "Title tooltip for the duplicate-profile button on a profile card."
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplicate profile $name$",
+    "description": "Aria-label for the duplicate-profile button, naming the specific profile.",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "renameTitle": {
+    "message": "Rename",
+    "description": "Title tooltip for the rename button on a profile card."
+  },
+  "renameAriaLabel": {
+    "message": "Rename profile $name$",
+    "description": "Aria-label for the rename button, naming the specific profile.",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "deleteTitle": {
+    "message": "Delete",
+    "description": "Title tooltip for the delete button on a profile card."
+  },
+  "deleteAriaLabel": {
+    "message": "Delete profile $name$",
+    "description": "Aria-label for the delete button, naming the specific profile.",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Cancel delete",
+    "description": "Title tooltip for the cancel button in the inline delete-confirmation UI."
+  },
+  "confirmDeleteTitle": {
+    "message": "Confirm delete",
+    "description": "Title tooltip for the confirm button in the inline delete-confirmation UI."
+  },
+  "activeStatusPill": {
+    "message": "active",
+    "description": "Small status pill shown on the currently active profile card."
+  },
+  "openInNewTab": {
+    "message": "Open in new tab",
+    "description": "Menu item to open the current page in the selected profile via a new tab."
+  },
+  "changeColorTitle": {
+    "message": "Change color",
+    "description": "Title tooltip for the color dot that opens the color picker."
+  },
+  "changeColorAriaLabel": {
+    "message": "Change session color",
+    "description": "Aria-label for the color dot that opens the color picker."
+  },
+  "pickColorAriaLabel": {
+    "message": "Pick session color",
+    "description": "Aria-label for the color picker popover."
+  },
+  "sessionColorLabel": {
+    "message": "Session color",
+    "description": "Heading text inside the color picker popover."
+  },
+  "customHueTitle": {
+    "message": "Custom hue",
+    "description": "Title tooltip for the custom-hue swatch button in the color picker."
+  },
+  "customHueAriaLabel": {
+    "message": "Custom hue",
+    "description": "Aria-label for the custom-hue swatch button in the color picker."
+  },
+  "customLabel": {
+    "message": "Custom",
+    "description": "Label for the custom-hue slider row in the color picker."
+  },
+  "customHueValueAriaLabel": {
+    "message": "Custom hue value",
+    "description": "Aria-label for the custom-hue range slider."
+  },
+  "optionsSubtitle": {
+    "message": "Per-tab session isolation for Chrome.",
+    "description": "Subtitle under the title in the Options page header."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Extension version",
+    "description": "Aria-label for the version chip in the Options page header."
+  },
+  "tabSettings": {
+    "message": "Settings",
+    "description": "Options page tab label for the settings panel."
+  },
+  "tabAbout": {
+    "message": "About",
+    "description": "Options page tab label for the about panel."
+  },
+  "appearanceSectionTitle": {
+    "message": "Appearance",
+    "description": "Options page section heading for theme settings."
+  },
+  "themeSettingLabel": {
+    "message": "Theme",
+    "description": "Options page label for the theme setting row."
+  },
+  "themeSettingDesc": {
+    "message": "Override the OS color scheme preference",
+    "description": "Options page description for the theme setting row."
+  },
+  "themeGroupAriaLabel": {
+    "message": "Theme",
+    "description": "Aria-label for the group of theme choice buttons."
+  },
+  "autoInheritLabel": {
+    "message": "Auto-open linked tabs in the same profile",
+    "description": "Options page label for the auto-inherit-profile setting row."
+  },
+  "autoInheritDesc": {
+    "message": "When enabled, tabs opened from a link (new-tab links, Ctrl-click, middle-click) on an isolated profile stay in that profile instead of using Chrome's default cookies.",
+    "description": "Options page description for the auto-inherit-profile setting row."
+  },
+  "aboutTagline": {
+    "message": "A free, open-source Chrome extension for per-tab session isolation. Stay logged into multiple accounts on the same site, simultaneously.",
+    "description": "Tagline shown in the Options page About panel."
+  },
+  "supportSectionTitle": {
+    "message": "Support the project",
+    "description": "Options page About-panel section heading for the support/donation section."
+  },
+  "supportDesc": {
+    "message": "SessionShift is free and open-source. If it saves you time, consider a small tip — it keeps the project alive and ad-free.",
+    "description": "Options page About-panel description for the support/donation section."
+  },
+  "supportCta": {
+    "message": "Support on Ko-fi",
+    "description": "Call-to-action link text for the Ko-fi donation link."
+  },
+  "linksSectionTitle": {
+    "message": "Links",
+    "description": "Options page About-panel section heading for external links."
+  },
+  "githubLink": {
+    "message": "GitHub",
+    "description": "Link text for the GitHub repository link."
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store",
+    "description": "Link text for the Chrome Web Store listing link."
+  },
+  "contextMenuParentTitle": {
+    "message": "Open in Session",
+    "description": "Parent title of the right-click context menu group. Chrome-owned surface: follows Chrome's UI locale only, not the manual in-extension override."
+  }
+}
