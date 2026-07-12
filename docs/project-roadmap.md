@@ -207,6 +207,24 @@
 
 ---
 
+## Localization & Internationalization (Shipped ✅)
+
+**Status:** Complete  
+**Shipped Version:** 0.0.7 (2026-07-12)  
+**Phases:** 6-phase localization + RTL hardening (2026-06-14 through 2026-07-12)
+
+### Summary
+- 55 Chrome extension locales packaged and selectable (exact Chrome Web Store locale set)
+- 54 non-English locales at `beta` quality tier (mechanically valid, not linguistically reviewed)
+- Critical-key fallback: delete/reset confirmations render in English on beta locales until reviewed
+- RTL support hardened for ar/fa/he: text direction, numeric formatting, form controls
+- All release gates passed: locale validation, unit tests (299/299), e2e tests (39/39 including 2 native-lang smoke tests)
+- No locale claimed as `reviewed`; honest quality registry in `translation-quality.json`
+
+**Details:** See `docs/translation-contributing.md` for review/promotion workflow and `docs/system-architecture.md` § Localization for runtime adapter design.
+
+---
+
 ## Phase 5: Analytics & Advanced Ecosystem (Future)
 
 **Target:** Q2 2027  

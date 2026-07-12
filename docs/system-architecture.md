@@ -408,6 +408,21 @@ All interactive elements announce:
 
 ---
 
+## Localization & Internationalization
+
+SessionShift ships 55 Chrome extension locales (all locales supported by the Chrome Web Store) with honest quality tiers tracked in `src/_locales/translation-quality.json`. English (`en`) is the canonical source; all other 54 locales are `beta` (mechanically valid but not linguistically reviewed). No locale is marked `reviewed` without recorded native-speaker approval with timestamp and reviewer identity.
+
+**Critical-Key Fallback:** The six destructive/confirm keys in `CRITICAL_MESSAGE_KEYS` (`resetToDefault`, `switchToDefaultConfirm`, `resetButton`, `deleteTitle`, `deleteAriaLabel`, `confirmDeleteTitle`) render in English on beta locales, even if a machine translation exists, and fail closed to blank rather than the untrusted draft if the English catalog itself fails to load. Decorative copy renders immediately in the local language (beta is acceptable for taglines and descriptions).
+
+**Runtime Adapter:** `lib/localization.ts`'s `createLocalizer(preference)` is a pure switch on the stored `ext_settings.language` preference (`getLanguagePreference()`), not an automatic detect-and-fallback chain:
+- `preference === 'system'` (the default when unset) uses Chrome's native `chrome.i18n.getMessage` directly — Chrome's own UI-locale resolution and fallback apply, this extension does not intervene.
+- Any other `preference` (a specific `SupportedLocale`) loads that locale's packaged catalog plus English, falling back to English per-key when a manual catalog is missing a key.
+- Users switching the extension's manual language preference via Options see that preference applied across popup/Options/context menus; Chrome-owned manifest/command surfaces (extension name, description, keyboard-shortcut labels) always follow Chrome's own UI locale regardless of this preference (verified independently in `tests/e2e/native-locale-smoke.test.ts`).
+
+Weblate is used **for translation workflows only** (external contributor platform); it is not a runtime dependency or build-time import — the extension never calls external services at runtime (see threat model). See `docs/translation-contributing.md` for contribution, review, and promotion workflows.
+
+---
+
 ## Storage-Layer Cookie Isolation
 
 ### Problem

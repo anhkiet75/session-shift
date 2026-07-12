@@ -571,6 +571,51 @@ function switchTab(mode) {
 
 ---
 
+## Internationalization (i18n) & Message Catalog
+
+### Message Key Naming
+- **Pattern:** `^[A-Za-z][A-Za-z0-9_]*$` (camelCase or snake_case, no `@@` prefix)
+- **Examples:** `extensionName`, `deleteTitle`, `switchToDefaultConfirm`
+- Chrome reserves `@@` prefix for internal metadata; user keys never use it
+- Add new keys to both `src/lib/localization-types.ts` (`MessageKey` union) and `src/_locales/en/messages.json`
+
+### Placeholder Declaration & Reference
+- **Declaration:** In `messages.json`, define placeholders only in English:
+  ```json
+  {
+    "deleteAriaLabel": {
+      "message": "Delete profile $name$",
+      "description": "Aria-label for the delete button, naming the specific profile.",
+      "placeholders": {
+        "name": {
+          "content": "$1",
+          "example": "Work"
+        }
+      }
+    }
+  }
+  ```
+- **Reference parity:** Every non-English catalog must reference the same placeholder tokens as English (validated by `npm run validate:locales`)
+- **Translators never edit placeholders** — Weblate locks them; only the message text is translated
+
+### Bidirectional & Control Character Rules
+- **Disallowed characters:** Bidi overrides/isolates/marks (LRE/RLE/PDF/LRO/RLO U+202A–202E, LRI/RLI/FSI/PDI U+2066–2069, LRM/RLM U+200E/F, ALM U+061C), zero-width space (U+200B), BOM (U+FEFF), soft hyphen (U+00AD)
+- **Deliberately allowed:** ZWNJ/ZWJ (U+200C/U+200D) — required orthographic characters in Persian/Arabic/Indic scripts and emoji sequences, not spoofing; never add these to the disallowed set
+- **RTL locales:** Arabic (ar), Farsi (fa), Hebrew (he) render with `dir="rtl"` on `<html>`. `applyDocumentLocale()` in `lib/localization.ts` applies the resolved direction (`getTextDirection()`) to the document
+- **Validator enforces this** (`npm run validate:locales` blocks catalogs with forbidden characters)
+
+### English Catalog Only
+- **Description fields:** Only English (`src/_locales/en/messages.json`) carries `description` fields. All other locales omit them (saves space, prevents translator confusion)
+- **Validator rejects** non-English catalogs with `description` fields
+
+### Critical-Key Fallback Policy
+- **Critical keys** (destructive/security operations, `CRITICAL_MESSAGE_KEYS` in `lib/localization-types.ts`): `resetToDefault`, `switchToDefaultConfirm`, `resetButton`, `deleteTitle`, `deleteAriaLabel`, `confirmDeleteTitle`
+- **Beta locale behavior:** These keys render in English, not the machine translation, until the locale is linguistically reviewed (recorded in `translation-quality.json` with reviewer + date)
+- **Decorative keys:** Render immediately in local language even if beta
+- **Implementation:** Managed in `lib/localization.ts` via `getMessage()` critical-key check
+
+---
+
 ## Dependencies
 
 **None.** Vanilla JavaScript, no npm packages in production code.

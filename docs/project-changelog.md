@@ -6,6 +6,38 @@ All significant changes to the SessionShift Chrome extension are documented here
 
 ## v0.6.0 (In Progress)
 
+### 2026-07-12 — Localization & RTL Completion (Phases 1–6 ✅)
+
+**Type:** Feature / Internationalization (Complete)
+
+#### Shipping
+- All 55 Chrome extension locales with exact locale codes (`am`, `ar`, `bg`, ..., `zh_TW`)
+- Critical-key fallback: destructive/security messages (delete, reset, confirm) render in English on `beta` locales until linguistically reviewed
+- Quality registry (`src/_locales/translation-quality.json`): 1 source (en) + 54 beta locales; no locale claimed as `reviewed` without native-speaker approval + timestamp
+- RTL text direction hardening (ar/fa/he): numeric/date formatting, form control focus order, ltr/rtl isolation, CSS `dir=` scoping
+- Runtime adapter (`lib/localization.ts`): System locale (chrome.i18n) with manual catalog fallback; never surfaces untranslated text in critical UI
+- Translation infrastructure: Weblate platform wired for external contributors; no runtime dependency
+
+#### Test Coverage
+- Locale validation suite (`npm run validate:locales`): 55 catalogs, 71 keys, key/placeholder parity, charset blacklist (bidi/control chars)
+- Unit tests (299/299 passing): localization types, message resolution, critical-key fallback, RTL direction
+- E2E tests (39/39 passing): RTL rendering, locale switching, manifest/context-menu i18n, native chrome.i18n smoke tests
+
+#### Files
+- `src/lib/localization-types.ts` — Locale contracts, 55-locale manifest, RTL registry
+- `src/lib/localization.ts` — Runtime adapter, System/fallback backend selection, getMessage() with critical-key English enforcement
+- `src/_locales/{55-locale-codes}/messages.json` — Full Chrome i18n catalogs
+- `src/_locales/translation-quality.json` — Honest quality tier + critical-key eligibility per locale
+- `scripts/validate-locales.mjs` — Validator (mechanical parity, charset, UTF-8, no blanks)
+
+#### Documentation
+- `docs/translation-contributing.md` — Contribution workflow, review SLA, Weblate integration, tier definitions, promotion rules
+- `docs/system-architecture.md` § Localization — System vs manual adapter, critical-key fallback design
+- `docs/code-standards.md` § Internationalization — Message key naming, placeholder rules, bidi constraints
+- `docs/codebase-summary.md` — lib/localization modules, 55-locale support
+
+---
+
 ### 2026-07-05 — Popup Profile Right-Click Open in New Tab
 
 **Type:** Feature / Test

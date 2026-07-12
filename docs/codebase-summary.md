@@ -73,6 +73,7 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 - Creates and manages context menu items on startup
 - Cleans up context menu on uninstall
 - Integrates with session list from lib/session-store.ts
+- Context menu titles follow the manual locale override (via `getMessage()`)
 
 **Key Functions:**
 - `setupContextMenus()` — Create context menu items
@@ -196,6 +197,38 @@ if (settings.autoInheritProfileForLinkedTabs === false) {
   // user explicitly opted out; feature is on by default otherwise
 }
 ```
+
+### lib/localization-types.ts (~203 LOC)
+**Exports:**
+- `SUPPORTED_LOCALES` — 55 Chrome extension locales (am, ar, bg, ..., zh_TW)
+- `RTL_LOCALES` — ar, fa, he (right-to-left rendering)
+- `LOCALE_METADATA` — Per-locale direction, BCP 47 tag
+- `MessageKey` — Exhaustive union of all message keys (extensionName, deleteTitle, etc.)
+- `ChromeMessageCatalog` — Typed Chrome i18n messages.json schema
+- `CRITICAL_MESSAGE_KEYS` — Destructive/confirm keys forced to English on unreviewed locales
+- `QualityTier` / `TranslationQualityData` — Types for `translation-quality.json`'s per-locale review-tier registry
+
+**Purpose:**
+- Single source of truth for supported locales and their properties
+- Type-safe message key references across DOM and manifest
+- Runtime locale/direction resolution
+
+### lib/localization.ts (~258 LOC)
+**Exports:**
+- `getLanguagePreference()` → Promise<RuntimeLocalePreference> — Reads `ext_settings.language`, defaults to `'system'`
+- `createLocalizer(preference)` → Promise<Localizer> — Builds a resolved localizer; `Localizer.getMessage(key, substitutions?)` resolves a message with the critical-key/English fallback chain
+- `loadCatalog(locale)` → Promise<ChromeMessageCatalog | null> — Fetches a packaged `_locales/<locale>/messages.json`
+- `getTextDirection(localizer)` / `getResolvedLanguageTag(localizer)` — Direction and BCP 47 tag for the active localizer
+- `applyDocumentLocale(document, localizer)` — Sets `<html lang>`/`<html dir>`, idempotent
+- `localizeDocument(root, localizer)` — Localizes every `data-i18n*` marker under `root`
+- `getLocaleDisplayName(locale)` — Native-language display name via `Intl.DisplayNames`
+- `createGenerationGuard()` — Discards a stale in-flight locale resolution superseded by a newer one
+
+**Purpose:**
+- Runtime adapter: `preference === 'system'` uses Chrome's native `chrome.i18n` directly; any other preference loads that locale's packaged catalog with English fallback — a pure switch, not an automatic detect-then-fallback chain
+- Critical-key fallback: beta locales render `CRITICAL_MESSAGE_KEYS` (delete, reset, confirm) in English, failing closed to blank rather than the untrusted draft if the English catalog itself fails to load
+- Never surfaces untranslated/machine-only text for delete confirmations or security wording
+- Type-safe message resolution with `MessageKey` union
 
 ### lib/storage-proxy.ts (v0.4.0)
 **Exports:**
