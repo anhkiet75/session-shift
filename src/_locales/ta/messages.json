@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "எந்த தளத்திலும் பல கணக்குகளுக்கு இடையே மாறவும் — ஒவ்வொரு தாவலுக்கும் அதற்கே உரிய தனித் தொடர் இருக்கும்."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift பாப்அப்பைத் திறக்கவும்"
+  },
+  "commandSessionNextDescription": {
+    "message": "இந்த தாவலுக்கான அடுத்த தொடருக்கு மாறவும்"
+  },
+  "commandSessionPrevDescription": {
+    "message": "இந்த தாவலுக்கான முந்தைய தொடருக்கு மாறவும்"
+  },
+  "popupBrandSub": {
+    "message": "பல-கணக்கு மேலாளர்"
+  },
+  "themeToggleLabel": {
+    "message": "தீம்: $theme$ (மாற்ற கிளிக் செய்யவும்)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "லைட்"
+  },
+  "themeNameDark": {
+    "message": "டார்க்"
+  },
+  "themeNameSystem": {
+    "message": "சிஸ்டம்"
+  },
+  "openOptionsLabel": {
+    "message": "விருப்பங்களைத் திறக்கவும்"
+  },
+  "heroActiveLabel": {
+    "message": "இந்த தாவலில் செயலில் உள்ளது"
+  },
+  "heroDefaultName": {
+    "message": "இயல்புநிலை"
+  },
+  "heroNoSessionMeta": {
+    "message": "தொடர் ஒதுக்கப்படவில்லை"
+  },
+  "searchPlaceholder": {
+    "message": "சுயவிவரங்களைத் தேடுங்கள்…"
+  },
+  "searchAriaLabel": {
+    "message": "சுயவிவரங்களைத் தேடுங்கள்"
+  },
+  "createPlaceholder": {
+    "message": "புதிய சுயவிவரத்திற்குப் பெயரிடுங்கள்…"
+  },
+  "createButton": {
+    "message": "உருவாக்கு"
+  },
+  "listHeadProfiles": {
+    "message": "சுயவிவரங்கள்"
+  },
+  "resetToDefault": {
+    "message": "இயல்புநிலைக்கு மீட்டமை"
+  },
+  "switchToDefaultConfirm": {
+    "message": "இயல்புநிலைக்கு மாறவா?"
+  },
+  "cancelButton": {
+    "message": "ரத்துசெய்"
+  },
+  "resetButton": {
+    "message": "மீட்டமை"
+  },
+  "cannotIsolatePage": {
+    "message": "இந்தப் பக்கத்தைத் தனிமைப்படுத்த முடியாது."
+  },
+  "generatedSessionName": {
+    "message": "தொடர் $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (நகல்)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "இதுவரை சுயவிவரங்கள் இல்லை"
+  },
+  "emptyNoProfilesSub": {
+    "message": "கணக்குகளைத் தனிமைப்படுத்தத் தொடங்க மேலே ஒன்றை உருவாக்குங்கள்."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "பொருத்தங்கள் இல்லை"
+  },
+  "emptyNoMatchesSub": {
+    "message": "வேறு தேடலை முயற்சிக்கவும்."
+  },
+  "duplicateProfileTitle": {
+    "message": "சுயவிவரத்தை நகலெடு"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ சுயவிவரத்தை நகலெடு",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "பெயர் மாற்று"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ சுயவிவரத்தின் பெயரை மாற்று",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "நீக்கு"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ சுயவிவரத்தை நீக்கு",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "நீக்குதலை ரத்துசெய்"
+  },
+  "confirmDeleteTitle": {
+    "message": "நீக்குதலை உறுதிப்படுத்து"
+  },
+  "activeStatusPill": {
+    "message": "செயலில்"
+  },
+  "heroLiveLabel": {
+    "message": "நேரலை"
+  },
+  "openInNewTab": {
+    "message": "புதிய தாவலில் திற"
+  },
+  "changeColorTitle": {
+    "message": "நிறத்தை மாற்று"
+  },
+  "changeColorAriaLabel": {
+    "message": "தொடர் நிறத்தை மாற்று"
+  },
+  "pickColorAriaLabel": {
+    "message": "தொடர் நிறத்தைத் தேர்வுசெய்"
+  },
+  "sessionColorLabel": {
+    "message": "தொடர் நிறம்"
+  },
+  "hueSwatchTitle": {
+    "message": "நிறவீச்சு $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "தனிப்பயன் நிறவீச்சு"
+  },
+  "customHueAriaLabel": {
+    "message": "தனிப்பயன் நிறவீச்சு"
+  },
+  "customLabel": {
+    "message": "தனிப்பயன்"
+  },
+  "customHueValueAriaLabel": {
+    "message": "தனிப்பயன் நிறவீச்சு மதிப்பு"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome-க்கான ஒவ்வொரு-தாவல் தொடர் தனிமைப்படுத்தல்."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "நீட்டிப்பு பதிப்பு"
+  },
+  "tabSettings": {
+    "message": "அமைப்புகள்"
+  },
+  "tabAbout": {
+    "message": "பற்றி"
+  },
+  "appearanceSectionTitle": {
+    "message": "தோற்றம்"
+  },
+  "themeSettingLabel": {
+    "message": "தீம்"
+  },
+  "themeSettingDesc": {
+    "message": "OS நிற திட்ட விருப்பத்தை மேலெழுது"
+  },
+  "themeGroupAriaLabel": {
+    "message": "தீம்"
+  },
+  "autoInheritLabel": {
+    "message": "இணைக்கப்பட்ட தாவல்களை தானாக அதே சுயவிவரத்தில் திற"
+  },
+  "autoInheritDesc": {
+    "message": "இயக்கப்பட்டால், தனிமைப்படுத்தப்பட்ட சுயவிவரத்தில் இணைப்பு (புதிய-தாவல் இணைப்புகள், Ctrl-கிளிக், நடு-கிளிக்) மூலம் திறக்கப்படும் தாவல்கள் Chrome-இன் இயல்புநிலை குக்கீகளுக்குப் பதிலாக அதே சுயவிவரத்தில் தொடரும்."
+  },
+  "aboutTagline": {
+    "message": "ஒவ்வொரு-தாவல் தொடர் தனிமைப்படுத்தலுக்கான இலவச, திறந்த மூல Chrome நீட்டிப்பு. ஒரே தளத்தில் ஒரே நேரத்தில் பல கணக்குகளில் உள்நுழைந்திருங்கள்."
+  },
+  "supportSectionTitle": {
+    "message": "திட்டத்தை ஆதரிக்கவும்"
+  },
+  "supportDesc": {
+    "message": "SessionShift இலவசமும் திறந்த மூலமும் ஆகும். இது உங்கள் நேரத்தை மிச்சப்படுத்தினால், ஒரு சிறிய டிப் கொடுக்க பரிசீலிக்கவும் — இது திட்டத்தை உயிருடனும் விளம்பரமின்றியும் வைத்திருக்கும்."
+  },
+  "supportCta": {
+    "message": "Ko-fi-இல் ஆதரிக்கவும்"
+  },
+  "linksSectionTitle": {
+    "message": "இணைப்புகள்"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "தொடரில் திற"
+  },
+  "languageSettingLabel": {
+    "message": "மொழி"
+  },
+  "languageSettingDesc": {
+    "message": "இது இந்த பாப்அப், விருப்பங்கள் மற்றும் சூழல் மெனுக்களுக்குப் பொருந்தும். Chrome-இன் சொந்த விசைப்பலகை குறுக்குவழிகள், நீட்டிப்பின் பெயர் மற்றும் விளக்கம் எப்போதும் உங்கள் உலாவியின் மொழியைப் பின்பற்றும்."
+  },
+  "languageOptionSystem": {
+    "message": "சிஸ்டம் (உலாவிக்கு பொருத்தம்)"
+  }
+}

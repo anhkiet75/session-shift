@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Preklapljajte med več računi na kateri koli spletni strani — vsak zavihek dobi svojo izolirano sejo."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Odpri pojavno okno SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Preklopi na naslednjo sejo za ta zavihek"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Preklopi na prejšnjo sejo za ta zavihek"
+  },
+  "popupBrandSub": {
+    "message": "Upravitelj več računov"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (kliknite za spremembo)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "svetla"
+  },
+  "themeNameDark": {
+    "message": "temna"
+  },
+  "themeNameSystem": {
+    "message": "sistemska"
+  },
+  "openOptionsLabel": {
+    "message": "Odpri možnosti"
+  },
+  "heroActiveLabel": {
+    "message": "Aktivno na tem zavihku"
+  },
+  "heroDefaultName": {
+    "message": "Privzeto"
+  },
+  "heroNoSessionMeta": {
+    "message": "Ni dodeljene seje"
+  },
+  "searchPlaceholder": {
+    "message": "Iskanje profilov…"
+  },
+  "searchAriaLabel": {
+    "message": "Iskanje profilov"
+  },
+  "createPlaceholder": {
+    "message": "Poimenujte nov profil…"
+  },
+  "createButton": {
+    "message": "Ustvari"
+  },
+  "listHeadProfiles": {
+    "message": "Profili"
+  },
+  "resetToDefault": {
+    "message": "Ponastavi na privzeto"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Preklopiti na privzeto?"
+  },
+  "cancelButton": {
+    "message": "Prekliči"
+  },
+  "resetButton": {
+    "message": "Ponastavi"
+  },
+  "cannotIsolatePage": {
+    "message": "Te strani ni mogoče izolirati."
+  },
+  "generatedSessionName": {
+    "message": "Seja $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopija)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Še ni profilov"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Ustvarite enega zgoraj za izolacijo računov."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Ni zadetkov"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Poskusite z drugim iskanjem."
+  },
+  "duplicateProfileTitle": {
+    "message": "Podvoji profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Podvoji profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Preimenuj"
+  },
+  "renameAriaLabel": {
+    "message": "Preimenuj profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Izbriši"
+  },
+  "deleteAriaLabel": {
+    "message": "Izbriši profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Prekliči brisanje"
+  },
+  "confirmDeleteTitle": {
+    "message": "Potrdi brisanje"
+  },
+  "activeStatusPill": {
+    "message": "aktivno"
+  },
+  "heroLiveLabel": {
+    "message": "v živo"
+  },
+  "openInNewTab": {
+    "message": "Odpri v novem zavihku"
+  },
+  "changeColorTitle": {
+    "message": "Spremeni barvo"
+  },
+  "changeColorAriaLabel": {
+    "message": "Spremeni barvo seje"
+  },
+  "pickColorAriaLabel": {
+    "message": "Izberi barvo seje"
+  },
+  "sessionColorLabel": {
+    "message": "Barva seje"
+  },
+  "hueSwatchTitle": {
+    "message": "Odtenek $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Poljuben odtenek"
+  },
+  "customHueAriaLabel": {
+    "message": "Poljuben odtenek"
+  },
+  "customLabel": {
+    "message": "Po meri"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Vrednost poljubnega odtenka"
+  },
+  "optionsSubtitle": {
+    "message": "Izolacija seje po zavihkih za Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Različica razširitve"
+  },
+  "tabSettings": {
+    "message": "Nastavitve"
+  },
+  "tabAbout": {
+    "message": "O razširitvi"
+  },
+  "appearanceSectionTitle": {
+    "message": "Videz"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Prepiše nastavitev barvne sheme operacijskega sistema"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Samodejno odpiraj povezane zavihke v istem profilu"
+  },
+  "autoInheritDesc": {
+    "message": "Ko je omogočeno, zavihki, odprti prek povezave (povezave novega zavihka, Ctrl-klik, srednji klik) v izoliranem profilu, ostanejo v tem profilu namesto uporabe privzetih piškotkov Chroma."
+  },
+  "aboutTagline": {
+    "message": "Brezplačna, odprtokodna razširitev za Chrome za izolacijo seje po zavihkih. Ostanite prijavljeni v več računov na isti spletni strani hkrati."
+  },
+  "supportSectionTitle": {
+    "message": "Podprite projekt"
+  },
+  "supportDesc": {
+    "message": "SessionShift je brezplačen in odprtokoden. Če vam prihrani čas, razmislite o majhni napitnini — projekt s tem ostane živ in brez oglasov."
+  },
+  "supportCta": {
+    "message": "Podprite na Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Povezave"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Odpri v seji"
+  },
+  "languageSettingLabel": {
+    "message": "Jezik"
+  },
+  "languageSettingDesc": {
+    "message": "Velja za to pojavno okno, možnosti in kontekstne menije. Lastne bližnjice na tipkovnici, ime razširitve in opis Chroma vedno sledijo jeziku vašega brskalnika."
+  },
+  "languageOptionSystem": {
+    "message": "Sistemsko (glede na brskalnik)"
+  }
+}

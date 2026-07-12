@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Prepínajte medzi viacerými účtami na ľubovoľnej stránke — každá karta získa vlastnú izolovanú reláciu."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Otvoriť kontextové okno SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Prepnúť na ďalšiu reláciu pre túto kartu"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Prepnúť na predchádzajúcu reláciu pre túto kartu"
+  },
+  "popupBrandSub": {
+    "message": "Správca viacerých účtov"
+  },
+  "themeToggleLabel": {
+    "message": "Motív: $theme$ (kliknutím zmeníte)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "svetlý"
+  },
+  "themeNameDark": {
+    "message": "tmavý"
+  },
+  "themeNameSystem": {
+    "message": "systémový"
+  },
+  "openOptionsLabel": {
+    "message": "Otvoriť možnosti"
+  },
+  "heroActiveLabel": {
+    "message": "Aktívne na tejto karte"
+  },
+  "heroDefaultName": {
+    "message": "Predvolené"
+  },
+  "heroNoSessionMeta": {
+    "message": "Žiadna priradená relácia"
+  },
+  "searchPlaceholder": {
+    "message": "Hľadať profily…"
+  },
+  "searchAriaLabel": {
+    "message": "Hľadať profily"
+  },
+  "createPlaceholder": {
+    "message": "Pomenujte nový profil…"
+  },
+  "createButton": {
+    "message": "Vytvoriť"
+  },
+  "listHeadProfiles": {
+    "message": "Profily"
+  },
+  "resetToDefault": {
+    "message": "Obnoviť predvolené"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Prepnúť na predvolené?"
+  },
+  "cancelButton": {
+    "message": "Zrušiť"
+  },
+  "resetButton": {
+    "message": "Obnoviť"
+  },
+  "cannotIsolatePage": {
+    "message": "Túto stránku nie je možné izolovať."
+  },
+  "generatedSessionName": {
+    "message": "Relácia $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kópia)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Zatiaľ žiadne profily"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Vytvorte jeden vyššie na izoláciu účtov."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Žiadne zhody"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Skúste iné vyhľadávanie."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplikovať profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplikovať profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Premenovať"
+  },
+  "renameAriaLabel": {
+    "message": "Premenovať profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Odstrániť"
+  },
+  "deleteAriaLabel": {
+    "message": "Odstrániť profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Zrušiť odstránenie"
+  },
+  "confirmDeleteTitle": {
+    "message": "Potvrdiť odstránenie"
+  },
+  "activeStatusPill": {
+    "message": "aktívne"
+  },
+  "heroLiveLabel": {
+    "message": "naživo"
+  },
+  "openInNewTab": {
+    "message": "Otvoriť na novej karte"
+  },
+  "changeColorTitle": {
+    "message": "Zmeniť farbu"
+  },
+  "changeColorAriaLabel": {
+    "message": "Zmeniť farbu relácie"
+  },
+  "pickColorAriaLabel": {
+    "message": "Vybrať farbu relácie"
+  },
+  "sessionColorLabel": {
+    "message": "Farba relácie"
+  },
+  "hueSwatchTitle": {
+    "message": "Odtieň $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Vlastný odtieň"
+  },
+  "customHueAriaLabel": {
+    "message": "Vlastný odtieň"
+  },
+  "customLabel": {
+    "message": "Vlastný"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Hodnota vlastného odtieňa"
+  },
+  "optionsSubtitle": {
+    "message": "Izolácia relácií podľa kariet pre Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Verzia rozšírenia"
+  },
+  "tabSettings": {
+    "message": "Nastavenia"
+  },
+  "tabAbout": {
+    "message": "O aplikácii"
+  },
+  "appearanceSectionTitle": {
+    "message": "Vzhľad"
+  },
+  "themeSettingLabel": {
+    "message": "Motív"
+  },
+  "themeSettingDesc": {
+    "message": "Prepíše nastavenie farebnej schémy operačného systému"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Motív"
+  },
+  "autoInheritLabel": {
+    "message": "Automaticky otvárať prepojené karty v rovnakom profile"
+  },
+  "autoInheritDesc": {
+    "message": "Keď je povolené, karty otvorené z odkazu (odkazy novej karty, Ctrl-klik, stredné tlačidlo) v izolovanom profile zostanú v tomto profile namiesto použitia predvolených cookies Chrome."
+  },
+  "aboutTagline": {
+    "message": "Bezplatné rozšírenie Chrome s otvoreným zdrojovým kódom na izoláciu relácií podľa kariet. Zostaňte prihlásení vo viacerých účtoch na tej istej stránke súčasne."
+  },
+  "supportSectionTitle": {
+    "message": "Podporte projekt"
+  },
+  "supportDesc": {
+    "message": "SessionShift je bezplatný a s otvoreným zdrojovým kódom. Ak vám šetrí čas, zvážte malý príspevok — udrží projekt nažive a bez reklám."
+  },
+  "supportCta": {
+    "message": "Podporiť na Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Odkazy"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Otvoriť v relácii"
+  },
+  "languageSettingLabel": {
+    "message": "Jazyk"
+  },
+  "languageSettingDesc": {
+    "message": "Platí pre toto kontextové okno, možnosti a kontextové ponuky. Vlastné klávesové skratky, názov a popis rozšírenia v Chrome vždy sledujú jazyk vášho prehliadača."
+  },
+  "languageOptionSystem": {
+    "message": "Systémový (podľa prehliadača)"
+  }
+}

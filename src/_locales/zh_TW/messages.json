@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "在任何網站上切換多個帳號 — 每個分頁都擁有獨立的工作階段。"
+  },
+  "commandExecuteActionDescription": {
+    "message": "開啟 SessionShift 彈出視窗"
+  },
+  "commandSessionNextDescription": {
+    "message": "切換至此分頁的下一個工作階段"
+  },
+  "commandSessionPrevDescription": {
+    "message": "切換至此分頁的上一個工作階段"
+  },
+  "popupBrandSub": {
+    "message": "多帳號管理工具"
+  },
+  "themeToggleLabel": {
+    "message": "佈景主題：$theme$（點擊以變更）",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "淺色"
+  },
+  "themeNameDark": {
+    "message": "深色"
+  },
+  "themeNameSystem": {
+    "message": "系統預設"
+  },
+  "openOptionsLabel": {
+    "message": "開啟選項"
+  },
+  "heroActiveLabel": {
+    "message": "此分頁已啟用"
+  },
+  "heroDefaultName": {
+    "message": "預設"
+  },
+  "heroNoSessionMeta": {
+    "message": "尚未指定工作階段"
+  },
+  "searchPlaceholder": {
+    "message": "搜尋設定檔…"
+  },
+  "searchAriaLabel": {
+    "message": "搜尋設定檔"
+  },
+  "createPlaceholder": {
+    "message": "輸入新設定檔名稱…"
+  },
+  "createButton": {
+    "message": "建立"
+  },
+  "listHeadProfiles": {
+    "message": "設定檔"
+  },
+  "resetToDefault": {
+    "message": "重設為預設值"
+  },
+  "switchToDefaultConfirm": {
+    "message": "要切換至預設值嗎？"
+  },
+  "cancelButton": {
+    "message": "取消"
+  },
+  "resetButton": {
+    "message": "重設"
+  },
+  "cannotIsolatePage": {
+    "message": "此頁面無法隔離。"
+  },
+  "generatedSessionName": {
+    "message": "工作階段 $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$（複本）",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "尚無任何設定檔"
+  },
+  "emptyNoProfilesSub": {
+    "message": "在上方建立一個，開始隔離帳號。"
+  },
+  "emptyNoMatchesTitle": {
+    "message": "查無符合項目"
+  },
+  "emptyNoMatchesSub": {
+    "message": "請嘗試其他搜尋關鍵字。"
+  },
+  "duplicateProfileTitle": {
+    "message": "複製設定檔"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "複製設定檔 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "重新命名"
+  },
+  "renameAriaLabel": {
+    "message": "重新命名設定檔 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "刪除"
+  },
+  "deleteAriaLabel": {
+    "message": "刪除設定檔 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "取消刪除"
+  },
+  "confirmDeleteTitle": {
+    "message": "確認刪除"
+  },
+  "activeStatusPill": {
+    "message": "使用中"
+  },
+  "heroLiveLabel": {
+    "message": "即時"
+  },
+  "openInNewTab": {
+    "message": "在新分頁中開啟"
+  },
+  "changeColorTitle": {
+    "message": "變更顏色"
+  },
+  "changeColorAriaLabel": {
+    "message": "變更工作階段顏色"
+  },
+  "pickColorAriaLabel": {
+    "message": "選擇工作階段顏色"
+  },
+  "sessionColorLabel": {
+    "message": "工作階段顏色"
+  },
+  "hueSwatchTitle": {
+    "message": "色相 $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "自訂色相"
+  },
+  "customHueAriaLabel": {
+    "message": "自訂色相"
+  },
+  "customLabel": {
+    "message": "自訂"
+  },
+  "customHueValueAriaLabel": {
+    "message": "自訂色相數值"
+  },
+  "optionsSubtitle": {
+    "message": "適用於 Chrome 的逐分頁工作階段隔離。"
+  },
+  "extensionVersionAriaLabel": {
+    "message": "擴充功能版本"
+  },
+  "tabSettings": {
+    "message": "設定"
+  },
+  "tabAbout": {
+    "message": "關於"
+  },
+  "appearanceSectionTitle": {
+    "message": "外觀"
+  },
+  "themeSettingLabel": {
+    "message": "佈景主題"
+  },
+  "themeSettingDesc": {
+    "message": "覆寫作業系統的配色方案設定"
+  },
+  "themeGroupAriaLabel": {
+    "message": "佈景主題"
+  },
+  "autoInheritLabel": {
+    "message": "自動在相同設定檔中開啟連結的分頁"
+  },
+  "autoInheritDesc": {
+    "message": "啟用後，從隔離設定檔中的連結（開新分頁連結、Ctrl 點擊、中鍵點擊）開啟的分頁會留在該設定檔中，而不會使用 Chrome 的預設 Cookie。"
+  },
+  "aboutTagline": {
+    "message": "一款免費、開放原始碼的 Chrome 擴充功能，提供逐分頁工作階段隔離。讓你能同時登入同一網站的多個帳號。"
+  },
+  "supportSectionTitle": {
+    "message": "支持這個專案"
+  },
+  "supportDesc": {
+    "message": "SessionShift 是免費且開放原始碼的。如果它幫你節省了時間，歡迎小額贊助 — 這能讓專案持續維運且不含廣告。"
+  },
+  "supportCta": {
+    "message": "在 Ko-fi 上贊助"
+  },
+  "linksSectionTitle": {
+    "message": "相關連結"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome 線上應用程式商店"
+  },
+  "contextMenuParentTitle": {
+    "message": "以工作階段開啟"
+  },
+  "languageSettingLabel": {
+    "message": "語言"
+  },
+  "languageSettingDesc": {
+    "message": "適用於此彈出視窗、選項頁面與右鍵選單。Chrome 本身的鍵盤快捷鍵、擴充功能名稱與描述一律依瀏覽器語言而定。"
+  },
+  "languageOptionSystem": {
+    "message": "系統預設（跟隨瀏覽器）"
+  }
+}

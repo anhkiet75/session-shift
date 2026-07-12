@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Přepínejte mezi více účty na libovolném webu — každá karta má svou vlastní izolovanou relaci."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Otevřít vyskakovací okno SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Přepnout na další relaci pro tuto kartu"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Přepnout na předchozí relaci pro tuto kartu"
+  },
+  "popupBrandSub": {
+    "message": "Správce více účtů"
+  },
+  "themeToggleLabel": {
+    "message": "Motiv: $theme$ (klikněte pro změnu)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "světlý"
+  },
+  "themeNameDark": {
+    "message": "tmavý"
+  },
+  "themeNameSystem": {
+    "message": "systémový"
+  },
+  "openOptionsLabel": {
+    "message": "Otevřít nastavení"
+  },
+  "heroActiveLabel": {
+    "message": "Aktivní na této kartě"
+  },
+  "heroDefaultName": {
+    "message": "Výchozí"
+  },
+  "heroNoSessionMeta": {
+    "message": "Bez přiřazené relace"
+  },
+  "searchPlaceholder": {
+    "message": "Hledat profily…"
+  },
+  "searchAriaLabel": {
+    "message": "Hledat profily"
+  },
+  "createPlaceholder": {
+    "message": "Pojmenujte nový profil…"
+  },
+  "createButton": {
+    "message": "Vytvořit"
+  },
+  "listHeadProfiles": {
+    "message": "Profily"
+  },
+  "resetToDefault": {
+    "message": "Obnovit výchozí"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Přepnout na výchozí?"
+  },
+  "cancelButton": {
+    "message": "Zrušit"
+  },
+  "resetButton": {
+    "message": "Obnovit"
+  },
+  "cannotIsolatePage": {
+    "message": "Tuto stránku nelze izolovat."
+  },
+  "generatedSessionName": {
+    "message": "Relace $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopie)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Zatím žádné profily"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Vytvořte jeden výše a začněte izolovat účty."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Žádné shody"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Zkuste jiné hledání."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplikovat profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplikovat profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Přejmenovat"
+  },
+  "renameAriaLabel": {
+    "message": "Přejmenovat profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Odstranit"
+  },
+  "deleteAriaLabel": {
+    "message": "Odstranit profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Zrušit odstranění"
+  },
+  "confirmDeleteTitle": {
+    "message": "Potvrdit odstranění"
+  },
+  "activeStatusPill": {
+    "message": "aktivní"
+  },
+  "heroLiveLabel": {
+    "message": "živě"
+  },
+  "openInNewTab": {
+    "message": "Otevřít na nové kartě"
+  },
+  "changeColorTitle": {
+    "message": "Změnit barvu"
+  },
+  "changeColorAriaLabel": {
+    "message": "Změnit barvu relace"
+  },
+  "pickColorAriaLabel": {
+    "message": "Vybrat barvu relace"
+  },
+  "sessionColorLabel": {
+    "message": "Barva relace"
+  },
+  "hueSwatchTitle": {
+    "message": "Odstín $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Vlastní odstín"
+  },
+  "customHueAriaLabel": {
+    "message": "Vlastní odstín"
+  },
+  "customLabel": {
+    "message": "Vlastní"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Hodnota vlastního odstínu"
+  },
+  "optionsSubtitle": {
+    "message": "Izolace relací podle karty pro Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Verze rozšíření"
+  },
+  "tabSettings": {
+    "message": "Nastavení"
+  },
+  "tabAbout": {
+    "message": "O aplikaci"
+  },
+  "appearanceSectionTitle": {
+    "message": "Vzhled"
+  },
+  "themeSettingLabel": {
+    "message": "Motiv"
+  },
+  "themeSettingDesc": {
+    "message": "Přepsat preferenci barevného schématu systému"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Motiv"
+  },
+  "autoInheritLabel": {
+    "message": "Automaticky otevírat propojené karty ve stejném profilu"
+  },
+  "autoInheritDesc": {
+    "message": "Když je povoleno, karty otevřené z odkazu (odkazy na novou kartu, Ctrl+klik, kliknutí kolečkem) na izolovaném profilu zůstanou v tomto profilu místo použití výchozích souborů cookie Chromu."
+  },
+  "aboutTagline": {
+    "message": "Bezplatné rozšíření Chromu s otevřeným zdrojovým kódem pro izolaci relací podle karty. Zůstaňte přihlášeni k více účtům na stejném webu současně."
+  },
+  "supportSectionTitle": {
+    "message": "Podpořte projekt"
+  },
+  "supportDesc": {
+    "message": "SessionShift je bezplatný a open-source. Pokud vám šetří čas, zvažte malý příspěvek — udrží projekt naživu a bez reklam."
+  },
+  "supportCta": {
+    "message": "Podpořit na Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Odkazy"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Otevřít v relaci"
+  },
+  "languageSettingLabel": {
+    "message": "Jazyk"
+  },
+  "languageSettingDesc": {
+    "message": "Platí pro toto vyskakovací okno, nastavení a kontextové nabídky. Vlastní klávesové zkratky Chromu, název rozšíření a popis se vždy řídí jazykem vašeho prohlížeče."
+  },
+  "languageOptionSystem": {
+    "message": "Systémový (podle prohlížeče)"
+  }
+}

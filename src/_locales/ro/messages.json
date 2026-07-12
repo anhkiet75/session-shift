@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Comută între mai multe conturi pe orice site — fiecare filă are propria sesiune izolată."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Deschide fereastra pop-up SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Comută la sesiunea următoare pentru această filă"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Comută la sesiunea anterioară pentru această filă"
+  },
+  "popupBrandSub": {
+    "message": "Manager de conturi multiple"
+  },
+  "themeToggleLabel": {
+    "message": "Temă: $theme$ (clic pentru a schimba)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "deschisă"
+  },
+  "themeNameDark": {
+    "message": "întunecată"
+  },
+  "themeNameSystem": {
+    "message": "sistem"
+  },
+  "openOptionsLabel": {
+    "message": "Deschide opțiunile"
+  },
+  "heroActiveLabel": {
+    "message": "Activ în această filă"
+  },
+  "heroDefaultName": {
+    "message": "Implicit"
+  },
+  "heroNoSessionMeta": {
+    "message": "Nicio sesiune atribuită"
+  },
+  "searchPlaceholder": {
+    "message": "Caută profiluri…"
+  },
+  "searchAriaLabel": {
+    "message": "Caută profiluri"
+  },
+  "createPlaceholder": {
+    "message": "Denumește un profil nou…"
+  },
+  "createButton": {
+    "message": "Creează"
+  },
+  "listHeadProfiles": {
+    "message": "Profiluri"
+  },
+  "resetToDefault": {
+    "message": "Resetează la implicit"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Comuți la profilul implicit?"
+  },
+  "cancelButton": {
+    "message": "Anulează"
+  },
+  "resetButton": {
+    "message": "Resetează"
+  },
+  "cannotIsolatePage": {
+    "message": "Această pagină nu poate fi izolată."
+  },
+  "generatedSessionName": {
+    "message": "Sesiunea $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (copie)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Încă nu există profiluri"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Creează unul mai sus pentru a începe izolarea conturilor."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Niciun rezultat"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Încearcă o altă căutare."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplică profilul"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplică profilul $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Redenumește"
+  },
+  "renameAriaLabel": {
+    "message": "Redenumește profilul $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Șterge"
+  },
+  "deleteAriaLabel": {
+    "message": "Șterge profilul $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Anulează ștergerea"
+  },
+  "confirmDeleteTitle": {
+    "message": "Confirmă ștergerea"
+  },
+  "activeStatusPill": {
+    "message": "activ"
+  },
+  "heroLiveLabel": {
+    "message": "live"
+  },
+  "openInNewTab": {
+    "message": "Deschide într-o filă nouă"
+  },
+  "changeColorTitle": {
+    "message": "Schimbă culoarea"
+  },
+  "changeColorAriaLabel": {
+    "message": "Schimbă culoarea sesiunii"
+  },
+  "pickColorAriaLabel": {
+    "message": "Alege culoarea sesiunii"
+  },
+  "sessionColorLabel": {
+    "message": "Culoarea sesiunii"
+  },
+  "hueSwatchTitle": {
+    "message": "Nuanță $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Nuanță personalizată"
+  },
+  "customHueAriaLabel": {
+    "message": "Nuanță personalizată"
+  },
+  "customLabel": {
+    "message": "Personalizat"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Valoarea nuanței personalizate"
+  },
+  "optionsSubtitle": {
+    "message": "Izolarea sesiunii pe filă pentru Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Versiunea extensiei"
+  },
+  "tabSettings": {
+    "message": "Setări"
+  },
+  "tabAbout": {
+    "message": "Despre"
+  },
+  "appearanceSectionTitle": {
+    "message": "Aspect"
+  },
+  "themeSettingLabel": {
+    "message": "Temă"
+  },
+  "themeSettingDesc": {
+    "message": "Suprascrie preferința schemei de culori a sistemului de operare"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Temă"
+  },
+  "autoInheritLabel": {
+    "message": "Deschide automat filele conectate în același profil"
+  },
+  "autoInheritDesc": {
+    "message": "Când este activată, filele deschise dintr-un link (linkuri de filă nouă, Ctrl-clic, clic pe rotița mouse-ului) pe un profil izolat rămân în acel profil în loc să folosească modulele cookie implicite ale Chrome."
+  },
+  "aboutTagline": {
+    "message": "O extensie Chrome gratuită și open-source pentru izolarea sesiunii pe filă. Rămâi conectat simultan la mai multe conturi de pe același site."
+  },
+  "supportSectionTitle": {
+    "message": "Susține proiectul"
+  },
+  "supportDesc": {
+    "message": "SessionShift este gratuit și open-source. Dacă îți economisește timp, ia în considerare un mic bacșiș — menține proiectul activ și fără reclame."
+  },
+  "supportCta": {
+    "message": "Susține pe Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Linkuri"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Deschide în sesiune"
+  },
+  "languageSettingLabel": {
+    "message": "Limbă"
+  },
+  "languageSettingDesc": {
+    "message": "Se aplică acestei ferestre pop-up, opțiunilor și meniurilor contextuale. Comenzile rapide de la tastatură, numele și descrierea extensiei din Chrome respectă întotdeauna limba browserului tău."
+  },
+  "languageOptionSystem": {
+    "message": "Sistem (după browser)"
+  }
+}

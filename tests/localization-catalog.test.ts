@@ -12,15 +12,18 @@ import {
   LOCALE_METADATA,
   MANIFEST_ONLY_KEYS,
   MESSAGE_PLACEHOLDERS,
+  CRITICAL_MESSAGE_KEYS,
   isSupportedLocale,
   directionFor,
 } from '../lib/localization-types.js'
-import type { MessageKey, ChromeMessageCatalog } from '../lib/localization-types.js'
+import type { MessageKey, ChromeMessageCatalog, TranslationQualityData } from '../lib/localization-types.js'
 import {
   main as runValidator,
   validateCatalogEntries,
   validateKeyParity,
   validatePlaceholderParity,
+  validateQualityMetadata,
+  checkTreeSafety,
   DISALLOWED_CHAR_PATTERN,
 } from '../scripts/validate-locales.mjs'
 
@@ -28,6 +31,9 @@ const ROOT = process.cwd()
 const localeData = JSON.parse(readFileSync(resolve(ROOT, 'src/lib/locale-data.json'), 'utf8'))
 const englishCatalog: ChromeMessageCatalog = JSON.parse(
   readFileSync(resolve(ROOT, 'src/_locales/en/messages.json'), 'utf8'),
+)
+const qualityData: TranslationQualityData = JSON.parse(
+  readFileSync(resolve(ROOT, 'src/_locales/translation-quality.json'), 'utf8'),
 )
 
 describe('locale allowlist single source of truth', () => {
@@ -88,6 +94,60 @@ describe('canonical English catalog', () => {
   })
 })
 
+describe('translation-quality.json — honest review-tier registry', () => {
+  it('has exactly one entry per supported locale, no extras, no gaps', () => {
+    expect(Object.keys(qualityData.locales).sort()).toEqual([...SUPPORTED_LOCALES].sort())
+  })
+
+  it('every criticalKeys entry is a real English catalog key', () => {
+    for (const key of qualityData.criticalKeys) {
+      expect(englishCatalog[key], `criticalKeys entry "${key}" missing from English`).toBeDefined()
+    }
+  })
+
+  it('criticalKeys matches the localization-types.ts CRITICAL_MESSAGE_KEYS registry exactly', () => {
+    expect([...qualityData.criticalKeys].sort()).toEqual([...CRITICAL_MESSAGE_KEYS].sort())
+  })
+
+  it('English is tier "source", never claimed as a review of itself', () => {
+    expect(qualityData.locales[DEFAULT_LOCALE].tier).toBe('source')
+  })
+
+  it('no locale claims "reviewed" without a recorded reviewer and reviewedAt (no unearned claim)', () => {
+    for (const [locale, entry] of Object.entries(qualityData.locales)) {
+      if (entry.tier === 'reviewed') {
+        expect(entry.reviewer, `${locale}: reviewed requires a reviewer`).toBeTruthy()
+        expect(entry.reviewedAt, `${locale}: reviewed requires a reviewedAt date`).toBeTruthy()
+      } else {
+        expect(entry.reviewer, `${locale}: non-reviewed tier must not carry a reviewer`).toBeNull()
+        expect(entry.reviewedAt, `${locale}: non-reviewed tier must not carry a reviewedAt`).toBeNull()
+      }
+    }
+  })
+
+  it('every criticalKeyEligible entry is one of the declared criticalKeys', () => {
+    for (const [locale, entry] of Object.entries(qualityData.locales)) {
+      for (const key of entry.criticalKeyEligible) {
+        expect(qualityData.criticalKeys, `${locale}: criticalKeyEligible "${key}" not in criticalKeys`).toContain(key)
+      }
+    }
+  })
+
+  it('the real validator accepts the committed translation-quality.json with zero errors', () => {
+    const errors: string[] = []
+    validateQualityMetadata(errors, qualityData, [...SUPPORTED_LOCALES], new Set(Object.keys(englishCatalog)))
+    expect(errors).toEqual([])
+  })
+})
+
+describe('tree safety — translation-quality.json is the one approved root-level file', () => {
+  it('checkTreeSafety accepts translation-quality.json without flagging it as an unexpected entry', () => {
+    const errors: string[] = []
+    checkTreeSafety(errors, [...SUPPORTED_LOCALES])
+    expect(errors.filter((e) => e.includes('translation-quality.json'))).toEqual([])
+  })
+})
+
 describe('validator fixtures', () => {
   it('rejects an empty message', () => {
     const errors: string[] = []
@@ -145,5 +205,59 @@ describe('validator fixtures', () => {
     const errors: string[] = []
     validatePlaceholderParity(errors, 'fixture', { greet: { message: 'Bonjour' } }, english)
     expect(errors.some((e) => e.includes('missing placeholder "name"'))).toBe(true)
+  })
+
+  it('rejects a "reviewed" claim without reviewer/reviewedAt evidence', () => {
+    const errors: string[] = []
+    validateQualityMetadata(
+      errors,
+      { criticalKeys: [], locales: { en: { tier: 'reviewed', reviewer: null, reviewedAt: null, criticalKeyEligible: [] } } },
+      ['en'],
+      new Set(['tabSettings']),
+    )
+    expect(errors.some((e) => e.includes('requires a non-empty reviewer'))).toBe(true)
+    expect(errors.some((e) => e.includes('requires a non-empty reviewedAt'))).toBe(true)
+  })
+
+  it('rejects a beta locale carrying leftover reviewer/reviewedAt fields (no partial-credit claim)', () => {
+    const errors: string[] = []
+    validateQualityMetadata(
+      errors,
+      { criticalKeys: [], locales: { de: { tier: 'beta', reviewer: 'someone', reviewedAt: '2026-01-01', criticalKeyEligible: [] } } },
+      ['de'],
+      new Set(['tabSettings']),
+    )
+    expect(errors.some((e) => e.includes('must be null unless tier is "reviewed"'))).toBe(true)
+  })
+
+  it('rejects a criticalKeys entry that is not a real English catalog key', () => {
+    const errors: string[] = []
+    validateQualityMetadata(
+      errors,
+      { criticalKeys: ['__not_a_real_key__'], locales: { en: { tier: 'source', reviewer: null, reviewedAt: null, criticalKeyEligible: [] } } },
+      ['en'],
+      new Set(['tabSettings']),
+    )
+    expect(errors.some((e) => e.includes('is not a real English catalog key'))).toBe(true)
+  })
+
+  it('rejects criticalKeyEligible referencing a key outside criticalKeys', () => {
+    const errors: string[] = []
+    validateQualityMetadata(
+      errors,
+      {
+        criticalKeys: ['deleteTitle'],
+        locales: { de: { tier: 'beta', reviewer: null, reviewedAt: null, criticalKeyEligible: ['resetButton'] } },
+      },
+      ['de'],
+      new Set(['deleteTitle', 'resetButton']),
+    )
+    expect(errors.some((e) => e.includes('is not in criticalKeys'))).toBe(true)
+  })
+
+  it('rejects a missing quality entry for a supported locale', () => {
+    const errors: string[] = []
+    validateQualityMetadata(errors, { criticalKeys: [], locales: {} }, ['de'], new Set())
+    expect(errors.some((e) => e.includes('missing quality entry for locale "de"'))).toBe(true)
   })
 })

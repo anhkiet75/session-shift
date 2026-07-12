@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Växla mellan flera konton på vilken webbplats som helst — varje flik får sin egen isolerade session."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Öppna SessionShift-popup"
+  },
+  "commandSessionNextDescription": {
+    "message": "Växla till nästa session för denna flik"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Växla till föregående session för denna flik"
+  },
+  "popupBrandSub": {
+    "message": "Hantering av flera konton"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (klicka för att ändra)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "ljust"
+  },
+  "themeNameDark": {
+    "message": "mörkt"
+  },
+  "themeNameSystem": {
+    "message": "system"
+  },
+  "openOptionsLabel": {
+    "message": "Öppna alternativ"
+  },
+  "heroActiveLabel": {
+    "message": "Aktiv på denna flik"
+  },
+  "heroDefaultName": {
+    "message": "Standard"
+  },
+  "heroNoSessionMeta": {
+    "message": "Ingen session tilldelad"
+  },
+  "searchPlaceholder": {
+    "message": "Sök profiler…"
+  },
+  "searchAriaLabel": {
+    "message": "Sök profiler"
+  },
+  "createPlaceholder": {
+    "message": "Namnge en ny profil…"
+  },
+  "createButton": {
+    "message": "Skapa"
+  },
+  "listHeadProfiles": {
+    "message": "Profiler"
+  },
+  "resetToDefault": {
+    "message": "Återställ till standard"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Växla till standard?"
+  },
+  "cancelButton": {
+    "message": "Avbryt"
+  },
+  "resetButton": {
+    "message": "Återställ"
+  },
+  "cannotIsolatePage": {
+    "message": "Det går inte att isolera den här sidan."
+  },
+  "generatedSessionName": {
+    "message": "Session $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopia)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Inga profiler ännu"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Skapa en ovan för att börja isolera konton."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Inga träffar"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Prova en annan sökning."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplicera profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplicera profilen $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Byt namn"
+  },
+  "renameAriaLabel": {
+    "message": "Byt namn på profilen $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Ta bort"
+  },
+  "deleteAriaLabel": {
+    "message": "Ta bort profilen $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Avbryt borttagning"
+  },
+  "confirmDeleteTitle": {
+    "message": "Bekräfta borttagning"
+  },
+  "activeStatusPill": {
+    "message": "aktiv"
+  },
+  "heroLiveLabel": {
+    "message": "live"
+  },
+  "openInNewTab": {
+    "message": "Öppna i ny flik"
+  },
+  "changeColorTitle": {
+    "message": "Byt färg"
+  },
+  "changeColorAriaLabel": {
+    "message": "Byt sessionsfärg"
+  },
+  "pickColorAriaLabel": {
+    "message": "Välj sessionsfärg"
+  },
+  "sessionColorLabel": {
+    "message": "Sessionsfärg"
+  },
+  "hueSwatchTitle": {
+    "message": "Nyans $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Anpassad nyans"
+  },
+  "customHueAriaLabel": {
+    "message": "Anpassad nyans"
+  },
+  "customLabel": {
+    "message": "Anpassad"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Värde för anpassad nyans"
+  },
+  "optionsSubtitle": {
+    "message": "Sessionsisolering per flik för Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Tilläggsversion"
+  },
+  "tabSettings": {
+    "message": "Inställningar"
+  },
+  "tabAbout": {
+    "message": "Om"
+  },
+  "appearanceSectionTitle": {
+    "message": "Utseende"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Åsidosätt operativsystemets inställning för färgschema"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Öppna automatiskt länkade flikar i samma profil"
+  },
+  "autoInheritDesc": {
+    "message": "När detta är aktiverat förblir flikar som öppnas från en länk (nya-flik-länkar, Ctrl-klick, mittenklick) på en isolerad profil i den profilen istället för att använda Chromes standardkakor."
+  },
+  "aboutTagline": {
+    "message": "Ett gratis, öppen källkod-tillägg för Chrome för sessionsisolering per flik. Förbli inloggad på flera konton på samma webbplats samtidigt."
+  },
+  "supportSectionTitle": {
+    "message": "Stöd projektet"
+  },
+  "supportDesc": {
+    "message": "SessionShift är gratis och öppen källkod. Om det sparar dig tid kan du överväga en liten dricks — det håller projektet vid liv och reklamfritt."
+  },
+  "supportCta": {
+    "message": "Stöd på Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Länkar"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Öppna i session"
+  },
+  "languageSettingLabel": {
+    "message": "Språk"
+  },
+  "languageSettingDesc": {
+    "message": "Gäller för denna popup, alternativ och snabbmenyer. Chromes egna tangentbordsgenvägar, tilläggets namn och beskrivning följer alltid din webbläsares språk."
+  },
+  "languageOptionSystem": {
+    "message": "System (enligt webbläsaren)"
+  }
+}

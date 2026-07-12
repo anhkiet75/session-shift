@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "किसी भी साइट पर कई अकाउंट के बीच स्विच करें — हर टैब को अपना अलग सेशन मिलता है।"
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift पॉपअप खोलें"
+  },
+  "commandSessionNextDescription": {
+    "message": "इस टैब के लिए अगले सेशन पर स्विच करें"
+  },
+  "commandSessionPrevDescription": {
+    "message": "इस टैब के लिए पिछले सेशन पर स्विच करें"
+  },
+  "popupBrandSub": {
+    "message": "मल्टी-अकाउंट मैनेजर"
+  },
+  "themeToggleLabel": {
+    "message": "थीम: $theme$ (बदलने के लिए क्लिक करें)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "हल्की"
+  },
+  "themeNameDark": {
+    "message": "गहरी"
+  },
+  "themeNameSystem": {
+    "message": "सिस्टम"
+  },
+  "openOptionsLabel": {
+    "message": "विकल्प खोलें"
+  },
+  "heroActiveLabel": {
+    "message": "इस टैब पर सक्रिय"
+  },
+  "heroDefaultName": {
+    "message": "डिफ़ॉल्ट"
+  },
+  "heroNoSessionMeta": {
+    "message": "कोई सेशन असाइन नहीं"
+  },
+  "searchPlaceholder": {
+    "message": "प्रोफ़ाइल खोजें…"
+  },
+  "searchAriaLabel": {
+    "message": "प्रोफ़ाइल खोजें"
+  },
+  "createPlaceholder": {
+    "message": "नई प्रोफ़ाइल का नाम दें…"
+  },
+  "createButton": {
+    "message": "बनाएं"
+  },
+  "listHeadProfiles": {
+    "message": "प्रोफ़ाइलें"
+  },
+  "resetToDefault": {
+    "message": "डिफ़ॉल्ट पर रीसेट करें"
+  },
+  "switchToDefaultConfirm": {
+    "message": "डिफ़ॉल्ट पर स्विच करें?"
+  },
+  "cancelButton": {
+    "message": "रद्द करें"
+  },
+  "resetButton": {
+    "message": "रीसेट करें"
+  },
+  "cannotIsolatePage": {
+    "message": "इस पेज को अलग नहीं किया जा सकता।"
+  },
+  "generatedSessionName": {
+    "message": "सेशन $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (कॉपी)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "अभी तक कोई प्रोफ़ाइल नहीं"
+  },
+  "emptyNoProfilesSub": {
+    "message": "अकाउंट अलग करना शुरू करने के लिए ऊपर एक बनाएं।"
+  },
+  "emptyNoMatchesTitle": {
+    "message": "कोई मैच नहीं"
+  },
+  "emptyNoMatchesSub": {
+    "message": "कोई अलग खोज आज़माएं।"
+  },
+  "duplicateProfileTitle": {
+    "message": "प्रोफ़ाइल डुप्लिकेट करें"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ प्रोफ़ाइल डुप्लिकेट करें",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "नाम बदलें"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ प्रोफ़ाइल का नाम बदलें",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "हटाएं"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ प्रोफ़ाइल हटाएं",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "हटाना रद्द करें"
+  },
+  "confirmDeleteTitle": {
+    "message": "हटाने की पुष्टि करें"
+  },
+  "activeStatusPill": {
+    "message": "सक्रिय"
+  },
+  "heroLiveLabel": {
+    "message": "लाइव"
+  },
+  "openInNewTab": {
+    "message": "नए टैब में खोलें"
+  },
+  "changeColorTitle": {
+    "message": "रंग बदलें"
+  },
+  "changeColorAriaLabel": {
+    "message": "सेशन का रंग बदलें"
+  },
+  "pickColorAriaLabel": {
+    "message": "सेशन का रंग चुनें"
+  },
+  "sessionColorLabel": {
+    "message": "सेशन का रंग"
+  },
+  "hueSwatchTitle": {
+    "message": "ह्यू $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "कस्टम ह्यू"
+  },
+  "customHueAriaLabel": {
+    "message": "कस्टम ह्यू"
+  },
+  "customLabel": {
+    "message": "कस्टम"
+  },
+  "customHueValueAriaLabel": {
+    "message": "कस्टम ह्यू वैल्यू"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome के लिए प्रति-टैब सेशन आइसोलेशन।"
+  },
+  "extensionVersionAriaLabel": {
+    "message": "एक्सटेंशन वर्शन"
+  },
+  "tabSettings": {
+    "message": "सेटिंग्स"
+  },
+  "tabAbout": {
+    "message": "जानकारी"
+  },
+  "appearanceSectionTitle": {
+    "message": "दिखावट"
+  },
+  "themeSettingLabel": {
+    "message": "थीम"
+  },
+  "themeSettingDesc": {
+    "message": "OS कलर स्कीम प्राथमिकता को ओवरराइड करें"
+  },
+  "themeGroupAriaLabel": {
+    "message": "थीम"
+  },
+  "autoInheritLabel": {
+    "message": "लिंक किए टैब अपने आप उसी प्रोफ़ाइल में खोलें"
+  },
+  "autoInheritDesc": {
+    "message": "सक्षम होने पर, अलग की गई प्रोफ़ाइल पर लिंक (नए-टैब लिंक, Ctrl-क्लिक, मिडल-क्लिक) से खुले टैब Chrome की डिफ़ॉल्ट कुकीज़ के बजाय उसी प्रोफ़ाइल में रहते हैं।"
+  },
+  "aboutTagline": {
+    "message": "प्रति-टैब सेशन आइसोलेशन के लिए एक मुफ़्त, ओपन-सोर्स Chrome एक्सटेंशन। एक ही साइट पर एक साथ कई अकाउंट में लॉग इन रहें।"
+  },
+  "supportSectionTitle": {
+    "message": "प्रोजेक्ट को सपोर्ट करें"
+  },
+  "supportDesc": {
+    "message": "SessionShift मुफ़्त और ओपन-सोर्स है। अगर यह आपका समय बचाता है, तो एक छोटी टिप देने पर विचार करें — इससे प्रोजेक्ट जीवित और विज्ञापन-मुक्त रहता है।"
+  },
+  "supportCta": {
+    "message": "Ko-fi पर सपोर्ट करें"
+  },
+  "linksSectionTitle": {
+    "message": "लिंक"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "सेशन में खोलें"
+  },
+  "languageSettingLabel": {
+    "message": "भाषा"
+  },
+  "languageSettingDesc": {
+    "message": "यह इस पॉपअप, विकल्पों और कॉन्टेक्स्ट मेनू पर लागू होता है। Chrome के अपने कीबोर्ड शॉर्टकट, एक्सटेंशन का नाम और विवरण हमेशा आपके ब्राउज़र की भाषा का पालन करते हैं।"
+  },
+  "languageOptionSystem": {
+    "message": "सिस्टम (ब्राउज़र से मेल खाता)"
+  }
+}

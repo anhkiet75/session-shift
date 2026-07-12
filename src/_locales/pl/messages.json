@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Przełączaj się między wieloma kontami na dowolnej stronie — każda karta otrzymuje własną izolowaną sesję."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Otwórz wyskakujące okno SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Przełącz na następną sesję dla tej karty"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Przełącz na poprzednią sesję dla tej karty"
+  },
+  "popupBrandSub": {
+    "message": "Menedżer wielu kont"
+  },
+  "themeToggleLabel": {
+    "message": "Motyw: $theme$ (kliknij, aby zmienić)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "jasny"
+  },
+  "themeNameDark": {
+    "message": "ciemny"
+  },
+  "themeNameSystem": {
+    "message": "systemowy"
+  },
+  "openOptionsLabel": {
+    "message": "Otwórz opcje"
+  },
+  "heroActiveLabel": {
+    "message": "Aktywne na tej karcie"
+  },
+  "heroDefaultName": {
+    "message": "Domyślny"
+  },
+  "heroNoSessionMeta": {
+    "message": "Brak przypisanej sesji"
+  },
+  "searchPlaceholder": {
+    "message": "Szukaj profili…"
+  },
+  "searchAriaLabel": {
+    "message": "Szukaj profili"
+  },
+  "createPlaceholder": {
+    "message": "Nazwij nowy profil…"
+  },
+  "createButton": {
+    "message": "Utwórz"
+  },
+  "listHeadProfiles": {
+    "message": "Profile"
+  },
+  "resetToDefault": {
+    "message": "Przywróć domyślne"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Przełączyć na domyślny?"
+  },
+  "cancelButton": {
+    "message": "Anuluj"
+  },
+  "resetButton": {
+    "message": "Resetuj"
+  },
+  "cannotIsolatePage": {
+    "message": "Nie można wyizolować tej strony."
+  },
+  "generatedSessionName": {
+    "message": "Sesja $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopia)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Brak profili"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Utwórz jeden powyżej, aby izolować konta."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Brak wyników"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Spróbuj innego wyszukiwania."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplikuj profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplikuj profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Zmień nazwę"
+  },
+  "renameAriaLabel": {
+    "message": "Zmień nazwę profilu $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Usuń"
+  },
+  "deleteAriaLabel": {
+    "message": "Usuń profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Anuluj usuwanie"
+  },
+  "confirmDeleteTitle": {
+    "message": "Potwierdź usunięcie"
+  },
+  "activeStatusPill": {
+    "message": "aktywny"
+  },
+  "heroLiveLabel": {
+    "message": "na żywo"
+  },
+  "openInNewTab": {
+    "message": "Otwórz w nowej karcie"
+  },
+  "changeColorTitle": {
+    "message": "Zmień kolor"
+  },
+  "changeColorAriaLabel": {
+    "message": "Zmień kolor sesji"
+  },
+  "pickColorAriaLabel": {
+    "message": "Wybierz kolor sesji"
+  },
+  "sessionColorLabel": {
+    "message": "Kolor sesji"
+  },
+  "hueSwatchTitle": {
+    "message": "Odcień $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Niestandardowy odcień"
+  },
+  "customHueAriaLabel": {
+    "message": "Niestandardowy odcień"
+  },
+  "customLabel": {
+    "message": "Niestandardowy"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Wartość niestandardowego odcienia"
+  },
+  "optionsSubtitle": {
+    "message": "Izolacja sesji na kartę dla Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Wersja rozszerzenia"
+  },
+  "tabSettings": {
+    "message": "Ustawienia"
+  },
+  "tabAbout": {
+    "message": "O programie"
+  },
+  "appearanceSectionTitle": {
+    "message": "Wygląd"
+  },
+  "themeSettingLabel": {
+    "message": "Motyw"
+  },
+  "themeSettingDesc": {
+    "message": "Zastępuje ustawienie schematu kolorów systemu operacyjnego"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Motyw"
+  },
+  "autoInheritLabel": {
+    "message": "Automatycznie otwieraj powiązane karty w tym samym profilu"
+  },
+  "autoInheritDesc": {
+    "message": "Gdy włączone, karty otwierane z linku (linki nowej karty, Ctrl-klik, kliknięcie środkowym przyciskiem) na izolowanym profilu pozostają w tym profilu zamiast używać domyślnych plików cookie Chrome."
+  },
+  "aboutTagline": {
+    "message": "Darmowe, otwartoźródłowe rozszerzenie Chrome do izolacji sesji na kartę. Pozostań zalogowany na wielu kontach na tej samej stronie jednocześnie."
+  },
+  "supportSectionTitle": {
+    "message": "Wesprzyj projekt"
+  },
+  "supportDesc": {
+    "message": "SessionShift jest darmowy i otwartoźródłowy. Jeśli oszczędza Ci czas, rozważ drobny napiwek — dzięki temu projekt pozostaje żywy i wolny od reklam."
+  },
+  "supportCta": {
+    "message": "Wesprzyj na Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Linki"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Otwórz w sesji"
+  },
+  "languageSettingLabel": {
+    "message": "Język"
+  },
+  "languageSettingDesc": {
+    "message": "Dotyczy tego wyskakującego okna, opcji i menu kontekstowych. Własne skróty klawiszowe Chrome, nazwa rozszerzenia i opis zawsze są zgodne z językiem przeglądarki."
+  },
+  "languageOptionSystem": {
+    "message": "Systemowy (zgodnie z przeglądarką)"
+  }
+}

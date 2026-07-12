@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Alterne entre várias contas em qualquer site — cada aba tem sua própria sessão isolada."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Abrir o popup do SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Alternar para a próxima sessão desta aba"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Alternar para a sessão anterior desta aba"
+  },
+  "popupBrandSub": {
+    "message": "Gerenciador multiconta"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (clique para mudar)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "claro"
+  },
+  "themeNameDark": {
+    "message": "escuro"
+  },
+  "themeNameSystem": {
+    "message": "sistema"
+  },
+  "openOptionsLabel": {
+    "message": "Abrir opções"
+  },
+  "heroActiveLabel": {
+    "message": "Ativo nesta aba"
+  },
+  "heroDefaultName": {
+    "message": "Padrão"
+  },
+  "heroNoSessionMeta": {
+    "message": "Nenhuma sessão atribuída"
+  },
+  "searchPlaceholder": {
+    "message": "Pesquisar perfis…"
+  },
+  "searchAriaLabel": {
+    "message": "Pesquisar perfis"
+  },
+  "createPlaceholder": {
+    "message": "Dê um nome a um novo perfil…"
+  },
+  "createButton": {
+    "message": "Criar"
+  },
+  "listHeadProfiles": {
+    "message": "Perfis"
+  },
+  "resetToDefault": {
+    "message": "Redefinir para o padrão"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Alternar para o padrão?"
+  },
+  "cancelButton": {
+    "message": "Cancelar"
+  },
+  "resetButton": {
+    "message": "Redefinir"
+  },
+  "cannotIsolatePage": {
+    "message": "Não é possível isolar esta página."
+  },
+  "generatedSessionName": {
+    "message": "Sessão $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (cópia)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Ainda não há perfis"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Crie um acima para começar a isolar contas."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Nenhum resultado"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Tente outra pesquisa."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplicar perfil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplicar o perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Renomear"
+  },
+  "renameAriaLabel": {
+    "message": "Renomear o perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Excluir"
+  },
+  "deleteAriaLabel": {
+    "message": "Excluir o perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Cancelar exclusão"
+  },
+  "confirmDeleteTitle": {
+    "message": "Confirmar exclusão"
+  },
+  "activeStatusPill": {
+    "message": "ativo"
+  },
+  "heroLiveLabel": {
+    "message": "ao vivo"
+  },
+  "openInNewTab": {
+    "message": "Abrir em nova aba"
+  },
+  "changeColorTitle": {
+    "message": "Mudar cor"
+  },
+  "changeColorAriaLabel": {
+    "message": "Mudar a cor da sessão"
+  },
+  "pickColorAriaLabel": {
+    "message": "Escolher a cor da sessão"
+  },
+  "sessionColorLabel": {
+    "message": "Cor da sessão"
+  },
+  "hueSwatchTitle": {
+    "message": "Matiz $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Matiz personalizado"
+  },
+  "customHueAriaLabel": {
+    "message": "Matiz personalizado"
+  },
+  "customLabel": {
+    "message": "Personalizado"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Valor do matiz personalizado"
+  },
+  "optionsSubtitle": {
+    "message": "Isolamento de sessão por aba para o Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Versão da extensão"
+  },
+  "tabSettings": {
+    "message": "Configurações"
+  },
+  "tabAbout": {
+    "message": "Sobre"
+  },
+  "appearanceSectionTitle": {
+    "message": "Aparência"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Substituir a preferência de esquema de cores do sistema operacional"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Abrir automaticamente abas vinculadas no mesmo perfil"
+  },
+  "autoInheritDesc": {
+    "message": "Quando ativado, as abas abertas a partir de um link (links de nova aba, Ctrl+clique, clique do meio) em um perfil isolado permanecem nesse perfil em vez de usar os cookies padrão do Chrome."
+  },
+  "aboutTagline": {
+    "message": "Uma extensão do Chrome gratuita e de código aberto para isolamento de sessão por aba. Fique conectado em várias contas do mesmo site, simultaneamente."
+  },
+  "supportSectionTitle": {
+    "message": "Apoie o projeto"
+  },
+  "supportDesc": {
+    "message": "O SessionShift é gratuito e de código aberto. Se ele economiza seu tempo, considere fazer uma pequena doação — isso mantém o projeto vivo e sem anúncios."
+  },
+  "supportCta": {
+    "message": "Apoiar no Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Links"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Abrir na sessão"
+  },
+  "languageSettingLabel": {
+    "message": "Idioma"
+  },
+  "languageSettingDesc": {
+    "message": "Aplica-se a este popup, às opções e aos menus de contexto. Os atalhos de teclado, o nome e a descrição da extensão do próprio Chrome sempre seguem o idioma do seu navegador."
+  },
+  "languageOptionSystem": {
+    "message": "Sistema (de acordo com o navegador)"
+  }
+}

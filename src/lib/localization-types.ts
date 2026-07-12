@@ -167,3 +167,37 @@ export const MESSAGE_PLACEHOLDERS: Partial<Record<MessageKey, readonly string[]>
   deleteAriaLabel: ['name'],
   hueSwatchTitle: ['hue'],
 };
+
+/**
+ * Destructive/security-adjacent keys (reset, delete confirmations). A beta
+ * (unreviewed) locale renders these in English until the exact key is marked
+ * eligible in `translation-quality.json` — mistranslated confirm/cancel
+ * wording here is a safety issue, not a cosmetic one. See
+ * `docs/translation-contributing.md`.
+ */
+export const CRITICAL_MESSAGE_KEYS: readonly MessageKey[] = [
+  'resetToDefault',
+  'switchToDefaultConfirm',
+  'resetButton',
+  'deleteTitle',
+  'deleteAriaLabel',
+  'confirmDeleteTitle',
+];
+
+/** Honest per-locale review state. `source` = English (authored, not translated). */
+export type QualityTier = 'source' | 'beta' | 'reviewed';
+
+export interface LocaleQualityEntry {
+  tier: QualityTier;
+  /** Reviewer identity, required and non-null only when tier is `reviewed`. */
+  reviewer: string | null;
+  /** ISO 8601 date, required and non-null only when tier is `reviewed`. */
+  reviewedAt: string | null;
+  /** Critical keys individually cleared for this locale despite beta tier. */
+  criticalKeyEligible: readonly MessageKey[];
+}
+
+export interface TranslationQualityData {
+  criticalKeys: readonly MessageKey[];
+  locales: Record<SupportedLocale, LocaleQualityEntry>;
+}

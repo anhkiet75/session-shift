@@ -1,0 +1,342 @@
+{
+  "criticalKeys": [
+    "resetToDefault",
+    "switchToDefaultConfirm",
+    "resetButton",
+    "deleteTitle",
+    "deleteAriaLabel",
+    "confirmDeleteTitle"
+  ],
+  "locales": {
+    "am": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ar": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "bg": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "bn": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ca": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "cs": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "da": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "de": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "el": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "en": {
+      "tier": "source",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "en_AU": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "en_GB": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "en_US": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "es": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "es_419": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "et": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "fa": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "fi": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "fil": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "fr": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "gu": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "he": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "hi": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "hr": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "hu": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "id": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "it": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ja": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "kn": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ko": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "lt": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "lv": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ml": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "mr": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ms": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "nl": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "no": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "pl": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "pt_BR": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "pt_PT": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ro": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ru": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "sk": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "sl": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "sr": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "sv": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "sw": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "ta": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "te": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "th": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "tr": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "uk": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "vi": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "zh_CN": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    },
+    "zh_TW": {
+      "tier": "beta",
+      "reviewer": null,
+      "reviewedAt": null,
+      "criticalKeyEligible": []
+    }
+  }
+}

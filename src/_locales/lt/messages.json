@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Perjunkite tarp kelių paskyrų bet kurioje svetainėje — kiekvienas skirtukas gauna savo izoliuotą seansą."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Atverti SessionShift iškylantįjį langą"
+  },
+  "commandSessionNextDescription": {
+    "message": "Perjungti į kitą šio skirtuko seansą"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Perjungti į ankstesnį šio skirtuko seansą"
+  },
+  "popupBrandSub": {
+    "message": "Kelių paskyrų tvarkytuvė"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (spustelėkite, kad pakeistumėte)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "šviesi"
+  },
+  "themeNameDark": {
+    "message": "tamsi"
+  },
+  "themeNameSystem": {
+    "message": "sistemos"
+  },
+  "openOptionsLabel": {
+    "message": "Atverti parinktis"
+  },
+  "heroActiveLabel": {
+    "message": "Aktyvu šiame skirtuke"
+  },
+  "heroDefaultName": {
+    "message": "Numatytasis"
+  },
+  "heroNoSessionMeta": {
+    "message": "Nepriskirtas joks seansas"
+  },
+  "searchPlaceholder": {
+    "message": "Ieškoti profilių…"
+  },
+  "searchAriaLabel": {
+    "message": "Ieškoti profilių"
+  },
+  "createPlaceholder": {
+    "message": "Naujo profilio pavadinimas…"
+  },
+  "createButton": {
+    "message": "Kurti"
+  },
+  "listHeadProfiles": {
+    "message": "Profiliai"
+  },
+  "resetToDefault": {
+    "message": "Atkurti numatytąjį"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Perjungti į numatytąjį?"
+  },
+  "cancelButton": {
+    "message": "Atšaukti"
+  },
+  "resetButton": {
+    "message": "Atstatyti"
+  },
+  "cannotIsolatePage": {
+    "message": "Šio puslapio izoliuoti negalima."
+  },
+  "generatedSessionName": {
+    "message": "Seansas $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopija)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Kol kas nėra profilių"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Sukurkite vieną aukščiau, kad izoliuotumėte paskyras."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Atitikmenų nerasta"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Bandykite kitą paiešką."
+  },
+  "duplicateProfileTitle": {
+    "message": "Dubliuoti profilį"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Dubliuoti profilį $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Pervadinti"
+  },
+  "renameAriaLabel": {
+    "message": "Pervadinti profilį $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Ištrinti"
+  },
+  "deleteAriaLabel": {
+    "message": "Ištrinti profilį $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Atšaukti trynimą"
+  },
+  "confirmDeleteTitle": {
+    "message": "Patvirtinti trynimą"
+  },
+  "activeStatusPill": {
+    "message": "aktyvu"
+  },
+  "heroLiveLabel": {
+    "message": "tiesiogiai"
+  },
+  "openInNewTab": {
+    "message": "Atverti naujame skirtuke"
+  },
+  "changeColorTitle": {
+    "message": "Keisti spalvą"
+  },
+  "changeColorAriaLabel": {
+    "message": "Keisti seanso spalvą"
+  },
+  "pickColorAriaLabel": {
+    "message": "Pasirinkti seanso spalvą"
+  },
+  "sessionColorLabel": {
+    "message": "Seanso spalva"
+  },
+  "hueSwatchTitle": {
+    "message": "Atspalvis $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Pasirinktinis atspalvis"
+  },
+  "customHueAriaLabel": {
+    "message": "Pasirinktinis atspalvis"
+  },
+  "customLabel": {
+    "message": "Pasirinktinis"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Pasirinktinio atspalvio reikšmė"
+  },
+  "optionsSubtitle": {
+    "message": "Seanso izoliacija kiekvienam skirtukui, skirta Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Plėtinio versija"
+  },
+  "tabSettings": {
+    "message": "Nustatymai"
+  },
+  "tabAbout": {
+    "message": "Apie"
+  },
+  "appearanceSectionTitle": {
+    "message": "Išvaizda"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Nepaisyti OS spalvų schemos nuostatos"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Automatiškai atverti susietus skirtukus tame pačiame profilyje"
+  },
+  "autoInheritDesc": {
+    "message": "Kai įjungta, iš nuorodos (naujo skirtuko nuorodos, Ctrl spustelėjimas, vidurinis paspaudimas) atverti skirtukai izoliuotame profilyje lieka tame profilyje, o ne naudoja numatytuosius Chrome slapukus."
+  },
+  "aboutTagline": {
+    "message": "Nemokamas, atvirojo kodo Chrome plėtinys seanso izoliacijai kiekvienam skirtukui. Likite prisijungę prie kelių paskyrų toje pačioje svetainėje vienu metu."
+  },
+  "supportSectionTitle": {
+    "message": "Paremkite projektą"
+  },
+  "supportDesc": {
+    "message": "SessionShift yra nemokamas ir atviro kodo. Jei jis taupo jūsų laiką, apsvarstykite galimybę palikti nedidelį arbatpinigį — tai padeda projektui išlikti gyvam ir be reklamų."
+  },
+  "supportCta": {
+    "message": "Paremti per Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Nuorodos"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome internetinė parduotuvė"
+  },
+  "contextMenuParentTitle": {
+    "message": "Atverti seanse"
+  },
+  "languageSettingLabel": {
+    "message": "Kalba"
+  },
+  "languageSettingDesc": {
+    "message": "Taikoma šiam iškylančiajam langui, parinktims ir kontekstiniams meniu. Chrome nuosavi spartieji klavišai, plėtinio pavadinimas ir aprašymas visada atitinka jūsų naršyklės kalbą."
+  },
+  "languageOptionSystem": {
+    "message": "Sistemos (pagal naršyklę)"
+  }
+}

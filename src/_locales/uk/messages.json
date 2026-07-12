@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Перемикайтеся між кількома обліковими записами на будь-якому сайті — кожна вкладка отримує свою ізольовану сесію."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Відкрити спливаюче вікно SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Перейти до наступної сесії для цієї вкладки"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Перейти до попередньої сесії для цієї вкладки"
+  },
+  "popupBrandSub": {
+    "message": "Менеджер кількох облікових записів"
+  },
+  "themeToggleLabel": {
+    "message": "Тема: $theme$ (натисніть, щоб змінити)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "світла"
+  },
+  "themeNameDark": {
+    "message": "темна"
+  },
+  "themeNameSystem": {
+    "message": "системна"
+  },
+  "openOptionsLabel": {
+    "message": "Відкрити налаштування"
+  },
+  "heroActiveLabel": {
+    "message": "Активно на цій вкладці"
+  },
+  "heroDefaultName": {
+    "message": "Типовий"
+  },
+  "heroNoSessionMeta": {
+    "message": "Сесію не призначено"
+  },
+  "searchPlaceholder": {
+    "message": "Пошук профілів…"
+  },
+  "searchAriaLabel": {
+    "message": "Пошук профілів"
+  },
+  "createPlaceholder": {
+    "message": "Назвіть новий профіль…"
+  },
+  "createButton": {
+    "message": "Створити"
+  },
+  "listHeadProfiles": {
+    "message": "Профілі"
+  },
+  "resetToDefault": {
+    "message": "Скинути до типового"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Перейти до типового?"
+  },
+  "cancelButton": {
+    "message": "Скасувати"
+  },
+  "resetButton": {
+    "message": "Скинути"
+  },
+  "cannotIsolatePage": {
+    "message": "Цю сторінку не можна ізолювати."
+  },
+  "generatedSessionName": {
+    "message": "Сесія $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (копія)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Поки немає профілів"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Створіть профіль вище, щоб ізолювати облікові записи."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Немає збігів"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Спробуйте інший пошук."
+  },
+  "duplicateProfileTitle": {
+    "message": "Дублювати профіль"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Дублювати профіль $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Перейменувати"
+  },
+  "renameAriaLabel": {
+    "message": "Перейменувати профіль $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Видалити"
+  },
+  "deleteAriaLabel": {
+    "message": "Видалити профіль $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Скасувати видалення"
+  },
+  "confirmDeleteTitle": {
+    "message": "Підтвердити видалення"
+  },
+  "activeStatusPill": {
+    "message": "активний"
+  },
+  "heroLiveLabel": {
+    "message": "наживо"
+  },
+  "openInNewTab": {
+    "message": "Відкрити в новій вкладці"
+  },
+  "changeColorTitle": {
+    "message": "Змінити колір"
+  },
+  "changeColorAriaLabel": {
+    "message": "Змінити колір сесії"
+  },
+  "pickColorAriaLabel": {
+    "message": "Вибрати колір сесії"
+  },
+  "sessionColorLabel": {
+    "message": "Колір сесії"
+  },
+  "hueSwatchTitle": {
+    "message": "Відтінок $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Власний відтінок"
+  },
+  "customHueAriaLabel": {
+    "message": "Власний відтінок"
+  },
+  "customLabel": {
+    "message": "Власний"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Значення власного відтінку"
+  },
+  "optionsSubtitle": {
+    "message": "Ізоляція сесій за вкладками для Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Версія розширення"
+  },
+  "tabSettings": {
+    "message": "Налаштування"
+  },
+  "tabAbout": {
+    "message": "Про розширення"
+  },
+  "appearanceSectionTitle": {
+    "message": "Вигляд"
+  },
+  "themeSettingLabel": {
+    "message": "Тема"
+  },
+  "themeSettingDesc": {
+    "message": "Замінює налаштування кольорової схеми ОС"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Тема"
+  },
+  "autoInheritLabel": {
+    "message": "Автоматично відкривати пов'язані вкладки в тому самому профілі"
+  },
+  "autoInheritDesc": {
+    "message": "Якщо ввімкнено, вкладки, відкриті за посиланням (посилання нової вкладки, Ctrl-клік, клік середньою кнопкою) в ізольованому профілі, залишаються в цьому профілі замість використання типових файлів cookie Chrome."
+  },
+  "aboutTagline": {
+    "message": "Безкоштовне розширення Chrome із відкритим кодом для ізоляції сесій за вкладками. Залишайтеся увійшли в кілька облікових записів на одному сайті одночасно."
+  },
+  "supportSectionTitle": {
+    "message": "Підтримати проєкт"
+  },
+  "supportDesc": {
+    "message": "SessionShift безкоштовний і з відкритим кодом. Якщо він економить ваш час, розгляньте невеликий донат — це підтримує проєкт живим і без реклами."
+  },
+  "supportCta": {
+    "message": "Підтримати на Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Посилання"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Відкрити в сесії"
+  },
+  "languageSettingLabel": {
+    "message": "Мова"
+  },
+  "languageSettingDesc": {
+    "message": "Застосовується до цього спливаючого вікна, налаштувань і контекстних меню. Власні комбінації клавіш Chrome, назва та опис розширення завжди відповідають мові вашого браузера."
+  },
+  "languageOptionSystem": {
+    "message": "Системна (як у браузері)"
+  }
+}

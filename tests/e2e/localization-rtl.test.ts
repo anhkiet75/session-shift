@@ -223,6 +223,82 @@ test.describe('Phase 4 — RTL/bidirectional hardening', () => {
     }
   })
 
+})
+
+test.describe('Phase 5 — regional fallback and representative-script matrix', () => {
+  test('en_GB, es_419, pt_BR, zh_TW each render their own exact catalog, not a generic pt/zh/es fallback', async ({ context, optionsUrl }) => {
+    const options = await context.newPage()
+    await options.goto(optionsUrl)
+    await options.waitForSelector('#languageSelect')
+
+    const cases: Array<{ code: string; createButton: string; tabSettings: string }> = [
+      { code: 'en_GB', createButton: 'Create', tabSettings: 'Settings' },
+      { code: 'es_419', createButton: 'Crear', tabSettings: 'Configuración' },
+      { code: 'pt_BR', createButton: 'Criar', tabSettings: 'Configurações' },
+      { code: 'zh_TW', createButton: '建立', tabSettings: '設定' },
+    ]
+
+    for (const { code, tabSettings } of cases) {
+      await options.selectOption('#languageSelect', code)
+      await expect(options.locator('#tab-settings span')).toHaveText(tabSettings)
+      await expect(options.locator('html')).toHaveAttribute('lang', code.replace('_', '-'))
+    }
+
+    await options.close()
+  })
+
+  test('Vietnamese and Japanese popups render their own script with correct lang tag', async ({ popupPage }) => {
+    await seedLocalePreference(popupPage, 'vi')
+    await popupPage.reload()
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+    await expect(popupPage.locator('#btnNewSession span')).toHaveText('Tạo')
+    await expect(popupPage.locator('html')).toHaveAttribute('lang', 'vi')
+    await expect(popupPage.locator('html')).toHaveAttribute('dir', 'ltr')
+
+    await seedLocalePreference(popupPage, 'ja')
+    await popupPage.reload()
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+    await expect(popupPage.locator('#btnNewSession span')).toHaveText('作成')
+    await expect(popupPage.locator('html')).toHaveAttribute('lang', 'ja')
+  })
+
+  test('Hindi (Devanagari, complex shaping) popup renders readable script with no crash', async ({ popupPage }) => {
+    await seedLocalePreference(popupPage, 'hi')
+    await popupPage.reload()
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+    await expect(popupPage.locator('#btnNewSession span')).toHaveText('बनाएं')
+    await expect(popupPage.locator('html')).toHaveAttribute('lang', 'hi')
+    expect(await popupPage.locator('.v2-popup').getAttribute('inert')).toBeNull()
+  })
+})
+
+test.describe('Phase 5 — critical-key beta fallback (translation-quality.json)', () => {
+  test('under de (beta tier), the delete-confirmation flow renders in English while decorative/cancel chrome stays German', async ({ popupPage }) => {
+    await popupPage.evaluate(async () => {
+      await chrome.storage.local.set({
+        profiles: [{ id: 'session_a', name: 'Work', hue: 200 }],
+      })
+    })
+    await seedLocalePreference(popupPage, 'de')
+    await popupPage.reload()
+    await popupPage.waitForSelector('#btnNewSession', { state: 'visible' })
+
+    // Decorative copy (not a critical key) uses the German draft immediately.
+    await expect(popupPage.locator('.v2-brand-sub')).toHaveText('Multi-Konto-Manager')
+
+    const card = popupPage.locator('.v2-card', { hasText: 'Work' })
+    await card.locator('[data-action="delete-profile"]').click()
+
+    // deleteTitle is a critical key: stays English until de is reviewed or
+    // this exact key is marked criticalKeyEligible.
+    await expect(card.locator('[data-action="confirm-delete"]')).toHaveText('Delete')
+    // cancelButton/cancelDeleteTitle are not critical: German draft renders.
+    await expect(card.locator('[data-action="cancel-delete"]')).toHaveText('Abbrechen')
+    await expect(card.locator('[data-action="cancel-delete"]')).toHaveAttribute('title', 'Löschen abbrechen')
+  })
+})
+
+test.describe('Phase 4 — RTL/bidirectional hardening (menu positioning)', () => {
   test('keyboard-invoked open-in-tab menu anchors near the card under ar (not just clamped onscreen)', async ({ popupPage }) => {
     await popupPage.evaluate(async () => {
       await chrome.storage.local.set({

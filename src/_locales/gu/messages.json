@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "કોઈપણ સાઇટ પર બહુવિધ એકાઉન્ટ વચ્ચે સ્વિચ કરો — દરેક ટેબને પોતાનું અલગ સેશન મળે છે."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift પોપઅપ ખોલો"
+  },
+  "commandSessionNextDescription": {
+    "message": "આ ટેબ માટે આગલા સેશન પર સ્વિચ કરો"
+  },
+  "commandSessionPrevDescription": {
+    "message": "આ ટેબ માટે પાછલા સેશન પર સ્વિચ કરો"
+  },
+  "popupBrandSub": {
+    "message": "મલ્ટી-એકાઉન્ટ મેનેજર"
+  },
+  "themeToggleLabel": {
+    "message": "થીમ: $theme$ (બદલવા માટે ક્લિક કરો)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "હળવી"
+  },
+  "themeNameDark": {
+    "message": "ઘાટી"
+  },
+  "themeNameSystem": {
+    "message": "સિસ્ટમ"
+  },
+  "openOptionsLabel": {
+    "message": "વિકલ્પો ખોલો"
+  },
+  "heroActiveLabel": {
+    "message": "આ ટેબ પર સક્રિય"
+  },
+  "heroDefaultName": {
+    "message": "ડિફૉલ્ટ"
+  },
+  "heroNoSessionMeta": {
+    "message": "કોઈ સેશન સોંપાયું નથી"
+  },
+  "searchPlaceholder": {
+    "message": "પ્રોફાઇલ શોધો…"
+  },
+  "searchAriaLabel": {
+    "message": "પ્રોફાઇલ શોધો"
+  },
+  "createPlaceholder": {
+    "message": "નવી પ્રોફાઇલનું નામ આપો…"
+  },
+  "createButton": {
+    "message": "બનાવો"
+  },
+  "listHeadProfiles": {
+    "message": "પ્રોફાઇલો"
+  },
+  "resetToDefault": {
+    "message": "ડિફૉલ્ટ પર રીસેટ કરો"
+  },
+  "switchToDefaultConfirm": {
+    "message": "ડિફૉલ્ટ પર સ્વિચ કરવું છે?"
+  },
+  "cancelButton": {
+    "message": "રદ કરો"
+  },
+  "resetButton": {
+    "message": "રીસેટ"
+  },
+  "cannotIsolatePage": {
+    "message": "આ પેજને અલગ કરી શકાતું નથી."
+  },
+  "generatedSessionName": {
+    "message": "સેશન $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (નકલ)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "હજુ સુધી કોઈ પ્રોફાઇલ નથી"
+  },
+  "emptyNoProfilesSub": {
+    "message": "એકાઉન્ટ અલગ કરવાનું શરૂ કરવા ઉપર એક બનાવો."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "કોઈ મેચ નથી"
+  },
+  "emptyNoMatchesSub": {
+    "message": "કોઈ અલગ શોધ અજમાવો."
+  },
+  "duplicateProfileTitle": {
+    "message": "પ્રોફાઇલની નકલ કરો"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ પ્રોફાઇલની નકલ કરો",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "નામ બદલો"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ પ્રોફાઇલનું નામ બદલો",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "કાઢી નાખો"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ પ્રોફાઇલ કાઢી નાખો",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "કાઢી નાખવાનું રદ કરો"
+  },
+  "confirmDeleteTitle": {
+    "message": "કાઢી નાખવાની પુષ્ટિ કરો"
+  },
+  "activeStatusPill": {
+    "message": "સક્રિય"
+  },
+  "heroLiveLabel": {
+    "message": "લાઇવ"
+  },
+  "openInNewTab": {
+    "message": "નવા ટેબમાં ખોલો"
+  },
+  "changeColorTitle": {
+    "message": "રંગ બદલો"
+  },
+  "changeColorAriaLabel": {
+    "message": "સેશનનો રંગ બદલો"
+  },
+  "pickColorAriaLabel": {
+    "message": "સેશનનો રંગ પસંદ કરો"
+  },
+  "sessionColorLabel": {
+    "message": "સેશનનો રંગ"
+  },
+  "hueSwatchTitle": {
+    "message": "હ્યુ $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "કસ્ટમ હ્યુ"
+  },
+  "customHueAriaLabel": {
+    "message": "કસ્ટમ હ્યુ"
+  },
+  "customLabel": {
+    "message": "કસ્ટમ"
+  },
+  "customHueValueAriaLabel": {
+    "message": "કસ્ટમ હ્યુ મૂલ્ય"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome માટે પ્રતિ-ટેબ સેશન આઇસોલેશન."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "એક્સટેન્શન વર્ઝન"
+  },
+  "tabSettings": {
+    "message": "સેટિંગ્સ"
+  },
+  "tabAbout": {
+    "message": "વિશે"
+  },
+  "appearanceSectionTitle": {
+    "message": "દેખાવ"
+  },
+  "themeSettingLabel": {
+    "message": "થીમ"
+  },
+  "themeSettingDesc": {
+    "message": "OS કલર સ્કીમ પસંદગીને ઓવરરાઇડ કરો"
+  },
+  "themeGroupAriaLabel": {
+    "message": "થીમ"
+  },
+  "autoInheritLabel": {
+    "message": "લિંક કરેલા ટેબ આપમેળે એ જ પ્રોફાઇલમાં ખોલો"
+  },
+  "autoInheritDesc": {
+    "message": "સક્રિય હોય ત્યારે, અલગ કરેલી પ્રોફાઇલ પર લિંક (નવા-ટેબ લિંક, Ctrl-ક્લિક, મિડલ-ક્લિક) દ્વારા ખૂલેલા ટેબ Chromeની ડિફૉલ્ટ કૂકીઝને બદલે એ જ પ્રોફાઇલમાં રહે છે."
+  },
+  "aboutTagline": {
+    "message": "પ્રતિ-ટેબ સેશન આઇસોલેશન માટે એક મફત, ઓપન-સોર્સ Chrome એક્સટેન્શન. એક જ સાઇટ પર એકસાથે બહુવિધ એકાઉન્ટમાં લૉગ ઇન રહો."
+  },
+  "supportSectionTitle": {
+    "message": "પ્રોજેક્ટને સપોર્ટ કરો"
+  },
+  "supportDesc": {
+    "message": "SessionShift મફત અને ઓપન-સોર્સ છે. જો તે તમારો સમય બચાવે, તો એક નાની ટિપ આપવાનું વિચારો — તે પ્રોજેક્ટને જીવંત અને જાહેરાત-મુક્ત રાખે છે."
+  },
+  "supportCta": {
+    "message": "Ko-fi પર સપોર્ટ કરો"
+  },
+  "linksSectionTitle": {
+    "message": "લિંક્સ"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "સેશનમાં ખોલો"
+  },
+  "languageSettingLabel": {
+    "message": "ભાષા"
+  },
+  "languageSettingDesc": {
+    "message": "આ પોપઅપ, વિકલ્પો અને કોન્ટેક્સ્ટ મેનૂને લાગુ પડે છે. Chromeના પોતાના કીબોર્ડ શોર્ટકટ, એક્સટેન્શનનું નામ અને વર્ણન હંમેશા તમારા બ્રાઉઝરની ભાષાને અનુસરે છે."
+  },
+  "languageOptionSystem": {
+    "message": "સિસ્ટમ (બ્રાઉઝર સાથે મેળ)"
+  }
+}

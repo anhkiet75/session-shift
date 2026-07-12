@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Bytt mellom flere kontoer på alle nettsteder — hver fane får sin egen isolerte økt."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Åpne SessionShift-popup"
+  },
+  "commandSessionNextDescription": {
+    "message": "Bytt til neste økt for denne fanen"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Bytt til forrige økt for denne fanen"
+  },
+  "popupBrandSub": {
+    "message": "Behandling av flere kontoer"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (klikk for å endre)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "lys"
+  },
+  "themeNameDark": {
+    "message": "mørk"
+  },
+  "themeNameSystem": {
+    "message": "system"
+  },
+  "openOptionsLabel": {
+    "message": "Åpne alternativer"
+  },
+  "heroActiveLabel": {
+    "message": "Aktiv på denne fanen"
+  },
+  "heroDefaultName": {
+    "message": "Standard"
+  },
+  "heroNoSessionMeta": {
+    "message": "Ingen økt tilordnet"
+  },
+  "searchPlaceholder": {
+    "message": "Søk etter profiler…"
+  },
+  "searchAriaLabel": {
+    "message": "Søk etter profiler"
+  },
+  "createPlaceholder": {
+    "message": "Gi en ny profil et navn…"
+  },
+  "createButton": {
+    "message": "Opprett"
+  },
+  "listHeadProfiles": {
+    "message": "Profiler"
+  },
+  "resetToDefault": {
+    "message": "Tilbakestill til standard"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Bytte til standard?"
+  },
+  "cancelButton": {
+    "message": "Avbryt"
+  },
+  "resetButton": {
+    "message": "Tilbakestill"
+  },
+  "cannotIsolatePage": {
+    "message": "Kan ikke isolere denne siden."
+  },
+  "generatedSessionName": {
+    "message": "Økt $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopi)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Ingen profiler ennå"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Opprett en over for å begynne å isolere kontoer."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Ingen treff"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Prøv et annet søk."
+  },
+  "duplicateProfileTitle": {
+    "message": "Dupliser profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Dupliser profilen $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Gi nytt navn"
+  },
+  "renameAriaLabel": {
+    "message": "Gi profilen $name$ nytt navn",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Slett"
+  },
+  "deleteAriaLabel": {
+    "message": "Slett profilen $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Avbryt sletting"
+  },
+  "confirmDeleteTitle": {
+    "message": "Bekreft sletting"
+  },
+  "activeStatusPill": {
+    "message": "aktiv"
+  },
+  "heroLiveLabel": {
+    "message": "direkte"
+  },
+  "openInNewTab": {
+    "message": "Åpne i ny fane"
+  },
+  "changeColorTitle": {
+    "message": "Endre farge"
+  },
+  "changeColorAriaLabel": {
+    "message": "Endre øktfarge"
+  },
+  "pickColorAriaLabel": {
+    "message": "Velg øktfarge"
+  },
+  "sessionColorLabel": {
+    "message": "Øktfarge"
+  },
+  "hueSwatchTitle": {
+    "message": "Fargetone $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Egendefinert fargetone"
+  },
+  "customHueAriaLabel": {
+    "message": "Egendefinert fargetone"
+  },
+  "customLabel": {
+    "message": "Egendefinert"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Verdi for egendefinert fargetone"
+  },
+  "optionsSubtitle": {
+    "message": "Øktisolering per fane for Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Utvidelsesversjon"
+  },
+  "tabSettings": {
+    "message": "Innstillinger"
+  },
+  "tabAbout": {
+    "message": "Om"
+  },
+  "appearanceSectionTitle": {
+    "message": "Utseende"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Overstyr systemets fargeskjemapreferanse"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Åpne automatisk lenkede faner i samme profil"
+  },
+  "autoInheritDesc": {
+    "message": "Når dette er aktivert, forblir faner som åpnes fra en lenke (nye-fane-lenker, Ctrl-klikk, midtklikk) på en isolert profil i den profilen i stedet for å bruke Chromes standardinformasjonskapsler."
+  },
+  "aboutTagline": {
+    "message": "En gratis, åpen kildekode-utvidelse for Chrome for øktisolering per fane. Hold deg innlogget på flere kontoer på samme nettsted samtidig."
+  },
+  "supportSectionTitle": {
+    "message": "Støtt prosjektet"
+  },
+  "supportDesc": {
+    "message": "SessionShift er gratis og åpen kildekode. Hvis det sparer deg for tid, kan du vurdere en liten donasjon — det holder prosjektet levende og reklamefritt."
+  },
+  "supportCta": {
+    "message": "Støtt på Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Lenker"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Åpne i økt"
+  },
+  "languageSettingLabel": {
+    "message": "Språk"
+  },
+  "languageSettingDesc": {
+    "message": "Gjelder for denne popupen, alternativer og hurtigmenyer. Chromes egne tastatursnarveier, utvidelsesnavn og beskrivelse følger alltid nettleserens språk."
+  },
+  "languageOptionSystem": {
+    "message": "System (som nettleseren)"
+  }
+}

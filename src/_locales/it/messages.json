@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Passa da un account all'altro su qualsiasi sito — ogni scheda ha la propria sessione isolata."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Apri il popup di SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Passa alla sessione successiva per questa scheda"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Passa alla sessione precedente per questa scheda"
+  },
+  "popupBrandSub": {
+    "message": "Gestore multi-account"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (clic per cambiare)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "chiaro"
+  },
+  "themeNameDark": {
+    "message": "scuro"
+  },
+  "themeNameSystem": {
+    "message": "sistema"
+  },
+  "openOptionsLabel": {
+    "message": "Apri opzioni"
+  },
+  "heroActiveLabel": {
+    "message": "Attivo in questa scheda"
+  },
+  "heroDefaultName": {
+    "message": "Predefinito"
+  },
+  "heroNoSessionMeta": {
+    "message": "Nessuna sessione assegnata"
+  },
+  "searchPlaceholder": {
+    "message": "Cerca profili…"
+  },
+  "searchAriaLabel": {
+    "message": "Cerca profili"
+  },
+  "createPlaceholder": {
+    "message": "Dai un nome a un nuovo profilo…"
+  },
+  "createButton": {
+    "message": "Crea"
+  },
+  "listHeadProfiles": {
+    "message": "Profili"
+  },
+  "resetToDefault": {
+    "message": "Ripristina il predefinito"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Passare al predefinito?"
+  },
+  "cancelButton": {
+    "message": "Annulla"
+  },
+  "resetButton": {
+    "message": "Ripristina"
+  },
+  "cannotIsolatePage": {
+    "message": "Impossibile isolare questa pagina."
+  },
+  "generatedSessionName": {
+    "message": "Sessione $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (copia)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Ancora nessun profilo"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Creane uno qui sopra per iniziare a isolare gli account."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Nessun risultato"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Prova una ricerca diversa."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplica profilo"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplica il profilo $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Rinomina"
+  },
+  "renameAriaLabel": {
+    "message": "Rinomina il profilo $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Elimina"
+  },
+  "deleteAriaLabel": {
+    "message": "Elimina il profilo $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Annulla eliminazione"
+  },
+  "confirmDeleteTitle": {
+    "message": "Conferma eliminazione"
+  },
+  "activeStatusPill": {
+    "message": "attivo"
+  },
+  "heroLiveLabel": {
+    "message": "in diretta"
+  },
+  "openInNewTab": {
+    "message": "Apri in una nuova scheda"
+  },
+  "changeColorTitle": {
+    "message": "Cambia colore"
+  },
+  "changeColorAriaLabel": {
+    "message": "Cambia colore della sessione"
+  },
+  "pickColorAriaLabel": {
+    "message": "Scegli il colore della sessione"
+  },
+  "sessionColorLabel": {
+    "message": "Colore della sessione"
+  },
+  "hueSwatchTitle": {
+    "message": "Tonalità $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Tonalità personalizzata"
+  },
+  "customHueAriaLabel": {
+    "message": "Tonalità personalizzata"
+  },
+  "customLabel": {
+    "message": "Personalizzato"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Valore della tonalità personalizzata"
+  },
+  "optionsSubtitle": {
+    "message": "Isolamento delle sessioni per scheda per Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Versione dell'estensione"
+  },
+  "tabSettings": {
+    "message": "Impostazioni"
+  },
+  "tabAbout": {
+    "message": "Informazioni"
+  },
+  "appearanceSectionTitle": {
+    "message": "Aspetto"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Sostituisci la preferenza dello schema colori del sistema operativo"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Apri automaticamente le schede collegate nello stesso profilo"
+  },
+  "autoInheritDesc": {
+    "message": "Se attivato, le schede aperte da un link (link in nuova scheda, Ctrl+clic, clic centrale) su un profilo isolato restano in quel profilo invece di usare i cookie predefiniti di Chrome."
+  },
+  "aboutTagline": {
+    "message": "Un'estensione Chrome gratuita e open source per l'isolamento delle sessioni per scheda. Resta connesso contemporaneamente a più account sullo stesso sito."
+  },
+  "supportSectionTitle": {
+    "message": "Sostieni il progetto"
+  },
+  "supportDesc": {
+    "message": "SessionShift è gratuito e open source. Se ti fa risparmiare tempo, considera una piccola donazione — mantiene il progetto vivo e senza pubblicità."
+  },
+  "supportCta": {
+    "message": "Sostieni su Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Link"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Apri nella sessione"
+  },
+  "languageSettingLabel": {
+    "message": "Lingua"
+  },
+  "languageSettingDesc": {
+    "message": "Si applica a questo popup, alle opzioni e ai menu contestuali. Le scorciatoie da tastiera, il nome e la descrizione dell'estensione seguono sempre la lingua del tuo browser."
+  },
+  "languageOptionSystem": {
+    "message": "Sistema (in base al browser)"
+  }
+}

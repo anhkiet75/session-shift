@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Vaihda usean tilin välillä millä tahansa sivustolla — jokainen välilehti saa oman eristetyn istuntonsa."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Avaa SessionShift-ponnahdusikkuna"
+  },
+  "commandSessionNextDescription": {
+    "message": "Vaihda tämän välilehden seuraavaan istuntoon"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Vaihda tämän välilehden edelliseen istuntoon"
+  },
+  "popupBrandSub": {
+    "message": "Monitilihallinta"
+  },
+  "themeToggleLabel": {
+    "message": "Teema: $theme$ (napsauta vaihtaaksesi)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "vaalea"
+  },
+  "themeNameDark": {
+    "message": "tumma"
+  },
+  "themeNameSystem": {
+    "message": "järjestelmä"
+  },
+  "openOptionsLabel": {
+    "message": "Avaa asetukset"
+  },
+  "heroActiveLabel": {
+    "message": "Aktiivinen tällä välilehdellä"
+  },
+  "heroDefaultName": {
+    "message": "Oletus"
+  },
+  "heroNoSessionMeta": {
+    "message": "Ei määritettyä istuntoa"
+  },
+  "searchPlaceholder": {
+    "message": "Hae profiileja…"
+  },
+  "searchAriaLabel": {
+    "message": "Hae profiileja"
+  },
+  "createPlaceholder": {
+    "message": "Nimeä uusi profiili…"
+  },
+  "createButton": {
+    "message": "Luo"
+  },
+  "listHeadProfiles": {
+    "message": "Profiilit"
+  },
+  "resetToDefault": {
+    "message": "Palauta oletukseksi"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Vaihdetaanko oletukseen?"
+  },
+  "cancelButton": {
+    "message": "Peruuta"
+  },
+  "resetButton": {
+    "message": "Palauta"
+  },
+  "cannotIsolatePage": {
+    "message": "Tätä sivua ei voi eristää."
+  },
+  "generatedSessionName": {
+    "message": "Istunto $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopio)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Ei vielä profiileja"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Luo yksi yllä aloittaaksesi tilien eristämisen."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Ei osumia"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Kokeile eri hakua."
+  },
+  "duplicateProfileTitle": {
+    "message": "Monista profiili"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Monista profiili $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Nimeä uudelleen"
+  },
+  "renameAriaLabel": {
+    "message": "Nimeä profiili $name$ uudelleen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Poista"
+  },
+  "deleteAriaLabel": {
+    "message": "Poista profiili $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Peruuta poisto"
+  },
+  "confirmDeleteTitle": {
+    "message": "Vahvista poisto"
+  },
+  "activeStatusPill": {
+    "message": "aktiivinen"
+  },
+  "heroLiveLabel": {
+    "message": "live"
+  },
+  "openInNewTab": {
+    "message": "Avaa uudessa välilehdessä"
+  },
+  "changeColorTitle": {
+    "message": "Vaihda väri"
+  },
+  "changeColorAriaLabel": {
+    "message": "Vaihda istunnon väri"
+  },
+  "pickColorAriaLabel": {
+    "message": "Valitse istunnon väri"
+  },
+  "sessionColorLabel": {
+    "message": "Istunnon väri"
+  },
+  "hueSwatchTitle": {
+    "message": "Sävy $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Mukautettu sävy"
+  },
+  "customHueAriaLabel": {
+    "message": "Mukautettu sävy"
+  },
+  "customLabel": {
+    "message": "Mukautettu"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Mukautetun sävyn arvo"
+  },
+  "optionsSubtitle": {
+    "message": "Välilehtikohtainen istunnon eristys Chromelle."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Laajennuksen versio"
+  },
+  "tabSettings": {
+    "message": "Asetukset"
+  },
+  "tabAbout": {
+    "message": "Tietoja"
+  },
+  "appearanceSectionTitle": {
+    "message": "Ulkoasu"
+  },
+  "themeSettingLabel": {
+    "message": "Teema"
+  },
+  "themeSettingDesc": {
+    "message": "Ohita käyttöjärjestelmän väriteema-asetus"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Teema"
+  },
+  "autoInheritLabel": {
+    "message": "Avaa linkitetyt välilehdet automaattisesti samaan profiiliin"
+  },
+  "autoInheritDesc": {
+    "message": "Kun tämä on käytössä, eristetystä profiilista linkin kautta (uuden välilehden linkit, Ctrl-klikkaus, keskiklikkaus) avatut välilehdet pysyvät samassa profiilissa Chromen oletusevästeiden sijaan."
+  },
+  "aboutTagline": {
+    "message": "Ilmainen, avoimen lähdekoodin Chrome-laajennus välilehtikohtaiseen istunnon eristykseen. Pysy kirjautuneena useisiin tileihin samalla sivustolla samanaikaisesti."
+  },
+  "supportSectionTitle": {
+    "message": "Tue projektia"
+  },
+  "supportDesc": {
+    "message": "SessionShift on ilmainen ja avoimen lähdekoodin. Jos se säästää aikaasi, harkitse pientä tippiä — se pitää projektin elossa ja mainoksettomana."
+  },
+  "supportCta": {
+    "message": "Tue Ko-fissa"
+  },
+  "linksSectionTitle": {
+    "message": "Linkit"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Avaa istunnossa"
+  },
+  "languageSettingLabel": {
+    "message": "Kieli"
+  },
+  "languageSettingDesc": {
+    "message": "Koskee tätä ponnahdusikkunaa, asetuksia ja pikavalikkoja. Chromen omat pikanäppäimet, laajennuksen nimi ja kuvaus noudattavat aina selaimesi kieltä."
+  },
+  "languageOptionSystem": {
+    "message": "Järjestelmä (selaimen mukaan)"
+  }
+}

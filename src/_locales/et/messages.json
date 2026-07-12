@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Lülitu mis tahes saidil mitme konto vahel — igal vahekaardil on oma isoleeritud seanss."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Ava SessionShifti hüpikaken"
+  },
+  "commandSessionNextDescription": {
+    "message": "Lülitu selle vahekaardi järgmisele seansile"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Lülitu selle vahekaardi eelmisele seansile"
+  },
+  "popupBrandSub": {
+    "message": "Mitme konto haldur"
+  },
+  "themeToggleLabel": {
+    "message": "Teema: $theme$ (klõpsa muutmiseks)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "hele"
+  },
+  "themeNameDark": {
+    "message": "tume"
+  },
+  "themeNameSystem": {
+    "message": "süsteemne"
+  },
+  "openOptionsLabel": {
+    "message": "Ava seaded"
+  },
+  "heroActiveLabel": {
+    "message": "Aktiivne sellel vahekaardil"
+  },
+  "heroDefaultName": {
+    "message": "Vaikimisi"
+  },
+  "heroNoSessionMeta": {
+    "message": "Seanssi pole määratud"
+  },
+  "searchPlaceholder": {
+    "message": "Otsi profiile…"
+  },
+  "searchAriaLabel": {
+    "message": "Otsi profiile"
+  },
+  "createPlaceholder": {
+    "message": "Anna uuele profiilile nimi…"
+  },
+  "createButton": {
+    "message": "Loo"
+  },
+  "listHeadProfiles": {
+    "message": "Profiilid"
+  },
+  "resetToDefault": {
+    "message": "Lähtesta vaikeväärtusele"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Kas lülituda vaikeseadistusele?"
+  },
+  "cancelButton": {
+    "message": "Loobu"
+  },
+  "resetButton": {
+    "message": "Lähtesta"
+  },
+  "cannotIsolatePage": {
+    "message": "Seda lehte ei saa isoleerida."
+  },
+  "generatedSessionName": {
+    "message": "Seanss $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (koopia)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Profiile pole veel"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Loo üks eespool, et alustada kontode isoleerimist."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Vasteid ei leitud"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Proovi teistsugust otsingut."
+  },
+  "duplicateProfileTitle": {
+    "message": "Dubleeri profiil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Dubleeri profiil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Nimeta ümber"
+  },
+  "renameAriaLabel": {
+    "message": "Nimeta ümber profiil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Kustuta"
+  },
+  "deleteAriaLabel": {
+    "message": "Kustuta profiil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Tühista kustutamine"
+  },
+  "confirmDeleteTitle": {
+    "message": "Kinnita kustutamine"
+  },
+  "activeStatusPill": {
+    "message": "aktiivne"
+  },
+  "heroLiveLabel": {
+    "message": "reaalajas"
+  },
+  "openInNewTab": {
+    "message": "Ava uuel vahekaardil"
+  },
+  "changeColorTitle": {
+    "message": "Muuda värvi"
+  },
+  "changeColorAriaLabel": {
+    "message": "Muuda seansi värvi"
+  },
+  "pickColorAriaLabel": {
+    "message": "Vali seansi värv"
+  },
+  "sessionColorLabel": {
+    "message": "Seansi värv"
+  },
+  "hueSwatchTitle": {
+    "message": "Toon $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Kohandatud toon"
+  },
+  "customHueAriaLabel": {
+    "message": "Kohandatud toon"
+  },
+  "customLabel": {
+    "message": "Kohandatud"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Kohandatud tooni väärtus"
+  },
+  "optionsSubtitle": {
+    "message": "Vahekaardipõhine seansi isoleerimine Chrome'ile."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Laienduse versioon"
+  },
+  "tabSettings": {
+    "message": "Seaded"
+  },
+  "tabAbout": {
+    "message": "Teave"
+  },
+  "appearanceSectionTitle": {
+    "message": "Välimus"
+  },
+  "themeSettingLabel": {
+    "message": "Teema"
+  },
+  "themeSettingDesc": {
+    "message": "Kirjuta üle operatsioonisüsteemi värviskeemi eelistus"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Teema"
+  },
+  "autoInheritLabel": {
+    "message": "Ava lingitud vahekaardid automaatselt samas profiilis"
+  },
+  "autoInheritDesc": {
+    "message": "Kui see on lubatud, jäävad isoleeritud profiilis lingilt (uue vahekaardi lingid, Ctrl-klõps, keskklõps) avatud vahekaardid samasse profiili, mitte ei kasuta Chrome'i vaikimisi küpsiseid."
+  },
+  "aboutTagline": {
+    "message": "Tasuta ja avatud lähtekoodiga Chrome'i laiendus vahekaardipõhiseks seansi isoleerimiseks. Püsi samal ajal sisse logituna mitmesse kontosse samal saidil."
+  },
+  "supportSectionTitle": {
+    "message": "Toeta projekti"
+  },
+  "supportDesc": {
+    "message": "SessionShift on tasuta ja avatud lähtekoodiga. Kui see säästab su aega, kaalu väikest jootraha — see hoiab projekti elus ja reklaamivabana."
+  },
+  "supportCta": {
+    "message": "Toeta Ko-fis"
+  },
+  "linksSectionTitle": {
+    "message": "Lingid"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Ava seansis"
+  },
+  "languageSettingLabel": {
+    "message": "Keel"
+  },
+  "languageSettingDesc": {
+    "message": "Kehtib selle hüpikakna, seadete ja kontekstimenüüde kohta. Chrome'i enda kiirklahvid, laienduse nimi ja kirjeldus järgivad alati brauseri keelt."
+  },
+  "languageOptionSystem": {
+    "message": "Süsteemne (vastavalt brauserile)"
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "모든 사이트에서 여러 계정을 전환하세요 — 각 탭이 독립된 세션을 갖습니다."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift 팝업 열기"
+  },
+  "commandSessionNextDescription": {
+    "message": "이 탭의 다음 세션으로 전환"
+  },
+  "commandSessionPrevDescription": {
+    "message": "이 탭의 이전 세션으로 전환"
+  },
+  "popupBrandSub": {
+    "message": "다중 계정 관리자"
+  },
+  "themeToggleLabel": {
+    "message": "테마: $theme$ (클릭하여 변경)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "라이트"
+  },
+  "themeNameDark": {
+    "message": "다크"
+  },
+  "themeNameSystem": {
+    "message": "시스템"
+  },
+  "openOptionsLabel": {
+    "message": "옵션 열기"
+  },
+  "heroActiveLabel": {
+    "message": "이 탭에서 활성화됨"
+  },
+  "heroDefaultName": {
+    "message": "기본"
+  },
+  "heroNoSessionMeta": {
+    "message": "지정된 세션 없음"
+  },
+  "searchPlaceholder": {
+    "message": "프로필 검색…"
+  },
+  "searchAriaLabel": {
+    "message": "프로필 검색"
+  },
+  "createPlaceholder": {
+    "message": "새 프로필 이름…"
+  },
+  "createButton": {
+    "message": "만들기"
+  },
+  "listHeadProfiles": {
+    "message": "프로필"
+  },
+  "resetToDefault": {
+    "message": "기본값으로 재설정"
+  },
+  "switchToDefaultConfirm": {
+    "message": "기본값으로 전환할까요?"
+  },
+  "cancelButton": {
+    "message": "취소"
+  },
+  "resetButton": {
+    "message": "재설정"
+  },
+  "cannotIsolatePage": {
+    "message": "이 페이지는 분리할 수 없습니다."
+  },
+  "generatedSessionName": {
+    "message": "세션 $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (복사본)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "아직 프로필이 없습니다"
+  },
+  "emptyNoProfilesSub": {
+    "message": "위에서 프로필을 만들어 계정을 분리해 보세요."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "일치하는 항목 없음"
+  },
+  "emptyNoMatchesSub": {
+    "message": "다른 검색어를 시도해 보세요."
+  },
+  "duplicateProfileTitle": {
+    "message": "프로필 복제"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "프로필 $name$ 복제",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "이름 변경"
+  },
+  "renameAriaLabel": {
+    "message": "프로필 $name$ 이름 변경",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "삭제"
+  },
+  "deleteAriaLabel": {
+    "message": "프로필 $name$ 삭제",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "삭제 취소"
+  },
+  "confirmDeleteTitle": {
+    "message": "삭제 확인"
+  },
+  "activeStatusPill": {
+    "message": "활성"
+  },
+  "heroLiveLabel": {
+    "message": "실시간"
+  },
+  "openInNewTab": {
+    "message": "새 탭에서 열기"
+  },
+  "changeColorTitle": {
+    "message": "색상 변경"
+  },
+  "changeColorAriaLabel": {
+    "message": "세션 색상 변경"
+  },
+  "pickColorAriaLabel": {
+    "message": "세션 색상 선택"
+  },
+  "sessionColorLabel": {
+    "message": "세션 색상"
+  },
+  "hueSwatchTitle": {
+    "message": "색조 $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "사용자 지정 색조"
+  },
+  "customHueAriaLabel": {
+    "message": "사용자 지정 색조"
+  },
+  "customLabel": {
+    "message": "사용자 지정"
+  },
+  "customHueValueAriaLabel": {
+    "message": "사용자 지정 색조 값"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome을 위한 탭별 세션 분리."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "확장 프로그램 버전"
+  },
+  "tabSettings": {
+    "message": "설정"
+  },
+  "tabAbout": {
+    "message": "정보"
+  },
+  "appearanceSectionTitle": {
+    "message": "화면"
+  },
+  "themeSettingLabel": {
+    "message": "테마"
+  },
+  "themeSettingDesc": {
+    "message": "OS 색상 구성표 설정을 재정의합니다"
+  },
+  "themeGroupAriaLabel": {
+    "message": "테마"
+  },
+  "autoInheritLabel": {
+    "message": "링크로 연 탭을 같은 프로필에서 자동으로 열기"
+  },
+  "autoInheritDesc": {
+    "message": "활성화하면 분리된 프로필에서 링크(새 탭 링크, Ctrl 클릭, 가운데 클릭)로 연 탭이 Chrome의 기본 쿠키 대신 해당 프로필에 유지됩니다."
+  },
+  "aboutTagline": {
+    "message": "탭별 세션 분리를 위한 무료 오픈소스 Chrome 확장 프로그램입니다. 동일한 사이트의 여러 계정에 동시에 로그인 상태를 유지하세요."
+  },
+  "supportSectionTitle": {
+    "message": "프로젝트 후원하기"
+  },
+  "supportDesc": {
+    "message": "SessionShift는 무료 오픈소스입니다. 시간을 절약해 주었다면 작은 후원을 고려해 주세요 — 프로젝트를 광고 없이 계속 운영하는 데 도움이 됩니다."
+  },
+  "supportCta": {
+    "message": "Ko-fi에서 후원하기"
+  },
+  "linksSectionTitle": {
+    "message": "링크"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome 웹 스토어"
+  },
+  "contextMenuParentTitle": {
+    "message": "세션으로 열기"
+  },
+  "languageSettingLabel": {
+    "message": "언어"
+  },
+  "languageSettingDesc": {
+    "message": "이 팝업, 옵션, 컨텍스트 메뉴에 적용됩니다. Chrome 자체 키보드 단축키, 확장 프로그램 이름, 설명은 항상 브라우저 언어를 따릅니다."
+  },
+  "languageOptionSystem": {
+    "message": "시스템 (브라우저에 맞춤)"
+  }
+}

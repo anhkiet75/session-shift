@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "どのサイトでも複数アカウントを切り替え — タブごとに独立したセッションを持てます。"
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShiftのポップアップを開く"
+  },
+  "commandSessionNextDescription": {
+    "message": "このタブの次のセッションに切り替え"
+  },
+  "commandSessionPrevDescription": {
+    "message": "このタブの前のセッションに切り替え"
+  },
+  "popupBrandSub": {
+    "message": "マルチアカウント管理"
+  },
+  "themeToggleLabel": {
+    "message": "テーマ: $theme$（クリックで変更）",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "ライト"
+  },
+  "themeNameDark": {
+    "message": "ダーク"
+  },
+  "themeNameSystem": {
+    "message": "システム"
+  },
+  "openOptionsLabel": {
+    "message": "オプションを開く"
+  },
+  "heroActiveLabel": {
+    "message": "このタブで有効"
+  },
+  "heroDefaultName": {
+    "message": "デフォルト"
+  },
+  "heroNoSessionMeta": {
+    "message": "セッション未割り当て"
+  },
+  "searchPlaceholder": {
+    "message": "プロファイルを検索…"
+  },
+  "searchAriaLabel": {
+    "message": "プロファイルを検索"
+  },
+  "createPlaceholder": {
+    "message": "新しいプロファイル名…"
+  },
+  "createButton": {
+    "message": "作成"
+  },
+  "listHeadProfiles": {
+    "message": "プロファイル"
+  },
+  "resetToDefault": {
+    "message": "デフォルトに戻す"
+  },
+  "switchToDefaultConfirm": {
+    "message": "デフォルトに切り替えますか？"
+  },
+  "cancelButton": {
+    "message": "キャンセル"
+  },
+  "resetButton": {
+    "message": "リセット"
+  },
+  "cannotIsolatePage": {
+    "message": "このページは分離できません。"
+  },
+  "generatedSessionName": {
+    "message": "セッション $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (コピー)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "プロファイルがありません"
+  },
+  "emptyNoProfilesSub": {
+    "message": "上のボタンから作成してアカウントを分離しましょう。"
+  },
+  "emptyNoMatchesTitle": {
+    "message": "一致なし"
+  },
+  "emptyNoMatchesSub": {
+    "message": "別のキーワードで検索してください。"
+  },
+  "duplicateProfileTitle": {
+    "message": "プロファイルを複製"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "プロファイル $name$ を複製",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "名前を変更"
+  },
+  "renameAriaLabel": {
+    "message": "プロファイル $name$ の名前を変更",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "削除"
+  },
+  "deleteAriaLabel": {
+    "message": "プロファイル $name$ を削除",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "削除をキャンセル"
+  },
+  "confirmDeleteTitle": {
+    "message": "削除を確定"
+  },
+  "activeStatusPill": {
+    "message": "有効"
+  },
+  "heroLiveLabel": {
+    "message": "ライブ"
+  },
+  "openInNewTab": {
+    "message": "新しいタブで開く"
+  },
+  "changeColorTitle": {
+    "message": "色を変更"
+  },
+  "changeColorAriaLabel": {
+    "message": "セッションの色を変更"
+  },
+  "pickColorAriaLabel": {
+    "message": "セッションの色を選択"
+  },
+  "sessionColorLabel": {
+    "message": "セッションカラー"
+  },
+  "hueSwatchTitle": {
+    "message": "色相 $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "カスタム色相"
+  },
+  "customHueAriaLabel": {
+    "message": "カスタム色相"
+  },
+  "customLabel": {
+    "message": "カスタム"
+  },
+  "customHueValueAriaLabel": {
+    "message": "カスタム色相の値"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome向けタブ単位のセッション分離。"
+  },
+  "extensionVersionAriaLabel": {
+    "message": "拡張機能のバージョン"
+  },
+  "tabSettings": {
+    "message": "設定"
+  },
+  "tabAbout": {
+    "message": "概要"
+  },
+  "appearanceSectionTitle": {
+    "message": "外観"
+  },
+  "themeSettingLabel": {
+    "message": "テーマ"
+  },
+  "themeSettingDesc": {
+    "message": "OSのカラースキーム設定を上書き"
+  },
+  "themeGroupAriaLabel": {
+    "message": "テーマ"
+  },
+  "autoInheritLabel": {
+    "message": "リンクから開いたタブを同じプロファイルで自動的に開く"
+  },
+  "autoInheritDesc": {
+    "message": "有効にすると、分離されたプロファイル上のリンク（新しいタブリンク、Ctrlクリック、中クリック）から開いたタブは、Chromeの標準Cookieではなく、そのプロファイル内にとどまります。"
+  },
+  "aboutTagline": {
+    "message": "タブ単位のセッション分離を実現する無料のオープンソースChrome拡張機能。同じサイトの複数アカウントに同時にログインしたままにできます。"
+  },
+  "supportSectionTitle": {
+    "message": "プロジェクトを応援する"
+  },
+  "supportDesc": {
+    "message": "SessionShiftは無料のオープンソースです。時間の節約に役立ったら、少額のチップをご検討ください — プロジェクトの継続と広告なしの運営に役立ちます。"
+  },
+  "supportCta": {
+    "message": "Ko-fiで応援する"
+  },
+  "linksSectionTitle": {
+    "message": "リンク"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chromeウェブストア"
+  },
+  "contextMenuParentTitle": {
+    "message": "セッションで開く"
+  },
+  "languageSettingLabel": {
+    "message": "言語"
+  },
+  "languageSettingDesc": {
+    "message": "このポップアップ、オプション、コンテキストメニューに適用されます。Chrome自体のキーボードショートカット、拡張機能名、説明は常にブラウザの言語に従います。"
+  },
+  "languageOptionSystem": {
+    "message": "システム（ブラウザに合わせる）"
+  }
+}

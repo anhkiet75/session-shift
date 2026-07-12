@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "ಯಾವುದೇ ಸೈಟ್‌ನಲ್ಲಿ ಬಹು ಖಾತೆಗಳ ನಡುವೆ ಬದಲಾಯಿಸಿ — ಪ್ರತಿ ಟ್ಯಾಬ್‌ಗೆ ತನ್ನದೇ ಆದ ಪ್ರತ್ಯೇಕ ಸೆಷನ್ ಇರುತ್ತದೆ."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift ಪಾಪ್‌ಅಪ್ ತೆರೆಯಿರಿ"
+  },
+  "commandSessionNextDescription": {
+    "message": "ಈ ಟ್ಯಾಬ್‌ಗಾಗಿ ಮುಂದಿನ ಸೆಷನ್‌ಗೆ ಬದಲಾಯಿಸಿ"
+  },
+  "commandSessionPrevDescription": {
+    "message": "ಈ ಟ್ಯಾಬ್‌ಗಾಗಿ ಹಿಂದಿನ ಸೆಷನ್‌ಗೆ ಬದಲಾಯಿಸಿ"
+  },
+  "popupBrandSub": {
+    "message": "ಬಹು-ಖಾತೆ ನಿರ್ವಾಹಕ"
+  },
+  "themeToggleLabel": {
+    "message": "ಥೀಮ್: $theme$ (ಬದಲಾಯಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "ಬೆಳಕು"
+  },
+  "themeNameDark": {
+    "message": "ಗಾಢ"
+  },
+  "themeNameSystem": {
+    "message": "ಸಿಸ್ಟಂ"
+  },
+  "openOptionsLabel": {
+    "message": "ಆಯ್ಕೆಗಳನ್ನು ತೆರೆಯಿರಿ"
+  },
+  "heroActiveLabel": {
+    "message": "ಈ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ಸಕ್ರಿಯ"
+  },
+  "heroDefaultName": {
+    "message": "ಡೀಫಾಲ್ಟ್"
+  },
+  "heroNoSessionMeta": {
+    "message": "ಯಾವುದೇ ಸೆಷನ್ ನಿಗದಿಪಡಿಸಿಲ್ಲ"
+  },
+  "searchPlaceholder": {
+    "message": "ಪ್ರೊಫೈಲ್‌ಗಳನ್ನು ಹುಡುಕಿ…"
+  },
+  "searchAriaLabel": {
+    "message": "ಪ್ರೊಫೈಲ್‌ಗಳನ್ನು ಹುಡುಕಿ"
+  },
+  "createPlaceholder": {
+    "message": "ಹೊಸ ಪ್ರೊಫೈಲ್‌ಗೆ ಹೆಸರಿಡಿ…"
+  },
+  "createButton": {
+    "message": "ರಚಿಸಿ"
+  },
+  "listHeadProfiles": {
+    "message": "ಪ್ರೊಫೈಲ್‌ಗಳು"
+  },
+  "resetToDefault": {
+    "message": "ಡೀಫಾಲ್ಟ್‌ಗೆ ಮರುಹೊಂದಿಸಿ"
+  },
+  "switchToDefaultConfirm": {
+    "message": "ಡೀಫಾಲ್ಟ್‌ಗೆ ಬದಲಾಯಿಸುವುದೇ?"
+  },
+  "cancelButton": {
+    "message": "ರದ್ದುಮಾಡಿ"
+  },
+  "resetButton": {
+    "message": "ಮರುಹೊಂದಿಸಿ"
+  },
+  "cannotIsolatePage": {
+    "message": "ಈ ಪುಟವನ್ನು ಪ್ರತ್ಯೇಕಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+  },
+  "generatedSessionName": {
+    "message": "ಸೆಷನ್ $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (ಪ್ರತಿ)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "ಇನ್ನೂ ಯಾವುದೇ ಪ್ರೊಫೈಲ್‌ಗಳಿಲ್ಲ"
+  },
+  "emptyNoProfilesSub": {
+    "message": "ಖಾತೆಗಳನ್ನು ಪ್ರತ್ಯೇಕಿಸಲು ಪ್ರಾರಂಭಿಸಲು ಮೇಲೆ ಒಂದನ್ನು ರಚಿಸಿ."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "ಯಾವುದೇ ಹೊಂದಾಣಿಕೆ ಇಲ್ಲ"
+  },
+  "emptyNoMatchesSub": {
+    "message": "ಬೇರೆ ಹುಡುಕಾಟವನ್ನು ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "duplicateProfileTitle": {
+    "message": "ಪ್ರೊಫೈಲ್ ನಕಲಿಸಿ"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ ಪ್ರೊಫೈಲ್ ನಕಲಿಸಿ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "ಮರುಹೆಸರಿಸಿ"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಮರುಹೆಸರಿಸಿ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "ಅಳಿಸಿ"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ ಪ್ರೊಫೈಲ್ ಅಳಿಸಿ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "ಅಳಿಸುವಿಕೆಯನ್ನು ರದ್ದುಮಾಡಿ"
+  },
+  "confirmDeleteTitle": {
+    "message": "ಅಳಿಸುವಿಕೆಯನ್ನು ದೃಢೀಕರಿಸಿ"
+  },
+  "activeStatusPill": {
+    "message": "ಸಕ್ರಿಯ"
+  },
+  "heroLiveLabel": {
+    "message": "ಲೈವ್"
+  },
+  "openInNewTab": {
+    "message": "ಹೊಸ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ"
+  },
+  "changeColorTitle": {
+    "message": "ಬಣ್ಣ ಬದಲಾಯಿಸಿ"
+  },
+  "changeColorAriaLabel": {
+    "message": "ಸೆಷನ್ ಬಣ್ಣ ಬದಲಾಯಿಸಿ"
+  },
+  "pickColorAriaLabel": {
+    "message": "ಸೆಷನ್ ಬಣ್ಣ ಆಯ್ಕೆ ಮಾಡಿ"
+  },
+  "sessionColorLabel": {
+    "message": "ಸೆಷನ್ ಬಣ್ಣ"
+  },
+  "hueSwatchTitle": {
+    "message": "ಹ್ಯೂ $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "ಕಸ್ಟಮ್ ಹ್ಯೂ"
+  },
+  "customHueAriaLabel": {
+    "message": "ಕಸ್ಟಮ್ ಹ್ಯೂ"
+  },
+  "customLabel": {
+    "message": "ಕಸ್ಟಮ್"
+  },
+  "customHueValueAriaLabel": {
+    "message": "ಕಸ್ಟಮ್ ಹ್ಯೂ ಮೌಲ್ಯ"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome ಗಾಗಿ ಪ್ರತಿ-ಟ್ಯಾಬ್ ಸೆಷನ್ ಪ್ರತ್ಯೇಕತೆ."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "ಎಕ್ಸ್‌ಟೆನ್ಷನ್ ಆವೃತ್ತಿ"
+  },
+  "tabSettings": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+  },
+  "tabAbout": {
+    "message": "ಬಗ್ಗೆ"
+  },
+  "appearanceSectionTitle": {
+    "message": "ಗೋಚರತೆ"
+  },
+  "themeSettingLabel": {
+    "message": "ಥೀಮ್"
+  },
+  "themeSettingDesc": {
+    "message": "OS ಬಣ್ಣ ಯೋಜನೆ ಆದ್ಯತೆಯನ್ನು ಅತಿಕ್ರಮಿಸಿ"
+  },
+  "themeGroupAriaLabel": {
+    "message": "ಥೀಮ್"
+  },
+  "autoInheritLabel": {
+    "message": "ಲಿಂಕ್ ಮಾಡಿದ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಅದೇ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ"
+  },
+  "autoInheritDesc": {
+    "message": "ಸಕ್ರಿಯಗೊಳಿಸಿದಾಗ, ಪ್ರತ್ಯೇಕಿಸಿದ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಲಿಂಕ್ (ಹೊಸ-ಟ್ಯಾಬ್ ಲಿಂಕ್‌ಗಳು, Ctrl-ಕ್ಲಿಕ್, ಮಿಡಲ್-ಕ್ಲಿಕ್) ಮೂಲಕ ತೆರೆದ ಟ್ಯಾಬ್‌ಗಳು Chrome ನ ಡೀಫಾಲ್ಟ್ ಕುಕೀಗಳ ಬದಲು ಅದೇ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಉಳಿಯುತ್ತವೆ."
+  },
+  "aboutTagline": {
+    "message": "ಪ್ರತಿ-ಟ್ಯಾಬ್ ಸೆಷನ್ ಪ್ರತ್ಯೇಕತೆಗಾಗಿ ಉಚಿತ, ಓಪನ್-ಸೋರ್ಸ್ Chrome ಎಕ್ಸ್‌ಟೆನ್ಷನ್. ಒಂದೇ ಸೈಟ್‌ನಲ್ಲಿ ಏಕಕಾಲದಲ್ಲಿ ಬಹು ಖಾತೆಗಳಲ್ಲಿ ಲಾಗ್ ಇನ್ ಆಗಿರಿ."
+  },
+  "supportSectionTitle": {
+    "message": "ಯೋಜನೆಗೆ ಬೆಂಬಲ ನೀಡಿ"
+  },
+  "supportDesc": {
+    "message": "SessionShift ಉಚಿತ ಮತ್ತು ಓಪನ್-ಸೋರ್ಸ್ ಆಗಿದೆ. ಇದು ನಿಮ್ಮ ಸಮಯ ಉಳಿಸಿದರೆ, ಸಣ್ಣ ಟಿಪ್ ನೀಡುವುದನ್ನು ಪರಿಗಣಿಸಿ — ಇದು ಯೋಜನೆಯನ್ನು ಜೀವಂತವಾಗಿ ಮತ್ತು ಜಾಹೀರಾತು-ಮುಕ್ತವಾಗಿ ಇಡುತ್ತದೆ."
+  },
+  "supportCta": {
+    "message": "Ko-fi ನಲ್ಲಿ ಬೆಂಬಲಿಸಿ"
+  },
+  "linksSectionTitle": {
+    "message": "ಲಿಂಕ್‌ಗಳು"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "ಸೆಷನ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ"
+  },
+  "languageSettingLabel": {
+    "message": "ಭಾಷೆ"
+  },
+  "languageSettingDesc": {
+    "message": "ಇದು ಈ ಪಾಪ್‌ಅಪ್, ಆಯ್ಕೆಗಳು ಮತ್ತು ಸಂದರ್ಭ ಮೆನುಗಳಿಗೆ ಅನ್ವಯಿಸುತ್ತದೆ. Chrome ನ ಸ್ವಂತ ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು, ಎಕ್ಸ್‌ಟೆನ್ಷನ್ ಹೆಸರು ಮತ್ತು ವಿವರಣೆ ಯಾವಾಗಲೂ ನಿಮ್ಮ ಬ್ರೌಸರ್‌ನ ಭಾಷೆಯನ್ನು ಅನುಸರಿಸುತ್ತವೆ."
+  },
+  "languageOptionSystem": {
+    "message": "ಸಿಸ್ಟಂ (ಬ್ರೌಸರ್‌ಗೆ ಹೊಂದಿಕೆ)"
+  }
+}

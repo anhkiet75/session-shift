@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "በማንኛውም ድረ-ገጽ ላይ በበርካታ መለያዎች መካከል ይቀያይሩ — እያንዳንዱ ትር የራሱ የተነጠለ ክፍለ ጊዜ ይኖረዋል።"
+  },
+  "commandExecuteActionDescription": {
+    "message": "የSessionShift ብቅ-ባይ ይክፈቱ"
+  },
+  "commandSessionNextDescription": {
+    "message": "ለዚህ ትር ወደሚቀጥለው ክፍለ ጊዜ ይቀይሩ"
+  },
+  "commandSessionPrevDescription": {
+    "message": "ለዚህ ትር ወደ ቀደመው ክፍለ ጊዜ ይቀይሩ"
+  },
+  "popupBrandSub": {
+    "message": "የብዙ መለያ አስተዳዳሪ"
+  },
+  "themeToggleLabel": {
+    "message": "ገጽታ: $theme$ (ለመቀየር ይጫኑ)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "ብሩህ"
+  },
+  "themeNameDark": {
+    "message": "ጨለማ"
+  },
+  "themeNameSystem": {
+    "message": "ሲስተም"
+  },
+  "openOptionsLabel": {
+    "message": "አማራጮችን ይክፈቱ"
+  },
+  "heroActiveLabel": {
+    "message": "በዚህ ትር ላይ ንቁ"
+  },
+  "heroDefaultName": {
+    "message": "ነባሪ"
+  },
+  "heroNoSessionMeta": {
+    "message": "ምንም ክፍለ ጊዜ አልተመደበም"
+  },
+  "searchPlaceholder": {
+    "message": "መገለጫዎችን ይፈልጉ…"
+  },
+  "searchAriaLabel": {
+    "message": "መገለጫዎችን ይፈልጉ"
+  },
+  "createPlaceholder": {
+    "message": "አዲስ መገለጫ ስም ይስጡ…"
+  },
+  "createButton": {
+    "message": "ፍጠር"
+  },
+  "listHeadProfiles": {
+    "message": "መገለጫዎች"
+  },
+  "resetToDefault": {
+    "message": "ወደ ነባሪ መልስ"
+  },
+  "switchToDefaultConfirm": {
+    "message": "ወደ ነባሪ ይቀየር?"
+  },
+  "cancelButton": {
+    "message": "ይቅር"
+  },
+  "resetButton": {
+    "message": "ዳግም አስጀምር"
+  },
+  "cannotIsolatePage": {
+    "message": "ይህን ገጽ መነጠል አይቻልም።"
+  },
+  "generatedSessionName": {
+    "message": "ክፍለ ጊዜ $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (ቅጂ)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "እስካሁን መገለጫዎች የሉም"
+  },
+  "emptyNoProfilesSub": {
+    "message": "መለያዎችን ለመነጠል ከላይ አንድ ይፍጠሩ።"
+  },
+  "emptyNoMatchesTitle": {
+    "message": "ምንም ግጥሚያ የለም"
+  },
+  "emptyNoMatchesSub": {
+    "message": "የተለየ ፍለጋ ይሞክሩ።"
+  },
+  "duplicateProfileTitle": {
+    "message": "መገለጫ ቅዳ"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "መገለጫ $name$ ቅዳ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "ስም ቀይር"
+  },
+  "renameAriaLabel": {
+    "message": "የመገለጫ $name$ ስም ቀይር",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "ሰርዝ"
+  },
+  "deleteAriaLabel": {
+    "message": "መገለጫ $name$ ሰርዝ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "ስረዛን ይቅር"
+  },
+  "confirmDeleteTitle": {
+    "message": "ስረዛን አረጋግጥ"
+  },
+  "activeStatusPill": {
+    "message": "ንቁ"
+  },
+  "heroLiveLabel": {
+    "message": "ቀጥታ"
+  },
+  "openInNewTab": {
+    "message": "በአዲስ ትር ይክፈቱ"
+  },
+  "changeColorTitle": {
+    "message": "ቀለም ቀይር"
+  },
+  "changeColorAriaLabel": {
+    "message": "የክፍለ ጊዜ ቀለም ቀይር"
+  },
+  "pickColorAriaLabel": {
+    "message": "የክፍለ ጊዜ ቀለም ምረጥ"
+  },
+  "sessionColorLabel": {
+    "message": "የክፍለ ጊዜ ቀለም"
+  },
+  "hueSwatchTitle": {
+    "message": "ሁዌ $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "ብጁ ሁዌ"
+  },
+  "customHueAriaLabel": {
+    "message": "ብጁ ሁዌ"
+  },
+  "customLabel": {
+    "message": "ብጁ"
+  },
+  "customHueValueAriaLabel": {
+    "message": "የብጁ ሁዌ እሴት"
+  },
+  "optionsSubtitle": {
+    "message": "ለChrome በትር-በትር ደረጃ ክፍለ ጊዜ መነጠል።"
+  },
+  "extensionVersionAriaLabel": {
+    "message": "የቅጥያ ስሪት"
+  },
+  "tabSettings": {
+    "message": "ቅንብሮች"
+  },
+  "tabAbout": {
+    "message": "ስለ"
+  },
+  "appearanceSectionTitle": {
+    "message": "መልክ"
+  },
+  "themeSettingLabel": {
+    "message": "ገጽታ"
+  },
+  "themeSettingDesc": {
+    "message": "የOS ቀለም ገጽታ ምርጫን ይሽራል"
+  },
+  "themeGroupAriaLabel": {
+    "message": "ገጽታ"
+  },
+  "autoInheritLabel": {
+    "message": "ከአገናኝ የተከፈቱ ትሮችን በራስ-ሰር በተመሳሳይ መገለጫ ውስጥ ይክፈቱ"
+  },
+  "autoInheritDesc": {
+    "message": "ሲነቃ፣ ከተነጠለ መገለጫ በአገናኝ (አዲስ ትር አገናኞች፣ Ctrl-ጠቅታ፣ መካከለኛ-ጠቅታ) የተከፈቱ ትሮች የChrome ነባሪ ኩኪዎችን ከመጠቀም ይልቅ በዚያ መገለጫ ውስጥ ይቆያሉ።"
+  },
+  "aboutTagline": {
+    "message": "ለትር-በትር ክፍለ ጊዜ መነጠል የተዘጋጀ ነጻ፣ ክፍት-ምንጭ የChrome ቅጥያ። በተመሳሳይ ድረ-ገጽ ላይ በበርካታ መለያዎች በአንድ ጊዜ ገብተው ይቆዩ።"
+  },
+  "supportSectionTitle": {
+    "message": "ፕሮጀክቱን ይደግፉ"
+  },
+  "supportDesc": {
+    "message": "SessionShift ነጻ እና ክፍት-ምንጭ ነው። ጊዜዎን የሚያድን ከሆነ፣ ትንሽ ስጦታ ያስቡ — ፕሮጀክቱን በህይወት እና ከማስታወቂያ ነጻ ያደርገዋል።"
+  },
+  "supportCta": {
+    "message": "በKo-fi ይደግፉ"
+  },
+  "linksSectionTitle": {
+    "message": "አገናኞች"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome ድር መደብር"
+  },
+  "contextMenuParentTitle": {
+    "message": "በክፍለ ጊዜ ውስጥ ክፈት"
+  },
+  "languageSettingLabel": {
+    "message": "ቋንቋ"
+  },
+  "languageSettingDesc": {
+    "message": "ለዚህ ብቅ-ባይ፣ ለአማራጮች እና ለአውድ ምናሌዎች ተፈጻሚ ይሆናል። የChrome ራሱ የቁልፍ ሰሌዳ አቋራጮች፣ የቅጥያ ስም እና መግለጫ ሁልጊዜ የአሳሽዎን ቋንቋ ይከተላሉ።"
+  },
+  "languageOptionSystem": {
+    "message": "ሲስተም (ከአሳሽ ጋር ይዛመድ)"
+  }
+}

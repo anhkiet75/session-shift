@@ -1,0 +1,236 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Chuyển đổi giữa nhiều tài khoản trên bất kỳ trang web nào — mỗi tab có phiên làm việc riêng biệt."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Mở popup SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Chuyển sang phiên tiếp theo cho tab này"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Chuyển sang phiên trước đó cho tab này"
+  },
+  "popupBrandSub": {
+    "message": "Trình quản lý đa tài khoản"
+  },
+  "themeToggleLabel": {
+    "message": "Giao diện: $theme$ (nhấn để đổi)",
+    "placeholders": {
+      "theme": { "content": "$1", "example": "system" }
+    }
+  },
+  "themeNameLight": {
+    "message": "sáng"
+  },
+  "themeNameDark": {
+    "message": "tối"
+  },
+  "themeNameSystem": {
+    "message": "hệ thống"
+  },
+  "openOptionsLabel": {
+    "message": "Mở tùy chọn"
+  },
+  "heroActiveLabel": {
+    "message": "Đang hoạt động trên tab này"
+  },
+  "heroDefaultName": {
+    "message": "Mặc định"
+  },
+  "heroNoSessionMeta": {
+    "message": "Chưa gán phiên"
+  },
+  "searchPlaceholder": {
+    "message": "Tìm hồ sơ…"
+  },
+  "searchAriaLabel": {
+    "message": "Tìm hồ sơ"
+  },
+  "createPlaceholder": {
+    "message": "Đặt tên hồ sơ mới…"
+  },
+  "createButton": {
+    "message": "Tạo"
+  },
+  "listHeadProfiles": {
+    "message": "Hồ sơ"
+  },
+  "resetToDefault": {
+    "message": "Đặt lại về mặc định"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Chuyển về mặc định?"
+  },
+  "cancelButton": {
+    "message": "Hủy"
+  },
+  "resetButton": {
+    "message": "Đặt lại"
+  },
+  "cannotIsolatePage": {
+    "message": "Không thể tách biệt trang này."
+  },
+  "generatedSessionName": {
+    "message": "Phiên $index$",
+    "placeholders": {
+      "index": { "content": "$1", "example": "3" }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (bản sao)",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Chưa có hồ sơ nào"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Tạo một hồ sơ ở trên để bắt đầu tách biệt tài khoản."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Không có kết quả"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Thử tìm kiếm khác."
+  },
+  "duplicateProfileTitle": {
+    "message": "Nhân bản hồ sơ"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Nhân bản hồ sơ $name$",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "renameTitle": {
+    "message": "Đổi tên"
+  },
+  "renameAriaLabel": {
+    "message": "Đổi tên hồ sơ $name$",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "deleteTitle": {
+    "message": "Xóa"
+  },
+  "deleteAriaLabel": {
+    "message": "Xóa hồ sơ $name$",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Hủy xóa"
+  },
+  "confirmDeleteTitle": {
+    "message": "Xác nhận xóa"
+  },
+  "activeStatusPill": {
+    "message": "đang dùng"
+  },
+  "heroLiveLabel": {
+    "message": "đang mở"
+  },
+  "openInNewTab": {
+    "message": "Mở trong tab mới"
+  },
+  "changeColorTitle": {
+    "message": "Đổi màu"
+  },
+  "changeColorAriaLabel": {
+    "message": "Đổi màu phiên"
+  },
+  "pickColorAriaLabel": {
+    "message": "Chọn màu phiên"
+  },
+  "sessionColorLabel": {
+    "message": "Màu phiên"
+  },
+  "hueSwatchTitle": {
+    "message": "Sắc độ $hue$",
+    "placeholders": {
+      "hue": { "content": "$1", "example": "212" }
+    }
+  },
+  "customHueTitle": {
+    "message": "Sắc độ tùy chỉnh"
+  },
+  "customHueAriaLabel": {
+    "message": "Sắc độ tùy chỉnh"
+  },
+  "customLabel": {
+    "message": "Tùy chỉnh"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Giá trị sắc độ tùy chỉnh"
+  },
+  "optionsSubtitle": {
+    "message": "Tách biệt phiên theo từng tab cho Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Phiên bản tiện ích"
+  },
+  "tabSettings": {
+    "message": "Cài đặt"
+  },
+  "tabAbout": {
+    "message": "Giới thiệu"
+  },
+  "appearanceSectionTitle": {
+    "message": "Giao diện"
+  },
+  "themeSettingLabel": {
+    "message": "Giao diện"
+  },
+  "themeSettingDesc": {
+    "message": "Ghi đè tùy chọn bảng màu của hệ điều hành"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Giao diện"
+  },
+  "autoInheritLabel": {
+    "message": "Tự động mở các tab liên kết trong cùng hồ sơ"
+  },
+  "autoInheritDesc": {
+    "message": "Khi bật, các tab mở từ một liên kết (liên kết tab mới, Ctrl-click, nhấn chuột giữa) trên hồ sơ đã tách biệt sẽ giữ nguyên hồ sơ đó thay vì dùng cookie mặc định của Chrome."
+  },
+  "aboutTagline": {
+    "message": "Một tiện ích Chrome miễn phí, mã nguồn mở giúp tách biệt phiên theo từng tab. Đăng nhập nhiều tài khoản trên cùng một trang web cùng lúc."
+  },
+  "supportSectionTitle": {
+    "message": "Ủng hộ dự án"
+  },
+  "supportDesc": {
+    "message": "SessionShift miễn phí và mã nguồn mở. Nếu nó giúp bạn tiết kiệm thời gian, hãy cân nhắc ủng hộ một khoản nhỏ — điều đó giúp dự án tồn tại và không quảng cáo."
+  },
+  "supportCta": {
+    "message": "Ủng hộ trên Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Liên kết"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Mở trong phiên"
+  },
+  "languageSettingLabel": {
+    "message": "Ngôn ngữ"
+  },
+  "languageSettingDesc": {
+    "message": "Áp dụng cho popup, Tùy chọn và menu chuột phải này. Phím tắt, tên và mô tả tiện ích của Chrome luôn theo ngôn ngữ trình duyệt của bạn."
+  },
+  "languageOptionSystem": {
+    "message": "Hệ thống (theo trình duyệt)"
+  }
+}

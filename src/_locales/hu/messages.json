@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Váltson több fiók között bármely oldalon — minden lap saját elkülönített munkamenetet kap."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift felugró ablak megnyitása"
+  },
+  "commandSessionNextDescription": {
+    "message": "Váltás a következő munkamenetre ehhez a laphoz"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Váltás az előző munkamenetre ehhez a laphoz"
+  },
+  "popupBrandSub": {
+    "message": "Több fiókos kezelő"
+  },
+  "themeToggleLabel": {
+    "message": "Téma: $theme$ (kattintson a módosításhoz)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "világos"
+  },
+  "themeNameDark": {
+    "message": "sötét"
+  },
+  "themeNameSystem": {
+    "message": "rendszer"
+  },
+  "openOptionsLabel": {
+    "message": "Beállítások megnyitása"
+  },
+  "heroActiveLabel": {
+    "message": "Aktív ezen a lapon"
+  },
+  "heroDefaultName": {
+    "message": "Alapértelmezett"
+  },
+  "heroNoSessionMeta": {
+    "message": "Nincs hozzárendelt munkamenet"
+  },
+  "searchPlaceholder": {
+    "message": "Profilok keresése…"
+  },
+  "searchAriaLabel": {
+    "message": "Profilok keresése"
+  },
+  "createPlaceholder": {
+    "message": "Új profil elnevezése…"
+  },
+  "createButton": {
+    "message": "Létrehozás"
+  },
+  "listHeadProfiles": {
+    "message": "Profilok"
+  },
+  "resetToDefault": {
+    "message": "Visszaállítás alapértelmezettre"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Váltás alapértelmezettre?"
+  },
+  "cancelButton": {
+    "message": "Mégse"
+  },
+  "resetButton": {
+    "message": "Visszaállítás"
+  },
+  "cannotIsolatePage": {
+    "message": "Ez az oldal nem különíthető el."
+  },
+  "generatedSessionName": {
+    "message": "Munkamenet $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (másolat)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Még nincs profil"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Hozzon létre egyet fent a fiókok elkülönítéséhez."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Nincs találat"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Próbáljon másik keresést."
+  },
+  "duplicateProfileTitle": {
+    "message": "Profil megkettőzése"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ profil megkettőzése",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Átnevezés"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ profil átnevezése",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Törlés"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ profil törlése",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Törlés megszakítása"
+  },
+  "confirmDeleteTitle": {
+    "message": "Törlés megerősítése"
+  },
+  "activeStatusPill": {
+    "message": "aktív"
+  },
+  "heroLiveLabel": {
+    "message": "élő"
+  },
+  "openInNewTab": {
+    "message": "Megnyitás új lapon"
+  },
+  "changeColorTitle": {
+    "message": "Szín módosítása"
+  },
+  "changeColorAriaLabel": {
+    "message": "Munkamenet színének módosítása"
+  },
+  "pickColorAriaLabel": {
+    "message": "Munkamenet színének kiválasztása"
+  },
+  "sessionColorLabel": {
+    "message": "Munkamenet színe"
+  },
+  "hueSwatchTitle": {
+    "message": "Árnyalat $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Egyéni árnyalat"
+  },
+  "customHueAriaLabel": {
+    "message": "Egyéni árnyalat"
+  },
+  "customLabel": {
+    "message": "Egyéni"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Egyéni árnyalat értéke"
+  },
+  "optionsSubtitle": {
+    "message": "Laponkénti munkamenet-elkülönítés Chrome-hoz."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Bővítmény verziója"
+  },
+  "tabSettings": {
+    "message": "Beállítások"
+  },
+  "tabAbout": {
+    "message": "Névjegy"
+  },
+  "appearanceSectionTitle": {
+    "message": "Megjelenés"
+  },
+  "themeSettingLabel": {
+    "message": "Téma"
+  },
+  "themeSettingDesc": {
+    "message": "Felülbírálja az operációs rendszer színséma-beállítását"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Téma"
+  },
+  "autoInheritLabel": {
+    "message": "Kapcsolódó lapok automatikus megnyitása ugyanabban a profilban"
+  },
+  "autoInheritDesc": {
+    "message": "Ha engedélyezve van, a hivatkozásból (új lapos hivatkozás, Ctrl-kattintás, középső gombos kattintás) elkülönített profilban megnyitott lapok abban a profilban maradnak, a Chrome alapértelmezett sütijei helyett."
+  },
+  "aboutTagline": {
+    "message": "Ingyenes, nyílt forráskódú Chrome-bővítmény laponkénti munkamenet-elkülönítéshez. Maradjon bejelentkezve több fiókba egyszerre ugyanazon az oldalon."
+  },
+  "supportSectionTitle": {
+    "message": "Támogassa a projektet"
+  },
+  "supportDesc": {
+    "message": "A SessionShift ingyenes és nyílt forráskódú. Ha időt takarít meg vele, fontolja meg egy kis borravaló adását — ez életben tartja a projektet, reklámmentesen."
+  },
+  "supportCta": {
+    "message": "Támogatás Ko-fin"
+  },
+  "linksSectionTitle": {
+    "message": "Hivatkozások"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Webáruház"
+  },
+  "contextMenuParentTitle": {
+    "message": "Megnyitás munkamenetben"
+  },
+  "languageSettingLabel": {
+    "message": "Nyelv"
+  },
+  "languageSettingDesc": {
+    "message": "Erre a felugró ablakra, a beállításokra és a helyi menükre vonatkozik. A Chrome saját billentyűparancsai, a bővítmény neve és leírása mindig a böngésző nyelvét követik."
+  },
+  "languageOptionSystem": {
+    "message": "Rendszer (böngésző szerint)"
+  }
+}

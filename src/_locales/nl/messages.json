@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Wissel op elke site tussen meerdere accounts — elk tabblad krijgt zijn eigen geïsoleerde sessie."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift-popup openen"
+  },
+  "commandSessionNextDescription": {
+    "message": "Naar volgende sessie voor dit tabblad wisselen"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Naar vorige sessie voor dit tabblad wisselen"
+  },
+  "popupBrandSub": {
+    "message": "Multi-accountbeheer"
+  },
+  "themeToggleLabel": {
+    "message": "Thema: $theme$ (klik om te wijzigen)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "licht"
+  },
+  "themeNameDark": {
+    "message": "donker"
+  },
+  "themeNameSystem": {
+    "message": "systeem"
+  },
+  "openOptionsLabel": {
+    "message": "Opties openen"
+  },
+  "heroActiveLabel": {
+    "message": "Actief op dit tabblad"
+  },
+  "heroDefaultName": {
+    "message": "Standaard"
+  },
+  "heroNoSessionMeta": {
+    "message": "Geen sessie toegewezen"
+  },
+  "searchPlaceholder": {
+    "message": "Profielen zoeken…"
+  },
+  "searchAriaLabel": {
+    "message": "Profielen zoeken"
+  },
+  "createPlaceholder": {
+    "message": "Geef een nieuw profiel een naam…"
+  },
+  "createButton": {
+    "message": "Aanmaken"
+  },
+  "listHeadProfiles": {
+    "message": "Profielen"
+  },
+  "resetToDefault": {
+    "message": "Terugzetten naar standaard"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Overschakelen naar standaard?"
+  },
+  "cancelButton": {
+    "message": "Annuleren"
+  },
+  "resetButton": {
+    "message": "Terugzetten"
+  },
+  "cannotIsolatePage": {
+    "message": "Deze pagina kan niet worden geïsoleerd."
+  },
+  "generatedSessionName": {
+    "message": "Sessie $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopie)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Nog geen profielen"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Maak er hierboven een aan om accounts te isoleren."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Geen overeenkomsten"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Probeer een andere zoekopdracht."
+  },
+  "duplicateProfileTitle": {
+    "message": "Profiel dupliceren"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Profiel $name$ dupliceren",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Naam wijzigen"
+  },
+  "renameAriaLabel": {
+    "message": "Naam van profiel $name$ wijzigen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Verwijderen"
+  },
+  "deleteAriaLabel": {
+    "message": "Profiel $name$ verwijderen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Verwijderen annuleren"
+  },
+  "confirmDeleteTitle": {
+    "message": "Verwijderen bevestigen"
+  },
+  "activeStatusPill": {
+    "message": "actief"
+  },
+  "heroLiveLabel": {
+    "message": "live"
+  },
+  "openInNewTab": {
+    "message": "Openen in nieuw tabblad"
+  },
+  "changeColorTitle": {
+    "message": "Kleur wijzigen"
+  },
+  "changeColorAriaLabel": {
+    "message": "Sessiekleur wijzigen"
+  },
+  "pickColorAriaLabel": {
+    "message": "Sessiekleur kiezen"
+  },
+  "sessionColorLabel": {
+    "message": "Sessiekleur"
+  },
+  "hueSwatchTitle": {
+    "message": "Tint $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Aangepaste tint"
+  },
+  "customHueAriaLabel": {
+    "message": "Aangepaste tint"
+  },
+  "customLabel": {
+    "message": "Aangepast"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Waarde van aangepaste tint"
+  },
+  "optionsSubtitle": {
+    "message": "Sessie-isolatie per tabblad voor Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Versie van de extensie"
+  },
+  "tabSettings": {
+    "message": "Instellingen"
+  },
+  "tabAbout": {
+    "message": "Over"
+  },
+  "appearanceSectionTitle": {
+    "message": "Weergave"
+  },
+  "themeSettingLabel": {
+    "message": "Thema"
+  },
+  "themeSettingDesc": {
+    "message": "Voorkeur voor het kleurenschema van het besturingssysteem overschrijven"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Thema"
+  },
+  "autoInheritLabel": {
+    "message": "Gekoppelde tabbladen automatisch in hetzelfde profiel openen"
+  },
+  "autoInheritDesc": {
+    "message": "Indien ingeschakeld blijven tabbladen die vanuit een link (nieuw-tabblad-links, Ctrl-klik, middelste klik) op een geïsoleerd profiel worden geopend in dat profiel, in plaats van de standaardcookies van Chrome te gebruiken."
+  },
+  "aboutTagline": {
+    "message": "Een gratis, opensource Chrome-extensie voor sessie-isolatie per tabblad. Blijf tegelijkertijd ingelogd op meerdere accounts op dezelfde site."
+  },
+  "supportSectionTitle": {
+    "message": "Steun het project"
+  },
+  "supportDesc": {
+    "message": "SessionShift is gratis en opensource. Als het je tijd bespaart, overweeg dan een kleine fooi — dat houdt het project levend en reclamevrij."
+  },
+  "supportCta": {
+    "message": "Steun op Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Links"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Openen in sessie"
+  },
+  "languageSettingLabel": {
+    "message": "Taal"
+  },
+  "languageSettingDesc": {
+    "message": "Geldt voor deze popup, de opties en contextmenu's. Chromes eigen sneltoetsen, extensienaam en beschrijving volgen altijd de taal van je browser."
+  },
+  "languageOptionSystem": {
+    "message": "Systeem (volgens browser)"
+  }
+}

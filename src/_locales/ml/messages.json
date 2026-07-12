@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "ഏത് സൈറ്റിലും ഒന്നിലധികം അക്കൗണ്ടുകൾക്കിടയിൽ മാറുക — ഓരോ ടാബിനും അതിന്റേതായ പ്രത്യേക സെഷൻ ഉണ്ടായിരിക്കും."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift പോപ്പപ്പ് തുറക്കുക"
+  },
+  "commandSessionNextDescription": {
+    "message": "ഈ ടാബിനായി അടുത്ത സെഷനിലേക്ക് മാറുക"
+  },
+  "commandSessionPrevDescription": {
+    "message": "ഈ ടാബിനായി മുൻ സെഷനിലേക്ക് മാറുക"
+  },
+  "popupBrandSub": {
+    "message": "മൾട്ടി-അക്കൗണ്ട് മാനേജർ"
+  },
+  "themeToggleLabel": {
+    "message": "തീം: $theme$ (മാറ്റാൻ ക്ലിക്ക് ചെയ്യുക)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "ലൈറ്റ്"
+  },
+  "themeNameDark": {
+    "message": "ഡാർക്ക്"
+  },
+  "themeNameSystem": {
+    "message": "സിസ്റ്റം"
+  },
+  "openOptionsLabel": {
+    "message": "ഓപ്ഷനുകൾ തുറക്കുക"
+  },
+  "heroActiveLabel": {
+    "message": "ഈ ടാബിൽ സജീവം"
+  },
+  "heroDefaultName": {
+    "message": "ഡിഫോൾട്ട്"
+  },
+  "heroNoSessionMeta": {
+    "message": "സെഷൻ നിശ്ചയിച്ചിട്ടില്ല"
+  },
+  "searchPlaceholder": {
+    "message": "പ്രൊഫൈലുകൾ തിരയുക…"
+  },
+  "searchAriaLabel": {
+    "message": "പ്രൊഫൈലുകൾ തിരയുക"
+  },
+  "createPlaceholder": {
+    "message": "പുതിയ പ്രൊഫൈലിന് പേരിടുക…"
+  },
+  "createButton": {
+    "message": "സൃഷ്ടിക്കുക"
+  },
+  "listHeadProfiles": {
+    "message": "പ്രൊഫൈലുകൾ"
+  },
+  "resetToDefault": {
+    "message": "ഡിഫോൾട്ടിലേക്ക് പുനഃസജ്ജമാക്കുക"
+  },
+  "switchToDefaultConfirm": {
+    "message": "ഡിഫോൾട്ടിലേക്ക് മാറണോ?"
+  },
+  "cancelButton": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "resetButton": {
+    "message": "പുനഃസജ്ജമാക്കുക"
+  },
+  "cannotIsolatePage": {
+    "message": "ഈ പേജ് വേർതിരിക്കാൻ കഴിയില്ല."
+  },
+  "generatedSessionName": {
+    "message": "സെഷൻ $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (പകർപ്പ്)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "ഇതുവരെ പ്രൊഫൈലുകൾ ഇല്ല"
+  },
+  "emptyNoProfilesSub": {
+    "message": "അക്കൗണ്ടുകൾ വേർതിരിക്കാൻ തുടങ്ങാൻ മുകളിൽ ഒന്ന് സൃഷ്ടിക്കുക."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "പൊരുത്തങ്ങളില്ല"
+  },
+  "emptyNoMatchesSub": {
+    "message": "മറ്റൊരു തിരയൽ പരീക്ഷിക്കുക."
+  },
+  "duplicateProfileTitle": {
+    "message": "പ്രൊഫൈൽ ഡ്യൂപ്ലിക്കേറ്റ് ചെയ്യുക"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ പ്രൊഫൈൽ ഡ്യൂപ്ലിക്കേറ്റ് ചെയ്യുക",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "പേരുമാറ്റുക"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ പ്രൊഫൈലിന്റെ പേരുമാറ്റുക",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "ഇല്ലാതാക്കുക"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ പ്രൊഫൈൽ ഇല്ലാതാക്കുക",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "ഇല്ലാതാക്കൽ റദ്ദാക്കുക"
+  },
+  "confirmDeleteTitle": {
+    "message": "ഇല്ലാതാക്കൽ സ്ഥിരീകരിക്കുക"
+  },
+  "activeStatusPill": {
+    "message": "സജീവം"
+  },
+  "heroLiveLabel": {
+    "message": "ലൈവ്"
+  },
+  "openInNewTab": {
+    "message": "പുതിയ ടാബിൽ തുറക്കുക"
+  },
+  "changeColorTitle": {
+    "message": "നിറം മാറ്റുക"
+  },
+  "changeColorAriaLabel": {
+    "message": "സെഷൻ നിറം മാറ്റുക"
+  },
+  "pickColorAriaLabel": {
+    "message": "സെഷൻ നിറം തിരഞ്ഞെടുക്കുക"
+  },
+  "sessionColorLabel": {
+    "message": "സെഷൻ നിറം"
+  },
+  "hueSwatchTitle": {
+    "message": "ഹ്യൂ $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "ഇഷ്ടാനുസൃത ഹ്യൂ"
+  },
+  "customHueAriaLabel": {
+    "message": "ഇഷ്ടാനുസൃത ഹ്യൂ"
+  },
+  "customLabel": {
+    "message": "ഇഷ്ടാനുസൃതം"
+  },
+  "customHueValueAriaLabel": {
+    "message": "ഇഷ്ടാനുസൃത ഹ്യൂ മൂല്യം"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome-നായുള്ള പ്രതി-ടാബ് സെഷൻ വേർതിരിവ്."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "എക്സ്റ്റൻഷൻ പതിപ്പ്"
+  },
+  "tabSettings": {
+    "message": "ക്രമീകരണങ്ങൾ"
+  },
+  "tabAbout": {
+    "message": "വിവരം"
+  },
+  "appearanceSectionTitle": {
+    "message": "രൂപഭാവം"
+  },
+  "themeSettingLabel": {
+    "message": "തീം"
+  },
+  "themeSettingDesc": {
+    "message": "OS കളർ സ്കീം മുൻഗണന അസാധുവാക്കുക"
+  },
+  "themeGroupAriaLabel": {
+    "message": "തീം"
+  },
+  "autoInheritLabel": {
+    "message": "ലിങ്ക് ചെയ്ത ടാബുകൾ സ്വയമേവ അതേ പ്രൊഫൈലിൽ തുറക്കുക"
+  },
+  "autoInheritDesc": {
+    "message": "പ്രവർത്തനക്ഷമമാക്കിയാൽ, വേർതിരിച്ച പ്രൊഫൈലിൽ ലിങ്ക് (പുതിയ-ടാബ് ലിങ്കുകൾ, Ctrl-ക്ലിക്ക്, മിഡിൽ-ക്ലിക്ക്) വഴി തുറക്കുന്ന ടാബുകൾ Chrome-ന്റെ ഡിഫോൾട്ട് കുക്കികൾക്ക് പകരം അതേ പ്രൊഫൈലിൽ തന്നെ തുടരും."
+  },
+  "aboutTagline": {
+    "message": "പ്രതി-ടാബ് സെഷൻ വേർതിരിവിനായുള്ള സൗജന്യ, ഓപ്പൺ-സോഴ്സ് Chrome എക്സ്റ്റൻഷൻ. ഒരേ സൈറ്റിൽ ഒരേസമയം ഒന്നിലധികം അക്കൗണ്ടുകളിൽ ലോഗിൻ ചെയ്തിരിക്കുക."
+  },
+  "supportSectionTitle": {
+    "message": "പദ്ധതിയെ പിന്തുണയ്ക്കുക"
+  },
+  "supportDesc": {
+    "message": "SessionShift സൗജന്യവും ഓപ്പൺ-സോഴ്സുമാണ്. ഇത് നിങ്ങളുടെ സമയം ലാഭിക്കുന്നെങ്കിൽ, ഒരു ചെറിയ ടിപ്പ് പരിഗണിക്കുക — ഇത് പദ്ധതിയെ സജീവവും പരസ്യരഹിതവുമായി നിലനിർത്തുന്നു."
+  },
+  "supportCta": {
+    "message": "Ko-fi-യിൽ പിന്തുണയ്ക്കുക"
+  },
+  "linksSectionTitle": {
+    "message": "ലിങ്കുകൾ"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "സെഷനിൽ തുറക്കുക"
+  },
+  "languageSettingLabel": {
+    "message": "ഭാഷ"
+  },
+  "languageSettingDesc": {
+    "message": "ഇത് ഈ പോപ്പപ്പ്, ഓപ്ഷനുകൾ, കോൺടെക്സ്റ്റ് മെനുകൾ എന്നിവയ്ക്ക് ബാധകമാണ്. Chrome-ന്റെ സ്വന്തം കീബോർഡ് ഷോർട്ട്കട്ടുകൾ, എക്സ്റ്റൻഷന്റെ പേര്, വിവരണം എന്നിവ എപ്പോഴും നിങ്ങളുടെ ബ്രൗസറിന്റെ ഭാഷയെ പിന്തുടരും."
+  },
+  "languageOptionSystem": {
+    "message": "സിസ്റ്റം (ബ്രൗസറുമായി പൊരുത്തം)"
+  }
+}

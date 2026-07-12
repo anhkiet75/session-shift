@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Переключайтесь между несколькими аккаунтами на любом сайте — каждая вкладка получает свою изолированную сессию."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Открыть всплывающее окно SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Переключиться на следующую сессию для этой вкладки"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Переключиться на предыдущую сессию для этой вкладки"
+  },
+  "popupBrandSub": {
+    "message": "Менеджер нескольких аккаунтов"
+  },
+  "themeToggleLabel": {
+    "message": "Тема: $theme$ (нажмите, чтобы изменить)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "светлая"
+  },
+  "themeNameDark": {
+    "message": "тёмная"
+  },
+  "themeNameSystem": {
+    "message": "системная"
+  },
+  "openOptionsLabel": {
+    "message": "Открыть настройки"
+  },
+  "heroActiveLabel": {
+    "message": "Активно на этой вкладке"
+  },
+  "heroDefaultName": {
+    "message": "По умолчанию"
+  },
+  "heroNoSessionMeta": {
+    "message": "Сессия не назначена"
+  },
+  "searchPlaceholder": {
+    "message": "Поиск профилей…"
+  },
+  "searchAriaLabel": {
+    "message": "Поиск профилей"
+  },
+  "createPlaceholder": {
+    "message": "Название нового профиля…"
+  },
+  "createButton": {
+    "message": "Создать"
+  },
+  "listHeadProfiles": {
+    "message": "Профили"
+  },
+  "resetToDefault": {
+    "message": "Сбросить на умолчания"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Переключиться на профиль по умолчанию?"
+  },
+  "cancelButton": {
+    "message": "Отмена"
+  },
+  "resetButton": {
+    "message": "Сбросить"
+  },
+  "cannotIsolatePage": {
+    "message": "Эту страницу нельзя изолировать."
+  },
+  "generatedSessionName": {
+    "message": "Сессия $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (копия)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Профилей пока нет"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Создайте профиль выше, чтобы изолировать аккаунты."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Совпадений нет"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Попробуйте другой запрос."
+  },
+  "duplicateProfileTitle": {
+    "message": "Дублировать профиль"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Дублировать профиль $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Переименовать"
+  },
+  "renameAriaLabel": {
+    "message": "Переименовать профиль $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Удалить"
+  },
+  "deleteAriaLabel": {
+    "message": "Удалить профиль $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Отменить удаление"
+  },
+  "confirmDeleteTitle": {
+    "message": "Подтвердить удаление"
+  },
+  "activeStatusPill": {
+    "message": "активен"
+  },
+  "heroLiveLabel": {
+    "message": "сейчас"
+  },
+  "openInNewTab": {
+    "message": "Открыть в новой вкладке"
+  },
+  "changeColorTitle": {
+    "message": "Изменить цвет"
+  },
+  "changeColorAriaLabel": {
+    "message": "Изменить цвет сессии"
+  },
+  "pickColorAriaLabel": {
+    "message": "Выбрать цвет сессии"
+  },
+  "sessionColorLabel": {
+    "message": "Цвет сессии"
+  },
+  "hueSwatchTitle": {
+    "message": "Оттенок $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Свой оттенок"
+  },
+  "customHueAriaLabel": {
+    "message": "Свой оттенок"
+  },
+  "customLabel": {
+    "message": "Свой"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Значение своего оттенка"
+  },
+  "optionsSubtitle": {
+    "message": "Изоляция сессий по вкладкам для Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Версия расширения"
+  },
+  "tabSettings": {
+    "message": "Настройки"
+  },
+  "tabAbout": {
+    "message": "О расширении"
+  },
+  "appearanceSectionTitle": {
+    "message": "Оформление"
+  },
+  "themeSettingLabel": {
+    "message": "Тема"
+  },
+  "themeSettingDesc": {
+    "message": "Переопределяет настройку цветовой схемы ОС"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Тема"
+  },
+  "autoInheritLabel": {
+    "message": "Автоматически открывать связанные вкладки в том же профиле"
+  },
+  "autoInheritDesc": {
+    "message": "При включении вкладки, открытые по ссылке (ссылки новой вкладки, Ctrl-клик, клик средней кнопкой) в изолированном профиле, остаются в этом профиле вместо использования стандартных файлов cookie Chrome."
+  },
+  "aboutTagline": {
+    "message": "Бесплатное расширение Chrome с открытым исходным кодом для изоляции сессий по вкладкам. Оставайтесь одновременно в нескольких аккаунтах на одном сайте."
+  },
+  "supportSectionTitle": {
+    "message": "Поддержать проект"
+  },
+  "supportDesc": {
+    "message": "SessionShift бесплатен и имеет открытый исходный код. Если он экономит ваше время, рассмотрите небольшой донат — это поддерживает проект живым и без рекламы."
+  },
+  "supportCta": {
+    "message": "Поддержать на Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Ссылки"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Открыть в сессии"
+  },
+  "languageSettingLabel": {
+    "message": "Язык"
+  },
+  "languageSettingDesc": {
+    "message": "Применяется к этому всплывающему окну, настройкам и контекстным меню. Собственные сочетания клавиш Chrome, название и описание расширения всегда следуют языку вашего браузера."
+  },
+  "languageOptionSystem": {
+    "message": "Системный (как в браузере)"
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Превключвайте между няколко акаунта на всеки сайт — всеки раздел получава своя изолирана сесия."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Отваряне на изскачащия прозорец на SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Превключване към следващата сесия за този раздел"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Превключване към предишната сесия за този раздел"
+  },
+  "popupBrandSub": {
+    "message": "Мениджър на множество акаунти"
+  },
+  "themeToggleLabel": {
+    "message": "Тема: $theme$ (кликнете за промяна)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "светла"
+  },
+  "themeNameDark": {
+    "message": "тъмна"
+  },
+  "themeNameSystem": {
+    "message": "системна"
+  },
+  "openOptionsLabel": {
+    "message": "Отваряне на настройките"
+  },
+  "heroActiveLabel": {
+    "message": "Активен в този раздел"
+  },
+  "heroDefaultName": {
+    "message": "По подразбиране"
+  },
+  "heroNoSessionMeta": {
+    "message": "Няма зададена сесия"
+  },
+  "searchPlaceholder": {
+    "message": "Търсене на профили…"
+  },
+  "searchAriaLabel": {
+    "message": "Търсене на профили"
+  },
+  "createPlaceholder": {
+    "message": "Име на нов профил…"
+  },
+  "createButton": {
+    "message": "Създаване"
+  },
+  "listHeadProfiles": {
+    "message": "Профили"
+  },
+  "resetToDefault": {
+    "message": "Връщане към подразбиране"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Превключване към подразбиране?"
+  },
+  "cancelButton": {
+    "message": "Отказ"
+  },
+  "resetButton": {
+    "message": "Възстановяване"
+  },
+  "cannotIsolatePage": {
+    "message": "Тази страница не може да бъде изолирана."
+  },
+  "generatedSessionName": {
+    "message": "Сесия $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (копие)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Все още няма профили"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Създайте един по-горе, за да изолирате акаунти."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Няма съвпадения"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Опитайте друго търсене."
+  },
+  "duplicateProfileTitle": {
+    "message": "Дублиране на профил"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Дублиране на профил $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Преименуване"
+  },
+  "renameAriaLabel": {
+    "message": "Преименуване на профил $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Изтриване"
+  },
+  "deleteAriaLabel": {
+    "message": "Изтриване на профил $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Отказ от изтриване"
+  },
+  "confirmDeleteTitle": {
+    "message": "Потвърждаване на изтриване"
+  },
+  "activeStatusPill": {
+    "message": "активен"
+  },
+  "heroLiveLabel": {
+    "message": "на живо"
+  },
+  "openInNewTab": {
+    "message": "Отваряне в нов раздел"
+  },
+  "changeColorTitle": {
+    "message": "Промяна на цвета"
+  },
+  "changeColorAriaLabel": {
+    "message": "Промяна на цвета на сесията"
+  },
+  "pickColorAriaLabel": {
+    "message": "Избор на цвят на сесията"
+  },
+  "sessionColorLabel": {
+    "message": "Цвят на сесията"
+  },
+  "hueSwatchTitle": {
+    "message": "Оттенък $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Персонализиран оттенък"
+  },
+  "customHueAriaLabel": {
+    "message": "Персонализиран оттенък"
+  },
+  "customLabel": {
+    "message": "Персонализиран"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Стойност на персонализирания оттенък"
+  },
+  "optionsSubtitle": {
+    "message": "Изолация на сесии по раздели за Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Версия на разширението"
+  },
+  "tabSettings": {
+    "message": "Настройки"
+  },
+  "tabAbout": {
+    "message": "Относно"
+  },
+  "appearanceSectionTitle": {
+    "message": "Външен вид"
+  },
+  "themeSettingLabel": {
+    "message": "Тема"
+  },
+  "themeSettingDesc": {
+    "message": "Заменя настройката на цветовата схема на операционната система"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Тема"
+  },
+  "autoInheritLabel": {
+    "message": "Автоматично отваряне на свързани раздели в същия профил"
+  },
+  "autoInheritDesc": {
+    "message": "Когато е активирано, разделите, отворени от връзка (връзки в нов раздел, Ctrl-клик, среден бутон на мишката) в изолиран профил, остават в този профил вместо да използват стандартните бисквитки на Chrome."
+  },
+  "aboutTagline": {
+    "message": "Безплатно, отворено разширение за Chrome за изолация на сесии по раздели. Останете влезли в множество акаунти на един и същ сайт едновременно."
+  },
+  "supportSectionTitle": {
+    "message": "Подкрепете проекта"
+  },
+  "supportDesc": {
+    "message": "SessionShift е безплатен и с отворен код. Ако ви спестява време, помислете за малък бакшиш — това поддържа проекта жив и без реклами."
+  },
+  "supportCta": {
+    "message": "Подкрепете в Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Връзки"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Отваряне в сесия"
+  },
+  "languageSettingLabel": {
+    "message": "Език"
+  },
+  "languageSettingDesc": {
+    "message": "Прилага се за този изскачащ прозорец, настройките и контекстните менюта. Собствените клавишни комбинации, името и описанието на разширението на Chrome винаги следват езика на браузъра ви."
+  },
+  "languageOptionSystem": {
+    "message": "Системен (както браузъра)"
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Beralih antar beberapa akun di situs mana pun — setiap tab mendapat sesi terisolasi tersendiri."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Buka popup SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Beralih ke sesi berikutnya untuk tab ini"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Beralih ke sesi sebelumnya untuk tab ini"
+  },
+  "popupBrandSub": {
+    "message": "Pengelola multi-akun"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (klik untuk mengubah)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "terang"
+  },
+  "themeNameDark": {
+    "message": "gelap"
+  },
+  "themeNameSystem": {
+    "message": "sistem"
+  },
+  "openOptionsLabel": {
+    "message": "Buka opsi"
+  },
+  "heroActiveLabel": {
+    "message": "Aktif pada tab ini"
+  },
+  "heroDefaultName": {
+    "message": "Default"
+  },
+  "heroNoSessionMeta": {
+    "message": "Tidak ada sesi yang ditetapkan"
+  },
+  "searchPlaceholder": {
+    "message": "Cari profil…"
+  },
+  "searchAriaLabel": {
+    "message": "Cari profil"
+  },
+  "createPlaceholder": {
+    "message": "Beri nama profil baru…"
+  },
+  "createButton": {
+    "message": "Buat"
+  },
+  "listHeadProfiles": {
+    "message": "Profil"
+  },
+  "resetToDefault": {
+    "message": "Atur ulang ke default"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Beralih ke default?"
+  },
+  "cancelButton": {
+    "message": "Batal"
+  },
+  "resetButton": {
+    "message": "Atur ulang"
+  },
+  "cannotIsolatePage": {
+    "message": "Halaman ini tidak dapat diisolasi."
+  },
+  "generatedSessionName": {
+    "message": "Sesi $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (salinan)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Belum ada profil"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Buat satu di atas untuk mulai mengisolasi akun."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Tidak ada yang cocok"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Coba pencarian lain."
+  },
+  "duplicateProfileTitle": {
+    "message": "Gandakan profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Gandakan profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Ganti nama"
+  },
+  "renameAriaLabel": {
+    "message": "Ganti nama profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Hapus"
+  },
+  "deleteAriaLabel": {
+    "message": "Hapus profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Batalkan penghapusan"
+  },
+  "confirmDeleteTitle": {
+    "message": "Konfirmasi penghapusan"
+  },
+  "activeStatusPill": {
+    "message": "aktif"
+  },
+  "heroLiveLabel": {
+    "message": "langsung"
+  },
+  "openInNewTab": {
+    "message": "Buka di tab baru"
+  },
+  "changeColorTitle": {
+    "message": "Ubah warna"
+  },
+  "changeColorAriaLabel": {
+    "message": "Ubah warna sesi"
+  },
+  "pickColorAriaLabel": {
+    "message": "Pilih warna sesi"
+  },
+  "sessionColorLabel": {
+    "message": "Warna sesi"
+  },
+  "hueSwatchTitle": {
+    "message": "Corak $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Corak kustom"
+  },
+  "customHueAriaLabel": {
+    "message": "Corak kustom"
+  },
+  "customLabel": {
+    "message": "Kustom"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Nilai corak kustom"
+  },
+  "optionsSubtitle": {
+    "message": "Isolasi sesi per tab untuk Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Versi ekstensi"
+  },
+  "tabSettings": {
+    "message": "Pengaturan"
+  },
+  "tabAbout": {
+    "message": "Tentang"
+  },
+  "appearanceSectionTitle": {
+    "message": "Tampilan"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Timpa preferensi skema warna OS"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Buka otomatis tab tertaut di profil yang sama"
+  },
+  "autoInheritDesc": {
+    "message": "Jika diaktifkan, tab yang dibuka dari tautan (tautan tab baru, Ctrl-klik, klik tengah) pada profil terisolasi akan tetap berada di profil itu, alih-alih menggunakan cookie default Chrome."
+  },
+  "aboutTagline": {
+    "message": "Ekstensi Chrome gratis dan open-source untuk isolasi sesi per tab. Tetap masuk ke beberapa akun di situs yang sama secara bersamaan."
+  },
+  "supportSectionTitle": {
+    "message": "Dukung proyek ini"
+  },
+  "supportDesc": {
+    "message": "SessionShift gratis dan open-source. Jika ini menghemat waktu Anda, pertimbangkan memberi sedikit tip — ini menjaga proyek tetap hidup dan bebas iklan."
+  },
+  "supportCta": {
+    "message": "Dukung di Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Tautan"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Buka di Sesi"
+  },
+  "languageSettingLabel": {
+    "message": "Bahasa"
+  },
+  "languageSettingDesc": {
+    "message": "Berlaku untuk popup ini, Opsi, dan menu konteks. Pintasan keyboard, nama ekstensi, dan deskripsi bawaan Chrome selalu mengikuti bahasa browser Anda."
+  },
+  "languageOptionSystem": {
+    "message": "Sistem (sesuai browser)"
+  }
+}

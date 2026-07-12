@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Badilisha kati ya akaunti nyingi kwenye tovuti yoyote — kila kichupo kina kipindi chake kilichojitenga."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Fungua kidirisha cha SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Badilisha hadi kipindi kinachofuata kwa kichupo hiki"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Badilisha hadi kipindi kilichotangulia kwa kichupo hiki"
+  },
+  "popupBrandSub": {
+    "message": "Kidhibiti cha akaunti nyingi"
+  },
+  "themeToggleLabel": {
+    "message": "Mandhari: $theme$ (bofya kubadilisha)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "angavu"
+  },
+  "themeNameDark": {
+    "message": "giza"
+  },
+  "themeNameSystem": {
+    "message": "mfumo"
+  },
+  "openOptionsLabel": {
+    "message": "Fungua chaguo"
+  },
+  "heroActiveLabel": {
+    "message": "Inatumika kwenye kichupo hiki"
+  },
+  "heroDefaultName": {
+    "message": "Chaguo-msingi"
+  },
+  "heroNoSessionMeta": {
+    "message": "Hakuna kipindi kilichowekwa"
+  },
+  "searchPlaceholder": {
+    "message": "Tafuta wasifu…"
+  },
+  "searchAriaLabel": {
+    "message": "Tafuta wasifu"
+  },
+  "createPlaceholder": {
+    "message": "Ipe jina wasifu mpya…"
+  },
+  "createButton": {
+    "message": "Unda"
+  },
+  "listHeadProfiles": {
+    "message": "Wasifu"
+  },
+  "resetToDefault": {
+    "message": "Rejesha kwa chaguo-msingi"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Badilisha kwenda chaguo-msingi?"
+  },
+  "cancelButton": {
+    "message": "Ghairi"
+  },
+  "resetButton": {
+    "message": "Weka upya"
+  },
+  "cannotIsolatePage": {
+    "message": "Ukurasa huu hauwezi kutengwa."
+  },
+  "generatedSessionName": {
+    "message": "Kipindi $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (nakala)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Bado hakuna wasifu"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Unda mmoja hapo juu kuanza kutenga akaunti."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Hakuna vinavyolingana"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Jaribu utafutaji tofauti."
+  },
+  "duplicateProfileTitle": {
+    "message": "Nakili wasifu"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Nakili wasifu $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Badilisha jina"
+  },
+  "renameAriaLabel": {
+    "message": "Badilisha jina la wasifu $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Futa"
+  },
+  "deleteAriaLabel": {
+    "message": "Futa wasifu $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Ghairi ufutaji"
+  },
+  "confirmDeleteTitle": {
+    "message": "Thibitisha ufutaji"
+  },
+  "activeStatusPill": {
+    "message": "inatumika"
+  },
+  "heroLiveLabel": {
+    "message": "moja kwa moja"
+  },
+  "openInNewTab": {
+    "message": "Fungua kwenye kichupo kipya"
+  },
+  "changeColorTitle": {
+    "message": "Badilisha rangi"
+  },
+  "changeColorAriaLabel": {
+    "message": "Badilisha rangi ya kipindi"
+  },
+  "pickColorAriaLabel": {
+    "message": "Chagua rangi ya kipindi"
+  },
+  "sessionColorLabel": {
+    "message": "Rangi ya kipindi"
+  },
+  "hueSwatchTitle": {
+    "message": "Rangi $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Rangi maalum"
+  },
+  "customHueAriaLabel": {
+    "message": "Rangi maalum"
+  },
+  "customLabel": {
+    "message": "Maalum"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Thamani ya rangi maalum"
+  },
+  "optionsSubtitle": {
+    "message": "Utengaji wa vipindi kwa kila kichupo kwa Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Toleo la kiendelezi"
+  },
+  "tabSettings": {
+    "message": "Mipangilio"
+  },
+  "tabAbout": {
+    "message": "Kuhusu"
+  },
+  "appearanceSectionTitle": {
+    "message": "Muonekano"
+  },
+  "themeSettingLabel": {
+    "message": "Mandhari"
+  },
+  "themeSettingDesc": {
+    "message": "Batilisha mapendeleo ya mfumo wa rangi wa OS"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Mandhari"
+  },
+  "autoInheritLabel": {
+    "message": "Fungua kiotomatiki vichupo vilivyounganishwa kwenye wasifu uleule"
+  },
+  "autoInheritDesc": {
+    "message": "Ikiwashwa, vichupo vinavyofunguliwa kutoka kiungo (viungo vya kichupo kipya, Ctrl-bofya, bofya-katikati) kwenye wasifu uliotengwa vitabaki katika wasifu huo badala ya kutumia vidakuzi chaguo-msingi vya Chrome."
+  },
+  "aboutTagline": {
+    "message": "Kiendelezi cha Chrome cha bure na chanzo-huria cha kutenga vipindi kwa kila kichupo. Baki umeingia kwenye akaunti nyingi kwenye tovuti moja, kwa wakati mmoja."
+  },
+  "supportSectionTitle": {
+    "message": "Saidia mradi huu"
+  },
+  "supportDesc": {
+    "message": "SessionShift ni bure na chanzo-huria. Ikikusaidia kuokoa muda, fikiria kutoa kidogo — hii huweka mradi hai na bila matangazo."
+  },
+  "supportCta": {
+    "message": "Saidia kwenye Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Viungo"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Duka la Wavuti la Chrome"
+  },
+  "contextMenuParentTitle": {
+    "message": "Fungua kwenye Kipindi"
+  },
+  "languageSettingLabel": {
+    "message": "Lugha"
+  },
+  "languageSettingDesc": {
+    "message": "Inatumika kwa kidirisha hiki, Chaguo, na menyu za muktadha. Njia za mkato za kibodi za Chrome, jina la kiendelezi, na maelezo daima hufuata lugha ya kivinjari chako."
+  },
+  "languageOptionSystem": {
+    "message": "Mfumo (linganisha na kivinjari)"
+  }
+}

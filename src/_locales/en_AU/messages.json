@@ -1,0 +1,236 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Switch between multiple accounts on any site — each tab gets its own isolated session."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Open SessionShift popup"
+  },
+  "commandSessionNextDescription": {
+    "message": "Switch to next session for this tab"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Switch to previous session for this tab"
+  },
+  "popupBrandSub": {
+    "message": "Multi-account manager"
+  },
+  "themeToggleLabel": {
+    "message": "Theme: $theme$ (click to change)",
+    "placeholders": {
+      "theme": { "content": "$1", "example": "system" }
+    }
+  },
+  "themeNameLight": {
+    "message": "light"
+  },
+  "themeNameDark": {
+    "message": "dark"
+  },
+  "themeNameSystem": {
+    "message": "system"
+  },
+  "openOptionsLabel": {
+    "message": "Open options"
+  },
+  "heroActiveLabel": {
+    "message": "Active on this tab"
+  },
+  "heroDefaultName": {
+    "message": "Default"
+  },
+  "heroNoSessionMeta": {
+    "message": "No session scoped"
+  },
+  "searchPlaceholder": {
+    "message": "Search profiles…"
+  },
+  "searchAriaLabel": {
+    "message": "Search profiles"
+  },
+  "createPlaceholder": {
+    "message": "Name a new profile…"
+  },
+  "createButton": {
+    "message": "Create"
+  },
+  "listHeadProfiles": {
+    "message": "Profiles"
+  },
+  "resetToDefault": {
+    "message": "Reset to default"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Switch to default?"
+  },
+  "cancelButton": {
+    "message": "Cancel"
+  },
+  "resetButton": {
+    "message": "Reset"
+  },
+  "cannotIsolatePage": {
+    "message": "Cannot isolate this page."
+  },
+  "generatedSessionName": {
+    "message": "Session $index$",
+    "placeholders": {
+      "index": { "content": "$1", "example": "3" }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (copy)",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "No profiles yet"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Create one above to start isolating accounts."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "No matches"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Try a different search."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplicate profile"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplicate profile $name$",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "renameTitle": {
+    "message": "Rename"
+  },
+  "renameAriaLabel": {
+    "message": "Rename profile $name$",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "deleteTitle": {
+    "message": "Delete"
+  },
+  "deleteAriaLabel": {
+    "message": "Delete profile $name$",
+    "placeholders": {
+      "name": { "content": "$1", "example": "Work" }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Cancel delete"
+  },
+  "confirmDeleteTitle": {
+    "message": "Confirm delete"
+  },
+  "activeStatusPill": {
+    "message": "active"
+  },
+  "heroLiveLabel": {
+    "message": "live"
+  },
+  "openInNewTab": {
+    "message": "Open in new tab"
+  },
+  "changeColorTitle": {
+    "message": "Change colour"
+  },
+  "changeColorAriaLabel": {
+    "message": "Change session colour"
+  },
+  "pickColorAriaLabel": {
+    "message": "Pick session colour"
+  },
+  "sessionColorLabel": {
+    "message": "Session colour"
+  },
+  "hueSwatchTitle": {
+    "message": "Hue $hue$",
+    "placeholders": {
+      "hue": { "content": "$1", "example": "212" }
+    }
+  },
+  "customHueTitle": {
+    "message": "Custom hue"
+  },
+  "customHueAriaLabel": {
+    "message": "Custom hue"
+  },
+  "customLabel": {
+    "message": "Custom"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Custom hue value"
+  },
+  "optionsSubtitle": {
+    "message": "Per-tab session isolation for Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Extension version"
+  },
+  "tabSettings": {
+    "message": "Settings"
+  },
+  "tabAbout": {
+    "message": "About"
+  },
+  "appearanceSectionTitle": {
+    "message": "Appearance"
+  },
+  "themeSettingLabel": {
+    "message": "Theme"
+  },
+  "themeSettingDesc": {
+    "message": "Override the OS colour scheme preference"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Theme"
+  },
+  "autoInheritLabel": {
+    "message": "Auto-open linked tabs in the same profile"
+  },
+  "autoInheritDesc": {
+    "message": "When enabled, tabs opened from a link (new-tab links, Ctrl-click, middle-click) on an isolated profile stay in that profile instead of using Chrome's default cookies."
+  },
+  "aboutTagline": {
+    "message": "A free, open-source Chrome extension for per-tab session isolation. Stay logged into multiple accounts on the same site, simultaneously."
+  },
+  "supportSectionTitle": {
+    "message": "Support the project"
+  },
+  "supportDesc": {
+    "message": "SessionShift is free and open-source. If it saves you time, consider a small tip — it keeps the project alive and ad-free."
+  },
+  "supportCta": {
+    "message": "Support on Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Links"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Open in Session"
+  },
+  "languageSettingLabel": {
+    "message": "Language"
+  },
+  "languageSettingDesc": {
+    "message": "Applies to this popup, Options, and context menus. Chrome's own keyboard shortcuts, extension name, and description always follow your browser's language."
+  },
+  "languageOptionSystem": {
+    "message": "System (match browser)"
+  }
+}

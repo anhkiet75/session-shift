@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Canvia entre diversos comptes a qualsevol lloc — cada pestanya té la seva pròpia sessió aïllada."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Obre el menú emergent de SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Canvia a la sessió següent d'aquesta pestanya"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Canvia a la sessió anterior d'aquesta pestanya"
+  },
+  "popupBrandSub": {
+    "message": "Gestor multicompte"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (feu clic per canviar)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "clar"
+  },
+  "themeNameDark": {
+    "message": "fosc"
+  },
+  "themeNameSystem": {
+    "message": "sistema"
+  },
+  "openOptionsLabel": {
+    "message": "Obre les opcions"
+  },
+  "heroActiveLabel": {
+    "message": "Actiu en aquesta pestanya"
+  },
+  "heroDefaultName": {
+    "message": "Predeterminat"
+  },
+  "heroNoSessionMeta": {
+    "message": "Cap sessió assignada"
+  },
+  "searchPlaceholder": {
+    "message": "Cerca perfils…"
+  },
+  "searchAriaLabel": {
+    "message": "Cerca perfils"
+  },
+  "createPlaceholder": {
+    "message": "Nom del perfil nou…"
+  },
+  "createButton": {
+    "message": "Crea"
+  },
+  "listHeadProfiles": {
+    "message": "Perfils"
+  },
+  "resetToDefault": {
+    "message": "Restableix al predeterminat"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Voleu canviar al predeterminat?"
+  },
+  "cancelButton": {
+    "message": "Cancel·la"
+  },
+  "resetButton": {
+    "message": "Restableix"
+  },
+  "cannotIsolatePage": {
+    "message": "No es pot aïllar aquesta pàgina."
+  },
+  "generatedSessionName": {
+    "message": "Sessió $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (còpia)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Encara no hi ha perfils"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Creeu-ne un a dalt per començar a aïllar comptes."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Cap coincidència"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Proveu una altra cerca."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplica el perfil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplica el perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Canvia el nom"
+  },
+  "renameAriaLabel": {
+    "message": "Canvia el nom del perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Suprimeix"
+  },
+  "deleteAriaLabel": {
+    "message": "Suprimeix el perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Cancel·la la supressió"
+  },
+  "confirmDeleteTitle": {
+    "message": "Confirma la supressió"
+  },
+  "activeStatusPill": {
+    "message": "actiu"
+  },
+  "heroLiveLabel": {
+    "message": "en directe"
+  },
+  "openInNewTab": {
+    "message": "Obre en una pestanya nova"
+  },
+  "changeColorTitle": {
+    "message": "Canvia el color"
+  },
+  "changeColorAriaLabel": {
+    "message": "Canvia el color de la sessió"
+  },
+  "pickColorAriaLabel": {
+    "message": "Tria el color de la sessió"
+  },
+  "sessionColorLabel": {
+    "message": "Color de la sessió"
+  },
+  "hueSwatchTitle": {
+    "message": "To $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "To personalitzat"
+  },
+  "customHueAriaLabel": {
+    "message": "To personalitzat"
+  },
+  "customLabel": {
+    "message": "Personalitzat"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Valor del to personalitzat"
+  },
+  "optionsSubtitle": {
+    "message": "Aïllament de sessió per pestanya per a Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Versió de l'extensió"
+  },
+  "tabSettings": {
+    "message": "Configuració"
+  },
+  "tabAbout": {
+    "message": "Quant a"
+  },
+  "appearanceSectionTitle": {
+    "message": "Aparença"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Substitueix la preferència de l'esquema de colors del sistema"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Obre automàticament les pestanyes enllaçades al mateix perfil"
+  },
+  "autoInheritDesc": {
+    "message": "Si està activat, les pestanyes obertes des d'un enllaç (enllaços de pestanya nova, Ctrl+clic, clic central) en un perfil aïllat es mantenen en aquest perfil en lloc d'utilitzar les galetes predeterminades de Chrome."
+  },
+  "aboutTagline": {
+    "message": "Una extensió de Chrome gratuïta i de codi obert per a l'aïllament de sessió per pestanya. Mantingueu la sessió iniciada en diversos comptes al mateix lloc, simultàniament."
+  },
+  "supportSectionTitle": {
+    "message": "Dona suport al projecte"
+  },
+  "supportDesc": {
+    "message": "SessionShift és gratuïta i de codi obert. Si us estalvia temps, considereu fer una petita donació — manté el projecte viu i sense anuncis."
+  },
+  "supportCta": {
+    "message": "Dona suport a Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Enllaços"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Obre a la sessió"
+  },
+  "languageSettingLabel": {
+    "message": "Idioma"
+  },
+  "languageSettingDesc": {
+    "message": "S'aplica a aquest menú emergent, a les opcions i als menús contextuals. Les dreceres de teclat, el nom i la descripció de l'extensió sempre segueixen l'idioma del vostre navegador."
+  },
+  "languageOptionSystem": {
+    "message": "Sistema (segons el navegador)"
+  }
+}

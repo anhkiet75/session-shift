@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "สลับระหว่างหลายบัญชีบนเว็บไซต์ใดก็ได้ — แต่ละแท็บมีเซสชันแยกของตัวเอง"
+  },
+  "commandExecuteActionDescription": {
+    "message": "เปิดป๊อปอัป SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "สลับไปยังเซสชันถัดไปสำหรับแท็บนี้"
+  },
+  "commandSessionPrevDescription": {
+    "message": "สลับไปยังเซสชันก่อนหน้าสำหรับแท็บนี้"
+  },
+  "popupBrandSub": {
+    "message": "ตัวจัดการหลายบัญชี"
+  },
+  "themeToggleLabel": {
+    "message": "ธีม: $theme$ (คลิกเพื่อเปลี่ยน)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "สว่าง"
+  },
+  "themeNameDark": {
+    "message": "มืด"
+  },
+  "themeNameSystem": {
+    "message": "ระบบ"
+  },
+  "openOptionsLabel": {
+    "message": "เปิดตัวเลือก"
+  },
+  "heroActiveLabel": {
+    "message": "ใช้งานอยู่บนแท็บนี้"
+  },
+  "heroDefaultName": {
+    "message": "ค่าเริ่มต้น"
+  },
+  "heroNoSessionMeta": {
+    "message": "ไม่ได้กำหนดเซสชัน"
+  },
+  "searchPlaceholder": {
+    "message": "ค้นหาโปรไฟล์…"
+  },
+  "searchAriaLabel": {
+    "message": "ค้นหาโปรไฟล์"
+  },
+  "createPlaceholder": {
+    "message": "ตั้งชื่อโปรไฟล์ใหม่…"
+  },
+  "createButton": {
+    "message": "สร้าง"
+  },
+  "listHeadProfiles": {
+    "message": "โปรไฟล์"
+  },
+  "resetToDefault": {
+    "message": "รีเซ็ตเป็นค่าเริ่มต้น"
+  },
+  "switchToDefaultConfirm": {
+    "message": "สลับไปยังค่าเริ่มต้นหรือไม่?"
+  },
+  "cancelButton": {
+    "message": "ยกเลิก"
+  },
+  "resetButton": {
+    "message": "รีเซ็ต"
+  },
+  "cannotIsolatePage": {
+    "message": "ไม่สามารถแยกหน้านี้ได้"
+  },
+  "generatedSessionName": {
+    "message": "เซสชัน $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (สำเนา)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "ยังไม่มีโปรไฟล์"
+  },
+  "emptyNoProfilesSub": {
+    "message": "สร้างโปรไฟล์ด้านบนเพื่อเริ่มแยกบัญชี"
+  },
+  "emptyNoMatchesTitle": {
+    "message": "ไม่พบรายการที่ตรงกัน"
+  },
+  "emptyNoMatchesSub": {
+    "message": "ลองค้นหาด้วยคำอื่น"
+  },
+  "duplicateProfileTitle": {
+    "message": "ทำสำเนาโปรไฟล์"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "ทำสำเนาโปรไฟล์ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "เปลี่ยนชื่อ"
+  },
+  "renameAriaLabel": {
+    "message": "เปลี่ยนชื่อโปรไฟล์ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "ลบ"
+  },
+  "deleteAriaLabel": {
+    "message": "ลบโปรไฟล์ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "ยกเลิกการลบ"
+  },
+  "confirmDeleteTitle": {
+    "message": "ยืนยันการลบ"
+  },
+  "activeStatusPill": {
+    "message": "ใช้งานอยู่"
+  },
+  "heroLiveLabel": {
+    "message": "สด"
+  },
+  "openInNewTab": {
+    "message": "เปิดในแท็บใหม่"
+  },
+  "changeColorTitle": {
+    "message": "เปลี่ยนสี"
+  },
+  "changeColorAriaLabel": {
+    "message": "เปลี่ยนสีเซสชัน"
+  },
+  "pickColorAriaLabel": {
+    "message": "เลือกสีเซสชัน"
+  },
+  "sessionColorLabel": {
+    "message": "สีเซสชัน"
+  },
+  "hueSwatchTitle": {
+    "message": "เฉดสี $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "เฉดสีกำหนดเอง"
+  },
+  "customHueAriaLabel": {
+    "message": "เฉดสีกำหนดเอง"
+  },
+  "customLabel": {
+    "message": "กำหนดเอง"
+  },
+  "customHueValueAriaLabel": {
+    "message": "ค่าเฉดสีกำหนดเอง"
+  },
+  "optionsSubtitle": {
+    "message": "การแยกเซสชันต่อแท็บสำหรับ Chrome"
+  },
+  "extensionVersionAriaLabel": {
+    "message": "เวอร์ชันส่วนขยาย"
+  },
+  "tabSettings": {
+    "message": "การตั้งค่า"
+  },
+  "tabAbout": {
+    "message": "เกี่ยวกับ"
+  },
+  "appearanceSectionTitle": {
+    "message": "ลักษณะที่ปรากฏ"
+  },
+  "themeSettingLabel": {
+    "message": "ธีม"
+  },
+  "themeSettingDesc": {
+    "message": "แทนที่การตั้งค่าธีมสีของระบบปฏิบัติการ"
+  },
+  "themeGroupAriaLabel": {
+    "message": "ธีม"
+  },
+  "autoInheritLabel": {
+    "message": "เปิดแท็บที่เชื่อมโยงในโปรไฟล์เดียวกันโดยอัตโนมัติ"
+  },
+  "autoInheritDesc": {
+    "message": "เมื่อเปิดใช้งาน แท็บที่เปิดจากลิงก์ (ลิงก์แท็บใหม่ Ctrl-คลิก คลิกกลาง) บนโปรไฟล์ที่แยกไว้จะอยู่ในโปรไฟล์นั้นแทนการใช้คุกกี้เริ่มต้นของ Chrome"
+  },
+  "aboutTagline": {
+    "message": "ส่วนขยาย Chrome แบบโอเพนซอร์สฟรีสำหรับแยกเซสชันต่อแท็บ ล็อกอินหลายบัญชีบนเว็บไซต์เดียวกันพร้อมกันได้"
+  },
+  "supportSectionTitle": {
+    "message": "สนับสนุนโครงการ"
+  },
+  "supportDesc": {
+    "message": "SessionShift เป็นซอฟต์แวร์ฟรีและโอเพนซอร์ส หากช่วยประหยัดเวลาของคุณ ลองพิจารณามอบทิปเล็กน้อย — ช่วยให้โครงการดำเนินต่อไปได้และไม่มีโฆษณา"
+  },
+  "supportCta": {
+    "message": "สนับสนุนผ่าน Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "ลิงก์"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "เปิดในเซสชัน"
+  },
+  "languageSettingLabel": {
+    "message": "ภาษา"
+  },
+  "languageSettingDesc": {
+    "message": "มีผลกับป๊อปอัปนี้ ตัวเลือก และเมนูบริบท คีย์ลัดของ Chrome ชื่อส่วนขยาย และคำอธิบายจะเป็นไปตามภาษาของเบราว์เซอร์เสมอ"
+  },
+  "languageOptionSystem": {
+    "message": "ระบบ (ตามเบราว์เซอร์)"
+  }
+}

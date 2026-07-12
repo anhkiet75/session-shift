@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Пребацујте се између више налога на било ком сајту — свака картица добија своју изоловану сесију."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Отвори SessionShift искачући прозор"
+  },
+  "commandSessionNextDescription": {
+    "message": "Пребаци на следећу сесију за ову картицу"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Пребаци на претходну сесију за ову картицу"
+  },
+  "popupBrandSub": {
+    "message": "Менаџер више налога"
+  },
+  "themeToggleLabel": {
+    "message": "Тема: $theme$ (кликните за промену)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "светла"
+  },
+  "themeNameDark": {
+    "message": "тамна"
+  },
+  "themeNameSystem": {
+    "message": "системска"
+  },
+  "openOptionsLabel": {
+    "message": "Отвори опције"
+  },
+  "heroActiveLabel": {
+    "message": "Активно на овој картици"
+  },
+  "heroDefaultName": {
+    "message": "Подразумевано"
+  },
+  "heroNoSessionMeta": {
+    "message": "Није додељена сесија"
+  },
+  "searchPlaceholder": {
+    "message": "Претражи профиле…"
+  },
+  "searchAriaLabel": {
+    "message": "Претражи профиле"
+  },
+  "createPlaceholder": {
+    "message": "Именуј нови профил…"
+  },
+  "createButton": {
+    "message": "Направи"
+  },
+  "listHeadProfiles": {
+    "message": "Профили"
+  },
+  "resetToDefault": {
+    "message": "Врати на подразумевано"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Пребацити на подразумевано?"
+  },
+  "cancelButton": {
+    "message": "Откажи"
+  },
+  "resetButton": {
+    "message": "Ресетуј"
+  },
+  "cannotIsolatePage": {
+    "message": "Ову страницу није могуће изоловати."
+  },
+  "generatedSessionName": {
+    "message": "Сесија $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (копија)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Још нема профила"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Направите један изнад да бисте изоловали налоге."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Нема подударања"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Покушајте другу претрагу."
+  },
+  "duplicateProfileTitle": {
+    "message": "Дуплирај профил"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Дуплирај профил $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Преименуј"
+  },
+  "renameAriaLabel": {
+    "message": "Преименуј профил $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Обриши"
+  },
+  "deleteAriaLabel": {
+    "message": "Обриши профил $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Откажи брисање"
+  },
+  "confirmDeleteTitle": {
+    "message": "Потврди брисање"
+  },
+  "activeStatusPill": {
+    "message": "активно"
+  },
+  "heroLiveLabel": {
+    "message": "уживо"
+  },
+  "openInNewTab": {
+    "message": "Отвори у новој картици"
+  },
+  "changeColorTitle": {
+    "message": "Промени боју"
+  },
+  "changeColorAriaLabel": {
+    "message": "Промени боју сесије"
+  },
+  "pickColorAriaLabel": {
+    "message": "Изабери боју сесије"
+  },
+  "sessionColorLabel": {
+    "message": "Боја сесије"
+  },
+  "hueSwatchTitle": {
+    "message": "Нијанса $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Прилагођена нијанса"
+  },
+  "customHueAriaLabel": {
+    "message": "Прилагођена нијанса"
+  },
+  "customLabel": {
+    "message": "Прилагођено"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Вредност прилагођене нијансе"
+  },
+  "optionsSubtitle": {
+    "message": "Изолација сесије по картици за Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Верзија екстензије"
+  },
+  "tabSettings": {
+    "message": "Подешавања"
+  },
+  "tabAbout": {
+    "message": "О апликацији"
+  },
+  "appearanceSectionTitle": {
+    "message": "Изглед"
+  },
+  "themeSettingLabel": {
+    "message": "Тема"
+  },
+  "themeSettingDesc": {
+    "message": "Замењује подешавање шеме боја оперативног система"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Тема"
+  },
+  "autoInheritLabel": {
+    "message": "Аутоматски отварај повезане картице у истом профилу"
+  },
+  "autoInheritDesc": {
+    "message": "Када је омогућено, картице отворене преко везе (везе нове картице, Ctrl-клик, средњи клик) на изолованом профилу остају у том профилу уместо да користе подразумеване Chrome колачиће."
+  },
+  "aboutTagline": {
+    "message": "Бесплатна екстензија отвореног кода за Chrome за изолацију сесије по картици. Останите пријављени на више налога на истом сајту истовремено."
+  },
+  "supportSectionTitle": {
+    "message": "Подржите пројекат"
+  },
+  "supportDesc": {
+    "message": "SessionShift је бесплатан и отвореног кода. Ако вам штеди време, размислите о малом бакшишу — то одржава пројекат живим и без реклама."
+  },
+  "supportCta": {
+    "message": "Подржите на Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Везе"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Отвори у сесији"
+  },
+  "languageSettingLabel": {
+    "message": "Језик"
+  },
+  "languageSettingDesc": {
+    "message": "Односи се на овај искачући прозор, опције и контекстне меније. Сопствене пречице на тастатури, назив екстензије и опис у Chrome-у увек прате језик вашег прегледача."
+  },
+  "languageOptionSystem": {
+    "message": "Системски (према прегледачу)"
+  }
+}

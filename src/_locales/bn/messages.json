@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "যেকোনো সাইটে একাধিক অ্যাকাউন্টের মধ্যে সুইচ করুন — প্রতিটি ট্যাবের নিজস্ব বিচ্ছিন্ন সেশন থাকে।"
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift পপআপ খুলুন"
+  },
+  "commandSessionNextDescription": {
+    "message": "এই ট্যাবের জন্য পরবর্তী সেশনে যান"
+  },
+  "commandSessionPrevDescription": {
+    "message": "এই ট্যাবের জন্য পূর্ববর্তী সেশনে যান"
+  },
+  "popupBrandSub": {
+    "message": "মাল্টি-অ্যাকাউন্ট ম্যানেজার"
+  },
+  "themeToggleLabel": {
+    "message": "থিম: $theme$ (পরিবর্তন করতে ক্লিক করুন)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "হালকা"
+  },
+  "themeNameDark": {
+    "message": "গাঢ়"
+  },
+  "themeNameSystem": {
+    "message": "সিস্টেম"
+  },
+  "openOptionsLabel": {
+    "message": "অপশন খুলুন"
+  },
+  "heroActiveLabel": {
+    "message": "এই ট্যাবে সক্রিয়"
+  },
+  "heroDefaultName": {
+    "message": "ডিফল্ট"
+  },
+  "heroNoSessionMeta": {
+    "message": "কোনো সেশন নির্ধারিত নেই"
+  },
+  "searchPlaceholder": {
+    "message": "প্রোফাইল খুঁজুন…"
+  },
+  "searchAriaLabel": {
+    "message": "প্রোফাইল খুঁজুন"
+  },
+  "createPlaceholder": {
+    "message": "নতুন প্রোফাইলের নাম দিন…"
+  },
+  "createButton": {
+    "message": "তৈরি করুন"
+  },
+  "listHeadProfiles": {
+    "message": "প্রোফাইল"
+  },
+  "resetToDefault": {
+    "message": "ডিফল্টে রিসেট করুন"
+  },
+  "switchToDefaultConfirm": {
+    "message": "ডিফল্টে সুইচ করবেন?"
+  },
+  "cancelButton": {
+    "message": "বাতিল"
+  },
+  "resetButton": {
+    "message": "রিসেট"
+  },
+  "cannotIsolatePage": {
+    "message": "এই পৃষ্ঠাটি বিচ্ছিন্ন করা যাবে না।"
+  },
+  "generatedSessionName": {
+    "message": "সেশন $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (কপি)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "এখনো কোনো প্রোফাইল নেই"
+  },
+  "emptyNoProfilesSub": {
+    "message": "অ্যাকাউন্ট বিচ্ছিন্ন করা শুরু করতে উপরে একটি তৈরি করুন।"
+  },
+  "emptyNoMatchesTitle": {
+    "message": "কোনো ফলাফল নেই"
+  },
+  "emptyNoMatchesSub": {
+    "message": "ভিন্ন কিছু খুঁজে দেখুন।"
+  },
+  "duplicateProfileTitle": {
+    "message": "প্রোফাইল কপি করুন"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ প্রোফাইল কপি করুন",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "নাম পরিবর্তন"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ প্রোফাইলের নাম পরিবর্তন করুন",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "মুছুন"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ প্রোফাইল মুছুন",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "মোছা বাতিল করুন"
+  },
+  "confirmDeleteTitle": {
+    "message": "মোছা নিশ্চিত করুন"
+  },
+  "activeStatusPill": {
+    "message": "সক্রিয়"
+  },
+  "heroLiveLabel": {
+    "message": "লাইভ"
+  },
+  "openInNewTab": {
+    "message": "নতুন ট্যাবে খুলুন"
+  },
+  "changeColorTitle": {
+    "message": "রঙ পরিবর্তন করুন"
+  },
+  "changeColorAriaLabel": {
+    "message": "সেশনের রঙ পরিবর্তন করুন"
+  },
+  "pickColorAriaLabel": {
+    "message": "সেশনের রঙ বেছে নিন"
+  },
+  "sessionColorLabel": {
+    "message": "সেশনের রঙ"
+  },
+  "hueSwatchTitle": {
+    "message": "হিউ $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "কাস্টম হিউ"
+  },
+  "customHueAriaLabel": {
+    "message": "কাস্টম হিউ"
+  },
+  "customLabel": {
+    "message": "কাস্টম"
+  },
+  "customHueValueAriaLabel": {
+    "message": "কাস্টম হিউ মান"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome-এর জন্য প্রতি-ট্যাব সেশন বিচ্ছিন্নকরণ।"
+  },
+  "extensionVersionAriaLabel": {
+    "message": "এক্সটেনশন সংস্করণ"
+  },
+  "tabSettings": {
+    "message": "সেটিংস"
+  },
+  "tabAbout": {
+    "message": "সম্পর্কে"
+  },
+  "appearanceSectionTitle": {
+    "message": "চেহারা"
+  },
+  "themeSettingLabel": {
+    "message": "থিম"
+  },
+  "themeSettingDesc": {
+    "message": "OS রঙ স্কিম পছন্দ ওভাররাইড করুন"
+  },
+  "themeGroupAriaLabel": {
+    "message": "থিম"
+  },
+  "autoInheritLabel": {
+    "message": "সংযুক্ত ট্যাবগুলো স্বয়ংক্রিয়ভাবে একই প্রোফাইলে খুলুন"
+  },
+  "autoInheritDesc": {
+    "message": "চালু করা থাকলে, বিচ্ছিন্ন প্রোফাইলে লিঙ্ক (নতুন-ট্যাব লিঙ্ক, Ctrl-ক্লিক, মিডল-ক্লিক) থেকে খোলা ট্যাবগুলো Chrome-এর ডিফল্ট কুকির পরিবর্তে সেই প্রোফাইলেই থাকবে।"
+  },
+  "aboutTagline": {
+    "message": "প্রতি-ট্যাব সেশন বিচ্ছিন্নকরণের জন্য একটি বিনামূল্যের, ওপেন-সোর্স Chrome এক্সটেনশন। একই সাইটে একই সাথে একাধিক অ্যাকাউন্টে লগইন থাকুন।"
+  },
+  "supportSectionTitle": {
+    "message": "প্রজেক্টকে সমর্থন করুন"
+  },
+  "supportDesc": {
+    "message": "SessionShift বিনামূল্যে এবং ওপেন-সোর্স। যদি এটি আপনার সময় বাঁচায়, একটি ছোট টিপ বিবেচনা করুন — এটি প্রজেক্টকে সচল ও বিজ্ঞাপনমুক্ত রাখে।"
+  },
+  "supportCta": {
+    "message": "Ko-fi-তে সমর্থন করুন"
+  },
+  "linksSectionTitle": {
+    "message": "লিঙ্ক"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "সেশনে খুলুন"
+  },
+  "languageSettingLabel": {
+    "message": "ভাষা"
+  },
+  "languageSettingDesc": {
+    "message": "এটি এই পপআপ, অপশন এবং কনটেক্সট মেনুতে প্রযোজ্য। Chrome-এর নিজস্ব কীবোর্ড শর্টকাট, এক্সটেনশনের নাম এবং বিবরণ সবসময় আপনার ব্রাউজারের ভাষা অনুসরণ করে।"
+  },
+  "languageOptionSystem": {
+    "message": "সিস্টেম (ব্রাউজারের সাথে মিল)"
+  }
+}

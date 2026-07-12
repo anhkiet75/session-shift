@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Basculez entre plusieurs comptes sur n'importe quel site — chaque onglet dispose de sa propre session isolée."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Ouvrir la fenêtre SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Passer à la session suivante pour cet onglet"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Passer à la session précédente pour cet onglet"
+  },
+  "popupBrandSub": {
+    "message": "Gestionnaire multi-comptes"
+  },
+  "themeToggleLabel": {
+    "message": "Thème : $theme$ (cliquez pour changer)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "clair"
+  },
+  "themeNameDark": {
+    "message": "sombre"
+  },
+  "themeNameSystem": {
+    "message": "système"
+  },
+  "openOptionsLabel": {
+    "message": "Ouvrir les options"
+  },
+  "heroActiveLabel": {
+    "message": "Actif sur cet onglet"
+  },
+  "heroDefaultName": {
+    "message": "Par défaut"
+  },
+  "heroNoSessionMeta": {
+    "message": "Aucune session attribuée"
+  },
+  "searchPlaceholder": {
+    "message": "Rechercher des profils…"
+  },
+  "searchAriaLabel": {
+    "message": "Rechercher des profils"
+  },
+  "createPlaceholder": {
+    "message": "Nommez un nouveau profil…"
+  },
+  "createButton": {
+    "message": "Créer"
+  },
+  "listHeadProfiles": {
+    "message": "Profils"
+  },
+  "resetToDefault": {
+    "message": "Réinitialiser par défaut"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Basculer vers le profil par défaut ?"
+  },
+  "cancelButton": {
+    "message": "Annuler"
+  },
+  "resetButton": {
+    "message": "Réinitialiser"
+  },
+  "cannotIsolatePage": {
+    "message": "Impossible d'isoler cette page."
+  },
+  "generatedSessionName": {
+    "message": "Session $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (copie)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Aucun profil pour l'instant"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Créez-en un ci-dessus pour commencer à isoler des comptes."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Aucun résultat"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Essayez une autre recherche."
+  },
+  "duplicateProfileTitle": {
+    "message": "Dupliquer le profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Dupliquer le profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Renommer"
+  },
+  "renameAriaLabel": {
+    "message": "Renommer le profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Supprimer"
+  },
+  "deleteAriaLabel": {
+    "message": "Supprimer le profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Annuler la suppression"
+  },
+  "confirmDeleteTitle": {
+    "message": "Confirmer la suppression"
+  },
+  "activeStatusPill": {
+    "message": "actif"
+  },
+  "heroLiveLabel": {
+    "message": "en direct"
+  },
+  "openInNewTab": {
+    "message": "Ouvrir dans un nouvel onglet"
+  },
+  "changeColorTitle": {
+    "message": "Changer la couleur"
+  },
+  "changeColorAriaLabel": {
+    "message": "Changer la couleur de la session"
+  },
+  "pickColorAriaLabel": {
+    "message": "Choisir la couleur de la session"
+  },
+  "sessionColorLabel": {
+    "message": "Couleur de la session"
+  },
+  "hueSwatchTitle": {
+    "message": "Teinte $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Teinte personnalisée"
+  },
+  "customHueAriaLabel": {
+    "message": "Teinte personnalisée"
+  },
+  "customLabel": {
+    "message": "Personnalisé"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Valeur de la teinte personnalisée"
+  },
+  "optionsSubtitle": {
+    "message": "Isolation de session par onglet pour Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Version de l'extension"
+  },
+  "tabSettings": {
+    "message": "Paramètres"
+  },
+  "tabAbout": {
+    "message": "À propos"
+  },
+  "appearanceSectionTitle": {
+    "message": "Apparence"
+  },
+  "themeSettingLabel": {
+    "message": "Thème"
+  },
+  "themeSettingDesc": {
+    "message": "Remplacer la préférence de thème du système d'exploitation"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Thème"
+  },
+  "autoInheritLabel": {
+    "message": "Ouvrir automatiquement les onglets liés dans le même profil"
+  },
+  "autoInheritDesc": {
+    "message": "Lorsque cette option est activée, les onglets ouverts depuis un lien (liens de nouvel onglet, Ctrl-clic, clic central) sur un profil isolé restent dans ce profil au lieu d'utiliser les cookies par défaut de Chrome."
+  },
+  "aboutTagline": {
+    "message": "Une extension Chrome gratuite et open source pour l'isolation de session par onglet. Restez connecté à plusieurs comptes sur le même site, simultanément."
+  },
+  "supportSectionTitle": {
+    "message": "Soutenir le projet"
+  },
+  "supportDesc": {
+    "message": "SessionShift est gratuit et open source. Si ça vous fait gagner du temps, envisagez un petit don — cela permet au projet de rester actif et sans publicité."
+  },
+  "supportCta": {
+    "message": "Soutenir sur Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Liens"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Ouvrir dans la session"
+  },
+  "languageSettingLabel": {
+    "message": "Langue"
+  },
+  "languageSettingDesc": {
+    "message": "S'applique à cette fenêtre, aux options et aux menus contextuels. Les raccourcis clavier propres à Chrome, le nom et la description de l'extension suivent toujours la langue de votre navigateur."
+  },
+  "languageOptionSystem": {
+    "message": "Système (selon le navigateur)"
+  }
+}

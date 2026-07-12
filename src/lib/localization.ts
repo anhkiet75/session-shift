@@ -6,12 +6,14 @@
 import {
   DEFAULT_LOCALE,
   LOCALE_METADATA,
+  CRITICAL_MESSAGE_KEYS,
   isSupportedLocale,
   type SupportedLocale,
   type RuntimeLocalePreference,
   type TextDirection,
   type ChromeMessageCatalog,
   type ChromeMessageEntry,
+  type TranslationQualityData,
 } from './localization-types.js'
 import { getExtSettings } from './settings-store.js'
 
@@ -84,6 +86,49 @@ export function loadCatalog(locale: SupportedLocale): Promise<ChromeMessageCatal
   return promise
 }
 
+// Quality metadata rarely changes and is small; one packaged fetch per
+// execution context is cached for its lifetime (no pruning needed).
+let qualityPromise: Promise<TranslationQualityData | null> | null = null
+
+function isValidQualityShape(value: unknown): value is TranslationQualityData {
+  if (typeof value !== 'object' || value === null) return false
+  const data = value as Partial<TranslationQualityData>
+  return Array.isArray(data.criticalKeys) && typeof data.locales === 'object' && data.locales !== null
+}
+
+/** Fetches the packaged `_locales/translation-quality.json` review-tier registry. */
+function loadQualityMetadata(): Promise<TranslationQualityData | null> {
+  if (qualityPromise) return qualityPromise
+  qualityPromise = (async () => {
+    try {
+      const response = await fetch(chrome.runtime.getURL('_locales/translation-quality.json'))
+      if (!response.ok) return null
+      const parsed = await response.json()
+      return isValidQualityShape(parsed) ? parsed : null
+    } catch {
+      return null
+    }
+  })()
+  return qualityPromise
+}
+
+/**
+ * A beta (unreviewed) locale must not surface unvetted destructive/security
+ * wording — resolve those exact keys to English until the quality registry
+ * marks the locale `reviewed` or the specific key `criticalKeyEligible`.
+ */
+function resolveCriticalFallback(
+  key: string,
+  preference: SupportedLocale,
+  quality: TranslationQualityData | null,
+): boolean {
+  if (!(CRITICAL_MESSAGE_KEYS as readonly string[]).includes(key)) return false
+  const entry = quality?.locales[preference]
+  if (!entry) return true // unknown locale state — fail safe to English
+  if (entry.tier === 'reviewed' || entry.tier === 'source') return false
+  return !entry.criticalKeyEligible.includes(key as (typeof CRITICAL_MESSAGE_KEYS)[number])
+}
+
 function substitute(message: string, entry: ChromeMessageEntry, substitutions?: readonly string[]): string {
   if (!substitutions || substitutions.length === 0) return message
   const order = Object.keys(entry.placeholders ?? {})
@@ -116,9 +161,10 @@ export async function createLocalizer(preference: RuntimeLocalePreference): Prom
   }
 
   pruneCache([preference, DEFAULT_LOCALE])
-  const [manualCatalog, englishCatalog] = await Promise.all([
+  const [manualCatalog, englishCatalog, quality] = await Promise.all([
     loadCatalog(preference),
     preference === DEFAULT_LOCALE ? Promise.resolve(null) : loadCatalog(DEFAULT_LOCALE),
+    preference === DEFAULT_LOCALE ? Promise.resolve(null) : loadQualityMetadata(),
   ])
   const meta = LOCALE_METADATA[preference]
 
@@ -127,7 +173,11 @@ export async function createLocalizer(preference: RuntimeLocalePreference): Prom
     languageTag: meta.languageTag,
     direction: meta.direction,
     getMessage(key, substitutions) {
-      const entry = manualCatalog?.[key] ?? englishCatalog?.[key]
+      const forceEnglish = preference !== DEFAULT_LOCALE && resolveCriticalFallback(key, preference, quality)
+      // A forced-English critical key must fail closed to English or blank —
+      // it must never fall through to the untrusted manual/beta draft, even
+      // if the English catalog itself failed to load.
+      const entry = forceEnglish ? englishCatalog?.[key] : (manualCatalog?.[key] ?? englishCatalog?.[key])
       if (!entry) return ''
       return substitute(entry.message, entry, substitutions)
     },

@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "ఏ సైట్‌లోనైనా బహుళ ఖాతాల మధ్య మారండి — ప్రతి ట్యాబ్‌కు దాని స్వంత వేరైన సెషన్ ఉంటుంది."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift పాప్అప్‌ను తెరవండి"
+  },
+  "commandSessionNextDescription": {
+    "message": "ఈ ట్యాబ్ కోసం తదుపరి సెషన్‌కు మారండి"
+  },
+  "commandSessionPrevDescription": {
+    "message": "ఈ ట్యాబ్ కోసం మునుపటి సెషన్‌కు మారండి"
+  },
+  "popupBrandSub": {
+    "message": "మల్టీ-అకౌంట్ మేనేజర్"
+  },
+  "themeToggleLabel": {
+    "message": "థీమ్: $theme$ (మార్చడానికి క్లిక్ చేయండి)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "లైట్"
+  },
+  "themeNameDark": {
+    "message": "డార్క్"
+  },
+  "themeNameSystem": {
+    "message": "సిస్టమ్"
+  },
+  "openOptionsLabel": {
+    "message": "ఎంపికలను తెరవండి"
+  },
+  "heroActiveLabel": {
+    "message": "ఈ ట్యాబ్‌లో యాక్టివ్"
+  },
+  "heroDefaultName": {
+    "message": "డిఫాల్ట్"
+  },
+  "heroNoSessionMeta": {
+    "message": "సెషన్ కేటాయించలేదు"
+  },
+  "searchPlaceholder": {
+    "message": "ప్రొఫైల్‌లను వెతకండి…"
+  },
+  "searchAriaLabel": {
+    "message": "ప్రొఫైల్‌లను వెతకండి"
+  },
+  "createPlaceholder": {
+    "message": "కొత్త ప్రొఫైల్‌కు పేరు పెట్టండి…"
+  },
+  "createButton": {
+    "message": "సృష్టించండి"
+  },
+  "listHeadProfiles": {
+    "message": "ప్రొఫైల్‌లు"
+  },
+  "resetToDefault": {
+    "message": "డిఫాల్ట్‌కు రీసెట్ చేయండి"
+  },
+  "switchToDefaultConfirm": {
+    "message": "డిఫాల్ట్‌కు మారాలా?"
+  },
+  "cancelButton": {
+    "message": "రద్దు చేయండి"
+  },
+  "resetButton": {
+    "message": "రీసెట్ చేయండి"
+  },
+  "cannotIsolatePage": {
+    "message": "ఈ పేజీని వేరు చేయడం సాధ్యం కాదు."
+  },
+  "generatedSessionName": {
+    "message": "సెషన్ $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (కాపీ)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "ఇంకా ప్రొఫైల్‌లు లేవు"
+  },
+  "emptyNoProfilesSub": {
+    "message": "ఖాతాలను వేరు చేయడం ప్రారంభించడానికి పైన ఒకటి సృష్టించండి."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "సరిపోలికలు లేవు"
+  },
+  "emptyNoMatchesSub": {
+    "message": "వేరే శోధనను ప్రయత్నించండి."
+  },
+  "duplicateProfileTitle": {
+    "message": "ప్రొఫైల్‌ను నకిలీ చేయండి"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ ప్రొఫైల్‌ను నకిలీ చేయండి",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "పేరు మార్చండి"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ ప్రొఫైల్ పేరు మార్చండి",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "తొలగించండి"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ ప్రొఫైల్‌ను తొలగించండి",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "తొలగింపును రద్దు చేయండి"
+  },
+  "confirmDeleteTitle": {
+    "message": "తొలగింపును నిర్ధారించండి"
+  },
+  "activeStatusPill": {
+    "message": "యాక్టివ్"
+  },
+  "heroLiveLabel": {
+    "message": "లైవ్"
+  },
+  "openInNewTab": {
+    "message": "కొత్త ట్యాబ్‌లో తెరవండి"
+  },
+  "changeColorTitle": {
+    "message": "రంగు మార్చండి"
+  },
+  "changeColorAriaLabel": {
+    "message": "సెషన్ రంగును మార్చండి"
+  },
+  "pickColorAriaLabel": {
+    "message": "సెషన్ రంగును ఎంచుకోండి"
+  },
+  "sessionColorLabel": {
+    "message": "సెషన్ రంగు"
+  },
+  "hueSwatchTitle": {
+    "message": "హ్యూ $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "కస్టమ్ హ్యూ"
+  },
+  "customHueAriaLabel": {
+    "message": "కస్టమ్ హ్యూ"
+  },
+  "customLabel": {
+    "message": "కస్టమ్"
+  },
+  "customHueValueAriaLabel": {
+    "message": "కస్టమ్ హ్యూ విలువ"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome కోసం ప్రతి-ట్యాబ్ సెషన్ ఐసొలేషన్."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "ఎక్స్‌టెన్షన్ వెర్షన్"
+  },
+  "tabSettings": {
+    "message": "సెట్టింగ్‌లు"
+  },
+  "tabAbout": {
+    "message": "గురించి"
+  },
+  "appearanceSectionTitle": {
+    "message": "కనిపించే తీరు"
+  },
+  "themeSettingLabel": {
+    "message": "థీమ్"
+  },
+  "themeSettingDesc": {
+    "message": "OS రంగు పథకం ప్రాధాన్యతను ఓవర్‌రైడ్ చేయండి"
+  },
+  "themeGroupAriaLabel": {
+    "message": "థీమ్"
+  },
+  "autoInheritLabel": {
+    "message": "లింక్ చేసిన ట్యాబ్‌లను స్వయంచాలకంగా అదే ప్రొఫైల్‌లో తెరవండి"
+  },
+  "autoInheritDesc": {
+    "message": "ప్రారంభించినప్పుడు, వేరు చేయబడిన ప్రొఫైల్‌పై లింక్ (కొత్త-ట్యాబ్ లింక్‌లు, Ctrl-క్లిక్, మిడిల్-క్లిక్) ద్వారా తెరిచిన ట్యాబ్‌లు Chrome డిఫాల్ట్ కుకీలకు బదులుగా అదే ప్రొఫైల్‌లో ఉంటాయి."
+  },
+  "aboutTagline": {
+    "message": "ప్రతి-ట్యాబ్ సెషన్ ఐసొలేషన్ కోసం ఉచిత, ఓపెన్-సోర్స్ Chrome ఎక్స్‌టెన్షన్. అదే సైట్‌లో ఏకకాలంలో బహుళ ఖాతాలలో లాగిన్ అయి ఉండండి."
+  },
+  "supportSectionTitle": {
+    "message": "ప్రాజెక్ట్‌కు మద్దతు ఇవ్వండి"
+  },
+  "supportDesc": {
+    "message": "SessionShift ఉచితం మరియు ఓపెన్-సోర్స్. ఇది మీ సమయాన్ని ఆదా చేస్తే, ఒక చిన్న టిప్ ఇవ్వడాన్ని పరిగణించండి — ఇది ప్రాజెక్ట్‌ను సజీవంగా మరియు ప్రకటనలు లేకుండా ఉంచుతుంది."
+  },
+  "supportCta": {
+    "message": "Ko-fi లో మద్దతు ఇవ్వండి"
+  },
+  "linksSectionTitle": {
+    "message": "లింక్‌లు"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "సెషన్‌లో తెరవండి"
+  },
+  "languageSettingLabel": {
+    "message": "భాష"
+  },
+  "languageSettingDesc": {
+    "message": "ఇది ఈ పాప్అప్, ఎంపికలు మరియు కాంటెక్స్ట్ మెనూలకు వర్తిస్తుంది. Chrome యొక్క స్వంత కీబోర్డ్ షార్ట్‌కట్‌లు, ఎక్స్‌టెన్షన్ పేరు మరియు వివరణ ఎల్లప్పుడూ మీ బ్రౌజర్ భాషను అనుసరిస్తాయి."
+  },
+  "languageOptionSystem": {
+    "message": "సిస్టమ్ (బ్రౌజర్‌తో సరిపోలిక)"
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Skift mellem flere konti på ethvert websted — hver fane får sin egen isolerede session."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Åbn SessionShift-popup"
+  },
+  "commandSessionNextDescription": {
+    "message": "Skift til næste session for denne fane"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Skift til forrige session for denne fane"
+  },
+  "popupBrandSub": {
+    "message": "Multikonto-manager"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (klik for at ændre)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "lys"
+  },
+  "themeNameDark": {
+    "message": "mørk"
+  },
+  "themeNameSystem": {
+    "message": "system"
+  },
+  "openOptionsLabel": {
+    "message": "Åbn indstillinger"
+  },
+  "heroActiveLabel": {
+    "message": "Aktiv på denne fane"
+  },
+  "heroDefaultName": {
+    "message": "Standard"
+  },
+  "heroNoSessionMeta": {
+    "message": "Ingen session tildelt"
+  },
+  "searchPlaceholder": {
+    "message": "Søg efter profiler…"
+  },
+  "searchAriaLabel": {
+    "message": "Søg efter profiler"
+  },
+  "createPlaceholder": {
+    "message": "Navngiv en ny profil…"
+  },
+  "createButton": {
+    "message": "Opret"
+  },
+  "listHeadProfiles": {
+    "message": "Profiler"
+  },
+  "resetToDefault": {
+    "message": "Nulstil til standard"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Skift til standard?"
+  },
+  "cancelButton": {
+    "message": "Annuller"
+  },
+  "resetButton": {
+    "message": "Nulstil"
+  },
+  "cannotIsolatePage": {
+    "message": "Denne side kan ikke isoleres."
+  },
+  "generatedSessionName": {
+    "message": "Session $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopi)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Ingen profiler endnu"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Opret en ovenfor for at begynde at isolere konti."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Ingen match"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Prøv en anden søgning."
+  },
+  "duplicateProfileTitle": {
+    "message": "Dupliker profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Dupliker profilen $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Omdøb"
+  },
+  "renameAriaLabel": {
+    "message": "Omdøb profilen $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Slet"
+  },
+  "deleteAriaLabel": {
+    "message": "Slet profilen $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Annuller sletning"
+  },
+  "confirmDeleteTitle": {
+    "message": "Bekræft sletning"
+  },
+  "activeStatusPill": {
+    "message": "aktiv"
+  },
+  "heroLiveLabel": {
+    "message": "live"
+  },
+  "openInNewTab": {
+    "message": "Åbn i ny fane"
+  },
+  "changeColorTitle": {
+    "message": "Skift farve"
+  },
+  "changeColorAriaLabel": {
+    "message": "Skift sessionsfarve"
+  },
+  "pickColorAriaLabel": {
+    "message": "Vælg sessionsfarve"
+  },
+  "sessionColorLabel": {
+    "message": "Sessionsfarve"
+  },
+  "hueSwatchTitle": {
+    "message": "Farvetone $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Brugerdefineret farvetone"
+  },
+  "customHueAriaLabel": {
+    "message": "Brugerdefineret farvetone"
+  },
+  "customLabel": {
+    "message": "Brugerdefineret"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Værdi for brugerdefineret farvetone"
+  },
+  "optionsSubtitle": {
+    "message": "Sessionsisolering pr. fane til Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Udvidelsesversion"
+  },
+  "tabSettings": {
+    "message": "Indstillinger"
+  },
+  "tabAbout": {
+    "message": "Om"
+  },
+  "appearanceSectionTitle": {
+    "message": "Udseende"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Tilsidesæt operativsystemets farveskemapræference"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Åbn automatisk linkede faner i samme profil"
+  },
+  "autoInheritDesc": {
+    "message": "Når aktiveret, forbliver faner åbnet fra et link (nye fanelinks, Ctrl-klik, midterklik) på en isoleret profil i den profil i stedet for at bruge Chromes standardcookies."
+  },
+  "aboutTagline": {
+    "message": "En gratis open source Chrome-udvidelse til sessionsisolering pr. fane. Forbliv logget ind på flere konti på det samme websted samtidig."
+  },
+  "supportSectionTitle": {
+    "message": "Støt projektet"
+  },
+  "supportDesc": {
+    "message": "SessionShift er gratis og open source. Hvis det sparer dig tid, kan du overveje en lille donation — det holder projektet i live og annoncefrit."
+  },
+  "supportCta": {
+    "message": "Støt på Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Links"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Åbn i session"
+  },
+  "languageSettingLabel": {
+    "message": "Sprog"
+  },
+  "languageSettingDesc": {
+    "message": "Gælder for denne popup, indstillinger og kontekstmenuer. Chromes egne tastaturgenveje, udvidelsesnavn og beskrivelse følger altid din browsers sprog."
+  },
+  "languageOptionSystem": {
+    "message": "System (følg browser)"
+  }
+}

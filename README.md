@@ -96,16 +96,10 @@ Read the docs for deeper understanding:
 
 - **[Project Overview & PDR](docs/project-overview-pdr.md)** — Problem statement, features, success metrics, architecture decisions
 - **[Codebase Summary](docs/codebase-summary.md)** — File map, module responsibilities, data flow, storage schema
-<<<<<<< Updated upstream
-- **[Code Standards](docs/code-standards.md)** — Conventions, naming, error handling, security patterns, testing
-- **[System Architecture](docs/system-architecture.md)** — Service worker lifecycle, DNR cookie isolation, ISOLATED/MAIN world bridge, message protocol
-- **[Project Roadmap](docs/project-roadmap.md)** — Current status, phases 2–4, backlog items, timelines
-=======
 - **[Code Standards](docs/code-standards.md)** — Conventions, naming, error handling, security patterns, i18n rules, testing
 - **[System Architecture](docs/system-architecture.md)** — Service worker lifecycle, DNR cookie isolation, ISOLATED/MAIN world bridge, message protocol, localization design
 - **[Project Roadmap](docs/project-roadmap.md)** — Current status, upcoming phases, backlog items
 - **[Translation Contributing](docs/translation-contributing.md)** — Locale quality tiers, critical-key review gate, Weblate contribution/promotion workflow
->>>>>>> Stashed changes
 
 ---
 

@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Pārslēdzieties starp vairākiem kontiem jebkurā vietnē — katra cilne saņem savu izolēto sesiju."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Atvērt SessionShift uznirstošo logu"
+  },
+  "commandSessionNextDescription": {
+    "message": "Pārslēgties uz nākamo sesiju šai cilnei"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Pārslēgties uz iepriekšējo sesiju šai cilnei"
+  },
+  "popupBrandSub": {
+    "message": "Vairāku kontu pārvaldnieks"
+  },
+  "themeToggleLabel": {
+    "message": "Tēma: $theme$ (noklikšķiniet, lai mainītu)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "gaiša"
+  },
+  "themeNameDark": {
+    "message": "tumša"
+  },
+  "themeNameSystem": {
+    "message": "sistēmas"
+  },
+  "openOptionsLabel": {
+    "message": "Atvērt opcijas"
+  },
+  "heroActiveLabel": {
+    "message": "Aktīvs šajā cilnē"
+  },
+  "heroDefaultName": {
+    "message": "Noklusējums"
+  },
+  "heroNoSessionMeta": {
+    "message": "Nav piešķirtas sesijas"
+  },
+  "searchPlaceholder": {
+    "message": "Meklēt profilus…"
+  },
+  "searchAriaLabel": {
+    "message": "Meklēt profilus"
+  },
+  "createPlaceholder": {
+    "message": "Jauna profila nosaukums…"
+  },
+  "createButton": {
+    "message": "Izveidot"
+  },
+  "listHeadProfiles": {
+    "message": "Profili"
+  },
+  "resetToDefault": {
+    "message": "Atiestatīt uz noklusējumu"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Pārslēgties uz noklusējumu?"
+  },
+  "cancelButton": {
+    "message": "Atcelt"
+  },
+  "resetButton": {
+    "message": "Atiestatīt"
+  },
+  "cannotIsolatePage": {
+    "message": "Šo lapu nevar izolēt."
+  },
+  "generatedSessionName": {
+    "message": "Sesija $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopija)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Vēl nav profilu"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Izveidojiet vienu iepriekš, lai izolētu kontus."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Nav atbilstību"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Mēģiniet citu meklējumu."
+  },
+  "duplicateProfileTitle": {
+    "message": "Dublēt profilu"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Dublēt profilu $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Pārdēvēt"
+  },
+  "renameAriaLabel": {
+    "message": "Pārdēvēt profilu $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Dzēst"
+  },
+  "deleteAriaLabel": {
+    "message": "Dzēst profilu $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Atcelt dzēšanu"
+  },
+  "confirmDeleteTitle": {
+    "message": "Apstiprināt dzēšanu"
+  },
+  "activeStatusPill": {
+    "message": "aktīvs"
+  },
+  "heroLiveLabel": {
+    "message": "tiešraide"
+  },
+  "openInNewTab": {
+    "message": "Atvērt jaunā cilnē"
+  },
+  "changeColorTitle": {
+    "message": "Mainīt krāsu"
+  },
+  "changeColorAriaLabel": {
+    "message": "Mainīt sesijas krāsu"
+  },
+  "pickColorAriaLabel": {
+    "message": "Izvēlēties sesijas krāsu"
+  },
+  "sessionColorLabel": {
+    "message": "Sesijas krāsa"
+  },
+  "hueSwatchTitle": {
+    "message": "Nokrāsa $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Pielāgota nokrāsa"
+  },
+  "customHueAriaLabel": {
+    "message": "Pielāgota nokrāsa"
+  },
+  "customLabel": {
+    "message": "Pielāgots"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Pielāgotās nokrāsas vērtība"
+  },
+  "optionsSubtitle": {
+    "message": "Sesiju izolācija katrai cilnei pārlūkam Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Paplašinājuma versija"
+  },
+  "tabSettings": {
+    "message": "Iestatījumi"
+  },
+  "tabAbout": {
+    "message": "Par"
+  },
+  "appearanceSectionTitle": {
+    "message": "Izskats"
+  },
+  "themeSettingLabel": {
+    "message": "Tēma"
+  },
+  "themeSettingDesc": {
+    "message": "Ignorēt OS krāsu shēmas iestatījumu"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tēma"
+  },
+  "autoInheritLabel": {
+    "message": "Automātiski atvērt saistītās cilnes tajā pašā profilā"
+  },
+  "autoInheritDesc": {
+    "message": "Kad iespējots, no saites (jaunas cilnes saites, Ctrl-klikšķis, vidējā poga) izolētā profilā atvērtas cilnes paliek šajā profilā, nevis izmanto Chrome noklusējuma sīkfailus."
+  },
+  "aboutTagline": {
+    "message": "Bezmaksas, atvērtā koda Chrome paplašinājums sesiju izolācijai katrai cilnei. Saglabājiet pieteikšanos vairākos kontos vienā vietnē vienlaikus."
+  },
+  "supportSectionTitle": {
+    "message": "Atbalstiet projektu"
+  },
+  "supportDesc": {
+    "message": "SessionShift ir bezmaksas un atvērtā koda. Ja tas ietaupa jūsu laiku, apsveriet nelielu dzeramnaudu — tā uztur projektu dzīvu un bez reklāmām."
+  },
+  "supportCta": {
+    "message": "Atbalstīt Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Saites"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome tīmekļa veikals"
+  },
+  "contextMenuParentTitle": {
+    "message": "Atvērt sesijā"
+  },
+  "languageSettingLabel": {
+    "message": "Valoda"
+  },
+  "languageSettingDesc": {
+    "message": "Attiecas uz šo uznirstošo logu, opcijām un konteksta izvēlnēm. Chrome pašas tastatūras saīsnes, paplašinājuma nosaukums un apraksts vienmēr atbilst jūsu pārlūkprogrammas valodai."
+  },
+  "languageOptionSystem": {
+    "message": "Sistēma (atbilstoši pārlūkam)"
+  }
+}

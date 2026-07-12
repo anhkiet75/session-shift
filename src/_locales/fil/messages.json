@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Lumipat sa pagitan ng maraming account sa kahit anong site — bawat tab ay may sarili at hiwalay na session."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Buksan ang popup ng SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Lumipat sa susunod na session para sa tab na ito"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Lumipat sa nakaraang session para sa tab na ito"
+  },
+  "popupBrandSub": {
+    "message": "Multi-account na manager"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (i-click para baguhin)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "maliwanag"
+  },
+  "themeNameDark": {
+    "message": "madilim"
+  },
+  "themeNameSystem": {
+    "message": "sistema"
+  },
+  "openOptionsLabel": {
+    "message": "Buksan ang mga opsyon"
+  },
+  "heroActiveLabel": {
+    "message": "Aktibo sa tab na ito"
+  },
+  "heroDefaultName": {
+    "message": "Default"
+  },
+  "heroNoSessionMeta": {
+    "message": "Walang session na naitalaga"
+  },
+  "searchPlaceholder": {
+    "message": "Maghanap ng mga profile…"
+  },
+  "searchAriaLabel": {
+    "message": "Maghanap ng mga profile"
+  },
+  "createPlaceholder": {
+    "message": "Pangalanan ang bagong profile…"
+  },
+  "createButton": {
+    "message": "Gumawa"
+  },
+  "listHeadProfiles": {
+    "message": "Mga Profile"
+  },
+  "resetToDefault": {
+    "message": "I-reset sa default"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Lumipat sa default?"
+  },
+  "cancelButton": {
+    "message": "Kanselahin"
+  },
+  "resetButton": {
+    "message": "I-reset"
+  },
+  "cannotIsolatePage": {
+    "message": "Hindi maaaring ihiwalay ang pahinang ito."
+  },
+  "generatedSessionName": {
+    "message": "Session $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopya)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Wala pang mga profile"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Gumawa ng isa sa itaas para simulan ang paghihiwalay ng mga account."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Walang tugma"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Subukan ang ibang paghahanap."
+  },
+  "duplicateProfileTitle": {
+    "message": "Kopyahin ang profile"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Kopyahin ang profile na $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Palitan ang pangalan"
+  },
+  "renameAriaLabel": {
+    "message": "Palitan ang pangalan ng profile na $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Tanggalin"
+  },
+  "deleteAriaLabel": {
+    "message": "Tanggalin ang profile na $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Kanselahin ang pagtanggal"
+  },
+  "confirmDeleteTitle": {
+    "message": "Kumpirmahin ang pagtanggal"
+  },
+  "activeStatusPill": {
+    "message": "aktibo"
+  },
+  "heroLiveLabel": {
+    "message": "live"
+  },
+  "openInNewTab": {
+    "message": "Buksan sa bagong tab"
+  },
+  "changeColorTitle": {
+    "message": "Baguhin ang kulay"
+  },
+  "changeColorAriaLabel": {
+    "message": "Baguhin ang kulay ng session"
+  },
+  "pickColorAriaLabel": {
+    "message": "Pumili ng kulay ng session"
+  },
+  "sessionColorLabel": {
+    "message": "Kulay ng session"
+  },
+  "hueSwatchTitle": {
+    "message": "Hue $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Custom na hue"
+  },
+  "customHueAriaLabel": {
+    "message": "Custom na hue"
+  },
+  "customLabel": {
+    "message": "Custom"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Halaga ng custom na hue"
+  },
+  "optionsSubtitle": {
+    "message": "Paghihiwalay ng session bawat tab para sa Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Bersyon ng extension"
+  },
+  "tabSettings": {
+    "message": "Mga Setting"
+  },
+  "tabAbout": {
+    "message": "Tungkol Dito"
+  },
+  "appearanceSectionTitle": {
+    "message": "Hitsura"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "I-override ang kagustuhan sa color scheme ng OS"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Awtomatikong buksan ang mga naka-link na tab sa parehong profile"
+  },
+  "autoInheritDesc": {
+    "message": "Kapag naka-enable, ang mga tab na binuksan mula sa link (mga bagong-tab na link, Ctrl-click, middle-click) sa isang nakahiwalay na profile ay mananatili sa profile na iyon sa halip na gamitin ang default na cookies ng Chrome."
+  },
+  "aboutTagline": {
+    "message": "Isang libre at open-source na Chrome extension para sa paghihiwalay ng session bawat tab. Manatiling naka-login sa maraming account sa parehong site nang sabay-sabay."
+  },
+  "supportSectionTitle": {
+    "message": "Suportahan ang proyekto"
+  },
+  "supportDesc": {
+    "message": "Libre at open-source ang SessionShift. Kung nakakatipid ito ng oras mo, isaalang-alang ang pagbibigay ng maliit na tip — pinapanatili nitong buhay at walang ads ang proyekto."
+  },
+  "supportCta": {
+    "message": "Suportahan sa Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Mga Link"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Buksan sa Session"
+  },
+  "languageSettingLabel": {
+    "message": "Wika"
+  },
+  "languageSettingDesc": {
+    "message": "Nalalapat ito sa popup na ito, mga Opsyon, at mga context menu. Ang mga keyboard shortcut, pangalan, at deskripsyon ng Chrome mismo ay laging susunod sa wika ng iyong browser."
+  },
+  "languageOptionSystem": {
+    "message": "Sistema (tugma sa browser)"
+  }
+}

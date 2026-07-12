@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Prebacujte se između više računa na bilo kojoj stranici — svaka kartica dobiva vlastitu izoliranu sesiju."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Otvori skočni prozor SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Prebaci na sljedeću sesiju za ovu karticu"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Prebaci na prethodnu sesiju za ovu karticu"
+  },
+  "popupBrandSub": {
+    "message": "Upravitelj više računa"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (klikni za promjenu)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "svijetla"
+  },
+  "themeNameDark": {
+    "message": "tamna"
+  },
+  "themeNameSystem": {
+    "message": "sustav"
+  },
+  "openOptionsLabel": {
+    "message": "Otvori opcije"
+  },
+  "heroActiveLabel": {
+    "message": "Aktivno na ovoj kartici"
+  },
+  "heroDefaultName": {
+    "message": "Zadano"
+  },
+  "heroNoSessionMeta": {
+    "message": "Nema dodijeljene sesije"
+  },
+  "searchPlaceholder": {
+    "message": "Pretraži profile…"
+  },
+  "searchAriaLabel": {
+    "message": "Pretraži profile"
+  },
+  "createPlaceholder": {
+    "message": "Naziv novog profila…"
+  },
+  "createButton": {
+    "message": "Izradi"
+  },
+  "listHeadProfiles": {
+    "message": "Profili"
+  },
+  "resetToDefault": {
+    "message": "Vrati na zadano"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Prebaciti na zadano?"
+  },
+  "cancelButton": {
+    "message": "Odustani"
+  },
+  "resetButton": {
+    "message": "Poništi"
+  },
+  "cannotIsolatePage": {
+    "message": "Ovu stranicu nije moguće izolirati."
+  },
+  "generatedSessionName": {
+    "message": "Sesija $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopija)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Još nema profila"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Izradite jedan iznad za izolaciju računa."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Nema podudaranja"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Pokušajte drugu pretragu."
+  },
+  "duplicateProfileTitle": {
+    "message": "Dupliciraj profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Dupliciraj profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Preimenuj"
+  },
+  "renameAriaLabel": {
+    "message": "Preimenuj profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Izbriši"
+  },
+  "deleteAriaLabel": {
+    "message": "Izbriši profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Odustani od brisanja"
+  },
+  "confirmDeleteTitle": {
+    "message": "Potvrdi brisanje"
+  },
+  "activeStatusPill": {
+    "message": "aktivno"
+  },
+  "heroLiveLabel": {
+    "message": "uživo"
+  },
+  "openInNewTab": {
+    "message": "Otvori u novoj kartici"
+  },
+  "changeColorTitle": {
+    "message": "Promijeni boju"
+  },
+  "changeColorAriaLabel": {
+    "message": "Promijeni boju sesije"
+  },
+  "pickColorAriaLabel": {
+    "message": "Odaberi boju sesije"
+  },
+  "sessionColorLabel": {
+    "message": "Boja sesije"
+  },
+  "hueSwatchTitle": {
+    "message": "Nijansa $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Prilagođena nijansa"
+  },
+  "customHueAriaLabel": {
+    "message": "Prilagođena nijansa"
+  },
+  "customLabel": {
+    "message": "Prilagođeno"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Vrijednost prilagođene nijanse"
+  },
+  "optionsSubtitle": {
+    "message": "Izolacija sesije po kartici za Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Verzija ekstenzije"
+  },
+  "tabSettings": {
+    "message": "Postavke"
+  },
+  "tabAbout": {
+    "message": "O aplikaciji"
+  },
+  "appearanceSectionTitle": {
+    "message": "Izgled"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Nadjačaj postavku sheme boja operacijskog sustava"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Automatski otvaraj povezane kartice u istom profilu"
+  },
+  "autoInheritDesc": {
+    "message": "Kada je omogućeno, kartice otvorene putem poveznice (poveznice nove kartice, Ctrl-klik, srednji klik) na izoliranom profilu ostaju u tom profilu umjesto da koriste zadane Chrome kolačiće."
+  },
+  "aboutTagline": {
+    "message": "Besplatna ekstenzija za Chrome otvorenog koda za izolaciju sesija po kartici. Ostanite prijavljeni na više računa na istoj stranici istovremeno."
+  },
+  "supportSectionTitle": {
+    "message": "Podrži projekt"
+  },
+  "supportDesc": {
+    "message": "SessionShift je besplatan i otvorenog koda. Ako vam štedi vrijeme, razmislite o maloj napojnici — održava projekt živim i bez oglasa."
+  },
+  "supportCta": {
+    "message": "Podrži na Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Poveznice"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Otvori u sesiji"
+  },
+  "languageSettingLabel": {
+    "message": "Jezik"
+  },
+  "languageSettingDesc": {
+    "message": "Primjenjuje se na ovaj skočni prozor, opcije i kontekstne izbornike. Chromeove vlastite tipkovničke prečace, naziv ekstenzije i opis uvijek prate jezik vašeg preglednika."
+  },
+  "languageOptionSystem": {
+    "message": "Sustav (prema pregledniku)"
+  }
+}

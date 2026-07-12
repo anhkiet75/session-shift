@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Εναλλαγή μεταξύ πολλών λογαριασμών σε οποιονδήποτε ιστότοπο — κάθε καρτέλα έχει τη δική της απομονωμένη περίοδο σύνδεσης."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Άνοιγμα αναδυόμενου παραθύρου SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Μετάβαση στην επόμενη περίοδο σύνδεσης για αυτήν την καρτέλα"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Μετάβαση στην προηγούμενη περίοδο σύνδεσης για αυτήν την καρτέλα"
+  },
+  "popupBrandSub": {
+    "message": "Διαχειριστής πολλαπλών λογαριασμών"
+  },
+  "themeToggleLabel": {
+    "message": "Θέμα: $theme$ (κάντε κλικ για αλλαγή)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "ανοιχτό"
+  },
+  "themeNameDark": {
+    "message": "σκούρο"
+  },
+  "themeNameSystem": {
+    "message": "σύστημα"
+  },
+  "openOptionsLabel": {
+    "message": "Άνοιγμα επιλογών"
+  },
+  "heroActiveLabel": {
+    "message": "Ενεργό σε αυτήν την καρτέλα"
+  },
+  "heroDefaultName": {
+    "message": "Προεπιλογή"
+  },
+  "heroNoSessionMeta": {
+    "message": "Δεν έχει οριστεί περίοδος σύνδεσης"
+  },
+  "searchPlaceholder": {
+    "message": "Αναζήτηση προφίλ…"
+  },
+  "searchAriaLabel": {
+    "message": "Αναζήτηση προφίλ"
+  },
+  "createPlaceholder": {
+    "message": "Ονομάστε ένα νέο προφίλ…"
+  },
+  "createButton": {
+    "message": "Δημιουργία"
+  },
+  "listHeadProfiles": {
+    "message": "Προφίλ"
+  },
+  "resetToDefault": {
+    "message": "Επαναφορά στην προεπιλογή"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Εναλλαγή στην προεπιλογή;"
+  },
+  "cancelButton": {
+    "message": "Ακύρωση"
+  },
+  "resetButton": {
+    "message": "Επαναφορά"
+  },
+  "cannotIsolatePage": {
+    "message": "Δεν είναι δυνατή η απομόνωση αυτής της σελίδας."
+  },
+  "generatedSessionName": {
+    "message": "Περίοδος σύνδεσης $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (αντίγραφο)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Δεν υπάρχουν ακόμη προφίλ"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Δημιουργήστε ένα παραπάνω για να ξεκινήσετε την απομόνωση λογαριασμών."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Καμία αντιστοιχία"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Δοκιμάστε διαφορετική αναζήτηση."
+  },
+  "duplicateProfileTitle": {
+    "message": "Διπλασιασμός προφίλ"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Διπλασιασμός προφίλ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Μετονομασία"
+  },
+  "renameAriaLabel": {
+    "message": "Μετονομασία προφίλ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Διαγραφή"
+  },
+  "deleteAriaLabel": {
+    "message": "Διαγραφή προφίλ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Ακύρωση διαγραφής"
+  },
+  "confirmDeleteTitle": {
+    "message": "Επιβεβαίωση διαγραφής"
+  },
+  "activeStatusPill": {
+    "message": "ενεργό"
+  },
+  "heroLiveLabel": {
+    "message": "ζωντανά"
+  },
+  "openInNewTab": {
+    "message": "Άνοιγμα σε νέα καρτέλα"
+  },
+  "changeColorTitle": {
+    "message": "Αλλαγή χρώματος"
+  },
+  "changeColorAriaLabel": {
+    "message": "Αλλαγή χρώματος περιόδου σύνδεσης"
+  },
+  "pickColorAriaLabel": {
+    "message": "Επιλογή χρώματος περιόδου σύνδεσης"
+  },
+  "sessionColorLabel": {
+    "message": "Χρώμα περιόδου σύνδεσης"
+  },
+  "hueSwatchTitle": {
+    "message": "Απόχρωση $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Προσαρμοσμένη απόχρωση"
+  },
+  "customHueAriaLabel": {
+    "message": "Προσαρμοσμένη απόχρωση"
+  },
+  "customLabel": {
+    "message": "Προσαρμοσμένο"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Τιμή προσαρμοσμένης απόχρωσης"
+  },
+  "optionsSubtitle": {
+    "message": "Απομόνωση περιόδου σύνδεσης ανά καρτέλα για το Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Έκδοση επέκτασης"
+  },
+  "tabSettings": {
+    "message": "Ρυθμίσεις"
+  },
+  "tabAbout": {
+    "message": "Σχετικά"
+  },
+  "appearanceSectionTitle": {
+    "message": "Εμφάνιση"
+  },
+  "themeSettingLabel": {
+    "message": "Θέμα"
+  },
+  "themeSettingDesc": {
+    "message": "Παράκαμψη της προτίμησης χρωματικού θέματος του λειτουργικού συστήματος"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Θέμα"
+  },
+  "autoInheritLabel": {
+    "message": "Αυτόματο άνοιγμα συνδεδεμένων καρτελών στο ίδιο προφίλ"
+  },
+  "autoInheritDesc": {
+    "message": "Όταν είναι ενεργοποιημένο, οι καρτέλες που ανοίγουν από έναν σύνδεσμο (σύνδεσμοι νέας καρτέλας, Ctrl-κλικ, μεσαίο κλικ) σε ένα απομονωμένο προφίλ παραμένουν σε αυτό το προφίλ αντί να χρησιμοποιούν τα προεπιλεγμένα cookies του Chrome."
+  },
+  "aboutTagline": {
+    "message": "Μια δωρεάν επέκταση Chrome ανοιχτού κώδικα για απομόνωση περιόδου σύνδεσης ανά καρτέλα. Παραμείνετε συνδεδεμένοι σε πολλούς λογαριασμούς στον ίδιο ιστότοπο ταυτόχρονα."
+  },
+  "supportSectionTitle": {
+    "message": "Υποστηρίξτε το έργο"
+  },
+  "supportDesc": {
+    "message": "Το SessionShift είναι δωρεάν και ανοιχτού κώδικα. Αν σας εξοικονομεί χρόνο, σκεφτείτε ένα μικρό φιλοδώρημα — κρατά το έργο ζωντανό και χωρίς διαφημίσεις."
+  },
+  "supportCta": {
+    "message": "Υποστήριξη στο Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Σύνδεσμοι"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Άνοιγμα σε περίοδο σύνδεσης"
+  },
+  "languageSettingLabel": {
+    "message": "Γλώσσα"
+  },
+  "languageSettingDesc": {
+    "message": "Ισχύει για αυτό το αναδυόμενο παράθυρο, τις επιλογές και τα μενού περιβάλλοντος. Οι συντομεύσεις πληκτρολογίου, το όνομα και η περιγραφή της επέκτασης του Chrome ακολουθούν πάντα τη γλώσσα του προγράμματος περιήγησής σας."
+  },
+  "languageOptionSystem": {
+    "message": "Σύστημα (όπως το πρόγραμμα περιήγησης)"
+  }
+}

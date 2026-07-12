@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "在任意网站上切换多个账号 — 每个标签页拥有独立的会话。"
+  },
+  "commandExecuteActionDescription": {
+    "message": "打开 SessionShift 弹窗"
+  },
+  "commandSessionNextDescription": {
+    "message": "切换到此标签页的下一个会话"
+  },
+  "commandSessionPrevDescription": {
+    "message": "切换到此标签页的上一个会话"
+  },
+  "popupBrandSub": {
+    "message": "多账号管理器"
+  },
+  "themeToggleLabel": {
+    "message": "主题：$theme$（点击切换）",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "浅色"
+  },
+  "themeNameDark": {
+    "message": "深色"
+  },
+  "themeNameSystem": {
+    "message": "跟随系统"
+  },
+  "openOptionsLabel": {
+    "message": "打开选项"
+  },
+  "heroActiveLabel": {
+    "message": "此标签页已激活"
+  },
+  "heroDefaultName": {
+    "message": "默认"
+  },
+  "heroNoSessionMeta": {
+    "message": "未分配会话"
+  },
+  "searchPlaceholder": {
+    "message": "搜索配置文件…"
+  },
+  "searchAriaLabel": {
+    "message": "搜索配置文件"
+  },
+  "createPlaceholder": {
+    "message": "输入新配置文件名称…"
+  },
+  "createButton": {
+    "message": "创建"
+  },
+  "listHeadProfiles": {
+    "message": "配置文件"
+  },
+  "resetToDefault": {
+    "message": "重置为默认"
+  },
+  "switchToDefaultConfirm": {
+    "message": "切换到默认？"
+  },
+  "cancelButton": {
+    "message": "取消"
+  },
+  "resetButton": {
+    "message": "重置"
+  },
+  "cannotIsolatePage": {
+    "message": "此页面无法隔离。"
+  },
+  "generatedSessionName": {
+    "message": "会话 $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$（副本）",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "暂无配置文件"
+  },
+  "emptyNoProfilesSub": {
+    "message": "在上方创建一个，开始隔离账号。"
+  },
+  "emptyNoMatchesTitle": {
+    "message": "无匹配结果"
+  },
+  "emptyNoMatchesSub": {
+    "message": "请尝试其他搜索词。"
+  },
+  "duplicateProfileTitle": {
+    "message": "复制配置文件"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "复制配置文件 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "重命名"
+  },
+  "renameAriaLabel": {
+    "message": "重命名配置文件 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "删除"
+  },
+  "deleteAriaLabel": {
+    "message": "删除配置文件 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "取消删除"
+  },
+  "confirmDeleteTitle": {
+    "message": "确认删除"
+  },
+  "activeStatusPill": {
+    "message": "已激活"
+  },
+  "heroLiveLabel": {
+    "message": "实时"
+  },
+  "openInNewTab": {
+    "message": "在新标签页中打开"
+  },
+  "changeColorTitle": {
+    "message": "更改颜色"
+  },
+  "changeColorAriaLabel": {
+    "message": "更改会话颜色"
+  },
+  "pickColorAriaLabel": {
+    "message": "选择会话颜色"
+  },
+  "sessionColorLabel": {
+    "message": "会话颜色"
+  },
+  "hueSwatchTitle": {
+    "message": "色相 $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "自定义色相"
+  },
+  "customHueAriaLabel": {
+    "message": "自定义色相"
+  },
+  "customLabel": {
+    "message": "自定义"
+  },
+  "customHueValueAriaLabel": {
+    "message": "自定义色相值"
+  },
+  "optionsSubtitle": {
+    "message": "适用于 Chrome 的按标签页会话隔离。"
+  },
+  "extensionVersionAriaLabel": {
+    "message": "扩展程序版本"
+  },
+  "tabSettings": {
+    "message": "设置"
+  },
+  "tabAbout": {
+    "message": "关于"
+  },
+  "appearanceSectionTitle": {
+    "message": "外观"
+  },
+  "themeSettingLabel": {
+    "message": "主题"
+  },
+  "themeSettingDesc": {
+    "message": "覆盖操作系统的配色方案设置"
+  },
+  "themeGroupAriaLabel": {
+    "message": "主题"
+  },
+  "autoInheritLabel": {
+    "message": "自动在同一配置文件中打开链接的标签页"
+  },
+  "autoInheritDesc": {
+    "message": "启用后，从隔离配置文件中的链接（新标签页链接、Ctrl 点击、中键点击）打开的标签页会保留在该配置文件中，而不使用 Chrome 的默认 Cookie。"
+  },
+  "aboutTagline": {
+    "message": "一款免费开源的 Chrome 扩展，实现按标签页会话隔离。可同时在同一网站上保持多个账号的登录状态。"
+  },
+  "supportSectionTitle": {
+    "message": "支持本项目"
+  },
+  "supportDesc": {
+    "message": "SessionShift 是免费开源的。如果它帮你节省了时间，欢迎小额打赏 — 让项目持续维护且不含广告。"
+  },
+  "supportCta": {
+    "message": "在 Ko-fi 上支持"
+  },
+  "linksSectionTitle": {
+    "message": "链接"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome 网上应用店"
+  },
+  "contextMenuParentTitle": {
+    "message": "在会话中打开"
+  },
+  "languageSettingLabel": {
+    "message": "语言"
+  },
+  "languageSettingDesc": {
+    "message": "适用于此弹窗、选项页和右键菜单。Chrome 自身的键盘快捷键、扩展名称和描述始终跟随浏览器语言。"
+  },
+  "languageOptionSystem": {
+    "message": "系统（跟随浏览器）"
+  }
+}

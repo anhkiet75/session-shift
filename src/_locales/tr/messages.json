@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Herhangi bir sitede birden fazla hesap arasında geçiş yapın — her sekme kendi izole oturumuna sahip olur."
+  },
+  "commandExecuteActionDescription": {
+    "message": "SessionShift açılır penceresini aç"
+  },
+  "commandSessionNextDescription": {
+    "message": "Bu sekme için sonraki oturuma geç"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Bu sekme için önceki oturuma geç"
+  },
+  "popupBrandSub": {
+    "message": "Çoklu hesap yöneticisi"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (değiştirmek için tıklayın)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "açık"
+  },
+  "themeNameDark": {
+    "message": "koyu"
+  },
+  "themeNameSystem": {
+    "message": "sistem"
+  },
+  "openOptionsLabel": {
+    "message": "Seçenekleri aç"
+  },
+  "heroActiveLabel": {
+    "message": "Bu sekmede etkin"
+  },
+  "heroDefaultName": {
+    "message": "Varsayılan"
+  },
+  "heroNoSessionMeta": {
+    "message": "Atanmış oturum yok"
+  },
+  "searchPlaceholder": {
+    "message": "Profilleri ara…"
+  },
+  "searchAriaLabel": {
+    "message": "Profilleri ara"
+  },
+  "createPlaceholder": {
+    "message": "Yeni bir profil adlandırın…"
+  },
+  "createButton": {
+    "message": "Oluştur"
+  },
+  "listHeadProfiles": {
+    "message": "Profiller"
+  },
+  "resetToDefault": {
+    "message": "Varsayılana sıfırla"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Varsayılana geçilsin mi?"
+  },
+  "cancelButton": {
+    "message": "İptal"
+  },
+  "resetButton": {
+    "message": "Sıfırla"
+  },
+  "cannotIsolatePage": {
+    "message": "Bu sayfa izole edilemez."
+  },
+  "generatedSessionName": {
+    "message": "Oturum $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (kopya)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Henüz profil yok"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Hesapları izole etmek için yukarıda bir tane oluşturun."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Eşleşme yok"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Farklı bir arama deneyin."
+  },
+  "duplicateProfileTitle": {
+    "message": "Profili çoğalt"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "$name$ profilini çoğalt",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Yeniden adlandır"
+  },
+  "renameAriaLabel": {
+    "message": "$name$ profilini yeniden adlandır",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Sil"
+  },
+  "deleteAriaLabel": {
+    "message": "$name$ profilini sil",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Silmeyi iptal et"
+  },
+  "confirmDeleteTitle": {
+    "message": "Silmeyi onayla"
+  },
+  "activeStatusPill": {
+    "message": "etkin"
+  },
+  "heroLiveLabel": {
+    "message": "canlı"
+  },
+  "openInNewTab": {
+    "message": "Yeni sekmede aç"
+  },
+  "changeColorTitle": {
+    "message": "Rengi değiştir"
+  },
+  "changeColorAriaLabel": {
+    "message": "Oturum rengini değiştir"
+  },
+  "pickColorAriaLabel": {
+    "message": "Oturum rengi seç"
+  },
+  "sessionColorLabel": {
+    "message": "Oturum rengi"
+  },
+  "hueSwatchTitle": {
+    "message": "Ton $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Özel ton"
+  },
+  "customHueAriaLabel": {
+    "message": "Özel ton"
+  },
+  "customLabel": {
+    "message": "Özel"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Özel ton değeri"
+  },
+  "optionsSubtitle": {
+    "message": "Chrome için sekme başına oturum izolasyonu."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Uzantı sürümü"
+  },
+  "tabSettings": {
+    "message": "Ayarlar"
+  },
+  "tabAbout": {
+    "message": "Hakkında"
+  },
+  "appearanceSectionTitle": {
+    "message": "Görünüm"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "İşletim sistemi renk şeması tercihini geçersiz kılar"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Bağlantılı sekmeleri otomatik olarak aynı profilde aç"
+  },
+  "autoInheritDesc": {
+    "message": "Etkinleştirildiğinde, izole bir profildeki bir bağlantıdan (yeni sekme bağlantıları, Ctrl-tıklama, orta tık) açılan sekmeler, Chrome'un varsayılan çerezlerini kullanmak yerine o profilde kalır."
+  },
+  "aboutTagline": {
+    "message": "Sekme başına oturum izolasyonu için ücretsiz, açık kaynaklı bir Chrome uzantısı. Aynı sitede birden fazla hesapta aynı anda oturum açık kalın."
+  },
+  "supportSectionTitle": {
+    "message": "Projeyi destekle"
+  },
+  "supportDesc": {
+    "message": "SessionShift ücretsiz ve açık kaynaklıdır. Size zaman kazandırıyorsa küçük bir bahşiş düşünün — bu, projeyi canlı ve reklamsız tutar."
+  },
+  "supportCta": {
+    "message": "Ko-fi'de destekle"
+  },
+  "linksSectionTitle": {
+    "message": "Bağlantılar"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Mağazası"
+  },
+  "contextMenuParentTitle": {
+    "message": "Oturumda aç"
+  },
+  "languageSettingLabel": {
+    "message": "Dil"
+  },
+  "languageSettingDesc": {
+    "message": "Bu açılır pencereye, seçeneklere ve bağlam menülerine uygulanır. Chrome'un kendi klavye kısayolları, uzantı adı ve açıklaması her zaman tarayıcınızın dilini izler."
+  },
+  "languageOptionSystem": {
+    "message": "Sistem (tarayıcıyla eşleş)"
+  }
+}

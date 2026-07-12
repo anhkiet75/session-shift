@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Cambia entre varias cuentas en cualquier sitio — cada pestaña obtiene su propia sesión aislada."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Abrir el popup de SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Cambiar a la siguiente sesión de esta pestaña"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Cambiar a la sesión anterior de esta pestaña"
+  },
+  "popupBrandSub": {
+    "message": "Administrador multicuenta"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (clic para cambiar)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "claro"
+  },
+  "themeNameDark": {
+    "message": "oscuro"
+  },
+  "themeNameSystem": {
+    "message": "sistema"
+  },
+  "openOptionsLabel": {
+    "message": "Abrir opciones"
+  },
+  "heroActiveLabel": {
+    "message": "Activo en esta pestaña"
+  },
+  "heroDefaultName": {
+    "message": "Predeterminado"
+  },
+  "heroNoSessionMeta": {
+    "message": "Sin sesión asignada"
+  },
+  "searchPlaceholder": {
+    "message": "Buscar perfiles…"
+  },
+  "searchAriaLabel": {
+    "message": "Buscar perfiles"
+  },
+  "createPlaceholder": {
+    "message": "Ponle nombre a un perfil nuevo…"
+  },
+  "createButton": {
+    "message": "Crear"
+  },
+  "listHeadProfiles": {
+    "message": "Perfiles"
+  },
+  "resetToDefault": {
+    "message": "Restablecer al predeterminado"
+  },
+  "switchToDefaultConfirm": {
+    "message": "¿Cambiar al predeterminado?"
+  },
+  "cancelButton": {
+    "message": "Cancelar"
+  },
+  "resetButton": {
+    "message": "Restablecer"
+  },
+  "cannotIsolatePage": {
+    "message": "No se puede aislar esta página."
+  },
+  "generatedSessionName": {
+    "message": "Sesión $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (copia)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Todavía no hay perfiles"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Crea uno arriba para empezar a aislar cuentas."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Sin coincidencias"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Prueba otra búsqueda."
+  },
+  "duplicateProfileTitle": {
+    "message": "Duplicar perfil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Duplicar el perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Renombrar"
+  },
+  "renameAriaLabel": {
+    "message": "Renombrar el perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Eliminar"
+  },
+  "deleteAriaLabel": {
+    "message": "Eliminar el perfil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Cancelar eliminación"
+  },
+  "confirmDeleteTitle": {
+    "message": "Confirmar eliminación"
+  },
+  "activeStatusPill": {
+    "message": "activo"
+  },
+  "heroLiveLabel": {
+    "message": "en vivo"
+  },
+  "openInNewTab": {
+    "message": "Abrir en una pestaña nueva"
+  },
+  "changeColorTitle": {
+    "message": "Cambiar color"
+  },
+  "changeColorAriaLabel": {
+    "message": "Cambiar el color de la sesión"
+  },
+  "pickColorAriaLabel": {
+    "message": "Elegir el color de la sesión"
+  },
+  "sessionColorLabel": {
+    "message": "Color de la sesión"
+  },
+  "hueSwatchTitle": {
+    "message": "Tono $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Tono personalizado"
+  },
+  "customHueAriaLabel": {
+    "message": "Tono personalizado"
+  },
+  "customLabel": {
+    "message": "Personalizado"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Valor del tono personalizado"
+  },
+  "optionsSubtitle": {
+    "message": "Aislamiento de sesión por pestaña para Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Versión de la extensión"
+  },
+  "tabSettings": {
+    "message": "Configuración"
+  },
+  "tabAbout": {
+    "message": "Acerca de"
+  },
+  "appearanceSectionTitle": {
+    "message": "Apariencia"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Anular la preferencia de esquema de color del sistema operativo"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Abrir automáticamente las pestañas enlazadas en el mismo perfil"
+  },
+  "autoInheritDesc": {
+    "message": "Cuando está activado, las pestañas abiertas desde un enlace (enlaces de pestaña nueva, Ctrl+clic, clic central) en un perfil aislado permanecen en ese perfil en lugar de usar las cookies predeterminadas de Chrome."
+  },
+  "aboutTagline": {
+    "message": "Una extensión de Chrome gratuita y de código abierto para el aislamiento de sesión por pestaña. Mantente conectado a varias cuentas del mismo sitio, al mismo tiempo."
+  },
+  "supportSectionTitle": {
+    "message": "Apoya el proyecto"
+  },
+  "supportDesc": {
+    "message": "SessionShift es gratuito y de código abierto. Si te ahorra tiempo, considera dejar una pequeña propina — así el proyecto se mantiene activo y sin anuncios."
+  },
+  "supportCta": {
+    "message": "Apoyar en Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Enlaces"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Abrir en sesión"
+  },
+  "languageSettingLabel": {
+    "message": "Idioma"
+  },
+  "languageSettingDesc": {
+    "message": "Se aplica a este popup, a las opciones y a los menús contextuales. Los atajos de teclado propios de Chrome, el nombre y la descripción de la extensión siempre siguen el idioma de tu navegador."
+  },
+  "languageOptionSystem": {
+    "message": "Sistema (según el navegador)"
+  }
+}

@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 // validate-locales.mjs — Offline, dependency-free validator for `src/_locales`.
 //
-// Checks: locale directory allowlist, catalog file safety (no symlinks/extra
-// files), JSON/schema validity, key parity against English, placeholder
-// parity, manifest __MSG_ token resolution, and rejection of bidi/
-// default-ignorable control characters in message text.
+// Checks: locale directory allowlist (exact 55-locale set), catalog file
+// safety (no symlinks/extra files), JSON/schema validity, key parity against
+// English, placeholder parity, manifest __MSG_ token resolution, rejection of
+// bidi/default-ignorable control characters in message text, and
+// translation-quality.json's honest review-tier registry.
 //
-// Reads only `src/lib/locale-data.json` (the allowlist/registry) and the
-// `_locales` tree + `manifest.json` — no TypeScript parsing.
+// Reads only `src/lib/locale-data.json` (the allowlist/registry), the
+// `_locales` tree + `manifest.json`, and `_locales/translation-quality.json`
+// — no TypeScript parsing.
 
 import { readFileSync, readdirSync, lstatSync } from 'node:fs'
 import path from 'node:path'
@@ -58,7 +60,11 @@ export function checkTreeSafety(errors, allowedLocales, localesDir = LOCALES_DIR
       continue
     }
     if (!stat.isDirectory()) {
-      fail(errors, `_locales/${entry.name}: unexpected non-directory entry`)
+      // `translation-quality.json` is the one approved regular file at the
+      // `_locales` root, sitting alongside the locale directories.
+      if (entry.name !== 'translation-quality.json' || !stat.isFile()) {
+        fail(errors, `_locales/${entry.name}: unexpected non-directory entry`)
+      }
       continue
     }
     if (!allowedLocales.includes(entry.name)) {
@@ -78,11 +84,86 @@ export function checkTreeSafety(errors, allowedLocales, localesDir = LOCALES_DIR
     }
   }
 
+  // Phase 5 completes the exact 55-locale set: every allowlisted locale must
+  // be present, and no unsupported extras (checked above) are allowed.
   for (const locale of allowedLocales) {
     if (!entries.some((e) => e.name === locale)) {
-      // Not every allowlisted locale needs to exist yet (catalogs land over
-      // phases); only English is required at all times.
-      if (locale === 'en') fail(errors, '_locales/en is required and missing')
+      fail(errors, `_locales/${locale} is in the supported-locale allowlist but missing`)
+    }
+  }
+}
+
+/**
+ * Loads and parses `translation-quality.json`. Returns `null` (and records an
+ * error) on a missing file or invalid JSON — callers must treat `null` as
+ * "cannot validate further", not as an empty-but-valid registry.
+ */
+export function loadQualityData(errors) {
+  let raw
+  try {
+    raw = readFileSync(path.join(LOCALES_DIR, 'translation-quality.json'), 'utf8')
+  } catch {
+    fail(errors, 'translation-quality.json missing from _locales')
+    return null
+  }
+  try {
+    return JSON.parse(raw)
+  } catch (e) {
+    fail(errors, `translation-quality.json is not valid JSON (${e.message})`)
+    return null
+  }
+}
+
+/**
+ * Validates an already-parsed `translation-quality.json` shape: one honest
+ * tier entry per supported locale, `reviewed` requires recorded
+ * reviewer/date evidence, and every critical/eligible key actually exists in
+ * the English catalog.
+ */
+export function validateQualityMetadata(errors, quality, supportedLocales, englishKeys) {
+  const criticalKeys = Array.isArray(quality.criticalKeys) ? quality.criticalKeys : null
+  if (!criticalKeys) {
+    fail(errors, 'translation-quality.json: "criticalKeys" must be an array')
+  } else {
+    for (const key of criticalKeys) {
+      if (!englishKeys.has(key)) {
+        fail(errors, `translation-quality.json: criticalKeys entry "${key}" is not a real English catalog key`)
+      }
+    }
+  }
+
+  const locales = quality.locales
+  if (typeof locales !== 'object' || locales === null || Array.isArray(locales)) {
+    fail(errors, 'translation-quality.json: "locales" must be an object')
+    return
+  }
+
+  for (const locale of supportedLocales) {
+    const entry = locales[locale]
+    if (!entry) {
+      fail(errors, `translation-quality.json: missing quality entry for locale "${locale}"`)
+      continue
+    }
+    if (!['source', 'beta', 'reviewed'].includes(entry.tier)) {
+      fail(errors, `translation-quality.json.${locale}: invalid tier "${entry.tier}"`)
+    }
+    if (entry.tier === 'reviewed') {
+      if (!entry.reviewer) fail(errors, `translation-quality.json.${locale}: tier "reviewed" requires a non-empty reviewer`)
+      if (!entry.reviewedAt) fail(errors, `translation-quality.json.${locale}: tier "reviewed" requires a non-empty reviewedAt`)
+    } else if (entry.reviewer || entry.reviewedAt) {
+      fail(errors, `translation-quality.json.${locale}: reviewer/reviewedAt must be null unless tier is "reviewed" (no unearned review claim)`)
+    }
+    const eligible = Array.isArray(entry.criticalKeyEligible) ? entry.criticalKeyEligible : []
+    for (const key of eligible) {
+      if (criticalKeys && !criticalKeys.includes(key)) {
+        fail(errors, `translation-quality.json.${locale}: criticalKeyEligible entry "${key}" is not in criticalKeys`)
+      }
+    }
+  }
+
+  for (const locale of Object.keys(locales)) {
+    if (!supportedLocales.includes(locale)) {
+      fail(errors, `translation-quality.json: unknown locale "${locale}" not in the supported-locale allowlist`)
     }
   }
 }
@@ -226,6 +307,8 @@ export function main() {
   validateManifestTokens(errors, englishCatalog, data.manifestOnlyKeys)
 
   const englishKeys = new Set(Object.keys(englishCatalog))
+  const qualityData = loadQualityData(errors)
+  if (qualityData) validateQualityMetadata(errors, qualityData, data.supportedLocales, englishKeys)
 
   let presentLocales
   try {

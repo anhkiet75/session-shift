@@ -1,0 +1,257 @@
+{
+  "extensionName": {
+    "message": "SessionShift"
+  },
+  "extensionDescription": {
+    "message": "Tukar antara beberapa akaun pada mana-mana laman — setiap tab mendapat sesi terasingnya sendiri."
+  },
+  "commandExecuteActionDescription": {
+    "message": "Buka popup SessionShift"
+  },
+  "commandSessionNextDescription": {
+    "message": "Tukar ke sesi seterusnya untuk tab ini"
+  },
+  "commandSessionPrevDescription": {
+    "message": "Tukar ke sesi sebelumnya untuk tab ini"
+  },
+  "popupBrandSub": {
+    "message": "Pengurus pelbagai akaun"
+  },
+  "themeToggleLabel": {
+    "message": "Tema: $theme$ (klik untuk tukar)",
+    "placeholders": {
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
+    }
+  },
+  "themeNameLight": {
+    "message": "terang"
+  },
+  "themeNameDark": {
+    "message": "gelap"
+  },
+  "themeNameSystem": {
+    "message": "sistem"
+  },
+  "openOptionsLabel": {
+    "message": "Buka pilihan"
+  },
+  "heroActiveLabel": {
+    "message": "Aktif pada tab ini"
+  },
+  "heroDefaultName": {
+    "message": "Lalai"
+  },
+  "heroNoSessionMeta": {
+    "message": "Tiada sesi ditetapkan"
+  },
+  "searchPlaceholder": {
+    "message": "Cari profil…"
+  },
+  "searchAriaLabel": {
+    "message": "Cari profil"
+  },
+  "createPlaceholder": {
+    "message": "Namakan profil baharu…"
+  },
+  "createButton": {
+    "message": "Cipta"
+  },
+  "listHeadProfiles": {
+    "message": "Profil"
+  },
+  "resetToDefault": {
+    "message": "Set semula kepada lalai"
+  },
+  "switchToDefaultConfirm": {
+    "message": "Tukar kepada lalai?"
+  },
+  "cancelButton": {
+    "message": "Batal"
+  },
+  "resetButton": {
+    "message": "Set Semula"
+  },
+  "cannotIsolatePage": {
+    "message": "Halaman ini tidak dapat diasingkan."
+  },
+  "generatedSessionName": {
+    "message": "Sesi $index$",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "duplicatedSessionName": {
+    "message": "$name$ (salinan)",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "emptyNoProfilesTitle": {
+    "message": "Belum ada profil"
+  },
+  "emptyNoProfilesSub": {
+    "message": "Cipta satu di atas untuk mula mengasingkan akaun."
+  },
+  "emptyNoMatchesTitle": {
+    "message": "Tiada padanan"
+  },
+  "emptyNoMatchesSub": {
+    "message": "Cuba carian lain."
+  },
+  "duplicateProfileTitle": {
+    "message": "Gandakan profil"
+  },
+  "duplicateProfileAriaLabel": {
+    "message": "Gandakan profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "renameTitle": {
+    "message": "Namakan semula"
+  },
+  "renameAriaLabel": {
+    "message": "Namakan semula profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "deleteTitle": {
+    "message": "Padam"
+  },
+  "deleteAriaLabel": {
+    "message": "Padam profil $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "cancelDeleteTitle": {
+    "message": "Batalkan pemadaman"
+  },
+  "confirmDeleteTitle": {
+    "message": "Sahkan pemadaman"
+  },
+  "activeStatusPill": {
+    "message": "aktif"
+  },
+  "heroLiveLabel": {
+    "message": "langsung"
+  },
+  "openInNewTab": {
+    "message": "Buka dalam tab baharu"
+  },
+  "changeColorTitle": {
+    "message": "Tukar warna"
+  },
+  "changeColorAriaLabel": {
+    "message": "Tukar warna sesi"
+  },
+  "pickColorAriaLabel": {
+    "message": "Pilih warna sesi"
+  },
+  "sessionColorLabel": {
+    "message": "Warna sesi"
+  },
+  "hueSwatchTitle": {
+    "message": "Rona $hue$",
+    "placeholders": {
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
+    }
+  },
+  "customHueTitle": {
+    "message": "Rona tersuai"
+  },
+  "customHueAriaLabel": {
+    "message": "Rona tersuai"
+  },
+  "customLabel": {
+    "message": "Tersuai"
+  },
+  "customHueValueAriaLabel": {
+    "message": "Nilai rona tersuai"
+  },
+  "optionsSubtitle": {
+    "message": "Pengasingan sesi setiap tab untuk Chrome."
+  },
+  "extensionVersionAriaLabel": {
+    "message": "Versi sambungan"
+  },
+  "tabSettings": {
+    "message": "Tetapan"
+  },
+  "tabAbout": {
+    "message": "Perihal"
+  },
+  "appearanceSectionTitle": {
+    "message": "Penampilan"
+  },
+  "themeSettingLabel": {
+    "message": "Tema"
+  },
+  "themeSettingDesc": {
+    "message": "Batalkan keutamaan skema warna OS"
+  },
+  "themeGroupAriaLabel": {
+    "message": "Tema"
+  },
+  "autoInheritLabel": {
+    "message": "Buka tab bertaut secara automatik dalam profil yang sama"
+  },
+  "autoInheritDesc": {
+    "message": "Apabila diaktifkan, tab yang dibuka daripada pautan (pautan tab baharu, Ctrl-klik, klik tengah) pada profil terasing akan kekal dalam profil itu dan bukannya menggunakan kuki lalai Chrome."
+  },
+  "aboutTagline": {
+    "message": "Sambungan Chrome percuma dan sumber terbuka untuk pengasingan sesi setiap tab. Kekal log masuk ke pelbagai akaun pada laman yang sama secara serentak."
+  },
+  "supportSectionTitle": {
+    "message": "Sokong projek ini"
+  },
+  "supportDesc": {
+    "message": "SessionShift adalah percuma dan sumber terbuka. Jika ia menjimatkan masa anda, pertimbangkan untuk memberi sedikit tip — ia membantu projek ini terus hidup dan bebas iklan."
+  },
+  "supportCta": {
+    "message": "Sokong di Ko-fi"
+  },
+  "linksSectionTitle": {
+    "message": "Pautan"
+  },
+  "githubLink": {
+    "message": "GitHub"
+  },
+  "chromeWebStoreLink": {
+    "message": "Chrome Web Store"
+  },
+  "contextMenuParentTitle": {
+    "message": "Buka dalam Sesi"
+  },
+  "languageSettingLabel": {
+    "message": "Bahasa"
+  },
+  "languageSettingDesc": {
+    "message": "Terpakai untuk popup ini, Pilihan dan menu konteks. Pintasan papan kekunci, nama sambungan dan huraian Chrome sendiri sentiasa mengikut bahasa penyemak imbas anda."
+  },
+  "languageOptionSystem": {
+    "message": "Sistem (sepadan dengan penyemak imbas)"
+  }
+}
