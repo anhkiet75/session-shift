@@ -149,16 +149,16 @@ test.describe('Phase 4 — RTL/bidirectional hardening', () => {
     expect(Number.isFinite(leftWhenUnchecked)).toBe(true)
     expect(leftWhenChecked).not.toBe(leftWhenUnchecked)
 
-    // DOM/tab order must not reverse under rtl: Tab from the last theme
-    // button still reaches auto-inherit then language select in source order.
+    // DOM/tab order must not reverse under rtl: Tab from the last theme button
+    // walks the settings rows in source order, top to bottom.
     await options.locator('.opt-theme-btn[data-theme-val="light"]').focus()
-    await options.keyboard.press('Tab') // -> auto-inherit toggle
-    const focusedAfterFirstTab = await options.evaluate(() => document.activeElement?.id)
-    expect(focusedAfterFirstTab).toBe('autoInheritToggle')
-
-    await options.keyboard.press('Tab') // -> language select
-    const focusedAfterSecondTab = await options.evaluate(() => document.activeElement?.id)
-    expect(focusedAfterSecondTab).toBe('languageSelect')
+    const tabTo = async () => {
+      await options.keyboard.press('Tab')
+      return options.evaluate(() => document.activeElement?.id)
+    }
+    expect(await tabTo()).toBe('autoInheritToggle')
+    expect(await tabTo()).toBe('groupTabsByProfileToggle')
+    expect(await tabTo()).toBe('languageSelect')
 
     await options.close()
   })

@@ -324,6 +324,21 @@ body {
   line-height: 1.5;
 }
 
+.opt-setting-notice {
+  display: block;
+  font-size: 12px;
+  color: var(--danger);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* Higher specificity than the bare `.hidden` utility (0,2,0 vs 0,1,0) —
+   without this, `.opt-setting-notice`'s own `display: block` would win over
+   `.hidden` regardless of declaration order, showing the notice to everyone. */
+.opt-setting-notice.hidden {
+  display: none;
+}
+
 /* ── TOGGLE CHECKBOX ────────────────────────────────────── */
 .opt-toggle-checkbox {
   flex-shrink: 0;

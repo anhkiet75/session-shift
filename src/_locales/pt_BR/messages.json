@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Quando ativado, as abas abertas a partir de um link (links de nova aba, Ctrl+clique, clique do meio) em um perfil isolado permanecem nesse perfil em vez de usar os cookies padrão do Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Agrupar abas por perfil na barra de abas"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Coloca as abas de cada perfil em um grupo de abas colorido. O Chrome pedirá permissão para gerenciar grupos de abas. Isso reorganizará suas abas, e as cores dos grupos são limitadas às 9 cores predefinidas do Chrome, então duas cores de perfil podem parecer iguais."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Permissão negada. O agrupamento de abas permanece desativado."
+  },
   "aboutTagline": {
     "message": "Uma extensão do Chrome gratuita e de código aberto para isolamento de sessão por aba. Fique conectado em várias contas do mesmo site, simultaneamente."
   },

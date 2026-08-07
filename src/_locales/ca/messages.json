@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Si està activat, les pestanyes obertes des d'un enllaç (enllaços de pestanya nova, Ctrl+clic, clic central) en un perfil aïllat es mantenen en aquest perfil en lloc d'utilitzar les galetes predeterminades de Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Agrupa les pestanyes per perfil a la barra de pestanyes"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Posa les pestanyes de cada perfil en un grup de pestanyes de color. Chrome demanarà permís per gestionar grups de pestanyes. Això reorganitzarà les vostres pestanyes, i els colors dels grups es limiten als 9 colors predefinits de Chrome, de manera que dos colors de perfil poden semblar iguals."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Permís denegat. L'agrupació de pestanyes es manté desactivada."
+  },
   "aboutTagline": {
     "message": "Una extensió de Chrome gratuïta i de codi obert per a l'aïllament de sessió per pestanya. Mantingueu la sessió iniciada en diversos comptes al mateix lloc, simultàniament."
   },

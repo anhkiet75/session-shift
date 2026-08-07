@@ -147,7 +147,7 @@ Web browsers share cookies globally across all tabs for a given domain. This pre
 2. **Session window only** — Service worker restart clears tab→session map (recovery via session list)
 3. **Passive authentication** — Doesn't auto-log-in; you log in once per session manually
 4. **Third-party cookies** — Intercepted like first-party; SameSite enforcement depends on server
-5. **No tab grouping** — Sessions are logical, not visual (no native Chrome tab grouping)
+5. **Tab grouping is opt-in and lossy** — Native Chrome tab groups (Options, off by default) quantize each profile's hue to one of Chrome's 9 preset group colors; requests the optional `tabGroups` permission only when enabled, never on install/update
 
 ## Acceptance Criteria (Shipped)
 

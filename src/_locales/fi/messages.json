@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Kun tämä on käytössä, eristetystä profiilista linkin kautta (uuden välilehden linkit, Ctrl-klikkaus, keskiklikkaus) avatut välilehdet pysyvät samassa profiilissa Chromen oletusevästeiden sijaan."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Ryhmitä välilehdet profiilin mukaan välilehtipalkissa"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Sijoittaa kunkin profiilin välilehdet väritettyyn välilehtiryhmään. Chrome pyytää lupaa hallita välilehtiryhmiä. Tämä järjestää välilehtesi uudelleen, ja ryhmien värit rajoittuvat Chromen 9 esiasetettuun väriin, joten kaksi profiilin väriä voivat näyttää samalta."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Lupa evätty. Välilehtien ryhmittely pysyy pois päältä."
+  },
   "aboutTagline": {
     "message": "Ilmainen, avoimen lähdekoodin Chrome-laajennus välilehtikohtaiseen istunnon eristykseen. Pysy kirjautuneena useisiin tileihin samalla sivustolla samanaikaisesti."
   },

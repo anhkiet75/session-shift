@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "När detta är aktiverat förblir flikar som öppnas från en länk (nya-flik-länkar, Ctrl-klick, mittenklick) på en isolerad profil i den profilen istället för att använda Chromes standardkakor."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Gruppera flikar efter profil i flikfältet"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Placerar varje profils flikar i en färgad flikgrupp. Chrome kommer att be om tillstånd att hantera flikgrupper. Detta ordnar om dina flikar, och gruppfärger är begränsade till Chromes 9 förinställda färger, så två profilfärger kan se likadana ut."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Behörighet nekad. Flikgruppering förblir avstängd."
+  },
   "aboutTagline": {
     "message": "Ett gratis, öppen källkod-tillägg för Chrome för sessionsisolering per flik. Förbli inloggad på flera konton på samma webbplats samtidigt."
   },

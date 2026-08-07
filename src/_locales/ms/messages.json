@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Apabila diaktifkan, tab yang dibuka daripada pautan (pautan tab baharu, Ctrl-klik, klik tengah) pada profil terasing akan kekal dalam profil itu dan bukannya menggunakan kuki lalai Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Kumpulkan tab mengikut profil dalam jalur tab"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Meletakkan tab setiap profil ke dalam kumpulan tab berwarna. Chrome akan meminta kebenaran untuk menguruskan kumpulan tab. Ini akan menyusun semula tab anda, dan warna kumpulan terhad kepada 9 warna praset Chrome, jadi dua warna profil mungkin kelihatan sama."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Kebenaran ditolak. Pengumpulan tab kekal dimatikan."
+  },
   "aboutTagline": {
     "message": "Sambungan Chrome percuma dan sumber terbuka untuk pengasingan sesi setiap tab. Kekal log masuk ke pelbagai akaun pada laman yang sama secara serentak."
   },

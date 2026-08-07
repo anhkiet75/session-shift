@@ -200,6 +200,15 @@
   "autoInheritDesc": {
     "message": "Khi bật, các tab mở từ một liên kết (liên kết tab mới, Ctrl-click, nhấn chuột giữa) trên hồ sơ đã tách biệt sẽ giữ nguyên hồ sơ đó thay vì dùng cookie mặc định của Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Nhóm các tab theo hồ sơ trên thanh tab"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Đặt các tab của mỗi hồ sơ vào một nhóm tab có màu. Chrome sẽ yêu cầu quyền để quản lý nhóm tab. Việc này sẽ sắp xếp lại các tab của bạn, và màu nhóm bị giới hạn trong 9 màu được đặt trước của Chrome, vì vậy hai màu hồ sơ có thể trông giống nhau."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Quyền bị từ chối. Việc nhóm tab vẫn tắt."
+  },
   "aboutTagline": {
     "message": "Một tiện ích Chrome miễn phí, mã nguồn mở giúp tách biệt phiên theo từng tab. Đăng nhập nhiều tài khoản trên cùng một trang web cùng lúc."
   },

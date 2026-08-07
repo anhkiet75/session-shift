@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Jika diaktifkan, tab yang dibuka dari tautan (tautan tab baru, Ctrl-klik, klik tengah) pada profil terisolasi akan tetap berada di profil itu, alih-alih menggunakan cookie default Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Kelompokkan tab berdasarkan profil di strip tab"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Menempatkan tab setiap profil ke dalam grup tab berwarna. Chrome akan meminta izin untuk mengelola grup tab. Ini akan menata ulang tab Anda, dan warna grup dibatasi pada 9 warna preset Chrome, sehingga dua warna profil mungkin terlihat sama."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Izin ditolak. Pengelompokan tab tetap nonaktif."
+  },
   "aboutTagline": {
     "message": "Ekstensi Chrome gratis dan open-source untuk isolasi sesi per tab. Tetap masuk ke beberapa akun di situs yang sama secara bersamaan."
   },

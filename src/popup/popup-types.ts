@@ -1,25 +1,17 @@
-// popup-types.ts — Shared types and hue utilities for popup modules.
+// popup-types.ts — Popup-local types, re-exporting the shared hue utilities.
+//
+// Palette and hue→color conversion live in `lib/profile-color.ts` so the
+// background can use them too; this file keeps the popup's own view type and
+// the `getSessionHue` name its call sites already use.
 
 import type { Session } from '../lib/types.js';
+import { resolveProfileHue } from '../lib/profile-color.js';
 
 export interface PopupSession extends Session {
   color?: string
 }
 
-export const HUE_PALETTE = [212, 158, 24, 278, 196, 340, 45];
+export { HUE_PALETTE, DEFAULT_HUE, profileSwatchCss } from '../lib/profile-color.js';
 
-const HUE_FROM_COLOR: Record<string, number> = {
-  '#7c3aed': 262,
-  '#2563eb': 219,
-  '#059669': 161,
-  '#d97706': 36,
-  '#dc2626': 0,
-  '#db2777': 333,
-  '#0891b2': 191,
-};
-
-export function getSessionHue(session: PopupSession, index: number): number {
-  if (session.hue !== undefined) return session.hue;
-  if (session.color && HUE_FROM_COLOR[session.color] !== undefined) return HUE_FROM_COLOR[session.color];
-  return HUE_PALETTE[index % HUE_PALETTE.length];
-}
+/** Popup-facing alias of `resolveProfileHue`. */
+export const getSessionHue = resolveProfileHue;

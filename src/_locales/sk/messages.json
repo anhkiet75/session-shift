@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Keď je povolené, karty otvorené z odkazu (odkazy novej karty, Ctrl-klik, stredné tlačidlo) v izolovanom profile zostanú v tomto profile namiesto použitia predvolených cookies Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Zoskupovať karty podľa profilu na paneli kariet"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Umiestni karty každého profilu do farebnej skupiny kariet. Chrome požiada o povolenie na správu skupín kariet. Tým sa karty preusporiadajú a farby skupín sú obmedzené na 9 prednastavených farieb Chromu, takže dve farby profilov môžu vyzerať rovnako."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Povolenie zamietnuté. Zoskupovanie kariet zostáva vypnuté."
+  },
   "aboutTagline": {
     "message": "Bezplatné rozšírenie Chrome s otvoreným zdrojovým kódom na izoláciu relácií podľa kariet. Zostaňte prihlásení vo viacerých účtoch na tej istej stránke súčasne."
   },

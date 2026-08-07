@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "启用后，从隔离配置文件中的链接（新标签页链接、Ctrl 点击、中键点击）打开的标签页会保留在该配置文件中，而不使用 Chrome 的默认 Cookie。"
   },
+  "groupTabsByProfileLabel": {
+    "message": "在标签页栏中按配置文件对标签页分组"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "将每个配置文件的标签页放入一个彩色标签页组。Chrome 会请求管理标签页组的权限。这将重新排列您的标签页，并且组颜色仅限于 Chrome 预设的 9 种颜色，因此两个配置文件的颜色可能看起来相同。"
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "权限被拒绝。标签页分组将保持关闭。"
+  },
   "aboutTagline": {
     "message": "一款免费开源的 Chrome 扩展，实现按标签页会话隔离。可同时在同一网站上保持多个账号的登录状态。"
   },

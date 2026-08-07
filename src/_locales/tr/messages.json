@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Etkinleştirildiğinde, izole bir profildeki bir bağlantıdan (yeni sekme bağlantıları, Ctrl-tıklama, orta tık) açılan sekmeler, Chrome'un varsayılan çerezlerini kullanmak yerine o profilde kalır."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Sekme şeridinde sekmeleri profile göre grupla"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Her profilin sekmelerini renkli bir sekme grubuna yerleştirir. Chrome, sekme gruplarını yönetmek için izin isteyecektir. Bu, sekmelerinizi yeniden düzenler ve grup renkleri Chrome'un 9 önceden tanımlı rengiyle sınırlıdır, bu nedenle iki profil rengi aynı görünebilir."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "İzin reddedildi. Sekme gruplama kapalı kalır."
+  },
   "aboutTagline": {
     "message": "Sekme başına oturum izolasyonu için ücretsiz, açık kaynaklı bir Chrome uzantısı. Aynı sitede birden fazla hesapta aynı anda oturum açık kalın."
   },

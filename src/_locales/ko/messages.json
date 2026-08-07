@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "활성화하면 분리된 프로필에서 링크(새 탭 링크, Ctrl 클릭, 가운데 클릭)로 연 탭이 Chrome의 기본 쿠키 대신 해당 프로필에 유지됩니다."
   },
+  "groupTabsByProfileLabel": {
+    "message": "탭 모음에서 프로필별로 탭 그룹화"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "각 프로필의 탭을 색상이 지정된 탭 그룹으로 묶습니다. Chrome이 탭 그룹을 관리할 권한을 요청합니다. 이렇게 하면 탭이 재정렬되며, 그룹 색상은 Chrome의 사전 설정된 9가지 색상으로 제한되므로 두 프로필의 색상이 같아 보일 수 있습니다."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "권한이 거부되었습니다. 탭 그룹화는 계속 꺼져 있습니다."
+  },
   "aboutTagline": {
     "message": "탭별 세션 분리를 위한 무료 오픈소스 Chrome 확장 프로그램입니다. 동일한 사이트의 여러 계정에 동시에 로그인 상태를 유지하세요."
   },

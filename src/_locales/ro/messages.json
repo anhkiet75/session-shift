@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Când este activată, filele deschise dintr-un link (linkuri de filă nouă, Ctrl-clic, clic pe rotița mouse-ului) pe un profil izolat rămân în acel profil în loc să folosească modulele cookie implicite ale Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Grupează filele după profil în bara de file"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Plasează filele fiecărui profil într-un grup de file colorat. Chrome va cere permisiunea de a gestiona grupurile de file. Acest lucru va reorganiza filele, iar culorile grupurilor sunt limitate la cele 9 culori prestabilite din Chrome, astfel încât două culori de profil pot arăta la fel."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Permisiune refuzată. Gruparea filelor rămâne dezactivată."
+  },
   "aboutTagline": {
     "message": "O extensie Chrome gratuită și open-source pentru izolarea sesiunii pe filă. Rămâi conectat simultan la mai multe conturi de pe același site."
   },

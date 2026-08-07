@@ -5,16 +5,22 @@
 | File | LOC | Purpose |
 |------|-----|---------|
 | **background/index.ts** | 109 | Service worker entry point; listener registration for DNR, messages, commands, context menu |
-| **background/session-manager.ts** | 93 | In-memory tabSessions map, badge generation, icon creation via OffscreenCanvas |
+| **background/session-manager.ts** | 74 | In-memory tabSessions map; badge text/color/label-contrast; delegates icon rasterization |
+| **background/profile-icon-renderer.ts** | 106 | Per-hue action icon rasterization via OffscreenCanvas; per-hue + base-bitmap caches |
 | **background/dnr-manager.ts** | 148 | DNR rule management; Set-Cookie capture into session store + jar-pollution strip on isolated tabs |
 | **background/context-menu-manager.ts** | 40 | Context menu creation and cleanup lifecycle |
 | **background/linked-tab-inheritance.ts** | 35 | Listen for link-opened tabs; auto-assign profile if setting enabled (v0.6.0+) |
 | **background/message-handler.ts** | 137 | chrome.runtime.onMessage routing; all message types (setSession, updateCookie, deleteSession, etc.) |
+| **background/tab-group-sync.ts** | 213 | chrome.tabGroups mutation engine (Phase 4): create/move/recolor groups per profile; withTabGroups() permission guard; onUpdated self-write detection |
+| **background/tab-group-lifecycle.ts** | 83 | Phase 4 permission/setting orchestration: request/decline/revoke handling, ext_settings on/off transition, SW-startup reconcile |
+| **background/tab-group-registry.ts** | 98 | chrome.storage.session-backed (windowId, profileId) → groupId registry; ownership invariant for Phase 4 |
 | **content.ts** | 86 | ISOLATED world bridge; session bootstrap; relays updateCookie to background |
 | **page-api-proxy.ts** | 222 | MAIN world API interception; document.cookie, localStorage, sessionStorage, indexedDB proxying; uses lib/storage-proxy |
 | **lib/cookie-parser.ts** | 170 | Parse/serialize Set-Cookie headers; cookie store serialization |
+| **lib/profile-color.ts** | 136 | Single source of truth for hue→color: palette, legacy-hex migration, HSL→RGB, badge fill, WCAG contrast-picked label, CSS helpers |
 | **lib/session-store.ts** | 214 | Centralized chrome.storage.local access; session CRUD; export/import; duplication; auto-assign rules CRUD |
 | **lib/settings-store.ts** | 14 | Shared ExtSettings read/write (getExtSettings, setExtSettings); extracted for options page + background use (v0.6.0+) |
+| **lib/tab-groups-permission.ts** | 36 | Phase 4: hasTabGroupsPermission(), reconcileTabGroupsSetting() — reconciles groupTabsByProfile to off when the optional tabGroups grant is gone |
 | **lib/storage-proxy.ts** | 50 | Storage proxy factory for per-session localStorage/sessionStorage isolation (testable) |
 | **lib/types.ts** | 45+ | TypeScript types: BackgroundMessage, DNRRule, CookieStoreEntry, SessionConfig, ExtSettings |
 | **popup/popup.html** | 81 | Popup UI structure; form, session list, footer; ARIA roles, aria-selected, aria-live |
@@ -23,7 +29,7 @@
 | **options/options.html** | 161 | Multi-tab layout (Rules, Backup, Settings, About); rule management + settings UI; ARIA roles |
 | **options/options.ts** | 272 | Rules CRUD, export/import handlers, settings management, about/version display; ARIA toggle |
 | **options/options.css** | 441 | Design tokens; multi-tab layout; form styling; settings panels; responsive design; :focus-visible rings |
-| **manifest.json** | 72 | MV3 manifest (v0.4.0+); permissions; background worker; content scripts; context menus; options page; commands |
+| **manifest.json** | 79 | MV3 manifest (v0.4.0+); permissions; `optional_permissions: ["tabGroups"]` (Phase 4, requested at runtime, never on install/update); background worker; content scripts; context menus; options page; commands |
 | **tsconfig.json** | 20+ | TypeScript config; strict mode; ES2020 target; module: esnext |
 | **vitest.config.ts** | 25+ | Vitest configuration; jsdom environment; esbuild loader; test patterns |
 
@@ -43,18 +49,32 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 - Exports unified message handler
 - Manages storage GC alarms
 
-#### background/session-manager.ts (~93 LOC)
+#### background/session-manager.ts (~74 LOC)
 **Responsibilities:**
 - Maintains in-memory `tabSessions` map (tabId → sessionId)
 - Persists tab→session map to `chrome.storage.session`
-- Generates colored session icons via OffscreenCanvas (19×19 colored circles)
-- Updates action badge with session label + color (hue-based)
+- Updates the action badge: 3-char label, profile-colored fill, contrast-picked label color
+- Requests the per-hue action icon from `profile-icon-renderer` and applies it per tab
 
 **Key Functions:**
-- `generateSessionIcon(hue)` — Create colored circle via OffscreenCanvas
-- `updateBadge(tabId, sessionId)` — Set badge text + color
-- `getTabSession(tabId)` — Retrieve session for tab
-- `setTabSession(tabId, sessionId)` — Assign session to tab, persist
+- `updateBadge(tabId, sessionId)` — Set badge text/colors, then the tinted icon. Internal
+  sessions clear the badge and restore the static path icons. Icon work runs after the
+  badge and is wrapped so a rasterization failure degrades to the stock icon.
+- `restoreTabSessions()` / `persistTabSessions()` — Load/save the map across SW restarts
+
+#### background/profile-icon-renderer.ts (~106 LOC)
+**Responsibilities:**
+- Rasterizes the toolbar icon in a profile's hue at 16px and 32px via `OffscreenCanvas`
+  (the MV3 service worker has no DOM, so `document.createElement('canvas')` is unavailable)
+- Composition: rounded tile filled with the profile color, brand mark composited on top as
+  a white silhouette derived from the logo's own alpha — the stock logo is blue and would
+  vanish against blue hues
+- Two memory caches: the base `ImageBitmap` (one fetch per SW lifetime) and rendered icon
+  sets keyed by hue, so recoloring a profile is a natural cache miss
+
+**Key Functions:**
+- `getIconSetForHue(hue)` — `Promise<{16: ImageData, 32: ImageData}>`; rejects (retryably)
+  when `OffscreenCanvas` is unavailable or the logo cannot be fetched
 
 #### background/dnr-manager.ts (~148 LOC)
 **Responsibilities:**

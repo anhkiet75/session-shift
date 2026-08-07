@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Indien ingeschakeld blijven tabbladen die vanuit een link (nieuw-tabblad-links, Ctrl-klik, middelste klik) op een geïsoleerd profiel worden geopend in dat profiel, in plaats van de standaardcookies van Chrome te gebruiken."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Tabbladen groeperen op profiel in de tabbalk"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Plaatst de tabbladen van elk profiel in een gekleurde tabbladgroep. Chrome vraagt toestemming om tabbladgroepen te beheren. Dit herschikt uw tabbladen, en groepskleuren zijn beperkt tot de 9 vooraf ingestelde kleuren van Chrome, dus twee profielkleuren kunnen er hetzelfde uitzien."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Toestemming geweigerd. Tabbladgroepering blijft uitgeschakeld."
+  },
   "aboutTagline": {
     "message": "Een gratis, opensource Chrome-extensie voor sessie-isolatie per tabblad. Blijf tegelijkertijd ingelogd op meerdere accounts op dezelfde site."
   },

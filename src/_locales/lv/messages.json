@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Kad iespējots, no saites (jaunas cilnes saites, Ctrl-klikšķis, vidējā poga) izolētā profilā atvērtas cilnes paliek šajā profilā, nevis izmanto Chrome noklusējuma sīkfailus."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Grupēt cilnes pēc profila cilņu joslā"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Ievieto katra profila cilnes krāsainā cilņu grupā. Chrome pieprasīs atļauju pārvaldīt cilņu grupas. Tas pārkārtos jūsu cilnes, un grupu krāsas ir ierobežotas līdz 9 Chrome iepriekš iestatītajām krāsām, tāpēc divas profilu krāsas var izskatīties vienādas."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Atļauja noraidīta. Cilņu grupēšana paliek izslēgta."
+  },
   "aboutTagline": {
     "message": "Bezmaksas, atvērtā koda Chrome paplašinājums sesiju izolācijai katrai cilnei. Saglabājiet pieteikšanos vairākos kontos vienā vietnē vienlaikus."
   },

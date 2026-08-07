@@ -7,6 +7,7 @@ import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
 import { updateDNRRulesForTab, stripCookiesOnNextNavigation } from './dnr-manager.js';
 import { getLanguagePreference, createLocalizer } from '../lib/localization.js';
+import { syncTabToGroup, syncProfileGroupAppearance } from './tab-group-sync.js';
 
 export async function handleMessage(
   request: BackgroundMessage,
@@ -30,6 +31,17 @@ export async function handleMessage(
       updateBadge(tabId, sessionId);
       if (sessionId !== 'default') {
         await chrome.tabs.sendMessage(tabId, { action: 'sessionBootstrapChanged' }).catch(() => null);
+        // Phase 4: no-ops when tab grouping is off or the tabGroups permission
+        // isn't currently granted. `.catch()` here (not just the outer
+        // try/catch) because `void` doesn't await the call — an async
+        // rejection from inside it would otherwise surface as an unhandled
+        // rejection, not something the surrounding try/catch sees.
+        try {
+          const tab = await chrome.tabs.get(tabId);
+          if (tab.windowId !== undefined) void syncTabToGroup(tabId, tab.windowId, sessionId).catch(() => {});
+        } catch (_) {
+          // Tab closed between the assignment above and this lookup — nothing to group.
+        }
       }
       return { success: true, sessionId };
     }
@@ -198,6 +210,10 @@ export async function handleMessage(
       stripCookiesOnNextNavigation(newTab.id, url);
       await updateDNRRulesForTab(newTab.id, sessionId);
       updateBadge(newTab.id, sessionId);
+      // Phase 4: no-op when tab grouping is off/unpermitted. `.catch()` here
+      // (not just relying on the outer try/catch) because `void` doesn't
+      // await the call — mirrors setSession's same fire-and-forget pattern.
+      if (newTab.windowId !== undefined) void syncTabToGroup(newTab.id, newTab.windowId, sessionId).catch(() => {});
       await chrome.tabs.update(newTab.id, { url });
       return { success: true, tabId: newTab.id };
     }
@@ -223,6 +239,17 @@ export async function handleMessage(
       for (const [tid, sid] of Object.entries(tabSessions)) {
         if (sid === sessionId) updateBadge(Number(tid), sessionId);
       }
+      void syncProfileGroupAppearance(sessionId).catch(() => {}); // Phase 4: no-op when tab grouping is off/unpermitted
+      return { success: true };
+    }
+
+    case 'renameProfileGroups': {
+      const { sessionId } = request.payload;
+      if (typeof sessionId !== 'string') return { error: 'invalid payload' };
+      // Popup writes the new name straight to chrome.storage.local and never
+      // calls into the background otherwise — this is the only path that
+      // retitles a group that's already open for this profile.
+      void syncProfileGroupAppearance(sessionId).catch(() => {}); // Phase 4: no-op when tab grouping is off/unpermitted
       return { success: true };
     }
 

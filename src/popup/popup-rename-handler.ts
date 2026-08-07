@@ -55,6 +55,9 @@ export function startRename(
       document.getElementById('heroName')!.textContent = newName;
     }
     chrome.runtime.sendMessage({ action: 'refreshBadge', payload: { tabId } });
+    // Retitle any already-open native tab group for this profile — renameSession()
+    // above only wrote chrome.storage.local, which chrome.tabGroups never reads on its own.
+    chrome.runtime.sendMessage({ action: 'renameProfileGroups', payload: { sessionId: session.id } });
   }
 
   input.addEventListener('keydown', (e: KeyboardEvent) => {

@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Gdy włączone, karty otwierane z linku (linki nowej karty, Ctrl-klik, kliknięcie środkowym przyciskiem) na izolowanym profilu pozostają w tym profilu zamiast używać domyślnych plików cookie Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Grupuj karty według profilu na pasku kart"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Umieszcza karty każdego profilu w kolorowej grupie kart. Chrome poprosi o uprawnienia do zarządzania grupami kart. Spowoduje to zmianę kolejności kart, a kolory grup są ograniczone do 9 predefiniowanych kolorów Chrome, więc dwa kolory profili mogą wyglądać tak samo."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Odmówiono uprawnień. Grupowanie kart pozostaje wyłączone."
+  },
   "aboutTagline": {
     "message": "Darmowe, otwartoźródłowe rozszerzenie Chrome do izolacji sesji na kartę. Pozostań zalogowany na wielu kontach na tej samej stronie jednocześnie."
   },

@@ -71,6 +71,14 @@
         </label>
         <label class="opt-setting-row">
           <div class="opt-setting-info">
+            <span class="opt-setting-label" data-i18n="groupTabsByProfileLabel">Group tabs by profile in the tab strip</span>
+            <span class="opt-setting-desc" data-i18n="groupTabsByProfileDesc">Puts each profile's tabs into a colored tab group. Chrome will ask permission to manage tab groups. This reorders your tabs, and group colors are limited to Chrome's 9 preset colors, so two profile colors may look the same.</span>
+            <span class="opt-setting-notice hidden" id="groupTabsDeniedNotice" data-i18n="groupTabsPermissionDeniedNotice" role="status">Permission declined. Tab grouping stays off.</span>
+          </div>
+          <input type="checkbox" id="groupTabsByProfileToggle" class="opt-toggle-checkbox">
+        </label>
+        <label class="opt-setting-row">
+          <div class="opt-setting-info">
             <span class="opt-setting-label" data-i18n="languageSettingLabel">Language</span>
             <span class="opt-setting-desc" data-i18n="languageSettingDesc">Applies to this popup, Options, and context menus. Chrome's own keyboard shortcuts, extension name, and description always follow your browser's language.</span>
           </div>

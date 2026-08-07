@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Test</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f3f4f6;
+      --surface: #ffffff;
+      --border: #9ca3af;
+      --text: #111827;
+      --text-secondary: #374151;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-text: #ffffff;
+      --focus: #4f46e5;
+      --success: #15803d;
+      --error: #b91c1c;
+      --status-bg: #eef2ff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f19;
+        --surface: #1a2233;
+        --border: #4b5563;
+        --text: #f9fafb;
+        --text-secondary: #d1d5db;
+        --primary: #3b82f6;
+        --primary-hover: #60a5fa;
+        --primary-text: #ffffff;
+        --focus: #93c5fd;
+        --success: #4ade80;
+        --error: #f87171;
+        --status-bg: #1e293b;
+      }
+    }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      display: grid; place-items: center; min-height: 100vh; margin: 0;
+      background: var(--bg);
+    }
+    .card {
+      background: var(--surface); border: 2px solid var(--border); border-radius: 12px;
+      padding: 32px; width: 340px; box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    }
+    h1 { font-size: 22px; margin: 0 0 4px; color: var(--text); }
+    p.sub { color: var(--text-secondary); margin: 0 0 24px; font-size: 15px; }
+    label { display: block; font-size: 15px; margin: 14px 0 6px; color: var(--text); font-weight: 600; }
+    input {
+      width: 100%; box-sizing: border-box; padding: 12px 14px; font-size: 16px;
+      border: 2px solid var(--border); border-radius: 8px; background: var(--surface);
+      color: var(--text); min-height: 48px;
+    }
+    input:focus {
+      outline: 3px solid var(--focus); outline-offset: 2px;
+      border-color: var(--primary);
+    }
+    button {
+      width: 100%; margin-top: 22px; padding: 12px; font-size: 16px; font-weight: 700;
+      background: var(--primary); color: var(--primary-text); border: 0;
+      border-radius: 8px; cursor: pointer; min-height: 48px;
+    }
+    button:hover { background: var(--primary-hover); }
+    button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .msg { margin-top: 14px; font-size: 15px; min-height: 22px; font-weight: 600; }
+    .err { color: var(--error); }
+    .ok { color: var(--success); }
+    .status {
+      margin-top: 20px; padding: 14px; border-radius: 8px; font-size: 15px;
+      border: 2px solid var(--border); background: var(--status-bg);
+      word-break: break-all; color: var(--text);
+    }
+    .status b { display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); }
+    .status .yes { color: var(--success); font-weight: 700; }
+    .status .no { color: var(--text-secondary); font-weight: 600; }
+    a { color: var(--primary); font-weight: 700; text-underline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Sign in</h1>
+    <p class="sub">Standalone login test server</p>
+    <form id="form" novalidate>
+      <label for="username">Username</label>
+      <input id="username" name="username" autocomplete="username" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button type="submit">Sign in</button>
+      <div class="msg" id="msg" role="status"></div>
+    </form>
+    <div class="status" id="status"><b>Current session</b><span id="statusText">Checking…</span></div>
+  </div>
+  <script>
+    const form = document.getElementById('form');
+    const msg = document.getElementById('msg');
+    const status = document.getElementById('status');
+    const statusText = document.getElementById('statusText');
+
+    // Show current session state right away so it's easy to see.
+    (async () => {
+      try {
+        const res = await fetch('/whoami');
+        const { loggedIn, username } = await res.json();
+        if (loggedIn) {
+          statusText.innerHTML =
+            `Logged in as <span class="yes">${username}</span> · <a href="/dashboard">Go to dashboard →</a>`;
+        } else {
+          statusText.innerHTML = '<span class="no">Not logged in</span>';
+        }
+      } catch {
+        statusText.innerHTML = '<span class="no">Unable to reach server</span>';
+      }
+    })();
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = ''; msg.className = 'msg';
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        if (res.ok) {
+          msg.className = 'msg ok';
+          msg.textContent = 'Login successful — redirecting…';
+          setTimeout(() => (window.location.href = '/dashboard'), 600);
+        } else {
+          const body = await res.json().catch(() => ({}));
+          msg.className = 'msg err';
+          msg.textContent = body.error || 'Login failed';
+        }
+      } catch {
+        msg.className = 'msg err';
+        msg.textContent = 'Network error';
+      }
+    });
+  </script>
+</body>
+</html>

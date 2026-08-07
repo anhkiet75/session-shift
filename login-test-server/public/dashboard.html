@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f3f4f6;
+      --surface: #ffffff;
+      --border: #9ca3af;
+      --text: #111827;
+      --text-secondary: #374151;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-text: #ffffff;
+      --focus: #4f46e5;
+      --success: #15803d;
+      --error: #b91c1c;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f19;
+        --surface: #1a2233;
+        --border: #4b5563;
+        --text: #f9fafb;
+        --text-secondary: #d1d5db;
+        --primary: #3b82f6;
+        --primary-hover: #60a5fa;
+        --primary-text: #ffffff;
+        --focus: #93c5fd;
+        --success: #4ade80;
+        --error: #f87171;
+      }
+    }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      display: grid; place-items: center; min-height: 100vh; margin: 0;
+      background: var(--bg);
+    }
+    .card {
+      background: var(--surface); border: 2px solid var(--border); border-radius: 12px;
+      padding: 32px; width: 380px; box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    }
+    h1 { font-size: 22px; margin: 0 0 8px; color: var(--text); }
+    p { color: var(--text-secondary); font-size: 15px; margin: 0 0 20px; }
+    .who {
+      font-size: 16px; padding: 14px; border: 2px solid var(--border);
+      border-radius: 8px; margin-bottom: 22px; color: var(--text); background: var(--surface);
+    }
+    .logged { color: var(--success); font-weight: 700; font-size: 15px; display: block; margin-bottom: 20px; }
+    .logout {
+      display: inline-block; padding: 12px 20px; font-size: 16px; font-weight: 700;
+      background: var(--primary); color: var(--primary-text); border-radius: 8px;
+      text-decoration: none; min-height: 44px; box-sizing: border-box;
+    }
+    .logout:hover { background: var(--primary-hover); }
+    .logout:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+    a { color: var(--primary); font-weight: 700; text-underline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Dashboard</h1>
+    <span class="logged">Logged in as <span id="user">__USERNAME__</span></span>
+    <div class="who" id="cookieInfo">Session cookie verified server-side (HttpOnly).</div>
+    <a class="logout" href="/logout">Sign out</a>
+  </div>
+</body>
+</html>

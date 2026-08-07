@@ -33,7 +33,9 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 - **Auto-inherit for linked tabs** — Tabs opened via links (`target="_blank"`, Ctrl+Click, middle-click) automatically inherit the opener tab's profile (toggle in Options, default on)
 - **Open in new tab** — Right-click a profile in the popup to open the current page in that profile's session
 - **Context menu integration** — Right-click any link → "Open in Session" to open it in a specific profile
-- **Badge indicator** — Toolbar badge shows the active profile at a glance (color-coded by hue)
+- **Badge indicator** — Toolbar badge shows the active profile at a glance, in the profile's color with a contrast-picked label
+- **Color-coded toolbar icon** — The extension icon itself is tinted with the active profile's color, so two tabs on different profiles are distinguishable without reading the badge
+- **Group tabs by profile** — Optional native Chrome tab groups, one per profile (Options → off by default, requests the `tabGroups` permission only when enabled; reorders tabs and quantizes color to Chrome's 9 preset group colors)
 - **Duplicate profile** — Clone a profile's cookies into a new profile with one click
 - **Persistent across restarts** — Session assignments survive service worker restarts
 - **55 languages** — Full UI localization with honest quality tiers, RTL support (Arabic, Farsi, Hebrew), and English fallback for destructive/security messages on unreviewed locales
@@ -116,6 +118,12 @@ Read the docs for deeper understanding:
 | `alarms` | Schedule periodic storage garbage collection |
 | `<all_urls>` | Operate on any website |
 
+**Optional permission** (requested at runtime, not on install/update):
+
+| Permission | Why | Requested when |
+|---|---|---|
+| `tabGroups` | Create/color native tab groups per profile | User enables "Group tabs by profile" in Options |
+
 ---
 
 ## Usage
@@ -151,6 +159,7 @@ Read the docs for deeper understanding:
 - **Theme** — Dark / Light / System
 - **Language** — Pick any of the 55 supported languages (applies to popup, Options, and context menus)
 - **Auto-open linked tabs in the same profile** — Toggle link-opened-tab profile inheritance (default on)
+- **Group tabs by profile in the tab strip** — Toggle native Chrome tab groups; requests the `tabGroups` permission on enable (default off)
 
 ### Reset to Default
 Click **Reset to default** to return the current tab to the browser's global cookie jar
@@ -241,7 +250,7 @@ See [Project Roadmap](docs/project-roadmap.md) for the detailed plan and feature
 - **Private browsing:** Sessions don't persist (chrome.storage.session limitation)
 - **No auto-login:** You must manually log in once per profile
 - **Linked-tab first request:** For link-opened tabs, the very first network request may not be hard-guaranteed cookie-clean due to browser timing; isolation is deterministic from the second request onward
-- **No tab grouping:** Profiles are logical, not visual
+- **Tab grouping is opt-in and lossy:** Native Chrome tab groups (Options) quantize each profile's color to one of Chrome's 9 preset group colors, so two similarly-colored profiles can end up with the same group color. Assigning a tab to a profile always moves it into that profile's group — if the tab was the last one in a group you made by hand, Chrome removes that group; this is inherent to `chrome.tabs.group()`, not something SessionShift can opt out of
 
 ---
 

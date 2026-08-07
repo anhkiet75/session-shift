@@ -14,6 +14,13 @@ export interface ExtSettings {
   autoInheritProfileForLinkedTabs?: boolean
   /** `'system'` or absent delegates to Chrome's UI locale; otherwise a pinned SupportedLocale code. */
   language?: string
+  /**
+   * Native tab-strip grouping via `chrome.tabGroups`. Absent means OFF: this
+   * rearranges the tab strip *and* requires requesting the optional
+   * `tabGroups` permission, so it must never be reachable without an
+   * explicit opt-in.
+   */
+  groupTabsByProfile?: boolean
 }
 
 export interface ParsedCookie {
@@ -50,5 +57,6 @@ export type BackgroundMessage =
   | { action: 'createSessionTab'; payload: { url: string; sessionId: string } }
   | { action: 'duplicateSession'; payload?: { sessionId: string } }
   | { action: 'colorSession'; payload: { sessionId: string; hue: number } }
+  | { action: 'renameProfileGroups'; payload: { sessionId: string } }
 
 export type DNRRule = chrome.declarativeNetRequest.Rule

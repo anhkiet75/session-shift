@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Wenn aktiviert, bleiben Tabs, die über einen Link (neue Tab-Links, Strg-Klick, mittlere Maustaste) aus einem isolierten Profil geöffnet werden, in diesem Profil, statt Chromes Standard-Cookies zu verwenden."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Tabs nach Profil in der Tableiste gruppieren"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Ordnet die Tabs jedes Profils einer farbigen Tabgruppe zu. Chrome fragt um Erlaubnis, Tabgruppen zu verwalten. Dadurch werden Ihre Tabs neu angeordnet, und die Gruppenfarben sind auf die 9 voreingestellten Farben von Chrome beschränkt, sodass zwei Profilfarben gleich aussehen können."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Berechtigung abgelehnt. Die Tab-Gruppierung bleibt deaktiviert."
+  },
   "aboutTagline": {
     "message": "Eine kostenlose, quelloffene Chrome-Erweiterung für Sitzungsisolierung pro Tab. Bleiben Sie gleichzeitig bei mehreren Konten auf derselben Website angemeldet."
   },

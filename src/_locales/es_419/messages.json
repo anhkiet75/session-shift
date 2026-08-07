@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Cuando está activado, las pestañas abiertas desde un enlace (enlaces de pestaña nueva, Ctrl+clic, clic central) en un perfil aislado permanecen en ese perfil en lugar de usar las cookies predeterminadas de Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Agrupar pestañas por perfil en la barra de pestañas"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Coloca las pestañas de cada perfil en un grupo de pestañas de color. Chrome pedirá permiso para administrar grupos de pestañas. Esto reordenará tus pestañas, y los colores de los grupos están limitados a los 9 colores predefinidos de Chrome, por lo que dos colores de perfil pueden verse iguales."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Permiso denegado. La agrupación de pestañas permanece desactivada."
+  },
   "aboutTagline": {
     "message": "Una extensión de Chrome gratuita y de código abierto para el aislamiento de sesión por pestaña. Mantente conectado a varias cuentas del mismo sitio, al mismo tiempo."
   },

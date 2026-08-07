@@ -9,6 +9,10 @@ import type { BackgroundMessage } from '../lib/types.js';
 import { getProfiles, isInternalSession } from '../lib/session-store.js';
 import { runExpiredPurge, runOrphanPurge } from './storage-gc.js';
 import { migrateToProfiles } from '../lib/profile-migration.js';
+import { registerGuardedListeners, handleTabAttached, handleWindowRemoved } from './tab-group-sync.js';
+import {
+  registerPermissionRemovedListener, registerSettingsListener, startupReconcile,
+} from './tab-group-lifecycle.js';
 
 export { handleMessage };
 
@@ -24,6 +28,16 @@ setupContextMenu();
 registerStorageListener();
 registerWebRequestListener();
 registerLinkedTabInheritance(restored);
+
+// Phase 4 tab-group sync (optional `tabGroups` permission — see
+// tab-group-sync.ts). Guarded registrations no-op when the permission isn't
+// granted; unguarded ones (permissions.onRemoved) are on a namespace that
+// always exists. startupReconcile is the authoritative revoke detector —
+// kicked off as a promise, never top-level `await` (see comment above).
+registerGuardedListeners();
+registerPermissionRemovedListener();
+registerSettingsListener();
+void startupReconcile().catch((e: unknown) => console.warn('[bg] startupReconcile failed:', e));
 
 // Upgrade legacy per-origin `list_*` sessions into the global `profiles` key.
 // Idempotent — fires on install and on every version update.
@@ -96,6 +110,19 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
     const sessionId = tabSessions[tabId] || 'default';
     if (!isInternalSession(sessionId)) updateBadge(tabId, sessionId);
   }
+});
+
+// Phase 4: a tab dragged into another window must land in that window's
+// group for its profile (no-ops when tab grouping is off or unpermitted).
+chrome.tabs.onAttached.addListener(async (tabId, attachInfo) => {
+  await restored;
+  await handleTabAttached(tabId, attachInfo.newWindowId, tabSessions[tabId]);
+});
+
+// Phase 4: a closed window takes its groups with it — drop the registry's
+// record of them rather than let it accumulate stale entries.
+chrome.windows.onRemoved.addListener((windowId) => {
+  void handleWindowRemoved(windowId);
 });
 
 // ---------------------------------------------------------------------------

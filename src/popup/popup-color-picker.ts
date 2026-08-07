@@ -1,7 +1,7 @@
 // popup-color-picker.ts — Inline color dot + swatch popover + custom hue slider for session cards.
 
 import type { PopupSession } from './popup-types.js';
-import { HUE_PALETTE } from './popup-types.js';
+import { HUE_PALETTE, DEFAULT_HUE, profileSwatchCss } from './popup-types.js';
 import type { Localizer } from '../lib/localization.js';
 
 let activePopover: HTMLElement | null = null;
@@ -117,7 +117,7 @@ function buildPopover(
     const sw = document.createElement('button');
     sw.type = 'button';
     sw.className = 'v2-color-swatch';
-    sw.style.background = `hsl(${h},70%,55%)`;
+    sw.style.background = profileSwatchCss(h);
     sw.title = localizer.getMessage('hueSwatchTitle', [String(h)]) || `Hue ${h}`;
     sw.setAttribute('aria-pressed', String(session.hue === h));
     sw.addEventListener('click', async () => {
@@ -156,7 +156,7 @@ function buildPopover(
     const res = await chrome.runtime.sendMessage({ action: 'colorSession', payload: { sessionId: session.id, hue } })
       .catch(() => null);
     if (!res?.success) {
-      card.style.setProperty('--hue', String(session.hue ?? 212));
+      card.style.setProperty('--hue', String(session.hue ?? DEFAULT_HUE));
       return;
     }
     session.hue = hue;
@@ -180,7 +180,7 @@ function buildSlider(
   const spanLeft = document.createElement('span');
   spanLeft.textContent = localizer.getMessage('customLabel') || 'Custom';
   const spanRight = document.createElement('span');
-  spanRight.textContent = `${session.hue ?? 212}°`;
+  spanRight.textContent = `${session.hue ?? DEFAULT_HUE}°`;
   labelRow.appendChild(spanLeft);
   labelRow.appendChild(spanRight);
   wrap.appendChild(labelRow);
@@ -189,18 +189,18 @@ function buildSlider(
   slider.type = 'range';
   slider.min = '0';
   slider.max = '360';
-  slider.value = String(session.hue ?? 212);
+  slider.value = String(session.hue ?? DEFAULT_HUE);
   slider.className = 'v2-hue-slider';
   slider.setAttribute('aria-label', localizer.getMessage('customHueValueAriaLabel') || 'Custom hue value');
 
   const preview = document.createElement('div');
   preview.className = 'v2-hue-preview';
-  preview.style.background = `hsl(${session.hue ?? 212},70%,55%)`;
+  preview.style.background = profileSwatchCss(session.hue ?? DEFAULT_HUE);
 
   slider.addEventListener('input', () => {
     const h = parseInt(slider.value, 10);
     spanRight.textContent = `${h}°`;
-    preview.style.background = `hsl(${h},70%,55%)`;
+    preview.style.background = profileSwatchCss(h);
     card.style.setProperty('--hue', String(h));
   });
 
@@ -209,8 +209,8 @@ function buildSlider(
     const res = await chrome.runtime.sendMessage({ action: 'colorSession', payload: { sessionId: session.id, hue: h } })
       .catch(() => null);
     if (!res?.success) {
-      slider.value = String(session.hue ?? 212);
-      card.style.setProperty('--hue', String(session.hue ?? 212));
+      slider.value = String(session.hue ?? DEFAULT_HUE);
+      card.style.setProperty('--hue', String(session.hue ?? DEFAULT_HUE));
       return;
     }
     session.hue = h;

@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Kapag naka-enable, ang mga tab na binuksan mula sa link (mga bagong-tab na link, Ctrl-click, middle-click) sa isang nakahiwalay na profile ay mananatili sa profile na iyon sa halip na gamitin ang default na cookies ng Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Pagsamahin ang mga tab ayon sa profile sa tab strip"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Inilalagay ang mga tab ng bawat profile sa isang de-kulay na grupo ng tab. Hihingi ng pahintulot ang Chrome para pamahalaan ang mga grupo ng tab. Ire-reorganize nito ang iyong mga tab, at limitado lang ang mga kulay ng grupo sa 9 preset na kulay ng Chrome, kaya maaaring magmukhang magkatulad ang dalawang kulay ng profile."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Tinanggihan ang pahintulot. Mananatiling naka-off ang pag-grupo ng tab."
+  },
   "aboutTagline": {
     "message": "Isang libre at open-source na Chrome extension para sa paghihiwalay ng session bawat tab. Manatiling naka-login sa maraming account sa parehong site nang sabay-sabay."
   },

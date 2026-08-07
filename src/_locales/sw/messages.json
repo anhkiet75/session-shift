@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Ikiwashwa, vichupo vinavyofunguliwa kutoka kiungo (viungo vya kichupo kipya, Ctrl-bofya, bofya-katikati) kwenye wasifu uliotengwa vitabaki katika wasifu huo badala ya kutumia vidakuzi chaguo-msingi vya Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Panga vichupo kwa wasifu kwenye ukanda wa vichupo"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Huweka vichupo vya kila wasifu katika kikundi cha vichupo chenye rangi. Chrome itaomba ruhusa ya kudhibiti vikundi vya vichupo. Hii itapanga upya vichupo vyako, na rangi za kikundi zimewekewa mpaka wa rangi 9 za awali za Chrome, hivyo rangi mbili za wasifu zinaweza kuonekana sawa."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Ruhusa imekataliwa. Upangaji wa vichupo utabaki umezimwa."
+  },
   "aboutTagline": {
     "message": "Kiendelezi cha Chrome cha bure na chanzo-huria cha kutenga vipindi kwa kila kichupo. Baki umeingia kwenye akaunti nyingi kwenye tovuti moja, kwa wakati mmoja."
   },

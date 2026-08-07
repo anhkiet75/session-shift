@@ -2,6 +2,7 @@
 
 import type { ExtSettings } from '../lib/types.js'
 import { getExtSettings, mutateExtSettingsField } from '../lib/settings-store.js'
+import { reconcileTabGroupsSetting } from '../lib/tab-groups-permission.js'
 import {
   getLanguagePreference,
   createLocalizer,
@@ -106,6 +107,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     autoInheritToggle.checked = settings.autoInheritProfileForLinkedTabs !== false
     autoInheritToggle.addEventListener('change', async () => {
       await mutateExtSettingsField('autoInheritProfileForLinkedTabs', autoInheritToggle.checked)
+    })
+
+    // Phase 4: the setting and the `tabGroups` grant are independent facts —
+    // render their actual combination on load rather than trusting the
+    // stored setting alone (the grant may have been revoked out-of-band
+    // since this was last opened).
+    const groupTabsToggle = document.getElementById('groupTabsByProfileToggle') as HTMLInputElement
+    const groupTabsDeniedNotice = document.getElementById('groupTabsDeniedNotice') as HTMLElement
+    if (settings.groupTabsByProfile === true && !(await reconcileTabGroupsSetting())) {
+      groupTabsToggle.checked = true
+    } else {
+      groupTabsToggle.checked = false
+    }
+    groupTabsToggle.addEventListener('change', async () => {
+      groupTabsDeniedNotice.classList.add('hidden')
+
+      if (!groupTabsToggle.checked) {
+        // Off: no permission work needed to turn off. The background's
+        // ext_settings storage listener does the actual ungroup + registry
+        // clear once this write lands (tab-group-sync.ts's on/off transition).
+        await mutateExtSettingsField('groupTabsByProfile', false)
+        return
+      }
+
+      // On: chrome.permissions.request() must be the FIRST await in this
+      // handler — any prior await can consume the user gesture and make
+      // Chrome reject the request outright.
+      const granted = await chrome.permissions.request({ permissions: ['tabGroups'] })
+      if (!granted) {
+        groupTabsToggle.checked = false
+        groupTabsDeniedNotice.classList.remove('hidden')
+        return // nothing persisted — next Options load renders off, no memory of the refusal
+      }
+      await mutateExtSettingsField('groupTabsByProfile', true)
     })
 
     // Language picker — writes through the serialized mutator, then re-resolves

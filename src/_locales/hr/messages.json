@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Kada je omogućeno, kartice otvorene putem poveznice (poveznice nove kartice, Ctrl-klik, srednji klik) na izoliranom profilu ostaju u tom profilu umjesto da koriste zadane Chrome kolačiće."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Grupiraj kartice prema profilu na traci kartica"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Stavlja kartice svakog profila u obojenu grupu kartica. Chrome će zatražiti dopuštenje za upravljanje grupama kartica. Time će se vaše kartice preurediti, a boje grupa ograničene su na 9 unaprijed postavljenih boja Chromea, pa se dvije boje profila mogu činiti jednakima."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Dopuštenje odbijeno. Grupiranje kartica ostaje isključeno."
+  },
   "aboutTagline": {
     "message": "Besplatna ekstenzija za Chrome otvorenog koda za izolaciju sesija po kartici. Ostanite prijavljeni na više računa na istoj stranici istovremeno."
   },

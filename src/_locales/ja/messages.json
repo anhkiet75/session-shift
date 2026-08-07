@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "有効にすると、分離されたプロファイル上のリンク（新しいタブリンク、Ctrlクリック、中クリック）から開いたタブは、Chromeの標準Cookieではなく、そのプロファイル内にとどまります。"
   },
+  "groupTabsByProfileLabel": {
+    "message": "タブバーでプロファイルごとにタブをグループ化"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "各プロファイルのタブを色付きのタブグループにまとめます。Chromeがタブグループを管理する許可を求めます。これによりタブが再配置され、グループの色はChromeのプリセット9色に限られるため、2つのプロファイルの色が同じに見えることがあります。"
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "許可が拒否されました。タブのグループ化はオフのままです。"
+  },
   "aboutTagline": {
     "message": "タブ単位のセッション分離を実現する無料のオープンソースChrome拡張機能。同じサイトの複数アカウントに同時にログインしたままにできます。"
   },

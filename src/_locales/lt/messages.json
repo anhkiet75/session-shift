@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Kai įjungta, iš nuorodos (naujo skirtuko nuorodos, Ctrl spustelėjimas, vidurinis paspaudimas) atverti skirtukai izoliuotame profilyje lieka tame profilyje, o ne naudoja numatytuosius Chrome slapukus."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Grupuoti skirtukus pagal profilį skirtukų juostoje"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Kiekvieno profilio skirtukus sudeda į spalvotą skirtukų grupę. „Chrome“ paprašys leidimo tvarkyti skirtukų grupes. Tai pertvarkys jūsų skirtukus, o grupių spalvos ribojamos iki 9 iš anksto nustatytų „Chrome“ spalvų, todėl dvi profilių spalvos gali atrodyti vienodai."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Leidimas atmestas. Skirtukų grupavimas lieka išjungtas."
+  },
   "aboutTagline": {
     "message": "Nemokamas, atvirojo kodo Chrome plėtinys seanso izoliacijai kiekvienam skirtukui. Likite prisijungę prie kelių paskyrų toje pačioje svetainėje vienu metu."
   },

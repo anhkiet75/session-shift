@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Når aktiveret, forbliver faner åbnet fra et link (nye fanelinks, Ctrl-klik, midterklik) på en isoleret profil i den profil i stedet for at bruge Chromes standardcookies."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Grupér faner efter profil i fanelinjen"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Placerer hver profils faner i en farvet fanegruppe. Chrome beder om tilladelse til at administrere fanegrupper. Dette omarrangerer dine faner, og gruppefarver er begrænset til Chromes 9 forudindstillede farver, så to profilfarver kan se ens ud."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Tilladelse afvist. Fanegruppering forbliver slået fra."
+  },
   "aboutTagline": {
     "message": "En gratis open source Chrome-udvidelse til sessionsisolering pr. fane. Forbliv logget ind på flere konti på det samme websted samtidig."
   },

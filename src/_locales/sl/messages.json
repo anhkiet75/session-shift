@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Ko je omogočeno, zavihki, odprti prek povezave (povezave novega zavihka, Ctrl-klik, srednji klik) v izoliranem profilu, ostanejo v tem profilu namesto uporabe privzetih piškotkov Chroma."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Združuj zavihke po profilu v vrstici zavihkov"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Postavi zavihke vsakega profila v barvno skupino zavihkov. Chrome bo zahteval dovoljenje za upravljanje skupin zavihkov. To bo preuredilo vaše zavihke, barve skupin pa so omejene na 9 vnaprej nastavljenih barv Chroma, zato sta lahko dve barvi profilov videti enaki."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Dovoljenje zavrnjeno. Združevanje zavihkov ostane izklopljeno."
+  },
   "aboutTagline": {
     "message": "Brezplačna, odprtokodna razširitev za Chrome za izolacijo seje po zavihkih. Ostanite prijavljeni v več računov na isti spletni strani hkrati."
   },

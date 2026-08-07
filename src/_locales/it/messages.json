@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Se attivato, le schede aperte da un link (link in nuova scheda, Ctrl+clic, clic centrale) su un profilo isolato restano in quel profilo invece di usare i cookie predefiniti di Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Raggruppa le schede per profilo nella barra delle schede"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Inserisce le schede di ogni profilo in un gruppo di schede colorato. Chrome chiederà l'autorizzazione per gestire i gruppi di schede. Questo riordinerà le tue schede e i colori dei gruppi sono limitati ai 9 colori predefiniti di Chrome, quindi due colori di profilo potrebbero sembrare uguali."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Autorizzazione negata. Il raggruppamento delle schede resta disattivato."
+  },
   "aboutTagline": {
     "message": "Un'estensione Chrome gratuita e open source per l'isolamento delle sessioni per scheda. Resta connesso contemporaneamente a più account sullo stesso sito."
   },

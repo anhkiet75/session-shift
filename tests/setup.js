@@ -90,9 +90,25 @@ function createChromeMock() {
       sendMessage: vi.fn().mockResolvedValue({}),
       update: vi.fn(),
       query: vi.fn(),
+      group: vi.fn(),
+      ungroup: vi.fn(),
       onRemoved: { addListener: vi.fn() },
       onActivated: { addListener: vi.fn() },
       onUpdated: { addListener: vi.fn() },
+      onAttached: { addListener: vi.fn() },
+    },
+    // Deliberately no `tabGroups` entry — `chrome.tabGroups` is `undefined`
+    // without the optional permission granted, and that (opted-out) state is
+    // what tests exercise unless a test opts in by adding it explicitly.
+    permissions: {
+      contains: vi.fn().mockResolvedValue(false),
+      request: vi.fn().mockResolvedValue(false),
+      remove: vi.fn().mockResolvedValue(true),
+      onAdded: { addListener: vi.fn() },
+      onRemoved: { addListener: vi.fn() },
+    },
+    windows: {
+      onRemoved: { addListener: vi.fn() },
     },
     webNavigation: {
       onCreatedNavigationTarget: { addListener: vi.fn() },
@@ -100,6 +116,8 @@ function createChromeMock() {
     action: {
       setBadgeText: vi.fn(),
       setBadgeBackgroundColor: vi.fn(),
+      // Chrome 110+; source feature-detects it, so tests may delete it.
+      setBadgeTextColor: vi.fn(),
       setIcon: vi.fn().mockResolvedValue({}),
     },
     webRequest: {
@@ -120,19 +138,64 @@ function createChromeMock() {
 function createFetchMock() {
   return vi.fn(async (url) => {
     try {
-      const text = readFileSync(resolve(process.cwd(), 'src', String(url)), 'utf8');
-      return { ok: true, status: 200, json: async () => JSON.parse(text), text: async () => text };
+      const path = resolve(process.cwd(), 'src', String(url));
+      const text = readFileSync(path, 'utf8');
+      return {
+        ok: true,
+        status: 200,
+        json: async () => JSON.parse(text),
+        text: async () => text,
+        // Binary resources (the icon PNG) only ever reach the stubbed
+        // createImageBitmap, so identity is enough.
+        blob: async () => ({ __path: path, type: 'image/png' }),
+      };
     } catch {
       return { ok: false, status: 404, json: async () => { throw new Error('not found') } };
     }
   });
 }
 
+// jsdom ships neither OffscreenCanvas nor createImageBitmap, and has no 2d
+// rasterizer at all. These stubs record the draw calls the icon renderer makes
+// and hand back correctly-shaped ImageData, which is what the renderer's
+// contract (sizes, caching, failure handling) is actually tested on — pixel
+// fidelity is a manual visual check, not a unit-test concern.
+class MockOffscreenCanvasRenderingContext2D {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.calls = [];
+    this.fillStyle = '';
+    this.globalCompositeOperation = 'source-over';
+  }
+  beginPath() { this.calls.push(['beginPath']); }
+  roundRect(...args) { this.calls.push(['roundRect', ...args]); }
+  rect(...args) { this.calls.push(['rect', ...args]); }
+  fill() { this.calls.push(['fill', this.fillStyle]); }
+  fillRect(...args) { this.calls.push(['fillRect', this.fillStyle, ...args]); }
+  drawImage(...args) { this.calls.push(['drawImage', ...args]); }
+  getImageData(_x, _y, w, h) {
+    return { width: w, height: h, data: new Uint8ClampedArray(w * h * 4), __calls: this.calls };
+  }
+}
+
+class MockOffscreenCanvas {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+    this.__ctx = new MockOffscreenCanvasRenderingContext2D(this);
+  }
+  getContext() { return this.__ctx; }
+}
+
 // Must be set at module level so background.js top-level code sees chrome on import
 globalThis.chrome = createChromeMock();
 globalThis.fetch = createFetchMock();
+globalThis.OffscreenCanvas = MockOffscreenCanvas;
+globalThis.createImageBitmap = vi.fn(async (source) => ({ width: 128, height: 128, source }));
 
 beforeEach(() => {
   globalThis.chrome = createChromeMock();
   globalThis.fetch = createFetchMock();
+  globalThis.OffscreenCanvas = MockOffscreenCanvas;
+  globalThis.createImageBitmap = vi.fn(async (source) => ({ width: 128, height: 128, source }));
 });

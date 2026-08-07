@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "啟用後，從隔離設定檔中的連結（開新分頁連結、Ctrl 點擊、中鍵點擊）開啟的分頁會留在該設定檔中，而不會使用 Chrome 的預設 Cookie。"
   },
+  "groupTabsByProfileLabel": {
+    "message": "在分頁列中依設定檔將分頁分組"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "將每個設定檔的分頁放入彩色分頁群組。Chrome 將要求管理分頁群組的權限。這會重新排列您的分頁，且群組顏色僅限於 Chrome 預設的 9 種顏色，因此兩個設定檔的顏色可能看起來相同。"
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "權限遭拒。分頁分組將保持關閉。"
+  },
   "aboutTagline": {
     "message": "一款免費、開放原始碼的 Chrome 擴充功能，提供逐分頁工作階段隔離。讓你能同時登入同一網站的多個帳號。"
   },

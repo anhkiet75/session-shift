@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Kui see on lubatud, jäävad isoleeritud profiilis lingilt (uue vahekaardi lingid, Ctrl-klõps, keskklõps) avatud vahekaardid samasse profiili, mitte ei kasuta Chrome'i vaikimisi küpsiseid."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Vahekaartide rühmitamine profiili järgi vahekaardiribal"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Paigutab iga profiili vahekaardid värvilisse vahekaardirühma. Chrome küsib luba vahekaardirühmade haldamiseks. See korraldab teie vahekaardid ümber ning rühmavärvid piirduvad Chrome'i 9 eelseadistatud värviga, mistõttu kaks profiilivärvi võivad näida ühesugused."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Luba keelati. Vahekaartide rühmitamine jääb väljalülitatuks."
+  },
   "aboutTagline": {
     "message": "Tasuta ja avatud lähtekoodiga Chrome'i laiendus vahekaardipõhiseks seansi isoleerimiseks. Püsi samal ajal sisse logituna mitmesse kontosse samal saidil."
   },

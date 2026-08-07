@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Når dette er aktivert, forblir faner som åpnes fra en lenke (nye-fane-lenker, Ctrl-klikk, midtklikk) på en isolert profil i den profilen i stedet for å bruke Chromes standardinformasjonskapsler."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Grupper faner etter profil i fanelinjen"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Plasserer hver profils faner i en farget fanegruppe. Chrome vil be om tillatelse til å administrere fanegrupper. Dette vil omorganisere fanene dine, og gruppefarger er begrenset til Chromes 9 forhåndsinnstilte farger, så to profilfarger kan se like ut."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Tillatelse avslått. Fanegruppering forblir avslått."
+  },
   "aboutTagline": {
     "message": "En gratis, åpen kildekode-utvidelse for Chrome for øktisolering per fane. Hold deg innlogget på flere kontoer på samme nettsted samtidig."
   },

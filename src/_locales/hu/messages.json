@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Ha engedélyezve van, a hivatkozásból (új lapos hivatkozás, Ctrl-kattintás, középső gombos kattintás) elkülönített profilban megnyitott lapok abban a profilban maradnak, a Chrome alapértelmezett sütijei helyett."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Lapok csoportosítása profil szerint a lapsávban"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Az egyes profilok lapjait színes lapcsoportba helyezi. A Chrome engedélyt kér a lapcsoportok kezeléséhez. Ez átrendezi a lapokat, és a csoportszínek a Chrome 9 előre beállított színére korlátozódnak, így két profilszín egyformának tűnhet."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Az engedély megtagadva. A lapcsoportosítás kikapcsolva marad."
+  },
   "aboutTagline": {
     "message": "Ingyenes, nyílt forráskódú Chrome-bővítmény laponkénti munkamenet-elkülönítéshez. Maradjon bejelentkezve több fiókba egyszerre ugyanazon az oldalon."
   },

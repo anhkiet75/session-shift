@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Quando ativado, os separadores abertos a partir de uma ligação (ligações de novo separador, Ctrl+clique, clique do meio) num perfil isolado permanecem nesse perfil em vez de utilizarem os cookies predefinidos do Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Agrupar separadores por perfil na barra de separadores"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Coloca os separadores de cada perfil num grupo de separadores colorido. O Chrome vai pedir permissão para gerir grupos de separadores. Isto vai reorganizar os seus separadores, e as cores dos grupos estão limitadas às 9 cores predefinidas do Chrome, pelo que duas cores de perfil podem parecer iguais."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Permissão recusada. O agrupamento de separadores mantém-se desativado."
+  },
   "aboutTagline": {
     "message": "Uma extensão do Chrome gratuita e de código aberto para isolamento de sessão por separador. Mantenha-se ligado a várias contas do mesmo site, em simultâneo."
   },

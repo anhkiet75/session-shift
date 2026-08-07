@@ -221,6 +221,15 @@
   "autoInheritDesc": {
     "message": "Lorsque cette option est activée, les onglets ouverts depuis un lien (liens de nouvel onglet, Ctrl-clic, clic central) sur un profil isolé restent dans ce profil au lieu d'utiliser les cookies par défaut de Chrome."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Grouper les onglets par profil dans la barre d'onglets"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Place les onglets de chaque profil dans un groupe d'onglets coloré. Chrome demandera l'autorisation de gérer les groupes d'onglets. Cela réorganisera vos onglets, et les couleurs de groupe sont limitées aux 9 couleurs prédéfinies de Chrome, donc deux couleurs de profil peuvent se ressembler."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Autorisation refusée. Le regroupement des onglets reste désactivé."
+  },
   "aboutTagline": {
     "message": "Une extension Chrome gratuite et open source pour l'isolation de session par onglet. Restez connecté à plusieurs comptes sur le même site, simultanément."
   },

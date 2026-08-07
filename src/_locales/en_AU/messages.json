@@ -200,6 +200,15 @@
   "autoInheritDesc": {
     "message": "When enabled, tabs opened from a link (new-tab links, Ctrl-click, middle-click) on an isolated profile stay in that profile instead of using Chrome's default cookies."
   },
+  "groupTabsByProfileLabel": {
+    "message": "Group tabs by profile in the tab strip"
+  },
+  "groupTabsByProfileDesc": {
+    "message": "Puts each profile's tabs into a colored tab group. Chrome will ask permission to manage tab groups. This reorders your tabs, and group colors are limited to Chrome's 9 preset colors, so two profile colors may look the same."
+  },
+  "groupTabsPermissionDeniedNotice": {
+    "message": "Permission declined. Tab grouping stays off."
+  },
   "aboutTagline": {
     "message": "A free, open-source Chrome extension for per-tab session isolation. Stay logged into multiple accounts on the same site, simultaneously."
   },
