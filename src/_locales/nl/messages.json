@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Systeem (volgens browser)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favorieten"
+  },
+  "saveFavoriteTitle": {
+    "message": "Opslaan als favoriet"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Opslaan als favoriet"
+  },
+  "savedFavoriteTitle": {
+    "message": "Opgeslagen — klik om te verwijderen"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Zet dit tabblad eerst op een profiel om het als favoriet op te slaan."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Deze pagina kan niet als favoriet worden opgeslagen."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Favoriet $name$ openen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Favoriet verwijderen"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Favoriet $name$ verwijderen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profiel bestaat niet meer"
+  },
+  "favoritesLimitReached": {
+    "message": "Limiet voor favorieten bereikt — verwijder er een om een nieuwe op te slaan."
+  },
+  "tabFavorites": {
+    "message": "Favorieten"
+  },
+  "favoritesSectionDesc": {
+    "message": "Opgeslagen pagina’s die in een gekozen profiel worden geopend. Sla er een op met de ster in de pop-up; hernoem, verwijs opnieuw of herschik ze hier."
+  },
+  "favoriteLabelColumn": {
+    "message": "Label"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profiel"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ omhoog verplaatsen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ omlaag verplaatsen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ verwijderen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Nog geen favorieten"
+  },
+  "favoritesEmptySub": {
+    "message": "Open een pagina in een profiel en klik op de ster in de SessionShift-pop-up om die hier op te slaan."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Voer een geldig http://- of https://-adres in."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favorieten opnieuw gerangschikt."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ verwijderd.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

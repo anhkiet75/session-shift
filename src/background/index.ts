@@ -167,5 +167,6 @@ chrome.commands.onCommand.addListener(async (command) => {
     { action: 'setSession', payload: { tabId: tab.id, sessionId: list[nextIdx].id } },
     { id: chrome.runtime.id }
   );
-  chrome.tabs.reload(tab.id);
+  // Bypass cache — same reasoning as the popup's profile-switch reload.
+  chrome.tabs.reload(tab.id, { bypassCache: true });
 });

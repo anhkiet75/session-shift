@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sistemos (pagal naršyklę)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Parankiniai"
+  },
+  "saveFavoriteTitle": {
+    "message": "Įrašyti į parankinius"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Įrašyti į parankinius"
+  },
+  "savedFavoriteTitle": {
+    "message": "Įrašyta – spustelėkite, kad pašalintumėte"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Pirmiausia perjunkite šį skirtuką į profilį, kad galėtumėte jį įrašyti į parankinius."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Šio puslapio negalima įrašyti į parankinius."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Atidaryti parankinį $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Pašalinti iš parankinių"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Pašalinti parankinį $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profilio nebėra"
+  },
+  "favoritesLimitReached": {
+    "message": "Pasiekta parankinių riba – pašalinkite vieną, kad įrašytumėte kitą."
+  },
+  "tabFavorites": {
+    "message": "Parankiniai"
+  },
+  "favoritesSectionDesc": {
+    "message": "Įrašyti puslapiai, kurie atidaromi pasirinktame profilyje. Įrašykite žvaigždute iššokančiajame lange; čia galite pervardyti, pakeisti adresą ar tvarką."
+  },
+  "favoriteLabelColumn": {
+    "message": "Pavadinimas"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profilis"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Perkelti $name$ aukštyn",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Perkelti $name$ žemyn",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Ištrinti $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Parankinių kol kas nėra"
+  },
+  "favoritesEmptySub": {
+    "message": "Atidarykite puslapį profilyje ir spustelėkite žvaigždutę „SessionShift“ iššokančiajame lange, kad jį čia įrašytumėte."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Įveskite tinkamą http:// arba https:// adresą."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Parankinių tvarka pakeista."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ pašalintas.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

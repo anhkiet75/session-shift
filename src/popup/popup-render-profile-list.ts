@@ -168,6 +168,9 @@ export function renderSessionList(
           const current = await getSavedSessions();
           await setSavedSessions(current.filter(s => s.id !== session.id));
           await new Promise<void>(resolve => chrome.storage.local.remove([`cookies_${session.id}`], resolve));
+          // The background purged this profile's favorites; tell the favorites
+          // section to re-read so it stops showing rows for them.
+          document.dispatchEvent(new CustomEvent('favoritesChanged'));
           card.remove();
           const c = document.getElementById('sessionCount');
           if (c) c.textContent = String(Math.max(0, parseInt(c.textContent || '0') - 1));
@@ -186,7 +189,12 @@ export function renderSessionList(
     if (!isActive) {
       card.addEventListener('click', () => {
         chrome.runtime.sendMessage({ action: 'setSession', payload: { tabId, sessionId: session.id } })
-          .then(() => { chrome.tabs.reload(tabId); window.close(); });
+          // Bypass cache on switch: the disk cache is shared across every
+          // profile (they're cookie jars within one real Chrome profile, not
+          // separate browser profiles), so a cached response fetched under
+          // the previous profile's cookies could otherwise render here on a
+          // plain reload if the server never sent `Vary: Cookie`.
+          .then(() => { chrome.tabs.reload(tabId, { bypassCache: true }); window.close(); });
       });
     }
 

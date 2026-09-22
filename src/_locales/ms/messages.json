@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sistem (sepadan dengan penyemak imbas)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Kegemaran"
+  },
+  "saveFavoriteTitle": {
+    "message": "Simpan sebagai kegemaran"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Simpan sebagai kegemaran"
+  },
+  "savedFavoriteTitle": {
+    "message": "Disimpan — klik untuk mengalih keluar"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Tukar tab ini kepada satu profil dahulu untuk menyimpannya sebagai kegemaran."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Halaman ini tidak boleh disimpan sebagai kegemaran."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Buka kegemaran $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Alih keluar kegemaran"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Alih keluar kegemaran $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profil sudah tiada"
+  },
+  "favoritesLimitReached": {
+    "message": "Had kegemaran dicapai — alih keluar satu untuk menyimpan yang baharu."
+  },
+  "tabFavorites": {
+    "message": "Kegemaran"
+  },
+  "favoritesSectionDesc": {
+    "message": "Halaman tersimpan yang dibuka dalam profil pilihan. Simpan dengan bintang dalam tetingkap timbul; namakan semula, tukar alamat atau susunannya di sini."
+  },
+  "favoriteLabelColumn": {
+    "message": "Label"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Alihkan $name$ ke atas",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Alihkan $name$ ke bawah",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Padam $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Belum ada kegemaran"
+  },
+  "favoritesEmptySub": {
+    "message": "Buka halaman dalam satu profil, kemudian klik bintang dalam tetingkap timbul SessionShift untuk menyimpannya di sini."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Masukkan alamat http:// atau https:// yang sah."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Susunan kegemaran diubah."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ dialih keluar.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

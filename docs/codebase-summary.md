@@ -18,17 +18,23 @@
 | **page-api-proxy.ts** | 222 | MAIN world API interception; document.cookie, localStorage, sessionStorage, indexedDB proxying; uses lib/storage-proxy |
 | **lib/cookie-parser.ts** | 170 | Parse/serialize Set-Cookie headers; cookie store serialization |
 | **lib/profile-color.ts** | 136 | Single source of truth for hue→color: palette, legacy-hex migration, HSL→RGB, badge fill, WCAG contrast-picked label, CSS helpers |
-| **lib/session-store.ts** | 214 | Centralized chrome.storage.local access; session CRUD; export/import; duplication; auto-assign rules CRUD |
-| **lib/settings-store.ts** | 14 | Shared ExtSettings read/write (getExtSettings, setExtSettings); extracted for options page + background use (v0.6.0+) |
+| **lib/session-store.ts** | 122 | Centralized chrome.storage.local access; global `profiles` CRUD; per-profile cookie stores; duplication; orphan-store discovery |
+| **lib/favorites-store.ts** | 190 | Sole authority for the `favorites` key: CRUD, reorder, http(s)-only URL normalization, label normalization, MAX_FAVORITES cap, queue-serialized writes, cascade purge on profile delete |
+| **lib/settings-store.ts** | 33 | Shared ExtSettings read/write (getExtSettings, setExtSettings); extracted for options page + background use (v0.6.0+) |
 | **lib/tab-groups-permission.ts** | 36 | Phase 4: hasTabGroupsPermission(), reconcileTabGroupsSetting() — reconciles groupTabsByProfile to off when the optional tabGroups grant is gone |
 | **lib/storage-proxy.ts** | 50 | Storage proxy factory for per-session localStorage/sessionStorage isolation (testable) |
 | **lib/types.ts** | 45+ | TypeScript types: BackgroundMessage, DNRRule, CookieStoreEntry, SessionConfig, ExtSettings |
-| **popup/popup.html** | 81 | Popup UI structure; form, session list, footer; ARIA roles, aria-selected, aria-live |
-| **popup/popup.ts** | 537 | Session CRUD, hue-based color system, UI event handlers, global view + search, options button; ARIA toggle |
-| **popup/popup.css** | 796 | Stacks design system; CSS custom properties; hue theming; view tabs + search + options link styles; :focus-visible rings |
-| **options/options.html** | 161 | Multi-tab layout (Rules, Backup, Settings, About); rule management + settings UI; ARIA roles |
-| **options/options.ts** | 272 | Rules CRUD, export/import handlers, settings management, about/version display; ARIA toggle |
-| **options/options.css** | 441 | Design tokens; multi-tab layout; form styling; settings panels; responsive design; :focus-visible rings |
+| **popup/popup-render-favorites-list.ts** | 150 | Popup favorites section: rows, profile swatch, launch via `createSessionTab`, per-row remove, missing-profile state, search filter |
+| **popup/popup-save-favorite.ts** | 93 | Hero star: save/remove toggle for the current tab + active profile; disabled on `default` and non-http(s) pages |
+| **options/options-favorites.ts** | 83 | Favorites tab orchestration: render, empty state, cap message, focus-restoring refresh |
+| **options/options-favorites-row.ts** | 165 | One editable favorite row: label, URL (validated), profile re-assign, move up/down, delete |
+| **options/options-favorites-types.ts** | 19 | Shared PanelContext contract between the Favorites panel and its row builder |
+| **popup/popup.html** | 108 | Popup UI structure; form, session list, footer; ARIA roles, aria-selected, aria-live |
+| **popup/popup.ts** | 233 | Session CRUD, hue-based color system, UI event handlers, global view + search, options button; ARIA toggle |
+| **popup/popup.css** | 1220 | Stacks design system; CSS custom properties; hue theming; view tabs + search + options link styles; :focus-visible rings |
+| **options/options.html** | 174 | Multi-tab layout (Settings, Favorites, About); settings + favorites UI; ARIA roles |
+| **options/options.ts** | 178 | Tab wiring (Settings / Favorites / About), theme + language + toggles, about/version display; ARIA toggle |
+| **options/options.css** | 758 | Design tokens; multi-tab layout; form styling; settings panels; responsive design; :focus-visible rings |
 | **manifest.json** | 79 | MV3 manifest (v0.4.0+); permissions; `optional_permissions: ["tabGroups"]` (Phase 4, requested at runtime, never on install/update); background worker; content scripts; context menus; options page; commands |
 | **tsconfig.json** | 20+ | TypeScript config; strict mode; ES2020 target; module: esnext |
 | **vitest.config.ts** | 25+ | Vitest configuration; jsdom environment; esbuild loader; test patterns |
@@ -120,13 +126,16 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 - `getSessionForBootstrap` — Return session + cookie string for content.ts bootstrap
 - `updateCookie` — Update cookie in session store after page writes (with debounce)
 - `duplicateSession` — Clone session's cookies and create new session
-- `exportSessions` — Return all sessions with cookies as JSON
-- `importSessions` — Import sessions from JSON backup
 - `refreshBadge` — Refresh badge display
-- `deleteSession` — Remove session from list and delete its data
-- `createSessionTab` — Create new tab assigned to a session
-- `addAutoAssignRule`, `removeAutoAssignRule`, `getAutoAssignRules` — Rule management
-- `setSettings`, `getSettings` — Settings persistence
+- `deleteSession` — Remove profile's tab mappings, reset affected tabs, cascade-purge its favorites
+- `createSessionTab` — Create new tab assigned to a profile (also the favorites launch path)
+- `colorSession` — Update a profile's hue and repaint badges/groups
+- `renameProfileGroups` — Retitle an open tab group after a profile rename
+
+*(Earlier revisions listed `exportSessions`/`importSessions` and
+`addAutoAssignRule`/`removeAutoAssignRule`/`getAutoAssignRules`. Those messages
+do not exist — see `docs/BACKLOG.md` items #3 and #7. Settings are read/written
+directly through `lib/settings-store.ts`, not via messages.)*
 
 **Keyboard Commands (v0.4.0+):**
 - `_execute_action` (Ctrl+Shift+S / Command+Shift+S) — Open popup (handled by Chrome)
@@ -181,24 +190,36 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 **Exports:**
 - `getCookieStore(sessionId)` → Promise<Object> — Fetch cookies from chrome.storage.local
 - `setCookieStore(sessionId, store)` → Promise<void> — Persist cookies to chrome.storage.local
-- `getSessionList(origin)` → Promise<Array> — Fetch session list for origin
-- `setSessionList(origin, list)` → Promise<void> — Persist session list for origin
-- `getAssignRules()` → Promise<Array> — Fetch auto-assign rules
-- `setAssignRules(rules)` → Promise<void> — Persist auto-assign rules
-- `isInternalSession(sessionId)` → boolean — Returns true for 'default' and _snap_* sessions
-- `duplicateSession(sessionId, origin)` → Promise<string> — Clone session's cookies, append "(copy)" to name
-- `exportSessions()` → Promise<Array> — Export all sessions + cookies as serializable array
-- `importSessions(exportedSessions)` → Promise<void> — Import sessions without overwriting; append "(imported)" on name conflict
-- `deleteSessionData(sessionId)` → Promise<void> — Remove session and related keys from storage
+- `getProfiles()` → Promise<Session[]> — Fetch the single global profile list
+- `setProfiles(list)` → Promise<void> — Persist the global profile list
+- `isInternalSession(sessionId)` → boolean — Returns true for 'default' and empty ids
+- `findOrphanedCookieStores()` → Promise<string[]> — Cookie stores no profile references
+- `duplicateSession(sessionId, buildDuplicateName?)` → Promise<Session> — Clone a profile's cookies into a new profile
+- `updateSessionHue(sessionId, hue)` → Promise<void> — Recolor a profile
+- `deleteSessionData(sessionId)` → Promise<void> — Remove a profile's cookie store and related keys
+
+*(Earlier revisions listed `getSessionList`/`setSessionList` (replaced by the
+global `profiles` key), `getAssignRules`/`setAssignRules`, `exportSessions` and
+`importSessions`. None of those exist.)*
 
 **Purpose:** Single source of truth for storage access patterns; reduces duplication
 
-### lib/rule-matcher.js
+### lib/favorites-store.ts
 **Exports:**
-- `normalizePattern(input)` → string — Normalize URL or hostname to bare lowercase hostname (strips scheme, path, port)
-- `findMatchingRule(hostname, rules)` → object|null — Return first enabled rule matching hostname; supports exact and wildcard patterns
+- `getFavorites()` / `setFavorites(list)` — Read/write the `favorites` array (absent or non-array reads as `[]`)
+- `normalizeFavoriteUrl(url)` → string|null — Absolute href for http(s); `null` for every other scheme
+- `normalizeFavoriteLabel(label, url)` → string — Trim/collapse/cap at 100 chars; hostname fallback when blank
+- `addFavorite({ url, sessionId, label? })` → `{ status: 'added' | 'exists' | 'invalid-url' | 'limit' }` — never throws
+- `updateFavorite(id, patch)` / `deleteFavorite(id)` / `moveFavorite(id, 'up'|'down')`
+- `findFavorite(url, sessionId)` → Favorite|null — Exact normalized-href + profile match (powers the popup star)
+- `removeFavoritesForSession(sessionId)` → Promise<number> — Cascade purge, called from `deleteSession`
+- `MAX_FAVORITES = 50`
 
-**Purpose:** Pure pattern matching logic; no chrome APIs; safe for unit testing without mocks
+**Purpose:** Sole authority for the `favorites` key; writes serialized through a
+chained-promise queue (same per-context-only limitation as `settings-store.ts`).
+
+*(This section previously documented `lib/rule-matcher.js`, which was never
+created — see `docs/BACKLOG.md` #3.)*
 
 ### lib/settings-store.ts (v0.6.0)
 **Exports:**
@@ -374,36 +395,66 @@ Key: `cookies_${sessionId}`
 }
 ```
 
-#### Session List per Origin
-Key: `list_${origin}`
+#### Global Profile List
+Key: `profiles` — one global list; a profile created on any site is selectable
+everywhere. This replaced the former per-origin `list_${origin}` keys, which
+`lib/profile-migration.ts` folds in on install.
+
 ```javascript
 {
-  "list_https://github.com": [
+  "profiles": [
     { id: "session_abc123de", name: "Work", hue: 212 },
-    { id: "session_def456gh", name: "Personal", hue: 158 },
-    { id: "session_ghi789ij", name: "Testing", hue: 24 }
+    { id: "session_def456gh", name: "Personal", hue: 158 }
   ]
 }
 ```
 
-#### Auto-Assign Rules
-Key: `assign_rules`
+*(An `assign_rules` key was documented here in earlier revisions. No such key
+exists — the auto-assign engine was never built; see `docs/BACKLOG.md` #3.)*
+
+#### Favorites
+Key: `favorites` — an array, so the stored order *is* the user's display order.
+
 ```javascript
 {
-  "assign_rules": [
-    { pattern: "github.com", sessionId: "session_abc123de", enabled: true },
-    { pattern: "*.slack.com", sessionId: "session_def456gh", enabled: true },
-    { pattern: "example.com", sessionId: "session_ghi789ij", enabled: false }
+  "favorites": [
+    {
+      id: "fav_1f2e3d4c-...",     // 'fav_' + crypto.randomUUID()
+      label: "Work inbox",         // user-editable; defaults to the tab title, else the hostname
+      url: "https://mail.example.com/",  // absolute http(s) only, normalized via new URL().href
+      sessionId: "session_abc123de",     // references Session.id in `profiles`
+      createdAt: 1735689600000
+    }
   ]
 }
 ```
+
+Owned exclusively by `lib/favorites-store.ts`; UI layers never read or write the
+key directly. Capped at `MAX_FAVORITES = 50`.
+
+**Cascade on profile delete.** The `deleteSession` message handler calls
+`removeFavoritesForSession(sessionId)` alongside its tab-mapping and DNR
+cleanup — a favorite bound to a deleted profile could only ever relaunch into a
+cookie jar that no longer exists. A favorite orphaned by any *other* path
+(out-of-band storage edit, interrupted delete) is never dropped at read time:
+it renders disabled with a missing-profile label in the popup, and with an
+unresolved profile selector in Options so its URL can be rebound.
+
+**Launch path.** Favorites add no new background message and no new
+cookie-isolation code. A row sends the existing
+`{ action: 'createSessionTab', payload: { url, sessionId } }`, which already
+enforces the http(s) scheme, validates `sessionId` against `profiles`, and calls
+`stripCookiesOnNextNavigation` for a clean first load.
 
 #### Settings
 Key: `ext_settings`
 ```javascript
 {
   "ext_settings": {
-    notifyOnAutoAssign: true  // Notify when tab auto-assigns to a session
+    theme: "system",                          // 'dark' | 'light' | 'system'
+    language: "vi",                           // absent/'system' follows Chrome's UI locale
+    autoInheritProfileForLinkedTabs: true,    // only an explicit false disables it
+    groupTabsByProfile: false                 // absent means OFF; needs the optional tabGroups grant
   }
 }
 ```
@@ -487,16 +538,22 @@ Why: Provides visual feedback at a glance; truncated to avoid overflow.
 - `tests/e2e/extension-fixtures.ts` — Playwright fixtures: context, extensionId, mockServerUrl, popupPage
 - `.github/workflows/test.yml` — CI job with xvfb-run for Linux headless testing
 
-**Test Files (17 tests across 6 files):**
-- `tests/e2e/popup-navigation.spec.ts` — Session switching, tab navigation, search
-- `tests/e2e/session-crud.spec.ts` — Create/rename/delete sessions
-- `tests/e2e/auto-assign-rules.spec.ts` — Auto-assign rule management, pattern matching
-- `tests/e2e/isolation.spec.ts` — Per-session cookie isolation, DNR enforcement
-- `tests/e2e/keyboard-shortcuts.spec.ts` — Ctrl+Shift+S, Ctrl+Shift+Right/Left navigation
-- `tests/e2e/export-import.spec.ts` — Session backup/restore workflows
+**Test Files (52 tests across 10 suites):**
+- `tests/e2e/session-isolation.test.ts` — Per-profile cookie isolation, DNR enforcement
+- `tests/e2e/session-crud.test.ts` — Create/switch/delete/duplicate via the popup
+- `tests/e2e/global-session-list.test.ts` — Cross-origin global profile list and search
+- `tests/e2e/linked-tab-profile-inheritance.test.ts` — Profile inheritance for link-opened tabs
+- `tests/e2e/profile-open-in-new-tab.test.ts` — Right-click "Open in new tab" isolation
+- `tests/e2e/session-favorites.test.ts` — Favorite launch isolation, non-http(s) popup path, hero star toggle, delete cascade, orphan state
+- `tests/e2e/options-favorites.test.ts` — Options CRUD: rename, URL validation + revert, profile re-assign, reorder + focus, delete, rebind, empty state
+- `tests/e2e/theme-switcher.test.ts` — Dark/light/system persistence
+- `tests/e2e/localization-rtl.test.ts` — RTL rendering, locale switching, manifest/context-menu i18n
+- `tests/e2e/native-locale-smoke.test.ts` — Native `chrome.i18n` smoke tests
 
-**Run E2E tests:** `npm run test:e2e` (requires `xvfb-run` on Linux)  
-**Run both:** `npm run test:all`
+**Run E2E tests:** `npm run test:e2e:docker` (project rule — never native `npm run test:e2e`)
+
+*(Earlier revisions listed `.spec.ts` files such as `auto-assign-rules.spec.ts`
+and `export-import.spec.ts`. None of those exist.)*
 
 ## Build & Release
 
@@ -545,7 +602,6 @@ Why: Provides visual feedback at a glance; truncated to avoid overflow.
 - **background/session-manager.ts** — Tab→session map, badge, icons
 - **background/dnr-manager.ts** — DNR rules, immediate cookie capture publishing
 - **background/context-menu-manager.ts** — Context menu lifecycle
-- **background/auto-assign-handler.ts** — Auto-assign navigation logic
 - **background/message-handler.ts** — Message routing with discriminated unions
 - Updated manifest.json: `service_worker` → `background/index.js`
 - All 94 Vitest unit tests still passing (100% pass rate)

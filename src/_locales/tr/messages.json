@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sistem (tarayıcıyla eşleş)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favoriler"
+  },
+  "saveFavoriteTitle": {
+    "message": "Favorilere kaydet"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Favorilere kaydet"
+  },
+  "savedFavoriteTitle": {
+    "message": "Kaydedildi — kaldırmak için tıklayın"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Favorilere kaydetmek için önce bu sekmeyi bir profile geçirin."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Bu sayfa favorilere kaydedilemez."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "$name$ favorisini aç",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Favoriden kaldır"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "$name$ favorisini kaldır",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profil artık mevcut değil"
+  },
+  "favoritesLimitReached": {
+    "message": "Favori sınırına ulaşıldı — yenisini kaydetmek için birini kaldırın."
+  },
+  "tabFavorites": {
+    "message": "Favoriler"
+  },
+  "favoritesSectionDesc": {
+    "message": "Seçilen profilde açılan kayıtlı sayfalar. Açılır penceredeki yıldızla kaydedin; burada yeniden adlandırın, adresini değiştirin veya sıralayın."
+  },
+  "favoriteLabelColumn": {
+    "message": "Etiket"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ öğesini yukarı taşı",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ öğesini aşağı taşı",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ öğesini sil",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Henüz favori yok"
+  },
+  "favoritesEmptySub": {
+    "message": "Bir sayfayı profilde açın, ardından buraya kaydetmek için SessionShift açılır penceresindeki yıldıza tıklayın."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Geçerli bir http:// veya https:// adresi girin."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favorilerin sırası değiştirildi."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ kaldırıldı.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

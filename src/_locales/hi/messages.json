@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "सिस्टम (ब्राउज़र से मेल खाता)"
+  },
+  "favoritesSectionTitle": {
+    "message": "पसंदीदा"
+  },
+  "saveFavoriteTitle": {
+    "message": "पसंदीदा में सहेजें"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "पसंदीदा में सहेजें"
+  },
+  "savedFavoriteTitle": {
+    "message": "सहेजा गया — हटाने के लिए क्लिक करें"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "इसे पसंदीदा में सहेजने के लिए पहले इस टैब को किसी प्रोफ़ाइल पर बदलें।"
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "यह पेज पसंदीदा में नहीं सहेजा जा सकता।"
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "पसंदीदा $name$ खोलें",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "पसंदीदा हटाएँ"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "पसंदीदा $name$ हटाएँ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "प्रोफ़ाइल अब मौजूद नहीं है"
+  },
+  "favoritesLimitReached": {
+    "message": "पसंदीदा की सीमा पूरी हो गई — नया सहेजने के लिए एक हटाएँ।"
+  },
+  "tabFavorites": {
+    "message": "पसंदीदा"
+  },
+  "favoritesSectionDesc": {
+    "message": "सहेजे गए पेज जो चुनी गई प्रोफ़ाइल में खुलते हैं। पॉपअप के स्टार से सहेजें; यहाँ नाम, पता या क्रम बदलें।"
+  },
+  "favoriteLabelColumn": {
+    "message": "लेबल"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "प्रोफ़ाइल"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ को ऊपर ले जाएँ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ को नीचे ले जाएँ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ हटाएँ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "अभी कोई पसंदीदा नहीं"
+  },
+  "favoritesEmptySub": {
+    "message": "किसी प्रोफ़ाइल में पेज खोलें, फिर उसे यहाँ सहेजने के लिए SessionShift पॉपअप में स्टार पर क्लिक करें।"
+  },
+  "favoriteInvalidUrl": {
+    "message": "मान्य http:// या https:// पता दर्ज करें।"
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "पसंदीदा का क्रम बदला गया।"
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ हटाया गया।",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

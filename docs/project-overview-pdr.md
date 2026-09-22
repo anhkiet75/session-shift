@@ -4,7 +4,7 @@
 
 **SessionShift** is a Chrome extension (Manifest V3) that enables simultaneous multi-account login on any website by isolating each browser tab's session independently. A free, open-source alternative to SessionBox.
 
-**Current Version:** 0.4.0  
+**Current Version:** 0.1.0 (from `src/manifest.json`)  
 **Status:** Shipped to Chrome Web Store  
 **License:** MIT  
 **Repository:** https://github.com/anhkiet75/session-shift
@@ -33,11 +33,10 @@ Web browsers share cookies globally across all tabs for a given domain. This pre
 6. **No external dependencies** — Vanilla JS, Manifest V3, no bundler
 7. **Keyboard shortcuts** — Ctrl+Shift+S (popup), Ctrl+Shift+Right/Left (next/prev session)
 8. **Global session list** — Cross-site view of all sessions with search/filter
-9. **Auto-assign rules** — Domain-to-session mapping with enable/disable
 10. **Context menu** — "Open in session" for links
-11. **Session export/import** — JSON backup for device migration
 12. **Duplicate session** — Clone session with cookies for quick variations
-13. **Multi-tab options** — Rules, backup, settings, about tabs
+13. **Favorites** — Saved `(url, profile)` launchers: popup star + list, Options → Favorites CRUD
+13. **Multi-tab options** — Settings, Favorites, About tabs
 14. **Lazy DNR debounce** — Batch rapid cookie updates (50ms per-tab timer)
 15. **Storage isolation lib** — `lib/storage-proxy.js` for testable per-session storage
 16. **Accessibility** — WCAG-compliant focus rings, aria attributes on interactive elements

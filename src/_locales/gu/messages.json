@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "સિસ્ટમ (બ્રાઉઝર સાથે મેળ)"
+  },
+  "favoritesSectionTitle": {
+    "message": "મનપસંદ"
+  },
+  "saveFavoriteTitle": {
+    "message": "મનપસંદમાં સાચવો"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "મનપસંદમાં સાચવો"
+  },
+  "savedFavoriteTitle": {
+    "message": "સાચવ્યું — દૂર કરવા ક્લિક કરો"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "મનપસંદમાં સાચવવા માટે પહેલાં આ ટૅબને કોઈ પ્રોફાઇલ પર બદલો."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "આ પેજ મનપસંદમાં સાચવી શકાતું નથી."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "મનપસંદ $name$ ખોલો",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "મનપસંદ દૂર કરો"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "મનપસંદ $name$ દૂર કરો",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "પ્રોફાઇલ હવે અસ્તિત્વમાં નથી"
+  },
+  "favoritesLimitReached": {
+    "message": "મનપસંદની મર્યાદા પૂરી થઈ — નવું સાચવવા એક દૂર કરો."
+  },
+  "tabFavorites": {
+    "message": "મનપસંદ"
+  },
+  "favoritesSectionDesc": {
+    "message": "સાચવેલાં પેજ જે પસંદ કરેલી પ્રોફાઇલમાં ખૂલે છે. પૉપઅપના તારાથી સાચવો; અહીં નામ, સરનામું કે ક્રમ બદલો."
+  },
+  "favoriteLabelColumn": {
+    "message": "લેબલ"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "પ્રોફાઇલ"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ ને ઉપર ખસેડો",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ ને નીચે ખસેડો",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ કાઢી નાખો",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "હજી કોઈ મનપસંદ નથી"
+  },
+  "favoritesEmptySub": {
+    "message": "પ્રોફાઇલમાં પેજ ખોલો, પછી તેને અહીં સાચવવા SessionShift પૉપઅપમાં તારા પર ક્લિક કરો."
+  },
+  "favoriteInvalidUrl": {
+    "message": "માન્ય http:// અથવા https:// સરનામું દાખલ કરો."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "મનપસંદનો ક્રમ બદલાયો."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ દૂર કર્યું.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

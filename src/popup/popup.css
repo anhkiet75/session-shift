@@ -1068,3 +1068,153 @@ body {
   height: 5px;
   border-radius: 3px;
 }
+
+/* ── FAVORITES ───────────────────────────────────────── */
+.v2-fav-wrap {
+  padding: 14px 16px 0;
+}
+
+.v2-fav-wrap.hidden,
+.v2-create.hidden { display: none; }
+
+.v2-fav-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 4px;
+  margin-bottom: 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Capped so a long favorites list never pushes the profile list off-screen. */
+.v2-fav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 132px;
+  overflow-y: auto;
+}
+
+.v2-fav-row {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.v2-fav-row:hover { background: var(--bg-2); }
+
+.v2-fav-launch {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+  min-width: 0;
+  padding: 7px 8px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  text-align: start;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.v2-fav-launch:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.v2-fav-launch:disabled { cursor: default; opacity: 0.55; }
+
+.v2-fav-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+
+.v2-fav-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 1px;
+}
+
+.v2-fav-label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v2-fav-host {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v2-fav-missing {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--danger);
+}
+
+.v2-fav-row.missing .v2-fav-label { color: var(--text-muted); }
+
+.v2-fav-remove {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-faint);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease, color 0.12s ease;
+}
+
+.v2-fav-row:hover .v2-fav-remove { opacity: 1; }
+.v2-fav-remove:hover { color: var(--danger); }
+.v2-fav-remove:focus-visible { outline: 2px solid var(--danger); outline-offset: -2px; opacity: 1; }
+
+/* Hero star — shares the theme/options button box so the actions row stays even. */
+.v2-fav-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.v2-fav-star:hover:not(:disabled) {
+  background: var(--bg-2);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.v2-fav-star:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.v2-fav-star:disabled { opacity: 0.35; cursor: default; }
+
+.v2-fav-star.saved {
+  color: #f5b300;
+  border-color: color-mix(in srgb, #f5b300 40%, transparent);
+}
+
+.v2-fav-star.saved svg path { fill: currentColor; }

@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "النظام (مطابقة المتصفح)"
+  },
+  "favoritesSectionTitle": {
+    "message": "المفضلة"
+  },
+  "saveFavoriteTitle": {
+    "message": "حفظ في المفضلة"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "حفظ في المفضلة"
+  },
+  "savedFavoriteTitle": {
+    "message": "تم الحفظ — انقر للإزالة"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "بدّل هذه العلامة إلى ملف شخصي أولاً لحفظها في المفضلة."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "لا يمكن حفظ هذه الصفحة في المفضلة."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "فتح المفضلة $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "إزالة من المفضلة"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "إزالة المفضلة $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "لم يعد الملف الشخصي موجودًا"
+  },
+  "favoritesLimitReached": {
+    "message": "تم بلوغ حد المفضلة — أزل عنصرًا لحفظ عنصر آخر."
+  },
+  "tabFavorites": {
+    "message": "المفضلة"
+  },
+  "favoritesSectionDesc": {
+    "message": "صفحات محفوظة تُفتح في ملف شخصي محدد. احفظ صفحة بالنجمة في النافذة المنبثقة، وأعد تسميتها أو غيّر عنوانها أو ترتيبها هنا."
+  },
+  "favoriteLabelColumn": {
+    "message": "التسمية"
+  },
+  "favoriteUrlColumn": {
+    "message": "عنوان URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "الملف الشخصي"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "نقل $name$ لأعلى",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "نقل $name$ لأسفل",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "حذف $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "لا توجد مفضلات بعد"
+  },
+  "favoritesEmptySub": {
+    "message": "افتح صفحة في ملف شخصي، ثم انقر على النجمة في نافذة SessionShift المنبثقة لحفظها هنا."
+  },
+  "favoriteInvalidUrl": {
+    "message": "أدخل عنوان http:// أو https:// صالحًا."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "تم تغيير ترتيب المفضلة."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "تمت إزالة $name$.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

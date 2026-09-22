@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sistema (de acordo com o navegador)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favoritos"
+  },
+  "saveFavoriteTitle": {
+    "message": "Salvar como favorito"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Salvar como favorito"
+  },
+  "savedFavoriteTitle": {
+    "message": "Salvo — clique para remover"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Mude esta aba para um perfil antes de salvá-la como favorito."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Esta página não pode ser salva como favorito."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Abrir o favorito $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Remover favorito"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Remover o favorito $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "O perfil não existe mais"
+  },
+  "favoritesLimitReached": {
+    "message": "Limite de favoritos atingido — remova um para salvar outro."
+  },
+  "tabFavorites": {
+    "message": "Favoritos"
+  },
+  "favoritesSectionDesc": {
+    "message": "Páginas salvas que abrem em um perfil escolhido. Salve uma com a estrela do popup; renomeie, altere o endereço ou reordene aqui."
+  },
+  "favoriteLabelColumn": {
+    "message": "Rótulo"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Perfil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Mover $name$ para cima",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Mover $name$ para baixo",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Excluir $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Nenhum favorito ainda"
+  },
+  "favoritesEmptySub": {
+    "message": "Abra uma página em um perfil e clique na estrela do popup do SessionShift para salvá-la aqui."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Informe um endereço http:// ou https:// válido."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favoritos reordenados."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ removido.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

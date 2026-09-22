@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Σύστημα (όπως το πρόγραμμα περιήγησης)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Αγαπημένα"
+  },
+  "saveFavoriteTitle": {
+    "message": "Αποθήκευση στα αγαπημένα"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Αποθήκευση στα αγαπημένα"
+  },
+  "savedFavoriteTitle": {
+    "message": "Αποθηκεύτηκε — κάντε κλικ για αφαίρεση"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Αλλάξτε πρώτα αυτήν την καρτέλα σε προφίλ για να την αποθηκεύσετε στα αγαπημένα."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Αυτή η σελίδα δεν μπορεί να αποθηκευτεί στα αγαπημένα."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Άνοιγμα του αγαπημένου $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Αφαίρεση από τα αγαπημένα"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Αφαίρεση του αγαπημένου $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Το προφίλ δεν υπάρχει πλέον"
+  },
+  "favoritesLimitReached": {
+    "message": "Συμπληρώθηκε το όριο αγαπημένων — αφαιρέστε ένα για να αποθηκεύσετε άλλο."
+  },
+  "tabFavorites": {
+    "message": "Αγαπημένα"
+  },
+  "favoritesSectionDesc": {
+    "message": "Αποθηκευμένες σελίδες που ανοίγουν σε επιλεγμένο προφίλ. Αποθηκεύστε μία με το αστέρι στο αναδυόμενο παράθυρο· εδώ τη μετονομάζετε, αλλάζετε διεύθυνση ή σειρά."
+  },
+  "favoriteLabelColumn": {
+    "message": "Ετικέτα"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Προφίλ"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Μετακίνηση του $name$ επάνω",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Μετακίνηση του $name$ κάτω",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Διαγραφή του $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Δεν υπάρχουν ακόμη αγαπημένα"
+  },
+  "favoritesEmptySub": {
+    "message": "Ανοίξτε μια σελίδα σε ένα προφίλ και κάντε κλικ στο αστέρι στο αναδυόμενο παράθυρο του SessionShift για να την αποθηκεύσετε εδώ."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Εισαγάγετε έγκυρη διεύθυνση http:// ή https://."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Η σειρά των αγαπημένων άλλαξε."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "Το $name$ αφαιρέθηκε.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

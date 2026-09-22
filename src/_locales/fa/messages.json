@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "سیستم (مطابق مرورگر)"
+  },
+  "favoritesSectionTitle": {
+    "message": "علاقه‌مندی‌ها"
+  },
+  "saveFavoriteTitle": {
+    "message": "ذخیره در علاقه‌مندی‌ها"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "ذخیره در علاقه‌مندی‌ها"
+  },
+  "savedFavoriteTitle": {
+    "message": "ذخیره شد — برای حذف کلیک کنید"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "ابتدا این زبانه را به یک نمایه تغییر دهید تا بتوانید آن را در علاقه‌مندی‌ها ذخیره کنید."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "این صفحه را نمی‌توان در علاقه‌مندی‌ها ذخیره کرد."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "باز کردن علاقه‌مندی $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "حذف از علاقه‌مندی‌ها"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "حذف علاقه‌مندی $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "این نمایه دیگر وجود ندارد"
+  },
+  "favoritesLimitReached": {
+    "message": "به سقف علاقه‌مندی‌ها رسیدید — یکی را حذف کنید تا مورد جدیدی ذخیره شود."
+  },
+  "tabFavorites": {
+    "message": "علاقه‌مندی‌ها"
+  },
+  "favoritesSectionDesc": {
+    "message": "صفحه‌های ذخیره‌شده‌ای که در نمایهٔ انتخابی باز می‌شوند. با ستارهٔ پنجرهٔ بازشو ذخیره کنید؛ اینجا نام، نشانی یا ترتیب را تغییر دهید."
+  },
+  "favoriteLabelColumn": {
+    "message": "برچسب"
+  },
+  "favoriteUrlColumn": {
+    "message": "نشانی اینترنتی"
+  },
+  "favoriteProfileColumn": {
+    "message": "نمایه"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "انتقال $name$ به بالا",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "انتقال $name$ به پایین",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "حذف $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "هنوز علاقه‌مندی‌ای نیست"
+  },
+  "favoritesEmptySub": {
+    "message": "صفحه‌ای را در یک نمایه باز کنید و روی ستارهٔ پنجرهٔ بازشوی SessionShift کلیک کنید تا اینجا ذخیره شود."
+  },
+  "favoriteInvalidUrl": {
+    "message": "یک نشانی معتبر http:// یا https:// وارد کنید."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "ترتیب علاقه‌مندی‌ها تغییر کرد."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ حذف شد.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

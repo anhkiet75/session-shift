@@ -31,6 +31,12 @@
         </svg>
         <span data-i18n="tabSettings">Settings</span>
       </button>
+      <button class="opt-tab" data-tab="favorites" role="tab" id="tab-favorites" aria-selected="false" aria-controls="panel-favorites">
+        <svg class="opt-tab-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L12 16.77l-5.2 2.73.99-5.78-4.21-4.1 5.82-.85L12 3.5Z"/>
+        </svg>
+        <span data-i18n="tabFavorites">Favorites</span>
+      </button>
       <button class="opt-tab" data-tab="about" role="tab" id="tab-about" aria-selected="false" aria-controls="panel-about">
         <svg class="opt-tab-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <circle cx="12" cy="12" r="9"/>
@@ -84,6 +90,23 @@
           </div>
           <select id="languageSelect" class="opt-language-select" data-i18n-aria-label="languageSettingLabel" aria-label="Language"></select>
         </label>
+      </section>
+
+    </div>
+
+    <!-- Favorites panel -->
+    <div id="panel-favorites" class="opt-panel hidden" role="tabpanel" aria-labelledby="tab-favorites">
+
+      <section class="opt-section">
+        <h2 class="opt-section-title">
+          <svg class="opt-section-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L12 16.77l-5.2 2.73.99-5.78-4.21-4.1 5.82-.85L12 3.5Z"/>
+          </svg>
+          <span data-i18n="tabFavorites">Favorites</span>
+        </h2>
+        <p class="opt-setting-desc opt-fav-desc" data-i18n="favoritesSectionDesc">Saved pages that open in a chosen profile. Save one with the star in the popup; rename, re-point or reorder it here.</p>
+        <div id="favoritesPanelBody"></div>
+        <p class="opt-fav-status" id="favoritesStatus" role="status" aria-live="polite"></p>
       </section>
 
     </div>

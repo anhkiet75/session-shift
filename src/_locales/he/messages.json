@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "מערכת (התאמה לדפדפן)"
+  },
+  "favoritesSectionTitle": {
+    "message": "מועדפים"
+  },
+  "saveFavoriteTitle": {
+    "message": "שמירה במועדפים"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "שמירה במועדפים"
+  },
+  "savedFavoriteTitle": {
+    "message": "נשמר — לחצו כדי להסיר"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "עברו תחילה עם הכרטיסייה הזו לפרופיל כדי לשמור אותה במועדפים."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "לא ניתן לשמור את הדף הזה במועדפים."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "פתיחת המועדף $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "הסרה מהמועדפים"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "הסרת המועדף $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "הפרופיל כבר לא קיים"
+  },
+  "favoritesLimitReached": {
+    "message": "הגעתם למגבלת המועדפים — הסירו אחד כדי לשמור חדש."
+  },
+  "tabFavorites": {
+    "message": "מועדפים"
+  },
+  "favoritesSectionDesc": {
+    "message": "דפים שמורים שנפתחים בפרופיל שנבחר. שמרו דף באמצעות הכוכב בחלון הקופץ; כאן אפשר לשנות שם, כתובת או סדר."
+  },
+  "favoriteLabelColumn": {
+    "message": "תווית"
+  },
+  "favoriteUrlColumn": {
+    "message": "כתובת URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "פרופיל"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "העברת $name$ למעלה",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "העברת $name$ למטה",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "מחיקת $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "אין עדיין מועדפים"
+  },
+  "favoritesEmptySub": {
+    "message": "פתחו דף בפרופיל ולחצו על הכוכב בחלון הקופץ של SessionShift כדי לשמור אותו כאן."
+  },
+  "favoriteInvalidUrl": {
+    "message": "הזינו כתובת http:// או https:// תקינה."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "סדר המועדפים שונה."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ הוסר.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

@@ -13,6 +13,7 @@ import {
 } from '../lib/localization.js'
 import type { Localizer } from '../lib/localization.js'
 import { SUPPORTED_LOCALES } from '../lib/localization-types.js'
+import { initFavoritesPanel } from './options-favorites.js'
 import type { RuntimeLocalePreference } from '../lib/localization-types.js'
 
 function applyTheme(theme: string): void {
@@ -89,6 +90,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       })
     })
 
+    // Favorites tab
+    await initFavoritesPanel(localizer)
+
     // Settings tab
     const settings = await getExtSettings()
     const currentTheme = settings.theme || 'system'
@@ -161,6 +165,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       applyDocumentLocale(document, localizer)
       localizeDocument(document, localizer)
       populateLanguageSelect(languageSelect, localizer, chosen)
+      // The Favorites rows are built in JS, so `localizeDocument` cannot reach
+      // them — re-render the panel in place. The active tab is untouched.
+      await initFavoritesPanel(localizer)
     })
 
     // About tab

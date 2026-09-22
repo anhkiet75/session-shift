@@ -6,7 +6,9 @@ import { applyStoredTheme, cycleTheme } from './popup-theme.js';
 import { getSavedSessions, setSavedSessions } from './popup-session-storage.js';
 import { updateHero } from './popup-hero-updater.js';
 import { renderSessionList } from './popup-render-profile-list.js';
-import { getLanguagePreference, createLocalizer, applyDocumentLocale, localizeDocument } from '../lib/localization.js';
+import { renderFavoritesList } from './popup-render-favorites-list.js';
+import { initSaveFavoriteButton } from './popup-save-favorite.js';
+import { getLanguagePreference, createLocalizer, applyDocumentLocale, localizeDocument, createGenerationGuard } from '../lib/localization.js';
 import type { Localizer } from '../lib/localization.js';
 
 async function getCurrentTab(): Promise<chrome.tabs.Tab> {
@@ -54,14 +56,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       window.close();
     });
     const currentTab = await getCurrentTab();
-
-    if (!currentTab.url || !/^https?:/.test(currentTab.url)) {
-      const msg = document.createElement('div');
-      msg.style.cssText = 'padding:24px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--text-muted);';
-      msg.textContent = localizer.getMessage('cannotIsolatePage') || 'Cannot isolate this page.';
-      popupRoot!.appendChild(msg);
-      return;
-    }
+    const currentUrl = currentTab.url ?? '';
+    // Favorites stay reachable on pages that cannot be isolated — launching one
+    // from a new-tab or chrome:// page is the main reason to open the popup
+    // there. Only the profile area is replaced by the "cannot isolate" notice.
+    const canIsolate = /^https?:/.test(currentUrl);
 
     const inputEl       = document.getElementById('newSessionName') as HTMLInputElement;
     const createRow     = document.getElementById('createRow')!;
@@ -69,14 +68,76 @@ document.addEventListener('DOMContentLoaded', async () => {
     const savedList     = document.getElementById('savedSessionsList')!;
     const resetArea     = document.getElementById('resetArea')!;
     const btnDefault    = document.getElementById('btnDefault') as HTMLButtonElement;
+    const favoritesSection = document.getElementById('favoritesSection')!;
+    const searchInput   = document.getElementById('searchInput') as HTMLInputElement;
 
-    const activeSessionResponse = await chrome.runtime.sendMessage({
-      action: 'getSession',
-      payload: { tabId: currentTab.id }
-    }) as { sessionId?: string } | null;
+    const activeSessionResponse = canIsolate
+      ? await chrome.runtime.sendMessage({
+          action: 'getSession',
+          payload: { tabId: currentTab.id }
+        }) as { sessionId?: string } | null
+      : null;
     const currentSessionId = activeSessionResponse?.sessionId || 'default';
 
     let saved = await getSavedSessions();
+
+    let searchQuery = '';
+    let searchTimer: ReturnType<typeof setTimeout> | null = null;
+
+    function renderList(): void {
+      renderSessionList(savedList, saved, currentSessionId, currentTab.id!, currentUrl, localizer, searchQuery);
+    }
+
+    // Renders are fire-and-forget from two call sites (search input, storage
+    // change), so a slower earlier read could otherwise repaint over a newer
+    // one. Same guard the Options language picker uses for the same problem.
+    const favoritesGuard = createGenerationGuard();
+
+    async function renderFavorites(): Promise<void> {
+      const generation = favoritesGuard.next();
+      await renderFavoritesList(favoritesSection, saved, localizer, searchQuery,
+        () => favoritesGuard.isLatest(generation));
+    }
+
+    // Favorites are an optional section: a fault here (storage rejects, one
+    // malformed stored entry) must never abort the wiring below and leave the
+    // user a popup that cannot switch, create or reset a profile. Fail closed
+    // and silently — the section simply does not appear.
+    const star = await initSaveFavoriteButton({
+      button: document.getElementById('saveFavorite') as HTMLButtonElement,
+      url: currentUrl,
+      title: currentTab.title ?? '',
+      sessionId: currentSessionId,
+      localizer,
+    }).catch(() => ({ refresh: async (): Promise<void> => {} }));
+
+    await renderFavorites().catch(() => {});
+
+    // Saving from the star and removing from a row both mutate the same key;
+    // repaint whichever surface did not originate the change.
+    document.addEventListener('favoritesChanged', () => {
+      void renderFavorites().catch(() => {});
+      void star.refresh().catch(() => {});
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value;
+      if (searchTimer) clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        void renderFavorites().catch(() => {});
+        if (canIsolate) renderList();
+      }, 80);
+    });
+
+    if (!canIsolate) {
+      const msg = document.createElement('div');
+      msg.style.cssText = 'padding:24px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--text-muted);';
+      msg.textContent = localizer.getMessage('cannotIsolatePage') || 'Cannot isolate this page.';
+      savedList.replaceChildren(msg);
+      createRow.classList.add('hidden');
+      btnDefault.disabled = true;
+      return;
+    }
     let currentSessionObj = saved.find(s => s.id === currentSessionId);
     let currentHue = currentSessionObj ? getSessionHue(currentSessionObj, saved.indexOf(currentSessionObj)) : null;
 
@@ -135,7 +196,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       cancelBtn.addEventListener('click', showResetButton);
       confirmBtn.addEventListener('click', async () => {
         await chrome.runtime.sendMessage({ action: 'setSession', payload: { tabId: currentTab.id, sessionId: 'default' } });
-        chrome.tabs.reload(currentTab.id!);
+        // Bypass cache — same reasoning as the profile-switch reload: the
+        // disk cache spans every profile, so a cached response could still
+        // reflect the profile just left.
+        chrome.tabs.reload(currentTab.id!, { bypassCache: true });
         window.close();
       });
     }
@@ -155,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const sessions = await getSavedSessions();
       sessions.push(newSession);
       await setSavedSessions(sessions);
-      await chrome.runtime.sendMessage({ action: 'createSessionTab', payload: { url: currentTab.url, sessionId: newId } });
+      await chrome.runtime.sendMessage({ action: 'createSessionTab', payload: { url: currentUrl, sessionId: newId } });
       window.close();
     });
 
@@ -163,21 +227,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (e.key === 'Enter') btnNewSession.click();
     });
 
-    let searchQuery = '';
-    let searchTimer: ReturnType<typeof setTimeout> | null = null;
-    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
-
-    function renderList(): void {
-      renderSessionList(savedList, saved, currentSessionId, currentTab.id!, currentTab.url!, localizer, searchQuery);
-    }
-
     renderList();
-
-    searchInput.addEventListener('input', (e) => {
-      searchQuery = (e.target as HTMLInputElement).value;
-      if (searchTimer) clearTimeout(searchTimer);
-      searchTimer = setTimeout(renderList, 80);
-    });
   } finally {
     // Always reveal — a thrown error above must not leave the popup
     // permanently inert/blank.

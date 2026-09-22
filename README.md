@@ -3,7 +3,7 @@
 A Chrome extension that gives each tab its own isolated session, letting you stay logged into multiple accounts on the same site simultaneously. A free, open-source alternative to SessionBox.
 
 **[Install from Chrome Web Store](https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp)**  
-**Current Version:** 0.0.8
+**Current Version:** 0.1.0
 
 ---
 
@@ -32,6 +32,7 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 - **One global profile list** — A single searchable list; a profile created on one site is selectable on every site
 - **Auto-inherit for linked tabs** — Tabs opened via links (`target="_blank"`, Ctrl+Click, middle-click) automatically inherit the opener tab's profile (toggle in Options, default on)
 - **Open in new tab** — Right-click a profile in the popup to open the current page in that profile's session
+- **Favorites** — Save a page + profile pair with one click from the popup star, then relaunch it into that profile's cookie jar from the popup list; full rename / re-point / reorder management in Options → Favorites (reachable even from a new-tab or `chrome://` page)
 - **Context menu integration** — Right-click any link → "Open in Session" to open it in a specific profile
 - **Badge indicator** — Toolbar badge shows the active profile at a glance, in the profile's color with a contrast-picked label
 - **Color-coded toolbar icon** — The extension icon itself is tinted with the active profile's color, so two tabs on different profiles are distinguishable without reading the badge
@@ -80,7 +81,7 @@ session-shift/
 │   ├── page-api-proxy.ts      # MAIN world API interception
 │   ├── lib/                   # Cookie/session/settings/localization helpers
 │   ├── popup/                 # Popup UI modules + fonts/
-│   ├── options/               # Options page (Settings + About tabs)
+│   ├── options/               # Options page (Settings + Favorites + About tabs)
 │   └── icons/                 # Extension icons (16–128px)
 ├── dist/                      # Build output (gitignored) — load this in Chrome
 ├── scripts/                   # build/dev/package scripts, locale validators, Docker e2e runner
@@ -149,6 +150,19 @@ Read the docs for deeper understanding:
 3. Select a profile from the submenu
 4. Link opens in a new tab with that profile active
 
+### Save a Favorite
+1. Open a page in a profile (not the default profile)
+2. Open the popup and click the **star** in the header
+3. The page is saved under that profile, with the tab title as its name
+
+### Launch a Favorite
+1. Open the popup — favorites are listed under **Favorites**
+2. Click one; it opens in a new tab carrying that profile's cookies
+3. Favorites are listed even on pages that cannot be isolated, so a favorite can be launched straight from a new-tab page
+
+### Manage Favorites
+Options → **Favorites** — rename, edit the URL, re-assign the profile, reorder with the up/down buttons, or delete. Deleting a profile also removes its favorites; a favorite whose profile is gone stays in the list, disabled, so its URL is not lost.
+
 ### Delete a Profile
 1. Open popup
 2. Hover over a profile, click **Delete**
@@ -160,6 +174,7 @@ Read the docs for deeper understanding:
 - **Language** — Pick any of the 55 supported languages (applies to popup, Options, and context menus)
 - **Auto-open linked tabs in the same profile** — Toggle link-opened-tab profile inheritance (default on)
 - **Group tabs by profile in the tab strip** — Toggle native Chrome tab groups; requests the `tabGroups` permission on enable (default off)
+- **Favorites tab** — Manage saved page + profile pairs (rename, edit URL, re-assign profile, reorder, delete)
 
 ### Reset to Default
 Click **Reset to default** to return the current tab to the browser's global cookie jar
@@ -201,7 +216,7 @@ Chrome extensions require `headless: false`, so E2E runs go through the Docker-b
 
 ```bash
 npm run build             # compile TypeScript first (required)
-npm run test:e2e:docker   # run Playwright suite in Docker (39 tests)
+npm run test:e2e:docker   # run Playwright suite in Docker (52 tests)
 ```
 
 E2E suites in `tests/e2e/`:
@@ -210,6 +225,8 @@ E2E suites in `tests/e2e/`:
 - `global-session-list.test.ts` — cross-origin global profile list and search filter
 - `linked-tab-profile-inheritance.test.ts` — profile inheritance for link-opened tabs
 - `profile-open-in-new-tab.test.ts` — right-click "Open in new tab" cookie isolation
+- `session-favorites.test.ts` — favorite launch cookie isolation, non-`http(s)` popup path, hero star toggle, profile-delete cascade, orphaned-favorite state
+- `options-favorites.test.ts` — Options favorites CRUD: rename, URL validation, profile re-assign, reorder, delete, rebind
 - `theme-switcher.test.ts` — dark/light/system theme persistence
 - `localization-rtl.test.ts` — RTL rendering, locale switching, manifest/context-menu i18n
 - `native-locale-smoke.test.ts` — native `chrome.i18n` locale smoke tests

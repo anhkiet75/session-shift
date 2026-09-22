@@ -6,6 +6,22 @@ const englishCatalog = JSON.parse(
   readFileSync(resolve(process.cwd(), 'src/_locales/en/messages.json'), 'utf8'),
 );
 
+// A real (if tiny) event target rather than a bare `vi.fn()` — removeListener
+// actually drops the callback, so tests can dispatch through it and verify a
+// listener that unregisters itself doesn't get called again, exactly like the
+// real chrome.tabs.onUpdated/onRemoved.
+function createEventMock() {
+  const listeners = new Set();
+  return {
+    addListener: vi.fn((fn) => { listeners.add(fn); }),
+    removeListener: vi.fn((fn) => { listeners.delete(fn); }),
+    hasListener: vi.fn((fn) => listeners.has(fn)),
+    // Test-only: invoke every listener currently registered, snapshotted first
+    // so a listener that removes itself mid-dispatch doesn't skip a sibling.
+    __dispatch: (...args) => { for (const fn of [...listeners]) fn(...args); },
+  };
+}
+
 function createI18nMock() {
   return {
     // Positional only: each declared placeholder's "content" is "$N$" (N = its
@@ -89,12 +105,13 @@ function createChromeMock() {
       create: vi.fn(),
       sendMessage: vi.fn().mockResolvedValue({}),
       update: vi.fn(),
+      reload: vi.fn().mockResolvedValue({}),
       query: vi.fn(),
       group: vi.fn(),
       ungroup: vi.fn(),
-      onRemoved: { addListener: vi.fn() },
+      onRemoved: createEventMock(),
       onActivated: { addListener: vi.fn() },
-      onUpdated: { addListener: vi.fn() },
+      onUpdated: createEventMock(),
       onAttached: { addListener: vi.fn() },
     },
     // Deliberately no `tabGroups` entry — `chrome.tabGroups` is `undefined`

@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "సిస్టమ్ (బ్రౌజర్‌తో సరిపోలిక)"
+  },
+  "favoritesSectionTitle": {
+    "message": "ఇష్టమైనవి"
+  },
+  "saveFavoriteTitle": {
+    "message": "ఇష్టమైనవిలో సేవ్ చేయండి"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "ఇష్టమైనవిలో సేవ్ చేయండి"
+  },
+  "savedFavoriteTitle": {
+    "message": "సేవ్ చేయబడింది — తీసివేయడానికి క్లిక్ చేయండి"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "ఇష్టమైనవిలో సేవ్ చేయడానికి ముందుగా ఈ ట్యాబ్‌ను ప్రొఫైల్‌కు మార్చండి."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "ఈ పేజీని ఇష్టమైనవిలో సేవ్ చేయడం సాధ్యం కాదు."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "ఇష్టమైన $name$ తెరవండి",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "ఇష్టమైనదాన్ని తీసివేయండి"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "ఇష్టమైన $name$ తీసివేయండి",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "ప్రొఫైల్ ఇక లేదు"
+  },
+  "favoritesLimitReached": {
+    "message": "ఇష్టమైనవి పరిమితి చేరింది — కొత్తది సేవ్ చేయడానికి ఒకటి తీసివేయండి."
+  },
+  "tabFavorites": {
+    "message": "ఇష్టమైనవి"
+  },
+  "favoritesSectionDesc": {
+    "message": "ఎంచుకున్న ప్రొఫైల్‌లో తెరిచే సేవ్ చేసిన పేజీలు. పాప్‌అప్‌లోని నక్షత్రంతో సేవ్ చేయండి; ఇక్కడ పేరు, చిరునామా లేదా క్రమాన్ని మార్చండి."
+  },
+  "favoriteLabelColumn": {
+    "message": "లేబుల్"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "ప్రొఫైల్"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ను పైకి తరలించండి",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ను కిందికి తరలించండి",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ను తొలగించండి",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "ఇంకా ఇష్టమైనవి లేవు"
+  },
+  "favoritesEmptySub": {
+    "message": "ప్రొఫైల్‌లో పేజీని తెరిచి, దానిని ఇక్కడ సేవ్ చేయడానికి SessionShift పాప్‌అప్‌లోని నక్షత్రంపై క్లిక్ చేయండి."
+  },
+  "favoriteInvalidUrl": {
+    "message": "చెల్లుబాటు అయ్యే http:// లేదా https:// చిరునామాను నమోదు చేయండి."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "ఇష్టమైనవి క్రమం మార్చబడింది."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ తీసివేయబడింది.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

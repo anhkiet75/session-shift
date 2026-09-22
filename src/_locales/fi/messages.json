@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Järjestelmä (selaimen mukaan)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Suosikit"
+  },
+  "saveFavoriteTitle": {
+    "message": "Tallenna suosikiksi"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Tallenna suosikiksi"
+  },
+  "savedFavoriteTitle": {
+    "message": "Tallennettu – poista napsauttamalla"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Vaihda tämä välilehti ensin profiiliin, jotta voit tallentaa sen suosikiksi."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Tätä sivua ei voi tallentaa suosikiksi."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Avaa suosikki $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Poista suosikki"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Poista suosikki $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profiilia ei ole enää olemassa"
+  },
+  "favoritesLimitReached": {
+    "message": "Suosikkien yläraja saavutettu – poista yksi tallentaaksesi uuden."
+  },
+  "tabFavorites": {
+    "message": "Suosikit"
+  },
+  "favoritesSectionDesc": {
+    "message": "Tallennetut sivut, jotka avautuvat valitussa profiilissa. Tallenna sivu ponnahdusikkunan tähdellä; nimeä uudelleen, vaihda osoite tai järjestys täällä."
+  },
+  "favoriteLabelColumn": {
+    "message": "Nimi"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profiili"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Siirrä $name$ ylös",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Siirrä $name$ alas",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Poista $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Ei vielä suosikkeja"
+  },
+  "favoritesEmptySub": {
+    "message": "Avaa sivu profiilissa ja tallenna se tänne napsauttamalla tähteä SessionShiftin ponnahdusikkunassa."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Anna kelvollinen http://- tai https://-osoite."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Suosikkien järjestys muutettu."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ poistettu.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Systemowy (zgodnie z przeglądarką)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Ulubione"
+  },
+  "saveFavoriteTitle": {
+    "message": "Zapisz jako ulubione"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Zapisz jako ulubione"
+  },
+  "savedFavoriteTitle": {
+    "message": "Zapisano — kliknij, aby usunąć"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Najpierw przełącz tę kartę na profil, aby zapisać ją jako ulubioną."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Tej strony nie można zapisać jako ulubionej."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Otwórz ulubione $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Usuń z ulubionych"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Usuń ulubione $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profil już nie istnieje"
+  },
+  "favoritesLimitReached": {
+    "message": "Osiągnięto limit ulubionych — usuń jedno, aby zapisać kolejne."
+  },
+  "tabFavorites": {
+    "message": "Ulubione"
+  },
+  "favoritesSectionDesc": {
+    "message": "Zapisane strony otwierane w wybranym profilu. Zapisz stronę gwiazdką w oknie podręcznym; tutaj zmień nazwę, adres lub kolejność."
+  },
+  "favoriteLabelColumn": {
+    "message": "Etykieta"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Przenieś $name$ w górę",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Przenieś $name$ w dół",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Usuń $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Brak ulubionych"
+  },
+  "favoritesEmptySub": {
+    "message": "Otwórz stronę w profilu, a następnie kliknij gwiazdkę w oknie podręcznym SessionShift, aby zapisać ją tutaj."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Wpisz prawidłowy adres http:// lub https://."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Zmieniono kolejność ulubionych."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "Usunięto $name$.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

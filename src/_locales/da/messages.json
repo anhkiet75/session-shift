@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "System (følg browser)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favoritter"
+  },
+  "saveFavoriteTitle": {
+    "message": "Gem som favorit"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Gem som favorit"
+  },
+  "savedFavoriteTitle": {
+    "message": "Gemt – klik for at fjerne"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Skift først dette faneblad til en profil for at gemme det som favorit."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Denne side kan ikke gemmes som favorit."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Åbn favoritten $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Fjern favorit"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Fjern favoritten $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profilen findes ikke længere"
+  },
+  "favoritesLimitReached": {
+    "message": "Grænsen for favoritter er nået – fjern en for at gemme en ny."
+  },
+  "tabFavorites": {
+    "message": "Favoritter"
+  },
+  "favoritesSectionDesc": {
+    "message": "Gemte sider, der åbnes i en valgt profil. Gem en med stjernen i pop op-vinduet; omdøb, skift adresse eller rækkefølge her."
+  },
+  "favoriteLabelColumn": {
+    "message": "Etiket"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Flyt $name$ op",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Flyt $name$ ned",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Slet $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Ingen favoritter endnu"
+  },
+  "favoritesEmptySub": {
+    "message": "Åbn en side i en profil, og klik på stjernen i SessionShift-pop op-vinduet for at gemme den her."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Angiv en gyldig http://- eller https://-adresse."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favoritter omarrangeret."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ fjernet.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

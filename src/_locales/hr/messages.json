@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sustav (prema pregledniku)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favoriti"
+  },
+  "saveFavoriteTitle": {
+    "message": "Spremi u favorite"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Spremi u favorite"
+  },
+  "savedFavoriteTitle": {
+    "message": "Spremljeno – kliknite za uklanjanje"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Najprije prebacite ovu karticu na profil kako biste je spremili u favorite."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Ovu stranicu nije moguće spremiti u favorite."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Otvori favorit $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Ukloni iz favorita"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Ukloni favorit $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profil više ne postoji"
+  },
+  "favoritesLimitReached": {
+    "message": "Dosegnuto je ograničenje favorita – uklonite jedan da biste spremili novi."
+  },
+  "tabFavorites": {
+    "message": "Favoriti"
+  },
+  "favoritesSectionDesc": {
+    "message": "Spremljene stranice koje se otvaraju u odabranom profilu. Spremite ih zvjezdicom u skočnom prozoru; ovdje ih preimenujte, promijenite adresu ili redoslijed."
+  },
+  "favoriteLabelColumn": {
+    "message": "Naziv"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Pomakni $name$ gore",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Pomakni $name$ dolje",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Izbriši $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Još nema favorita"
+  },
+  "favoritesEmptySub": {
+    "message": "Otvorite stranicu u profilu pa kliknite zvjezdicu u skočnom prozoru SessionShifta da biste je spremili ovdje."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Unesite valjanu http:// ili https:// adresu."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Redoslijed favorita promijenjen."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ uklonjen.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

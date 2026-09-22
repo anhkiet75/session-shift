@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "ሲስተም (ከአሳሽ ጋር ይዛመድ)"
+  },
+  "favoritesSectionTitle": {
+    "message": "ተወዳጆች"
+  },
+  "saveFavoriteTitle": {
+    "message": "እንደ ተወዳጅ አስቀምጥ"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "እንደ ተወዳጅ አስቀምጥ"
+  },
+  "savedFavoriteTitle": {
+    "message": "ተቀምጧል — ለማስወገድ ጠቅ ያድርጉ"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "እንደ ተወዳጅ ለማስቀመጥ መጀመሪያ ይህን ትር ወደ መገለጫ ይለውጡ።"
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "ይህ ገጽ እንደ ተወዳጅ ሊቀመጥ አይችልም።"
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "ተወዳጁን $name$ ክፈት",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "ተወዳጅን አስወግድ"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "ተወዳጁን $name$ አስወግድ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "መገለጫው ከዚህ በኋላ የለም"
+  },
+  "favoritesLimitReached": {
+    "message": "የተወዳጆች ገደብ ደርሷል — አዲስ ለማስቀመጥ አንዱን ያስወግዱ።"
+  },
+  "tabFavorites": {
+    "message": "ተወዳጆች"
+  },
+  "favoritesSectionDesc": {
+    "message": "በተመረጠ መገለጫ ውስጥ የሚከፈቱ የተቀመጡ ገጾች። በብቅ-ባይ መስኮቱ ኮከብ ያስቀምጡ፤ እዚህ ስም፣ አድራሻ ወይም ቅደም ተከተል ይቀይሩ።"
+  },
+  "favoriteLabelColumn": {
+    "message": "መለያ"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "መገለጫ"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ን ወደ ላይ አንቀሳቅስ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ን ወደ ታች አንቀሳቅስ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ን ሰርዝ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "እስካሁን ተወዳጆች የሉም"
+  },
+  "favoritesEmptySub": {
+    "message": "ገጽን በመገለጫ ውስጥ ይክፈቱ፣ ከዚያ እዚህ ለማስቀመጥ በSessionShift ብቅ-ባይ መስኮት ላይ ያለውን ኮከብ ጠቅ ያድርጉ።"
+  },
+  "favoriteInvalidUrl": {
+    "message": "ትክክለኛ http:// ወይም https:// አድራሻ ያስገቡ።"
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "የተወዳጆች ቅደም ተከተል ተቀይሯል።"
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ ተወግዷል።",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

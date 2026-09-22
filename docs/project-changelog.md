@@ -2,9 +2,29 @@
 
 All significant changes to the SessionShift Chrome extension are documented here.
 
+> **Version numbering.** The `vX.Y.Z` headings below are *development
+> milestones*, not shipped releases. The only version Chrome ships is
+> `src/manifest.json`, which has gone `0.0.4 → 0.0.6 → 0.0.7 → 0.0.8 → 0.0.9 →
+> **0.1.0** (current)`. No 0.2.x–0.6.x has ever been released, and the
+> repository has no git tags. Milestone headings are kept because the work they
+> describe is real and the dates are useful; read them as "milestone N", not as
+> a published version. Feature claims below have been reconciled against `src/`.
+
 ---
 
-## v0.6.0 (In Progress)
+## Current release: 0.1.0 (manifest)
+
+**Shipped in 0.1.0:** Favorites — saved `(url, profile)` launchers. Saved from
+the popup hero star, launched from the popup favorites list into that profile's
+cookie jar, managed in Options → Favorites (rename, edit URL, re-assign profile,
+reorder, delete). Deleting a profile cascade-purges its favorites.
+Implementation: `lib/favorites-store.ts`, `popup/popup-render-favorites-list.ts`,
+`popup/popup-save-favorite.ts`, `options/options-favorites*.ts`. No new
+permissions; launch reuses the existing `createSessionTab` message.
+
+---
+
+## Milestone v0.6.0 — Localization & RTL (development milestone, never released)
 
 ### 2026-07-12 — Localization & RTL Completion (Phases 1–6 ✅)
 
@@ -140,9 +160,9 @@ Plan: `plans/260619-1902-profile-based-session-model`. Replaces per-origin sessi
 #### Popup
 - Collapsed the "This site" / "All sessions" tabs into a **single searchable profile list**. Switching applies to the current tab. Replaced `popup-render-origin-list.ts` + `popup-render-global-list.ts` with one `popup-render-profile-list.ts`.
 
-> Note: `docs/codebase-summary.md` still references a removed "auto-assign rules" subsystem (`auto-assign-handler.ts`, `rule-matcher.ts`, `getAssignRules`) that no longer exists in `src/`. This is pre-existing drift unrelated to this change and is flagged for a separate docs refresh.
+> Note (resolved 2026-09-20): `docs/codebase-summary.md` previously referenced an "auto-assign rules" subsystem (`auto-assign-handler.ts`, `rule-matcher.ts`, `getAssignRules`) that never existed in `src/`. That drift has been reconciled.
 
-## v0.5.0 (In Progress)
+## Milestone v0.5.0 (development milestone, never released)
 
 ### 2026-06-14 — Isolation Hardening (P1 + P2 + P4)
 
@@ -276,14 +296,13 @@ Plan: `plans/260614-1726-isolation-hardening-p1-p2-p4`. Closes page-API isolatio
 
 #### Test Coverage
 **Test Files:**
-- `tests/e2e/popup-navigation.spec.ts` — Popup UI navigation, session switching, tab switching, search filtering
-- `tests/e2e/session-crud.spec.ts` — Session creation, renaming, deletion, error handling
-- `tests/e2e/auto-assign-rules.spec.ts` — Rule creation, pattern matching, enable/disable toggles
-- `tests/e2e/isolation.spec.ts` — Per-session cookie isolation via DNR, Set-Cookie interception
-- `tests/e2e/keyboard-shortcuts.spec.ts` — Ctrl+Shift+S popup trigger, Ctrl+Shift+Right/Left session cycling
-- `tests/e2e/export-import.spec.ts` — Session list export/import, backup restoration, conflict handling
-
-**Test Count:** 17 tests, 100% passing
+*(This milestone's original entry listed `popup-navigation.spec.ts`,
+`auto-assign-rules.spec.ts`, `keyboard-shortcuts.spec.ts` and
+`export-import.spec.ts`. Those files were never created. The suites that do
+exist are `session-isolation`, `session-crud`, `global-session-list`,
+`linked-tab-profile-inheritance`, `profile-open-in-new-tab`,
+`session-favorites`, `theme-switcher`, `localization-rtl` and
+`native-locale-smoke` — 43 tests, run via `npm run test:e2e:docker`.)*
 
 #### Breaking Changes
 None. E2E tests run separately from unit tests; no API or behavior changes.
@@ -300,7 +319,7 @@ npm run test:all      # Both unit + E2E
 
 ---
 
-## v0.4.0 (2026-05-04)
+## Milestone v0.4.0 (2026-05-04) — development milestone, never released
 
 ### Shipped Features
 
@@ -341,7 +360,7 @@ npm run test:all      # Both unit + E2E
 
 ---
 
-## v0.3.0 (2026-03-15)
+## Milestone v0.3.0 (2026-03-15) — development milestone, never released
 
 ### Shipped Features
 
@@ -350,10 +369,10 @@ npm run test:all      # Both unit + E2E
 - Color assigned on session creation, persisted in storage
 - Popup icon and badge reflect session color
 
-#### 2. Export/Import
-- Export all sessions + cookies as JSON backup file
-- Import from backup (conflict handling: append "(imported)" suffix)
-- Allows session migration across browsers
+#### 2. Export/Import — **NOT SHIPPED**
+Planned here but never implemented. No export/import code or UI exists in
+`src/` (`grep -rn "export/import\|importSessions" src/` returns nothing). Still
+open as backlog item #7 in `docs/BACKLOG.md`.
 
 #### 3. Session Duplication
 - Clone existing session with all cookies
@@ -361,19 +380,23 @@ npm run test:all      # Both unit + E2E
 - Allows template-based session creation
 
 #### 4. Settings Page
-- `notifyOnAutoAssign` toggle — Notify when tab auto-assigns
-- Settings persisted to `chrome.storage.local`
+- Settings persisted to `chrome.storage.local` under `ext_settings`
 - About tab with version display
+- **Correction:** the `notifyOnAutoAssign` toggle described here was never
+  built — no such field exists in `ExtSettings` (`src/lib/types.ts`), because
+  the auto-assign engine it depended on was never built either.
 
 #### Modified Files
 - `manifest.json` — Version 0.2.0 → 0.3.0, options page added
 - `popup/popup.js` — Color assignment, duplication handler
-- `options/options.js` — Settings CRUD, export/import handlers
-- `lib/session-store.js` — Duplication and import/export methods
+- `options/options.js` — Settings CRUD
+- `lib/session-store.js` — Duplication methods
+
+*(The original entry also listed export/import handlers — see the correction above.)*
 
 ---
 
-## v0.2.0 (2026-01-20)
+## Milestone v0.2.0 (2026-01-20) — development milestone, never released
 
 ### Shipped Features
 
@@ -382,11 +405,13 @@ npm run test:all      # Both unit + E2E
 - Search/filter across all sessions by name and origin
 - Reduces need to manually track sessions across origins
 
-#### 2. Auto-Assign Rules
-- Pattern-based rule creation (exact + wildcard matching)
-- Enable/disable toggles (persistent)
-- Auto-assign tabs matching patterns to designated sessions
-- Reduces manual session switching on common sites
+#### 2. Auto-Assign Rules — **NOT SHIPPED**
+Planned here but never implemented. No rule engine exists in `src/`
+(`grep -rn "autoAssign\|rule-matcher\|assign_rules" src/` returns nothing), and
+`lib/rule-matcher.js` was never created. Still open as backlog item #3 in
+`docs/BACKLOG.md`; deliberately declined again during the Favorites plan
+because a navigation-time rule engine risks silently taking over normal
+browsing.
 
 #### 3. Context Menu Integration
 - Right-click menu to create session for current tab
@@ -401,16 +426,15 @@ npm run test:all      # Both unit + E2E
 #### Modified Files
 - `manifest.json` — Version 0.1.0 → 0.2.0, context menu permissions added
 - `popup/popup.js` — Tab switching, search, global view
-- `options/options.js` — Rules management UI
-- `background.js` — Context menu handlers, auto-assign logic, snapshot creation
-- `lib/rule-matcher.js` — Pattern matching for auto-assign rules
+- `options/options.js` — (rules management UI listed originally; never built)
+- `background.js` — Context menu handlers, snapshot creation
 
-#### Test Files Created
-- `tests/rule-matcher.test.js` (80 LOC, 18 tests)
+*(`lib/rule-matcher.js` and `tests/rule-matcher.test.js` are listed in the
+original entry but were never created — see the auto-assign correction above.)*
 
 ---
 
-## v0.1.0 (2025-12-20)
+## Milestone v0.1.0 (2025-12-20) — initial development milestone; unrelated to the shipped 0.1.0 above
 
 ### Initial Release
 

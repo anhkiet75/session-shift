@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "সিস্টেম (ব্রাউজারের সাথে মিল)"
+  },
+  "favoritesSectionTitle": {
+    "message": "প্রিয়"
+  },
+  "saveFavoriteTitle": {
+    "message": "প্রিয়তে সংরক্ষণ করুন"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "প্রিয়তে সংরক্ষণ করুন"
+  },
+  "savedFavoriteTitle": {
+    "message": "সংরক্ষিত — সরাতে ক্লিক করুন"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "প্রিয়তে সংরক্ষণ করতে প্রথমে এই ট্যাবটি একটি প্রোফাইলে পরিবর্তন করুন।"
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "এই পৃষ্ঠাটি প্রিয়তে সংরক্ষণ করা যাবে না।"
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "প্রিয় $name$ খুলুন",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "প্রিয় থেকে সরান"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "প্রিয় $name$ সরান",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "প্রোফাইলটি আর নেই"
+  },
+  "favoritesLimitReached": {
+    "message": "প্রিয়র সীমা পূর্ণ — নতুন সংরক্ষণ করতে একটি সরান।"
+  },
+  "tabFavorites": {
+    "message": "প্রিয়"
+  },
+  "favoritesSectionDesc": {
+    "message": "সংরক্ষিত পৃষ্ঠা যা নির্বাচিত প্রোফাইলে খোলে। পপআপের তারা দিয়ে সংরক্ষণ করুন; এখানে নাম, ঠিকানা বা ক্রম পরিবর্তন করুন।"
+  },
+  "favoriteLabelColumn": {
+    "message": "লেবেল"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "প্রোফাইল"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ উপরে সরান",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ নিচে সরান",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ মুছুন",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "এখনও কোনও প্রিয় নেই"
+  },
+  "favoritesEmptySub": {
+    "message": "একটি প্রোফাইলে পৃষ্ঠা খুলুন, তারপর এখানে সংরক্ষণ করতে SessionShift পপআপের তারায় ক্লিক করুন।"
+  },
+  "favoriteInvalidUrl": {
+    "message": "একটি বৈধ http:// বা https:// ঠিকানা লিখুন।"
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "প্রিয়র ক্রম পরিবর্তিত হয়েছে।"
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ সরানো হয়েছে।",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }
