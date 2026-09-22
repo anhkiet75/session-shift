@@ -11,7 +11,7 @@ session-shift/
 ├── lib/
 │   ├── cookie-parser.js       # Cookie parsing/serialization
 │   ├── session-store.js       # Storage access patterns
-│   ├── rule-matcher.js        # Hostname pattern matching for auto-assign rules
+│   ├── favorites-store.ts     # Saved (url, profile) launchers — sole owner of the `favorites` key
 │   └── storage-proxy.js       # Storage proxy factory for per-session isolation (v0.4.0)
 ├── popup/
 │   ├── popup.html             # UI structure (v0.4.0: aria attributes)

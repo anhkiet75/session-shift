@@ -1,10 +1,28 @@
-# Development Roadmap
+# Development Roadmap (shipped history)
 
 **SessionShift** Chrome extension development tracking.
 
+> **Roadmap split (decided 2026-09-20).** This repository keeps two roadmap
+> documents with a deliberate division of responsibility:
+> - **`docs/development-roadmap.md`** — *shipped history*: what was actually
+>   built, phase by phase, verified against `src/` and `tests/`.
+> - **`docs/project-roadmap.md`** — *forward-looking plan*: what is proposed but
+>   not yet built.
+>
+> A claim belongs in exactly one of them. Source-of-truth order for any version
+> or feature claim: `src/manifest.json` version > code and tests > git history >
+> prose. `src/manifest.json` is the only version Chrome ships; it is currently
+> **0.1.0**, and the repository has no git tags. Version strings like `v0.4.1`
+> or `v0.6.0` that appeared in earlier revisions of these files were
+> development milestone labels, never releases.
+
+**Scope of this file:** what was *actually built*, verified against `src/` and
+`tests/`. For proposals not yet built, see
+[`project-roadmap.md`](./project-roadmap.md).
+
 ## Current Status
 
-**Latest Release:** v0.6.0 (in progress)  
+**Current Version:** 0.1.0 (from `src/manifest.json`)  
 **Status:** Active hardening and profile UX work  
 **Repository:** https://github.com/anhkiet75/session-shift  
 **Chrome Web Store:** https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp
@@ -16,11 +34,15 @@
 | Phase | Name | Version | Status | Completed | Key Features |
 |-------|------|---------|--------|-----------|--------------|
 | **1** | Core Session Isolation | v0.1.0 | ✅ Shipped | 2025-Q4 | Per-tab DNR isolation, session CRUD, badge |
-| **2** | Advanced Session Mgmt | v0.2.0 | ✅ Shipped | 2026-01 | Global session list, auto-assign rules, context menu |
-| **3** | UX Polish | v0.3.0 | ✅ Shipped | 2026-03 | Session colors, export/import, duplication, settings page |
+| **2** | Advanced Session Mgmt | v0.2.0 | ✅ Shipped | 2026-01 | Global session list, context menu (**auto-assign rules were never built**) |
+| **3** | UX Polish | v0.3.0 | ✅ Shipped | 2026-03 | Session colors, duplication, settings page (**export/import was never built**) |
 | **4** | Advanced Features | v0.4.0 | ✅ Shipped | 2026-05-04 | Keyboard shortcuts, lazy DNR debounce, test coverage, WCAG 2.1 AA |
 | **5** | Infrastructure & Sync | v0.5.0 | 🟡 In Progress | TBD | TypeScript + modularization (done), IndexedDB migration, cross-device sync, privacy audit |
 | **6** | Profile Model Hardening | v0.6.0 | 🟡 In Progress | TBD | Global profile model, auth transition bridge, first-navigation strip, popup profile open-in-tab |
+| **7** | Favorites | **0.1.0 (shipped)** | ✅ Shipped | 2026-09-20 | Saved `(url, profile)` launchers: popup star + list, Options → Favorites CRUD/reorder, cascade purge on profile delete, 55-locale parity |
+
+*Phase "version" labels 1–6 are development milestones, not releases. Phase 7 is
+the first row whose version is a real shipped manifest version.*
 
 ---
 
@@ -104,7 +126,6 @@
 - ✅ background/session-manager.ts (~93 LOC) — tab→session map, badge management, icons
 - ✅ background/dnr-manager.ts (~134 LOC) — DNR rules, 50ms debounce, cookie capture
 - ✅ background/context-menu-manager.ts (~40 LOC) — context menu lifecycle
-- ✅ background/auto-assign-handler.ts (~27 LOC) — auto-assign navigation logic
 - ✅ background/message-handler.ts (~137 LOC) — chrome.runtime.onMessage routing
 - ✅ manifest.json updated (service_worker points to background/index.js)
 - ✅ All 94 Vitest tests still passing
@@ -140,7 +161,11 @@
 
 ---
 
-## v0.6.0 — Advanced Analytics (Planned)
+## Milestone v0.6.0 — Advanced Analytics (Planned, not built)
+
+*Forward-looking. Per the roadmap split above, proposals belong in
+[`project-roadmap.md`](./project-roadmap.md); this section is kept here only
+until it is moved.*
 
 > **Estimated Effort:** 3 weeks  
 > **Target:** Q4 2026
@@ -174,10 +199,8 @@
 - ✅ Test coverage:
   - Popup navigation & session switching
   - Session CRUD (create/rename/delete)
-  - Auto-assign rules with pattern matching
   - Per-session cookie isolation + DNR enforcement
   - Keyboard shortcuts (Ctrl+Shift+S, cycle next/prev)
-  - Export/import backup workflows
 - ✅ Vitest config updated to exclude `tests/e2e/**` from unit test runs
 - ✅ All tests passing; runs in CI/CD pipeline
 

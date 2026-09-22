@@ -1,8 +1,26 @@
-# SessionShift — Project Roadmap
+# SessionShift — Project Roadmap (forward-looking)
 
-**Current Version:** 0.4.1  
-**Status:** Shipped to Chrome Web Store  
-**Last Updated:** 2026-05-10
+**Current Version:** 0.1.0 (from `src/manifest.json` — the only version Chrome ships)  
+**Status:** Published on the Chrome Web Store  
+**Last Updated:** 2026-09-20
+
+> **Roadmap split (decided 2026-09-20).** This repository keeps two roadmap
+> documents with a deliberate division of responsibility:
+> - **`docs/development-roadmap.md`** — *shipped history*: what was actually
+>   built, phase by phase, verified against `src/` and `tests/`.
+> - **`docs/project-roadmap.md`** — *forward-looking plan*: what is proposed but
+>   not yet built.
+>
+> A claim belongs in exactly one of them. Source-of-truth order for any version
+> or feature claim: `src/manifest.json` version > code and tests > git history >
+> prose. `src/manifest.json` is the only version Chrome ships; it is currently
+> **0.1.0**, and the repository has no git tags. Version strings like `v0.4.1`
+> or `v0.6.0` that appeared in earlier revisions of these files were
+> development milestone labels, never releases.
+
+**Scope of this file:** what is *proposed and not yet built*. For what actually
+shipped, see [`development-roadmap.md`](./development-roadmap.md); for
+per-milestone detail see [`project-changelog.md`](./project-changelog.md).
 
 ---
 
@@ -46,8 +64,8 @@
 ## Phase 2: Advanced Session Management (Shipped ✅)
 
 **Status:** Complete  
-**Shipped Version:** 0.2.0 (2026-05-02)  
-**Timeline:** Global List (v0.1.0), Auto-Assign + Context Menu (v0.2.0)
+**Milestone label:** v0.2.0 (2026-05-02) — never a released manifest version  
+**Timeline:** Global List (v0.1.0), Context Menu (v0.2.0) — auto-assign was planned for v0.2.0 but never built
 
 ### Features Implemented
 1. **Global Session List** ✅ Shipped (v0.1.0, 2026-04-28)
@@ -56,13 +74,17 @@
    - [x] Search/filter by name and origin
    - [x] Not limited to current tab's origin
 
-2. **Auto-Assign Rules** ✅ Shipped (v0.2.0, 2026-05-02)
-   - [x] User defines rules: "github.com → Work session"
-   - [x] On tab navigation, check if origin matches rule
-   - [x] Auto-assign session without user interaction
-   - [x] UI for managing rules (add, edit, delete, enable/disable)
-   - [x] Rule priority (first match wins)
-   - [x] Options page with rule CRUD
+2. **Auto-Assign Rules** ❌ **NOT BUILT** (listed here as shipped; it never was)
+   - [ ] User defines rules: "github.com → Work session"
+   - [ ] On tab navigation, check if origin matches rule
+   - [ ] Auto-assign session without user interaction
+   - [ ] UI for managing rules (add, edit, delete, enable/disable)
+
+   No rule engine exists — `grep -rn "autoAssign|rule-matcher|assign_rules" src/`
+   returns nothing. Tracked as backlog item #3 in
+   [`BACKLOG.md`](./BACKLOG.md); declined again during the Favorites plan
+   because a navigation-time rule engine risks silently taking over normal
+   browsing.
 
 3. **Open Link in Session** ✅ Shipped (v0.2.0, 2026-05-02)
    - [x] Context menu: Right-click link → "Open in Session"
@@ -73,19 +95,19 @@
 ### Acceptance Criteria Met
 - [x] Global session list loads <200ms
 - [x] Search filters 100 sessions in <50ms
-- [x] Auto-assign rules work on tab navigation
+- [ ] Auto-assign rules work on tab navigation — *not built*
 - [x] Context menu appears on all links
 - [x] New links open in correct session 100% of time
-- [x] Rule management UI is intuitive
+- [ ] Rule management UI is intuitive — *not built*
 - [x] No performance regression on Phase 1 features
 
 ### Files Created/Modified
-- [x] New: `options/options.html` (rule management UI) — 55 LOC
-- [x] New: `options/options.js` (rule CRUD) — 184 LOC
+- [x] New: `options/options.html` — exists, but as Settings/Favorites/About, never a rule manager
+- [x] New: `options/options.js` — exists (now `options.ts`); no rule CRUD
 - [x] New: `options/options.css` (styling) — 313 LOC
-- [x] New: `lib/rule-matcher.js` (hostname pattern matching) — 52 LOC
-- [x] Modify: `background.js` (+99 LOC; auto-assign hook, context menu setup)
-- [x] Modify: `lib/session-store.js` (+18 LOC; assign rules accessors)
+- [ ] New: `lib/rule-matcher.js` — **never created**
+- [x] Modify: `background.js` — context menu setup only; no auto-assign hook
+- [ ] Modify: `lib/session-store.js` — assign-rule accessors **never added**
 - [x] Modify: `manifest.json` (added contextMenus permission, options_ui)
 - [x] Modify: `popup/popup.js` (+3 LOC; options button)
 - [x] Modify: `popup/popup.css` (+26 LOC; options link styling)
@@ -101,7 +123,7 @@
 ## Phase 3: User Experience & Polish (Shipped ✅)
 
 **Status:** Complete  
-**Shipped Version:** 0.3.0 (2026-05-03)  
+**Milestone label:** v0.3.0 (2026-05-03) — never a released manifest version  
 **Timeline:** All Phase 3 features implemented and released
 
 ### Features Implemented
@@ -111,37 +133,40 @@
    - [x] Dynamic icon update on session change
    - [x] Color visible in toolbar for isolated tabs
 
-2. **Session Export/Import** ✅ Shipped (v0.3.0, 2026-05-03)
-   - [x] Export all sessions + cookies to JSON
-   - [x] Import sessions from JSON backup
-   - [x] Prevents data loss on device change
-   - [x] Automatic naming on conflicts (append "(imported)")
+2. **Session Export/Import** ❌ **NOT BUILT** (listed here as shipped; it never was)
+   - [ ] Export all profiles + cookies to JSON
+   - [ ] Import profiles from JSON backup
+
+   No export/import code or UI exists in `src/`. Tracked as backlog item #7 in
+   [`BACKLOG.md`](./BACKLOG.md). Note the security weight: an export file would
+   contain live session cookies in plaintext, so this needs a threat-model
+   decision before a plan.
 
 3. **Duplicate Session** ✅ Shipped (v0.3.0, 2026-05-03)
    - [x] Clone session's cookies into new session
    - [x] New session named with "(copy)" suffix
    - [x] Useful for quick logged-in variations
-   - [x] Available via options UI
+   - [x] Available via the popup profile card
 
-4. **Settings Page** ✅ Shipped (v0.3.0, 2026-05-03)
-   - [x] Multi-tab options panel (Rules | Backup | Settings | About)
-   - [x] Toggle notifications on auto-assign
-   - [x] Export/import controls in Backup tab
+4. **Settings Page** ✅ Shipped — but not with the tabs described here
+   - [x] Multi-tab options panel — actual tabs are **Settings | Favorites | About**
+   - [ ] Toggle notifications on auto-assign — **never built** (no such field in `ExtSettings`)
+   - [ ] Export/import controls in a Backup tab — **never built** (no Backup tab exists)
    - [x] Settings storage in `ext_settings` key
    - [x] About tab shows version from manifest
    - [x] Persistent settings across restarts
 
 ### Acceptance Criteria Met
 - [x] Tab color visible in toolbar badge
-- [x] Export/import preserves all session data
+- [ ] Export/import preserves all session data — *not built*
 - [x] Duplicate creates new session with copied cookies
 - [x] Settings load in <100ms (pre-cached)
 - [x] No UX conflicts with Chrome features
 - [x] Colored icons render without lag
 
 ### Files Created/Modified
-- [x] Modify: `background.js` (+50 LOC; icon generation, export/import handlers)
-- [x] Modify: `lib/session-store.js` (+56 LOC; duplicateSession, exportSessions, importSessions)
+- [x] Modify: `background.js` (+50 LOC; icon generation) — no export/import handlers
+- [x] Modify: `lib/session-store.js` — `duplicateSession` only; `exportSessions`/`importSessions` **never added**
 - [x] Modify: `options/options.html` (+98 LOC; 4-tab layout)
 - [x] Modify: `options/options.js` (+84 LOC; multi-tab logic, settings handlers)
 - [x] Modify: `options/options.css` (+124 LOC; tab styling, settings panels)
@@ -151,7 +176,7 @@
 ## Phase 4: Advanced Features & Optimization (Shipped ✅)
 
 **Status:** Complete  
-**Shipped Version:** 0.4.0 (2026-05-04)  
+**Milestone label:** v0.4.0 (2026-05-04) — never a released manifest version  
 **Timeline:** Keyboard shortcuts, DNR debouncing, accessibility, storage proxy lib
 
 ### Features Implemented
@@ -337,7 +362,7 @@ Derived from `docs/BACKLOG.md`; listed here for roadmap context.
 - [ ] 10,000+ weekly active users
 - [ ] <2% uninstall rate monthly
 - [ ] Tab color feature adopted by 40% of users
-- [ ] Export/import used by 15% of users
+- [ ] Export/import used by 15% of users *(feature not built)*
 - [ ] User retention >85%
 
 ### Phase 4+ (Aspirational)
@@ -354,10 +379,11 @@ Derived from `docs/BACKLOG.md`; listed here for roadmap context.
 |---------|-------|--------------|---|--------|
 | 0.0.0.2 | Phase 1 | 2026-04-25 | 2026-04-25 | ✅ Shipped |
 | 0.1.0 | Phase 2 (Global List) | 2026-04-28 | 2026-04-28 | ✅ Shipped |
-| 0.2.0 | Phase 2 (Auto-Assign + Context Menu) | 2026-05-02 | 2026-05-02 | ✅ Shipped |
-| 0.3.0 | Phase 3 (Tab Colors, Export/Import, Duplicate) | 2026-05-03 | 2026-05-03 | ✅ Shipped |
+| 0.2.0 | Phase 2 (Context Menu; auto-assign never built) | 2026-05-02 | 2026-05-02 | Milestone label — partially delivered |
+| 0.3.0 | Phase 3 (Tab Colors, Duplicate; export/import never built) | 2026-05-03 | 2026-05-03 | Milestone label — partially delivered |
 | 0.4.0 | Phase 4 (Keyboard Shortcuts, DNR Debounce, Accessibility) | 2026-05-04 | 2026-05-04 | ✅ Shipped |
-| 0.4.1 | Security patch (XSS fix, storage validation) | 2026-05-10 | 2026-05-10 | ✅ Shipped |
+| 0.4.1 | Security patch (XSS fix, storage validation) | 2026-05-10 | 2026-05-10 | Milestone label — never a released manifest version |
+| 0.1.0 | Favorites (saved page + profile launchers) | 2026-09-20 | 2026-09-20 | ✅ **Shipped — current manifest version** |
 | 0.5.0 | Phase 5.1 (Analytics, Performance) | 2027-06-30 | — | Planned |
 | 1.0.0 | Stability & GA | 2027-12-31 | — | Aspirational |
 
@@ -423,16 +449,16 @@ Derived from `docs/BACKLOG.md`; listed here for roadmap context.
 
 ### v0.3.0 (2026-05-03)
 - Colored session badges via OffscreenCanvas (19×19 icons)
-- Session export/import to JSON backup
+- Session export/import to JSON backup — *never built; see BACKLOG.md #7*
 - Duplicate session with cookie cloning
 - Multi-tab options panel (Rules | Backup | Settings | About)
 - Settings storage (`ext_settings` key)
 - Dynamic icon generation per hue
-- Notification toggle on auto-assign
+- Notification toggle on auto-assign — *never built; depended on the unbuilt rule engine*
 
-### v0.4.1 (2026-05-10)
-- **Security Fix:** XSS via unsanitized session origin in popup — replaced innerHTML with safe DOM API (textContent) for origin chip in session cards
-- **Security Fix:** Storage key injection in importSessions — added URL origin validation before using `origin` as storage key suffix
+### Milestone v0.4.1 (2026-05-10) — never a released manifest version
+- **Security Fix:** XSS via unsanitized session origin in popup — replaced innerHTML with safe DOM API (textContent) for origin chip in session cards *(real; this is why favorite labels are rendered with `textContent` only)*
+- ~~**Security Fix:** Storage key injection in `importSessions`~~ — *`importSessions` never existed, so neither did this fix. Both the per-origin storage keys and the import path it describes were removed/never built.*
 
 ### v0.4.0 (2026-05-04)
 - Keyboard shortcuts: Ctrl+Shift+S (popup), Ctrl+Shift+Right/Left (next/prev session)
