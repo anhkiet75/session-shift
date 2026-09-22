@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "System (som nettleseren)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favoritter"
+  },
+  "saveFavoriteTitle": {
+    "message": "Lagre som favoritt"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Lagre som favoritt"
+  },
+  "savedFavoriteTitle": {
+    "message": "Lagret – klikk for å fjerne"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Bytt først denne fanen til en profil for å lagre den som favoritt."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Denne siden kan ikke lagres som favoritt."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Åpne favoritten $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Fjern favoritt"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Fjern favoritten $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profilen finnes ikke lenger"
+  },
+  "favoritesLimitReached": {
+    "message": "Grensen for favoritter er nådd – fjern en for å lagre en ny."
+  },
+  "tabFavorites": {
+    "message": "Favoritter"
+  },
+  "favoritesSectionDesc": {
+    "message": "Lagrede sider som åpnes i en valgt profil. Lagre en med stjernen i popupvinduet; gi nytt navn, endre adresse eller rekkefølge her."
+  },
+  "favoriteLabelColumn": {
+    "message": "Etikett"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Flytt $name$ opp",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Flytt $name$ ned",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Slett $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Ingen favoritter ennå"
+  },
+  "favoritesEmptySub": {
+    "message": "Åpne en side i en profil og klikk på stjernen i SessionShift-popupen for å lagre den her."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Oppgi en gyldig http://- eller https://-adresse."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favoritter omorganisert."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ fjernet.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

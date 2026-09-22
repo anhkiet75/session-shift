@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "सिस्टम (ब्राउझरशी जुळणारी)"
+  },
+  "favoritesSectionTitle": {
+    "message": "आवडते"
+  },
+  "saveFavoriteTitle": {
+    "message": "आवडत्यांमध्ये जतन करा"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "आवडत्यांमध्ये जतन करा"
+  },
+  "savedFavoriteTitle": {
+    "message": "जतन केले — काढण्यासाठी क्लिक करा"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "आवडत्यांमध्ये जतन करण्यासाठी प्रथम हा टॅब प्रोफाइलवर बदला."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "हे पृष्ठ आवडत्यांमध्ये जतन करता येत नाही."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "आवडते $name$ उघडा",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "आवडते काढा"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "आवडते $name$ काढा",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "प्रोफाइल आता अस्तित्वात नाही"
+  },
+  "favoritesLimitReached": {
+    "message": "आवडत्यांची मर्यादा संपली — नवीन जतन करण्यासाठी एक काढा."
+  },
+  "tabFavorites": {
+    "message": "आवडते"
+  },
+  "favoritesSectionDesc": {
+    "message": "निवडलेल्या प्रोफाइलमध्ये उघडणारी जतन केलेली पृष्ठे. पॉपअपमधील ताऱ्याने जतन करा; येथे नाव, पत्ता किंवा क्रम बदला."
+  },
+  "favoriteLabelColumn": {
+    "message": "लेबल"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "प्रोफाइल"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ वर हलवा",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ खाली हलवा",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ हटवा",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "अद्याप आवडते नाहीत"
+  },
+  "favoritesEmptySub": {
+    "message": "प्रोफाइलमध्ये पृष्ठ उघडा, नंतर ते येथे जतन करण्यासाठी SessionShift पॉपअपमधील ताऱ्यावर क्लिक करा."
+  },
+  "favoriteInvalidUrl": {
+    "message": "वैध http:// किंवा https:// पत्ता प्रविष्ट करा."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "आवडत्यांचा क्रम बदलला."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ काढले.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

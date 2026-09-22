@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "സിസ്റ്റം (ബ്രൗസറുമായി പൊരുത്തം)"
+  },
+  "favoritesSectionTitle": {
+    "message": "പ്രിയപ്പെട്ടവ"
+  },
+  "saveFavoriteTitle": {
+    "message": "പ്രിയപ്പെട്ടവയിൽ സംരക്ഷിക്കുക"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "പ്രിയപ്പെട്ടവയിൽ സംരക്ഷിക്കുക"
+  },
+  "savedFavoriteTitle": {
+    "message": "സംരക്ഷിച്ചു — നീക്കാൻ ക്ലിക്കുചെയ്യുക"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "പ്രിയപ്പെട്ടവയിൽ സംരക്ഷിക്കാൻ ആദ്യം ഈ ടാബ് ഒരു പ്രൊഫൈലിലേക്ക് മാറ്റുക."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "ഈ പേജ് പ്രിയപ്പെട്ടവയിൽ സംരക്ഷിക്കാനാകില്ല."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "പ്രിയപ്പെട്ട $name$ തുറക്കുക",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "പ്രിയപ്പെട്ടത് നീക്കുക"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "പ്രിയപ്പെട്ട $name$ നീക്കുക",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "പ്രൊഫൈൽ ഇനി നിലവിലില്ല"
+  },
+  "favoritesLimitReached": {
+    "message": "പ്രിയപ്പെട്ടവയുടെ പരിധി എത്തി — പുതിയത് സംരക്ഷിക്കാൻ ഒന്ന് നീക്കുക."
+  },
+  "tabFavorites": {
+    "message": "പ്രിയപ്പെട്ടവ"
+  },
+  "favoritesSectionDesc": {
+    "message": "തിരഞ്ഞെടുത്ത പ്രൊഫൈലിൽ തുറക്കുന്ന സംരക്ഷിച്ച പേജുകൾ. പോപ്പപ്പിലെ നക്ഷത്രം ഉപയോഗിച്ച് സംരക്ഷിക്കുക; പേര്, വിലാസം അല്ലെങ്കിൽ ക്രമം ഇവിടെ മാറ്റുക."
+  },
+  "favoriteLabelColumn": {
+    "message": "ലേബൽ"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "പ്രൊഫൈൽ"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ മുകളിലേക്ക് നീക്കുക",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ താഴേക്ക് നീക്കുക",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ ഇല്ലാതാക്കുക",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "ഇതുവരെ പ്രിയപ്പെട്ടവയില്ല"
+  },
+  "favoritesEmptySub": {
+    "message": "ഒരു പ്രൊഫൈലിൽ പേജ് തുറന്ന്, അത് ഇവിടെ സംരക്ഷിക്കാൻ SessionShift പോപ്പപ്പിലെ നക്ഷത്രത്തിൽ ക്ലിക്കുചെയ്യുക."
+  },
+  "favoriteInvalidUrl": {
+    "message": "സാധുവായ http:// അല്ലെങ്കിൽ https:// വിലാസം നൽകുക."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "പ്രിയപ്പെട്ടവയുടെ ക്രമം മാറ്റി."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ നീക്കംചെയ്തു.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

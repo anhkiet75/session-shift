@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Rendszer (böngésző szerint)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Kedvencek"
+  },
+  "saveFavoriteTitle": {
+    "message": "Mentés kedvencként"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Mentés kedvencként"
+  },
+  "savedFavoriteTitle": {
+    "message": "Mentve – kattintson az eltávolításhoz"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Előbb váltsa ezt a lapot egy profilra, hogy kedvencként menthesse."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Ez az oldal nem menthető kedvencként."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "$name$ kedvenc megnyitása",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Kedvenc eltávolítása"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "$name$ kedvenc eltávolítása",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "A profil már nem létezik"
+  },
+  "favoritesLimitReached": {
+    "message": "Elérte a kedvencek korlátját – távolítson el egyet egy újabb mentéséhez."
+  },
+  "tabFavorites": {
+    "message": "Kedvencek"
+  },
+  "favoritesSectionDesc": {
+    "message": "Mentett oldalak, amelyek a kiválasztott profilban nyílnak meg. Mentse őket a felugró ablak csillagával; itt átnevezheti, átirányíthatja vagy átrendezheti őket."
+  },
+  "favoriteLabelColumn": {
+    "message": "Címke"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ mozgatása felfelé",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ mozgatása lefelé",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ törlése",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Még nincsenek kedvencek"
+  },
+  "favoritesEmptySub": {
+    "message": "Nyisson meg egy oldalt egy profilban, majd kattintson a SessionShift felugró ablakának csillagára, hogy ide mentse."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Adjon meg érvényes http:// vagy https:// címet."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "A kedvencek sorrendje megváltozott."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ eltávolítva.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

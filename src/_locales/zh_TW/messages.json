@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "系統預設（跟隨瀏覽器）"
+  },
+  "favoritesSectionTitle": {
+    "message": "我的最愛"
+  },
+  "saveFavoriteTitle": {
+    "message": "加入我的最愛"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "加入我的最愛"
+  },
+  "savedFavoriteTitle": {
+    "message": "已加入 — 按一下即可移除"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "請先將此分頁切換到某個設定檔，才能加入我的最愛。"
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "這個頁面無法加入我的最愛。"
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "開啟我的最愛 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "移除我的最愛"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "移除我的最愛 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "該設定檔已不存在"
+  },
+  "favoritesLimitReached": {
+    "message": "已達我的最愛上限，請先移除一項再新增。"
+  },
+  "tabFavorites": {
+    "message": "我的最愛"
+  },
+  "favoritesSectionDesc": {
+    "message": "已儲存的頁面會在所選設定檔中開啟。用彈出式視窗中的星號儲存，在這裡重新命名、改網址或調整順序。"
+  },
+  "favoriteLabelColumn": {
+    "message": "名稱"
+  },
+  "favoriteUrlColumn": {
+    "message": "網址"
+  },
+  "favoriteProfileColumn": {
+    "message": "設定檔"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "將 $name$ 上移",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "將 $name$ 下移",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "刪除 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "尚無我的最愛"
+  },
+  "favoritesEmptySub": {
+    "message": "在某個設定檔中開啟頁面，然後按一下 SessionShift 彈出式視窗中的星號即可儲存到這裡。"
+  },
+  "favoriteInvalidUrl": {
+    "message": "請輸入有效的 http:// 或 https:// 網址。"
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "我的最愛順序已調整。"
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "已移除 $name$。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

@@ -27,7 +27,10 @@
     "message": "Theme: $theme$ (click to change)",
     "description": "Title/aria-label for the popup quick theme toggle button.",
     "placeholders": {
-      "theme": { "content": "$1", "example": "system" }
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
     }
   },
   "themeNameLight": {
@@ -102,14 +105,20 @@
     "message": "Session $index$",
     "description": "Default name assigned to a new profile when the user leaves the name field empty. Generated once at creation time and stored unchanged thereafter — never re-localized on later locale changes.",
     "placeholders": {
-      "index": { "content": "$1", "example": "3" }
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "duplicatedSessionName": {
     "message": "$name$ (copy)",
     "description": "Name assigned to a duplicated profile. Generated once at duplication time from the source profile's stored name and then kept unchanged — never re-localized on later locale changes.",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "emptyNoProfilesTitle": {
@@ -136,7 +145,10 @@
     "message": "Duplicate profile $name$",
     "description": "Aria-label for the duplicate-profile button, naming the specific profile.",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "renameTitle": {
@@ -147,7 +159,10 @@
     "message": "Rename profile $name$",
     "description": "Aria-label for the rename button, naming the specific profile.",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "deleteTitle": {
@@ -158,7 +173,10 @@
     "message": "Delete profile $name$",
     "description": "Aria-label for the delete button, naming the specific profile.",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "cancelDeleteTitle": {
@@ -201,7 +219,10 @@
     "message": "Hue $hue$",
     "description": "Title tooltip for a preset color swatch in the color picker, naming its numeric hue value.",
     "placeholders": {
-      "hue": { "content": "$1", "example": "212" }
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
     }
   },
   "customHueTitle": {
@@ -315,5 +336,137 @@
   "languageOptionSystem": {
     "message": "System (match browser)",
     "description": "Language picker option that delegates to Chrome's own UI locale instead of a pinned locale."
+  },
+  "favoritesSectionTitle": {
+    "message": "Favorites",
+    "description": "Header above the saved-favorites list in the popup."
+  },
+  "saveFavoriteTitle": {
+    "message": "Save as favorite",
+    "description": "Tooltip on the popup hero star when the current page is not yet saved."
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Save as favorite",
+    "description": "Aria-label for the popup hero star button. Its pressed state conveys whether the page is already saved."
+  },
+  "savedFavoriteTitle": {
+    "message": "Saved — click to remove",
+    "description": "Tooltip on the popup hero star when the current page is already saved as a favorite."
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Switch this tab to a profile first to save it as a favorite.",
+    "description": "Tooltip on the disabled star when the tab is still on the default profile, where a favorite would switch nothing."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "This page cannot be saved as a favorite.",
+    "description": "Tooltip on the disabled star for pages that are not http(s), such as chrome:// or the new-tab page."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Open favorite $name$",
+    "description": "Aria-label for a favorite row in the popup, naming the specific favorite.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Remove favorite",
+    "description": "Tooltip on the per-row remove button in the popup favorites list."
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Remove favorite $name$",
+    "description": "Aria-label for the per-row remove button, naming the specific favorite.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profile no longer exists",
+    "description": "Shown on a favorite whose bound profile has been deleted. The favorite cannot be launched until it is re-assigned."
+  },
+  "favoritesLimitReached": {
+    "message": "Favorite limit reached — remove one to save another.",
+    "description": "Shown when the maximum number of stored favorites has been reached."
+  },
+  "tabFavorites": {
+    "message": "Favorites",
+    "description": "Options page tab label for the favorites manager panel."
+  },
+  "favoritesSectionDesc": {
+    "message": "Saved pages that open in a chosen profile. Save one with the star in the popup; rename, re-point or reorder it here.",
+    "description": "Intro paragraph at the top of the Options favorites panel."
+  },
+  "favoriteLabelColumn": {
+    "message": "Label",
+    "description": "Accessible name for the editable favorite-name field in Options."
+  },
+  "favoriteUrlColumn": {
+    "message": "URL",
+    "description": "Accessible name for the editable favorite-address field in Options."
+  },
+  "favoriteProfileColumn": {
+    "message": "Profile",
+    "description": "Accessible name for the profile selector that decides which profile a favorite opens in."
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Move $name$ up",
+    "description": "Aria-label for the reorder-up button, naming the specific favorite.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Move $name$ down",
+    "description": "Aria-label for the reorder-down button, naming the specific favorite.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Delete $name$",
+    "description": "Aria-label for the delete button in the Options favorites list, naming the specific favorite.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "No favorites yet",
+    "description": "Title of the empty state in the Options favorites panel."
+  },
+  "favoritesEmptySub": {
+    "message": "Open a page in a profile, then click the star in the SessionShift popup to save it here.",
+    "description": "Body of the empty state in the Options favorites panel, pointing the user at the popup star."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Enter a valid http:// or https:// address.",
+    "description": "Inline error shown when an edited favorite address is rejected. The field reverts to its previous value."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favorites reordered.",
+    "description": "Screen-reader announcement after a favorite is moved up or down."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ removed.",
+    "description": "Screen-reader announcement after a favorite is deleted, naming it.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

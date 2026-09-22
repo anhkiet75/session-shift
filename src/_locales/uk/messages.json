@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Системна (як у браузері)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Вибране"
+  },
+  "saveFavoriteTitle": {
+    "message": "Зберегти у вибране"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Зберегти у вибране"
+  },
+  "savedFavoriteTitle": {
+    "message": "Збережено — натисніть, щоб видалити"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Спершу перемкніть цю вкладку на профіль, щоб зберегти її у вибране."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Цю сторінку не можна зберегти у вибране."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Відкрити вибране $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Видалити з вибраного"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Видалити вибране $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Профіль більше не існує"
+  },
+  "favoritesLimitReached": {
+    "message": "Досягнуто ліміт вибраного — видаліть один запис, щоб зберегти новий."
+  },
+  "tabFavorites": {
+    "message": "Вибране"
+  },
+  "favoritesSectionDesc": {
+    "message": "Збережені сторінки, які відкриваються у вибраному профілі. Збережіть сторінку зірочкою у спливаючому вікні; тут її можна перейменувати, змінити адресу або порядок."
+  },
+  "favoriteLabelColumn": {
+    "message": "Назва"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Профіль"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Перемістити $name$ вгору",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Перемістити $name$ вниз",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Видалити $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Вибраного ще немає"
+  },
+  "favoritesEmptySub": {
+    "message": "Відкрийте сторінку в профілі та натисніть зірочку у спливаючому вікні SessionShift, щоб зберегти її тут."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Введіть коректну адресу http:// або https://."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Порядок вибраного змінено."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ видалено.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

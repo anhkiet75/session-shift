@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "System (wie Browser)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favoriten"
+  },
+  "saveFavoriteTitle": {
+    "message": "Als Favorit speichern"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Als Favorit speichern"
+  },
+  "savedFavoriteTitle": {
+    "message": "Gespeichert – zum Entfernen klicken"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Wechsle diesen Tab zuerst zu einem Profil, um ihn als Favorit zu speichern."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Diese Seite kann nicht als Favorit gespeichert werden."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Favorit $name$ öffnen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Favorit entfernen"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Favorit $name$ entfernen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profil existiert nicht mehr"
+  },
+  "favoritesLimitReached": {
+    "message": "Favoritenlimit erreicht – entferne einen, um einen weiteren zu speichern."
+  },
+  "tabFavorites": {
+    "message": "Favoriten"
+  },
+  "favoritesSectionDesc": {
+    "message": "Gespeicherte Seiten, die in einem ausgewählten Profil geöffnet werden. Mit dem Stern im Popup speichern; hier umbenennen, neu verknüpfen oder neu anordnen."
+  },
+  "favoriteLabelColumn": {
+    "message": "Bezeichnung"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ nach oben verschieben",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ nach unten verschieben",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ löschen",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Noch keine Favoriten"
+  },
+  "favoritesEmptySub": {
+    "message": "Öffne eine Seite in einem Profil und klicke im SessionShift-Popup auf den Stern, um sie hier zu speichern."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Gib eine gültige http://- oder https://-Adresse ein."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favoriten neu angeordnet."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ entfernt.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

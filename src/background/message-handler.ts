@@ -1,11 +1,13 @@
 // message-handler.ts — Handles all chrome.runtime.onMessage dispatches.
 
 import { getCookieStore, setCookieStore, getProfiles, isInternalSession, duplicateSession, updateSessionHue } from '../lib/session-store.js';
+import { removeFavoritesForSession } from '../lib/favorites-store.js';
 import { withCookieLock } from '../lib/cookie-write-lock.js';
 import { serializeCookieHeader, parseCookieString, parseDocumentCookie, cookieKey, cookieMatchesRequest, defaultCookiePath, normalizeCookiePath, isValidCookieName, isValidCookieValue } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
 import { updateDNRRulesForTab, stripCookiesOnNextNavigation } from './dnr-manager.js';
+import { forceFreshLoadOnce } from './tab-fresh-load.js';
 import { getLanguagePreference, createLocalizer } from '../lib/localization.js';
 import { syncTabToGroup, syncProfileGroupAppearance } from './tab-group-sync.js';
 
@@ -189,6 +191,11 @@ export async function handleMessage(
         await updateDNRRulesForTab(tid, 'default');
         updateBadge(tid, 'default');
       }
+      // A favorite bound to a deleted profile is dead weight — the profile's
+      // cookie store is being destroyed too, so the favorite could only ever
+      // relaunch into a jar that no longer exists. Response shape unchanged:
+      // the sole consumer discards it, so a purge count would be dead on arrival.
+      await removeFavoritesForSession(sessionId);
       return { success: true, affectedTabIds };
     }
 
@@ -202,20 +209,36 @@ export async function handleMessage(
       if (!list.find(s => s.id === sessionId)) return { error: 'unknown session' };
       const newTab = await chrome.tabs.create({ url: 'about:blank', active: true });
       if (newTab.id === undefined) return { error: 'tab creation failed' };
-      tabSessions[newTab.id] = sessionId;
+      const tabId = newTab.id; // narrowed once — captured by closures below, where `newTab.id` itself would re-widen to `number | undefined`
+      tabSessions[tabId] = sessionId;
       await persistTabSessions();
       // The new profile has no captured cookies for this host yet, so no
       // per-host override rule exists to cover navigation. Force a clean first
       // load instead of letting the default jar's stale cookie pass through.
-      stripCookiesOnNextNavigation(newTab.id, url);
-      await updateDNRRulesForTab(newTab.id, sessionId);
-      updateBadge(newTab.id, sessionId);
+      stripCookiesOnNextNavigation(tabId, url);
+      await updateDNRRulesForTab(tabId, sessionId);
+      updateBadge(tabId, sessionId);
       // Phase 4: no-op when tab grouping is off/unpermitted. `.catch()` here
       // (not just relying on the outer try/catch) because `void` doesn't
       // await the call — mirrors setSession's same fire-and-forget pattern.
-      if (newTab.windowId !== undefined) void syncTabToGroup(newTab.id, newTab.windowId, sessionId).catch(() => {});
-      await chrome.tabs.update(newTab.id, { url });
-      return { success: true, tabId: newTab.id };
+      if (newTab.windowId !== undefined) void syncTabToGroup(tabId, newTab.windowId, sessionId).catch(() => {});
+      // Armed before the navigation starts, not after, so the tab can't reach
+      // 'complete' in the gap. Guarantees the page the user ends up looking at
+      // was fetched under this profile's cookies, not read back from a disk
+      // cache entry left over from another profile — see tab-fresh-load.ts.
+      //
+      // The forced reload is itself a second navigation, and the one-shot
+      // Cookie strip armed above is consumed and cleared the moment the first
+      // navigation completes (handleRequestCompleted). Without re-arming it
+      // here, the reload's request would go out unprotected and could pick up
+      // whatever the real shared browser cookie jar holds for this host — the
+      // exact leak this whole mechanism exists to prevent.
+      forceFreshLoadOnce(tabId, async () => {
+        stripCookiesOnNextNavigation(tabId, url);
+        await updateDNRRulesForTab(tabId, sessionId);
+      });
+      await chrome.tabs.update(tabId, { url });
+      return { success: true, tabId };
     }
 
     case 'duplicateSession': {

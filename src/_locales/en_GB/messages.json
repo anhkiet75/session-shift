@@ -20,7 +20,10 @@
   "themeToggleLabel": {
     "message": "Theme: $theme$ (click to change)",
     "placeholders": {
-      "theme": { "content": "$1", "example": "system" }
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
     }
   },
   "themeNameLight": {
@@ -77,13 +80,19 @@
   "generatedSessionName": {
     "message": "Session $index$",
     "placeholders": {
-      "index": { "content": "$1", "example": "3" }
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "duplicatedSessionName": {
     "message": "$name$ (copy)",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "emptyNoProfilesTitle": {
@@ -104,7 +113,10 @@
   "duplicateProfileAriaLabel": {
     "message": "Duplicate profile $name$",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "renameTitle": {
@@ -113,7 +125,10 @@
   "renameAriaLabel": {
     "message": "Rename profile $name$",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "deleteTitle": {
@@ -122,7 +137,10 @@
   "deleteAriaLabel": {
     "message": "Delete profile $name$",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "cancelDeleteTitle": {
@@ -155,7 +173,10 @@
   "hueSwatchTitle": {
     "message": "Hue $hue$",
     "placeholders": {
-      "hue": { "content": "$1", "example": "212" }
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
     }
   },
   "customHueTitle": {
@@ -241,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "System (match browser)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favourites"
+  },
+  "saveFavoriteTitle": {
+    "message": "Save as favourite"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Save as favourite"
+  },
+  "savedFavoriteTitle": {
+    "message": "Saved — click to remove"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Switch this tab to a profile first to save it as a favourite."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "This page cannot be saved as a favourite."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Open favourite $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Remove favourite"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Remove favourite $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profile no longer exists"
+  },
+  "favoritesLimitReached": {
+    "message": "Favourite limit reached — remove one to save another."
+  },
+  "tabFavorites": {
+    "message": "Favourites"
+  },
+  "favoritesSectionDesc": {
+    "message": "Saved pages that open in a chosen profile. Save one with the star in the popup; rename, re-point or reorder it here."
+  },
+  "favoriteLabelColumn": {
+    "message": "Label"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profile"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Move $name$ up",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Move $name$ down",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Delete $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "No favourites yet"
+  },
+  "favoritesEmptySub": {
+    "message": "Open a page in a profile, then click the star in the SessionShift popup to save it here."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Enter a valid http:// or https:// address."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favourites reordered."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ removed.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

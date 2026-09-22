@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "ಸಿಸ್ಟಂ (ಬ್ರೌಸರ್‌ಗೆ ಹೊಂದಿಕೆ)"
+  },
+  "favoritesSectionTitle": {
+    "message": "ಮೆಚ್ಚಿನವು"
+  },
+  "saveFavoriteTitle": {
+    "message": "ಮೆಚ್ಚಿನವುಗಳಲ್ಲಿ ಉಳಿಸಿ"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "ಮೆಚ್ಚಿನವುಗಳಲ್ಲಿ ಉಳಿಸಿ"
+  },
+  "savedFavoriteTitle": {
+    "message": "ಉಳಿಸಲಾಗಿದೆ — ತೆಗೆದುಹಾಕಲು ಕ್ಲಿಕ್ ಮಾಡಿ"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "ಮೆಚ್ಚಿನವುಗಳಲ್ಲಿ ಉಳಿಸಲು ಮೊದಲು ಈ ಟ್ಯಾಬ್ ಅನ್ನು ಪ್ರೊಫೈಲ್‌ಗೆ ಬದಲಿಸಿ."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "ಈ ಪುಟವನ್ನು ಮೆಚ್ಚಿನವುಗಳಲ್ಲಿ ಉಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "ಮೆಚ್ಚಿನ $name$ ತೆರೆಯಿರಿ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "ಮೆಚ್ಚಿನದನ್ನು ತೆಗೆದುಹಾಕಿ"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "ಮೆಚ್ಚಿನ $name$ ತೆಗೆದುಹಾಕಿ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "ಪ್ರೊಫೈಲ್ ಇನ್ನು ಇಲ್ಲ"
+  },
+  "favoritesLimitReached": {
+    "message": "ಮೆಚ್ಚಿನವುಗಳ ಮಿತಿ ತಲುಪಿದೆ — ಹೊಸದನ್ನು ಉಳಿಸಲು ಒಂದನ್ನು ತೆಗೆದುಹಾಕಿ."
+  },
+  "tabFavorites": {
+    "message": "ಮೆಚ್ಚಿನವು"
+  },
+  "favoritesSectionDesc": {
+    "message": "ಆಯ್ಕೆಮಾಡಿದ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ತೆರೆಯುವ ಉಳಿಸಿದ ಪುಟಗಳು. ಪಾಪ್‌ಅಪ್‌ನ ನಕ್ಷತ್ರದಿಂದ ಉಳಿಸಿ; ಇಲ್ಲಿ ಹೆಸರು, ವಿಳಾಸ ಅಥವಾ ಕ್ರಮ ಬದಲಿಸಿ."
+  },
+  "favoriteLabelColumn": {
+    "message": "ಲೇಬಲ್"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "ಪ್ರೊಫೈಲ್"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ ಅನ್ನು ಮೇಲಕ್ಕೆ ಸರಿಸಿ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ ಅನ್ನು ಕೆಳಕ್ಕೆ ಸರಿಸಿ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ ಅಳಿಸಿ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "ಇನ್ನೂ ಮೆಚ್ಚಿನವುಗಳಿಲ್ಲ"
+  },
+  "favoritesEmptySub": {
+    "message": "ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಪುಟವನ್ನು ತೆರೆಯಿರಿ, ನಂತರ ಅದನ್ನು ಇಲ್ಲಿ ಉಳಿಸಲು SessionShift ಪಾಪ್‌ಅಪ್‌ನಲ್ಲಿ ನಕ್ಷತ್ರ ಕ್ಲಿಕ್ ಮಾಡಿ."
+  },
+  "favoriteInvalidUrl": {
+    "message": "ಮಾನ್ಯ http:// ಅಥವಾ https:// ವಿಳಾಸ ನಮೂದಿಸಿ."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "ಮೆಚ್ಚಿನವುಗಳ ಕ್ರಮ ಬದಲಾಗಿದೆ."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ ತೆಗೆದುಹಾಕಲಾಗಿದೆ.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

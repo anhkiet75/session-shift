@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "சிஸ்டம் (உலாவிக்கு பொருத்தம்)"
+  },
+  "favoritesSectionTitle": {
+    "message": "பிடித்தவை"
+  },
+  "saveFavoriteTitle": {
+    "message": "பிடித்தவையில் சேமி"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "பிடித்தவையில் சேமி"
+  },
+  "savedFavoriteTitle": {
+    "message": "சேமிக்கப்பட்டது — அகற்ற கிளிக் செய்யவும்"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "பிடித்தவையில் சேமிக்க முதலில் இந்தத் தாவலை ஒரு சுயவிவரத்திற்கு மாற்றவும்."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "இந்தப் பக்கத்தைப் பிடித்தவையில் சேமிக்க முடியாது."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "பிடித்த $name$ திற",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "பிடித்ததை அகற்று"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "பிடித்த $name$ அகற்று",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "சுயவிவரம் இனி இல்லை"
+  },
+  "favoritesLimitReached": {
+    "message": "பிடித்தவையின் வரம்பு அடைந்தது — புதியதைச் சேமிக்க ஒன்றை அகற்றவும்."
+  },
+  "tabFavorites": {
+    "message": "பிடித்தவை"
+  },
+  "favoritesSectionDesc": {
+    "message": "தேர்ந்தெடுத்த சுயவிவரத்தில் திறக்கும் சேமித்த பக்கங்கள். பாப்அப்பில் உள்ள நட்சத்திரத்தால் சேமிக்கவும்; இங்கே பெயர், முகவரி அல்லது வரிசையை மாற்றவும்."
+  },
+  "favoriteLabelColumn": {
+    "message": "பெயர்"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "சுயவிவரம்"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ ஐ மேலே நகர்த்து",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ ஐ கீழே நகர்த்து",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ ஐ நீக்கு",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "இன்னும் பிடித்தவை இல்லை"
+  },
+  "favoritesEmptySub": {
+    "message": "ஒரு சுயவிவரத்தில் பக்கத்தைத் திறந்து, அதை இங்கே சேமிக்க SessionShift பாப்அப்பில் உள்ள நட்சத்திரத்தைக் கிளிக் செய்யவும்."
+  },
+  "favoriteInvalidUrl": {
+    "message": "செல்லுபடியாகும் http:// அல்லது https:// முகவரியை உள்ளிடவும்."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "பிடித்தவையின் வரிசை மாற்றப்பட்டது."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ அகற்றப்பட்டது.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

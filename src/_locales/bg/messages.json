@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Системен (както браузъра)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Любими"
+  },
+  "saveFavoriteTitle": {
+    "message": "Запазване като любимо"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Запазване като любимо"
+  },
+  "savedFavoriteTitle": {
+    "message": "Запазено — щракнете, за да премахнете"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Първо превключете този раздел към профил, за да го запазите като любим."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Тази страница не може да бъде запазена като любима."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Отваряне на любимото $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Премахване от любими"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Премахване на любимото $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Профилът вече не съществува"
+  },
+  "favoritesLimitReached": {
+    "message": "Достигнат е лимитът на любими — премахнете едно, за да запазите друго."
+  },
+  "tabFavorites": {
+    "message": "Любими"
+  },
+  "favoritesSectionDesc": {
+    "message": "Запазени страници, които се отварят в избран профил. Запазете страница със звездата в изскачащия прозорец; тук я преименувайте, сменете адреса или реда."
+  },
+  "favoriteLabelColumn": {
+    "message": "Етикет"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Профил"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Преместване на $name$ нагоре",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Преместване на $name$ надолу",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Изтриване на $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Все още няма любими"
+  },
+  "favoritesEmptySub": {
+    "message": "Отворете страница в профил и щракнете върху звездата в изскачащия прозорец на SessionShift, за да я запазите тук."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Въведете валиден http:// или https:// адрес."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Редът на любимите е променен."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ е премахнато.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

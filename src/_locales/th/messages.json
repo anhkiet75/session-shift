@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "ระบบ (ตามเบราว์เซอร์)"
+  },
+  "favoritesSectionTitle": {
+    "message": "รายการโปรด"
+  },
+  "saveFavoriteTitle": {
+    "message": "บันทึกเป็นรายการโปรด"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "บันทึกเป็นรายการโปรด"
+  },
+  "savedFavoriteTitle": {
+    "message": "บันทึกแล้ว — คลิกเพื่อนำออก"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "สลับแท็บนี้ไปยังโปรไฟล์ก่อน จึงจะบันทึกเป็นรายการโปรดได้"
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "ไม่สามารถบันทึกหน้านี้เป็นรายการโปรดได้"
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "เปิดรายการโปรด $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "นำรายการโปรดออก"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "นำรายการโปรด $name$ ออก",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "ไม่มีโปรไฟล์นี้แล้ว"
+  },
+  "favoritesLimitReached": {
+    "message": "ถึงขีดจำกัดรายการโปรดแล้ว — นำออกหนึ่งรายการเพื่อบันทึกรายการใหม่"
+  },
+  "tabFavorites": {
+    "message": "รายการโปรด"
+  },
+  "favoritesSectionDesc": {
+    "message": "หน้าที่บันทึกไว้ซึ่งจะเปิดในโปรไฟล์ที่เลือก บันทึกด้วยดาวในหน้าต่างป๊อปอัป แล้วเปลี่ยนชื่อ ที่อยู่ หรือลำดับได้ที่นี่"
+  },
+  "favoriteLabelColumn": {
+    "message": "ป้ายกำกับ"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "โปรไฟล์"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "ย้าย $name$ ขึ้น",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "ย้าย $name$ ลง",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "ลบ $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "ยังไม่มีรายการโปรด"
+  },
+  "favoritesEmptySub": {
+    "message": "เปิดหน้าเว็บในโปรไฟล์ แล้วคลิกดาวในป๊อปอัป SessionShift เพื่อบันทึกไว้ที่นี่"
+  },
+  "favoriteInvalidUrl": {
+    "message": "ป้อนที่อยู่ http:// หรือ https:// ที่ถูกต้อง"
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "เปลี่ยนลำดับรายการโปรดแล้ว"
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "นำ $name$ ออกแล้ว",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

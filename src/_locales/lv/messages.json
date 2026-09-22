@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sistēma (atbilstoši pārlūkam)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Izlase"
+  },
+  "saveFavoriteTitle": {
+    "message": "Saglabāt izlasē"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Saglabāt izlasē"
+  },
+  "savedFavoriteTitle": {
+    "message": "Saglabāts — noklikšķiniet, lai noņemtu"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Vispirms pārslēdziet šo cilni uz profilu, lai saglabātu to izlasē."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Šo lapu nevar saglabāt izlasē."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Atvērt izlases vienumu $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Noņemt no izlases"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Noņemt no izlases $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profils vairs nepastāv"
+  },
+  "favoritesLimitReached": {
+    "message": "Sasniegts izlases ierobežojums — noņemiet vienu, lai saglabātu citu."
+  },
+  "tabFavorites": {
+    "message": "Izlase"
+  },
+  "favoritesSectionDesc": {
+    "message": "Saglabātas lapas, kas atveras izvēlētā profilā. Saglabājiet tās ar zvaigznīti uznirstošajā logā; šeit varat pārdēvēt, mainīt adresi vai secību."
+  },
+  "favoriteLabelColumn": {
+    "message": "Nosaukums"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profils"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Pārvietot $name$ uz augšu",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Pārvietot $name$ uz leju",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Dzēst $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Izlasē vēl nekā nav"
+  },
+  "favoritesEmptySub": {
+    "message": "Atveriet lapu profilā un noklikšķiniet uz zvaigznītes SessionShift uznirstošajā logā, lai to saglabātu šeit."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Ievadiet derīgu http:// vai https:// adresi."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Izlases secība mainīta."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ noņemts.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

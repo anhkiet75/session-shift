@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Süsteemne (vastavalt brauserile)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Lemmikud"
+  },
+  "saveFavoriteTitle": {
+    "message": "Salvesta lemmikuks"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Salvesta lemmikuks"
+  },
+  "savedFavoriteTitle": {
+    "message": "Salvestatud – klõpsa eemaldamiseks"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Lülita see kaart esmalt profiilile, et see lemmikuks salvestada."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Seda lehte ei saa lemmikuks salvestada."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Ava lemmik $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Eemalda lemmik"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Eemalda lemmik $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profiili enam ei ole"
+  },
+  "favoritesLimitReached": {
+    "message": "Lemmikute piir on täis – eemalda üks, et uus salvestada."
+  },
+  "tabFavorites": {
+    "message": "Lemmikud"
+  },
+  "favoritesSectionDesc": {
+    "message": "Salvestatud lehed, mis avanevad valitud profiilis. Salvesta hüpikaknas tärniga; siin saad ümber nimetada, aadressi muuta või järjestada."
+  },
+  "favoriteLabelColumn": {
+    "message": "Silt"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profiil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Liiguta $name$ üles",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Liiguta $name$ alla",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Kustuta $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Lemmikuid veel pole"
+  },
+  "favoritesEmptySub": {
+    "message": "Ava leht profiilis ja klõpsa SessionShifti hüpikaknas tärnil, et see siia salvestada."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Sisesta kehtiv http:// või https:// aadress."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Lemmikud ümber järjestatud."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ eemaldatud.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

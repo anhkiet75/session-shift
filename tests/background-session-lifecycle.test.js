@@ -381,3 +381,33 @@ describe('getSession', () => {
     expect(result.sessionId).toBe('default')
   })
 })
+
+describe('deleteSession favorites cascade', () => {
+  it('purges the deleted profile\'s favorites and leaves other profiles\' intact', async () => {
+    await chrome.storage.local.set({
+      profiles: [{ id: 'session_a', name: 'A', hue: 212 }, { id: 'session_b', name: 'B', hue: 24 }],
+      favorites: [
+        { id: 'fav_1', label: 'A one', url: 'https://a.test/', sessionId: 'session_a', createdAt: 1 },
+        { id: 'fav_2', label: 'B one', url: 'https://b.test/', sessionId: 'session_b', createdAt: 2 },
+        { id: 'fav_3', label: 'A two', url: 'https://c.test/', sessionId: 'session_a', createdAt: 3 },
+      ],
+    })
+
+    const result = await handleMessage({ action: 'deleteSession', payload: { sessionId: 'session_a' } }, SENDER)
+
+    expect(result.success).toBe(true)
+    const { favorites } = await chrome.storage.local.get(['favorites'])
+    expect(favorites.map(f => f.id)).toEqual(['fav_2'])
+  })
+
+  it('leaves favorites untouched when the deleted profile owns none', async () => {
+    await chrome.storage.local.set({
+      favorites: [{ id: 'fav_1', label: 'B one', url: 'https://b.test/', sessionId: 'session_b', createdAt: 1 }],
+    })
+
+    await handleMessage({ action: 'deleteSession', payload: { sessionId: 'session_a' } }, SENDER)
+
+    const { favorites } = await chrome.storage.local.get(['favorites'])
+    expect(favorites).toHaveLength(1)
+  })
+})

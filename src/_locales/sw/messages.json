@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Mfumo (linganisha na kivinjari)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Vipendwa"
+  },
+  "saveFavoriteTitle": {
+    "message": "Hifadhi kama kipendwa"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Hifadhi kama kipendwa"
+  },
+  "savedFavoriteTitle": {
+    "message": "Imehifadhiwa — bofya ili kuondoa"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Badilisha kichupo hiki kiwe wasifu kwanza ili kukihifadhi kama kipendwa."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Ukurasa huu hauwezi kuhifadhiwa kama kipendwa."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Fungua kipendwa $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Ondoa kipendwa"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Ondoa kipendwa $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Wasifu haupo tena"
+  },
+  "favoritesLimitReached": {
+    "message": "Kikomo cha vipendwa kimefikiwa — ondoa kimoja ili kuhifadhi kingine."
+  },
+  "tabFavorites": {
+    "message": "Vipendwa"
+  },
+  "favoritesSectionDesc": {
+    "message": "Kurasa zilizohifadhiwa zinazofunguka katika wasifu uliochaguliwa. Hifadhi kwa nyota kwenye kidirisha ibukizi; badilisha jina, anwani au mpangilio hapa."
+  },
+  "favoriteLabelColumn": {
+    "message": "Lebo"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Wasifu"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Sogeza $name$ juu",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Sogeza $name$ chini",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Futa $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Bado hakuna vipendwa"
+  },
+  "favoritesEmptySub": {
+    "message": "Fungua ukurasa katika wasifu, kisha bofya nyota kwenye kidirisha ibukizi cha SessionShift ili kuuhifadhi hapa."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Weka anwani sahihi ya http:// au https://."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Mpangilio wa vipendwa umebadilishwa."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ imeondolewa.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

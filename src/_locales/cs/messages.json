@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Systémový (podle prohlížeče)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Oblíbené"
+  },
+  "saveFavoriteTitle": {
+    "message": "Uložit mezi oblíbené"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Uložit mezi oblíbené"
+  },
+  "savedFavoriteTitle": {
+    "message": "Uloženo – kliknutím odeberete"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Nejprve přepněte tuto kartu na profil, abyste ji mohli uložit mezi oblíbené."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Tuto stránku nelze uložit mezi oblíbené."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Otevřít oblíbenou položku $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Odebrat z oblíbených"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Odebrat oblíbenou položku $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profil již neexistuje"
+  },
+  "favoritesLimitReached": {
+    "message": "Byl dosažen limit oblíbených – jednu odeberte, abyste mohli uložit další."
+  },
+  "tabFavorites": {
+    "message": "Oblíbené"
+  },
+  "favoritesSectionDesc": {
+    "message": "Uložené stránky, které se otevřou ve zvoleném profilu. Uložte je hvězdičkou ve vyskakovacím okně; zde je přejmenujte, změňte adresu nebo pořadí."
+  },
+  "favoriteLabelColumn": {
+    "message": "Popisek"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Posunout $name$ nahoru",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Posunout $name$ dolů",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Smazat $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Zatím žádné oblíbené"
+  },
+  "favoritesEmptySub": {
+    "message": "Otevřete stránku v profilu a kliknutím na hvězdičku ve vyskakovacím okně SessionShift ji sem uložte."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Zadejte platnou adresu http:// nebo https://."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Pořadí oblíbených změněno."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ odebráno.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

@@ -149,7 +149,31 @@ export type MessageKey =
   | 'contextMenuParentTitle'
   | 'languageSettingLabel'
   | 'languageSettingDesc'
-  | 'languageOptionSystem';
+  | 'languageOptionSystem'
+  | 'favoritesSectionTitle'
+  | 'saveFavoriteTitle'
+  | 'saveFavoriteAriaLabel'
+  | 'savedFavoriteTitle'
+  | 'saveFavoriteDefaultDisabledTitle'
+  | 'saveFavoriteUnavailableTitle'
+  | 'launchFavoriteAriaLabel'
+  | 'removeFavoriteTitle'
+  | 'removeFavoriteAriaLabel'
+  | 'favoriteMissingProfile'
+  | 'favoritesLimitReached'
+  | 'tabFavorites'
+  | 'favoritesSectionDesc'
+  | 'favoriteLabelColumn'
+  | 'favoriteUrlColumn'
+  | 'favoriteProfileColumn'
+  | 'favoriteMoveUpAriaLabel'
+  | 'favoriteMoveDownAriaLabel'
+  | 'favoriteDeleteAriaLabel'
+  | 'favoritesEmptyTitle'
+  | 'favoritesEmptySub'
+  | 'favoriteInvalidUrl'
+  | 'favoritesReorderedAnnouncement'
+  | 'favoriteRemovedAnnouncement';
 
 /** Keys only ever read from `manifest.json` via `__MSG_key__` tokens. */
 export const MANIFEST_ONLY_KEYS: readonly MessageKey[] = [
@@ -169,6 +193,12 @@ export const MESSAGE_PLACEHOLDERS: Partial<Record<MessageKey, readonly string[]>
   renameAriaLabel: ['name'],
   deleteAriaLabel: ['name'],
   hueSwatchTitle: ['hue'],
+  launchFavoriteAriaLabel: ['name'],
+  removeFavoriteAriaLabel: ['name'],
+  favoriteMoveUpAriaLabel: ['name'],
+  favoriteMoveDownAriaLabel: ['name'],
+  favoriteDeleteAriaLabel: ['name'],
+  favoriteRemovedAnnouncement: ['name'],
 };
 
 /**

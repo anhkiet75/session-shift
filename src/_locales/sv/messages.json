@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "System (enligt webbläsaren)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favoriter"
+  },
+  "saveFavoriteTitle": {
+    "message": "Spara som favorit"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Spara som favorit"
+  },
+  "savedFavoriteTitle": {
+    "message": "Sparad – klicka för att ta bort"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Växla först den här fliken till en profil för att spara den som favorit."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Den här sidan kan inte sparas som favorit."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Öppna favoriten $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Ta bort favorit"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Ta bort favoriten $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profilen finns inte längre"
+  },
+  "favoritesLimitReached": {
+    "message": "Gränsen för favoriter är nådd – ta bort en för att spara en ny."
+  },
+  "tabFavorites": {
+    "message": "Favoriter"
+  },
+  "favoritesSectionDesc": {
+    "message": "Sparade sidor som öppnas i en vald profil. Spara en med stjärnan i popupfönstret; byt namn, ändra adress eller ordning här."
+  },
+  "favoriteLabelColumn": {
+    "message": "Etikett"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Flytta $name$ uppåt",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Flytta $name$ nedåt",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Ta bort $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Inga favoriter än"
+  },
+  "favoritesEmptySub": {
+    "message": "Öppna en sida i en profil och klicka på stjärnan i SessionShift-popupen för att spara den här."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Ange en giltig http://- eller https://-adress."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favoriter omordnade."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ borttagen.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

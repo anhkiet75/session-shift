@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sistema (tugma sa browser)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Mga Paborito"
+  },
+  "saveFavoriteTitle": {
+    "message": "I-save bilang paborito"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "I-save bilang paborito"
+  },
+  "savedFavoriteTitle": {
+    "message": "Na-save — i-click para alisin"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Ilipat muna ang tab na ito sa isang profile para ma-save bilang paborito."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Hindi puwedeng i-save ang page na ito bilang paborito."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Buksan ang paboritong $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Alisin ang paborito"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Alisin ang paboritong $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Wala na ang profile"
+  },
+  "favoritesLimitReached": {
+    "message": "Naabot na ang limitasyon ng mga paborito — mag-alis ng isa para makapag-save ng bago."
+  },
+  "tabFavorites": {
+    "message": "Mga Paborito"
+  },
+  "favoritesSectionDesc": {
+    "message": "Mga naka-save na page na bumubukas sa napiling profile. I-save gamit ang bituin sa popup; palitan ang pangalan, address, o pagkakasunod-sunod dito."
+  },
+  "favoriteLabelColumn": {
+    "message": "Label"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profile"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Ilipat pataas ang $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Ilipat pababa ang $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Tanggalin ang $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Wala pang paborito"
+  },
+  "favoritesEmptySub": {
+    "message": "Magbukas ng page sa isang profile, tapos i-click ang bituin sa SessionShift popup para i-save ito dito."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Maglagay ng wastong http:// o https:// address."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Binago ang pagkakasunod-sunod ng mga paborito."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "Inalis ang $name$.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

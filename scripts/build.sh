@@ -11,7 +11,7 @@ mkdir -p "$DIST/options" "$DIST/popup"
 npx esbuild \
   "$SRC"/background/*.ts "$SRC"/lib/*.ts \
   "$SRC"/content.ts "$SRC"/page-api-proxy.ts \
-  "$SRC"/options/options.ts "$SRC"/popup/*.ts \
+  "$SRC"/options/*.ts "$SRC"/popup/*.ts \
   --bundle=false --format=esm --platform=browser \
   --outbase="$SRC" --outdir="$DIST"
 

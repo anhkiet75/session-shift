@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sistem (după browser)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Favorite"
+  },
+  "saveFavoriteTitle": {
+    "message": "Salvează la favorite"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Salvează la favorite"
+  },
+  "savedFavoriteTitle": {
+    "message": "Salvat — dă clic pentru a elimina"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Comută mai întâi această filă pe un profil pentru a o salva la favorite."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Această pagină nu poate fi salvată la favorite."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Deschide favoritul $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Elimină din favorite"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Elimină favoritul $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Profilul nu mai există"
+  },
+  "favoritesLimitReached": {
+    "message": "Limita de favorite a fost atinsă — elimină unul pentru a salva altul."
+  },
+  "tabFavorites": {
+    "message": "Favorite"
+  },
+  "favoritesSectionDesc": {
+    "message": "Pagini salvate care se deschid într-un profil ales. Salvează una cu steaua din fereastra pop-up; aici o redenumești, îi schimbi adresa sau ordinea."
+  },
+  "favoriteLabelColumn": {
+    "message": "Etichetă"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Profil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Mută $name$ mai sus",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Mută $name$ mai jos",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Șterge $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Încă niciun favorit"
+  },
+  "favoritesEmptySub": {
+    "message": "Deschide o pagină într-un profil, apoi dă clic pe steaua din fereastra SessionShift pentru a o salva aici."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Introdu o adresă http:// sau https:// validă."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Favoritele au fost reordonate."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ a fost eliminat.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

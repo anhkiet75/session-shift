@@ -20,7 +20,10 @@
   "themeToggleLabel": {
     "message": "Giao diện: $theme$ (nhấn để đổi)",
     "placeholders": {
-      "theme": { "content": "$1", "example": "system" }
+      "theme": {
+        "content": "$1",
+        "example": "system"
+      }
     }
   },
   "themeNameLight": {
@@ -77,13 +80,19 @@
   "generatedSessionName": {
     "message": "Phiên $index$",
     "placeholders": {
-      "index": { "content": "$1", "example": "3" }
+      "index": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "duplicatedSessionName": {
     "message": "$name$ (bản sao)",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "emptyNoProfilesTitle": {
@@ -104,7 +113,10 @@
   "duplicateProfileAriaLabel": {
     "message": "Nhân bản hồ sơ $name$",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "renameTitle": {
@@ -113,7 +125,10 @@
   "renameAriaLabel": {
     "message": "Đổi tên hồ sơ $name$",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "deleteTitle": {
@@ -122,7 +137,10 @@
   "deleteAriaLabel": {
     "message": "Xóa hồ sơ $name$",
     "placeholders": {
-      "name": { "content": "$1", "example": "Work" }
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
     }
   },
   "cancelDeleteTitle": {
@@ -155,7 +173,10 @@
   "hueSwatchTitle": {
     "message": "Sắc độ $hue$",
     "placeholders": {
-      "hue": { "content": "$1", "example": "212" }
+      "hue": {
+        "content": "$1",
+        "example": "212"
+      }
     }
   },
   "customHueTitle": {
@@ -241,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Hệ thống (theo trình duyệt)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Yêu thích"
+  },
+  "saveFavoriteTitle": {
+    "message": "Lưu vào yêu thích"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Lưu vào yêu thích"
+  },
+  "savedFavoriteTitle": {
+    "message": "Đã lưu — nhấp để xóa"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Hãy chuyển tab này sang một hồ sơ trước để lưu vào yêu thích."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Không thể lưu trang này vào yêu thích."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Mở mục yêu thích $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Xóa khỏi yêu thích"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Xóa mục yêu thích $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Hồ sơ không còn tồn tại"
+  },
+  "favoritesLimitReached": {
+    "message": "Đã đạt giới hạn mục yêu thích — hãy xóa một mục để lưu mục khác."
+  },
+  "tabFavorites": {
+    "message": "Yêu thích"
+  },
+  "favoritesSectionDesc": {
+    "message": "Các trang đã lưu, mở trong hồ sơ bạn chọn. Lưu bằng biểu tượng sao trong cửa sổ bật lên; đổi tên, đổi địa chỉ hoặc sắp xếp lại tại đây."
+  },
+  "favoriteLabelColumn": {
+    "message": "Nhãn"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Hồ sơ"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Di chuyển $name$ lên",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Di chuyển $name$ xuống",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Xóa $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Chưa có mục yêu thích"
+  },
+  "favoritesEmptySub": {
+    "message": "Mở một trang trong hồ sơ, rồi nhấp vào biểu tượng sao trong cửa sổ bật lên SessionShift để lưu vào đây."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Hãy nhập địa chỉ http:// hoặc https:// hợp lệ."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Đã sắp xếp lại mục yêu thích."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "Đã xóa $name$.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

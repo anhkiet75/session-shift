@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "システム（ブラウザに合わせる）"
+  },
+  "favoritesSectionTitle": {
+    "message": "お気に入り"
+  },
+  "saveFavoriteTitle": {
+    "message": "お気に入りに保存"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "お気に入りに保存"
+  },
+  "savedFavoriteTitle": {
+    "message": "保存済み — クリックで削除"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "お気に入りに保存するには、まずこのタブをプロファイルに切り替えてください。"
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "このページはお気に入りに保存できません。"
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "お気に入り $name$ を開く",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "お気に入りを削除"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "お気に入り $name$ を削除",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "プロファイルは存在しません"
+  },
+  "favoritesLimitReached": {
+    "message": "お気に入りの上限に達しました。新しく保存するには 1 件削除してください。"
+  },
+  "tabFavorites": {
+    "message": "お気に入り"
+  },
+  "favoritesSectionDesc": {
+    "message": "選択したプロファイルで開く保存済みページです。ポップアップの星ボタンで保存し、ここで名前・アドレス・並び順を変更できます。"
+  },
+  "favoriteLabelColumn": {
+    "message": "ラベル"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "プロファイル"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "$name$ を上へ移動",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "$name$ を下へ移動",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "$name$ を削除",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "お気に入りはまだありません"
+  },
+  "favoritesEmptySub": {
+    "message": "プロファイルでページを開き、SessionShift のポップアップで星をクリックするとここに保存されます。"
+  },
+  "favoriteInvalidUrl": {
+    "message": "有効な http:// または https:// のアドレスを入力してください。"
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "お気に入りを並べ替えました。"
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ を削除しました。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

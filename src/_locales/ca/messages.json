@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Sistema (segons el navegador)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Preferits"
+  },
+  "saveFavoriteTitle": {
+    "message": "Desa als preferits"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Desa als preferits"
+  },
+  "savedFavoriteTitle": {
+    "message": "Desat: fes clic per treure'l"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Canvia primer aquesta pestanya a un perfil per desar-la als preferits."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Aquesta pàgina no es pot desar als preferits."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Obre el preferit $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Treu dels preferits"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Treu el preferit $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "El perfil ja no existeix"
+  },
+  "favoritesLimitReached": {
+    "message": "S'ha arribat al límit de preferits: treu-ne un per desar-ne un altre."
+  },
+  "tabFavorites": {
+    "message": "Preferits"
+  },
+  "favoritesSectionDesc": {
+    "message": "Pàgines desades que s'obren en un perfil triat. Desa-les amb l'estrella de la finestra emergent; aquí pots canviar-ne el nom, l'adreça o l'ordre."
+  },
+  "favoriteLabelColumn": {
+    "message": "Etiqueta"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Perfil"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Mou $name$ amunt",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Mou $name$ avall",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Suprimeix $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Encara no hi ha preferits"
+  },
+  "favoritesEmptySub": {
+    "message": "Obre una pàgina en un perfil i fes clic a l'estrella de la finestra emergent de SessionShift per desar-la aquí."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Introdueix una adreça http:// o https:// vàlida."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "S'ha reordenat els preferits."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "S'ha tret $name$.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

@@ -7,6 +7,23 @@ export interface Session {
   hue?: number
 }
 
+/**
+ * A saved (url, profile) launcher. Stored as an array under the `favorites`
+ * key so the user's display order is the storage order — same shape rationale
+ * as `profiles`.
+ */
+export interface Favorite {
+  /** `'fav_' + crypto.randomUUID()`. */
+  id: string
+  /** User-editable; defaults to the tab title, falling back to the hostname. */
+  label: string
+  /** Absolute http(s) URL, normalized through `new URL(url).href`. */
+  url: string
+  /** References `Session.id` in `profiles`. May dangle if storage was edited out of band. */
+  sessionId: string
+  createdAt: number
+}
+
 export type Theme = 'dark' | 'light' | 'system'
 
 export interface ExtSettings {

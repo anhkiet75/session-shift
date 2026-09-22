@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Системски (према прегледачу)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Омиљено"
+  },
+  "saveFavoriteTitle": {
+    "message": "Сачувај у омиљено"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Сачувај у омиљено"
+  },
+  "savedFavoriteTitle": {
+    "message": "Сачувано — кликните да уклоните"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Прво пребаците ову картицу на профил да бисте је сачували у омиљено."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Ова страница не може да се сачува у омиљено."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Отвори омиљену ставку $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Уклони из омиљених"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Уклони омиљену ставку $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Профил више не постоји"
+  },
+  "favoritesLimitReached": {
+    "message": "Достигнуто је ограничење омиљених — уклоните једну да бисте сачували нову."
+  },
+  "tabFavorites": {
+    "message": "Омиљено"
+  },
+  "favoritesSectionDesc": {
+    "message": "Сачуване странице које се отварају у изабраном профилу. Сачувајте их звездицом у искачућем прозору; овде их преименујте, промените адресу или редослед."
+  },
+  "favoriteLabelColumn": {
+    "message": "Назив"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Профил"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Помери $name$ нагоре",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Помери $name$ надоле",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Обриши $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Још нема омиљених"
+  },
+  "favoritesEmptySub": {
+    "message": "Отворите страницу у профилу, па кликните звездицу у искачућем прозору SessionShift да бисте је сачували овде."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Унесите исправну http:// или https:// адресу."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Редослед омиљених је промењен."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ уклоњено.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

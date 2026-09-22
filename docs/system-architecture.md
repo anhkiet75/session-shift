@@ -458,9 +458,36 @@ Cookies must persist across service worker restarts. DNR rules don't persist, so
   "profiles": [
     { id: "session_abc123de", name: "Work", hue: 212 },
     { id: "session_def456gh", name: "Personal", hue: 158 }
+  ],
+  "favorites": [
+    {
+      id: "fav_1f2e3d4c-...",
+      label: "Work inbox",
+      url: "https://mail.example.com/",
+      sessionId: "session_abc123de",
+      createdAt: 1735689600000
+    }
   ]
 }
 ```
+
+**Favorites (`favorites`).** An array of saved `(url, profileId)` launchers —
+array, not a keyed map, so the stored order *is* the user's display order,
+mirroring `profiles`. Owned exclusively by `lib/favorites-store.ts`, which
+enforces an http(s)-only scheme on save, normalizes URLs through
+`new URL().href`, and caps the list at `MAX_FAVORITES = 50`. Writes are
+serialized through the same chained-promise queue pattern as
+`settings-store.ts`, with the same per-context-only limitation.
+
+Favorites introduce **no new cookie-isolation surface**: launching one sends the
+existing `createSessionTab` message, which already rejects non-http(s) schemes,
+validates `sessionId` against `profiles`, and calls
+`stripCookiesOnNextNavigation` before navigating so the first load is clean.
+
+Orphan handling is two-layered: `deleteSession` cascade-purges that profile's
+favorites, and any favorite still referencing a missing profile renders in a
+disabled missing-profile state rather than being silently dropped at read time
+or launched into the default jar.
 
 **Profile model (v0.6.0+):** Sessions are **global profile containers** — a single `profiles`
 key holds every profile `{ id, name, hue }` (no `origin`). A profile's cookie jar

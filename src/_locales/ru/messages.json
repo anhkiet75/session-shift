@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "Системный (как в браузере)"
+  },
+  "favoritesSectionTitle": {
+    "message": "Избранное"
+  },
+  "saveFavoriteTitle": {
+    "message": "Сохранить в избранное"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "Сохранить в избранное"
+  },
+  "savedFavoriteTitle": {
+    "message": "Сохранено — нажмите, чтобы удалить"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "Сначала переключите эту вкладку на профиль, чтобы сохранить её в избранное."
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "Эту страницу нельзя сохранить в избранное."
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "Открыть избранное $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "Удалить из избранного"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "Удалить избранное $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "Профиль больше не существует"
+  },
+  "favoritesLimitReached": {
+    "message": "Достигнут лимит избранного — удалите одну запись, чтобы сохранить новую."
+  },
+  "tabFavorites": {
+    "message": "Избранное"
+  },
+  "favoritesSectionDesc": {
+    "message": "Сохранённые страницы, которые открываются в выбранном профиле. Сохраните страницу звёздочкой во всплывающем окне; здесь можно переименовать её, изменить адрес или порядок."
+  },
+  "favoriteLabelColumn": {
+    "message": "Название"
+  },
+  "favoriteUrlColumn": {
+    "message": "URL"
+  },
+  "favoriteProfileColumn": {
+    "message": "Профиль"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "Переместить $name$ вверх",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "Переместить $name$ вниз",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "Удалить $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "Избранного пока нет"
+  },
+  "favoritesEmptySub": {
+    "message": "Откройте страницу в профиле и нажмите звёздочку во всплывающем окне SessionShift, чтобы сохранить её здесь."
+  },
+  "favoriteInvalidUrl": {
+    "message": "Введите корректный адрес http:// или https://."
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "Порядок избранного изменён."
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "$name$ удалено.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }

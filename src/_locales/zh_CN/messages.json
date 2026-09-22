@@ -262,5 +262,113 @@
   },
   "languageOptionSystem": {
     "message": "系统（跟随浏览器）"
+  },
+  "favoritesSectionTitle": {
+    "message": "收藏"
+  },
+  "saveFavoriteTitle": {
+    "message": "收藏此页"
+  },
+  "saveFavoriteAriaLabel": {
+    "message": "收藏此页"
+  },
+  "savedFavoriteTitle": {
+    "message": "已收藏 — 点击可移除"
+  },
+  "saveFavoriteDefaultDisabledTitle": {
+    "message": "请先将此标签页切换到某个配置，才能收藏。"
+  },
+  "saveFavoriteUnavailableTitle": {
+    "message": "此页面无法收藏。"
+  },
+  "launchFavoriteAriaLabel": {
+    "message": "打开收藏项 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "removeFavoriteTitle": {
+    "message": "移除收藏"
+  },
+  "removeFavoriteAriaLabel": {
+    "message": "移除收藏项 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMissingProfile": {
+    "message": "该配置已不存在"
+  },
+  "favoritesLimitReached": {
+    "message": "已达收藏数量上限，请先移除一项再收藏。"
+  },
+  "tabFavorites": {
+    "message": "收藏"
+  },
+  "favoritesSectionDesc": {
+    "message": "保存的页面会在所选配置中打开。用弹出窗口中的星标保存，在这里重命名、改地址或调整顺序。"
+  },
+  "favoriteLabelColumn": {
+    "message": "名称"
+  },
+  "favoriteUrlColumn": {
+    "message": "网址"
+  },
+  "favoriteProfileColumn": {
+    "message": "配置"
+  },
+  "favoriteMoveUpAriaLabel": {
+    "message": "将 $name$ 上移",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteMoveDownAriaLabel": {
+    "message": "将 $name$ 下移",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoriteDeleteAriaLabel": {
+    "message": "删除 $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
+  },
+  "favoritesEmptyTitle": {
+    "message": "还没有收藏"
+  },
+  "favoritesEmptySub": {
+    "message": "在某个配置中打开页面，然后点击 SessionShift 弹出窗口中的星标即可保存到这里。"
+  },
+  "favoriteInvalidUrl": {
+    "message": "请输入有效的 http:// 或 https:// 地址。"
+  },
+  "favoritesReorderedAnnouncement": {
+    "message": "收藏顺序已调整。"
+  },
+  "favoriteRemovedAnnouncement": {
+    "message": "已移除 $name$。",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work inbox"
+      }
+    }
   }
 }
