@@ -311,6 +311,62 @@ test.describe('Session favorites', () => {
     await helperPage.close()
   })
 
+  test('renaming a favorite inline from the popup saves on Enter or the check button and backs out on Escape', async ({
+    context, extensionId, popupUrl, mockServerUrl,
+  }) => {
+    const targetUrl = `${mockServerUrl}/cookies?source=rename-inline`
+
+    const helperPage = await context.newPage()
+    await helperPage.goto(`chrome-extension://${extensionId}/popup/popup.html`)
+    const tab = await context.newPage()
+    await tab.goto(targetUrl)
+    const tabId = await getTabIdByUrl(helperPage, 'source=rename-inline')
+
+    await seed(helperPage, [{ id: PROFILE_A, name: 'Alpha', hue: 212 }],
+      [{ id: 'fav_rename', label: 'Old name', url: targetUrl, sessionId: PROFILE_A }])
+
+    const popup = await openPopupForTab(context, popupUrl, tabId, targetUrl, '#favoritesSection')
+    const storedLabel = () => helperPage.evaluate(async () => {
+      const { favorites } = await chrome.storage.local.get(['favorites'])
+      return (favorites as { label: string }[])[0].label
+    })
+
+    // Escape discards the edit and restores the row untouched.
+    await popup.locator('.v2-fav-row', { hasText: 'Old name' })
+      .locator('[data-action="rename-favorite"]').click()
+    const input = popup.locator('.v2-fav-row .v2-rename-input')
+    await expect(input).toHaveValue('Old name')
+    await input.fill('Discarded')
+    await input.press('Escape')
+    await expect(input).toHaveCount(0)
+    await expect(popup.locator('.v2-fav-label')).toHaveText('Old name')
+    expect(await storedLabel()).toBe('Old name')
+
+    // Enter saves to storage and the row re-renders with the new label.
+    await popup.locator('[data-action="rename-favorite"]').click()
+    await input.fill('  New   name ')
+    await input.press('Enter')
+    await expect(popup.locator('.v2-fav-label')).toHaveText('New name')
+    await expect.poll(storedLabel).toBe('New name')
+
+    // While editing, the pencil becomes a check that saves; the × is hidden.
+    await popup.locator('[data-action="rename-favorite"]').click()
+    await expect(popup.locator('[data-action="rename-favorite"].editing')).toBeVisible()
+    await expect(popup.locator('[data-action="remove-favorite"]')).toBeHidden()
+    await input.fill('Via check')
+    await popup.locator('[data-action="rename-favorite"]').click()
+    await expect(popup.locator('.v2-fav-label')).toHaveText('Via check')
+    // Out of edit mode: the check is back to the pencil, the × is back.
+    await expect(popup.locator('.v2-fav-row .v2-rename-input')).toHaveCount(0)
+    await expect(popup.locator('[data-action="rename-favorite"].editing')).toHaveCount(0)
+    await popup.locator('.v2-fav-row').hover()
+    await expect(popup.locator('[data-action="remove-favorite"]')).toBeVisible()
+    await expect(popup.locator('.v2-fav-row')).toHaveCount(1)
+    await expect.poll(storedLabel).toBe('Via check')
+
+    await helperPage.close()
+  })
+
   test('a favorite orphaned out of band is disabled, not launched into the default jar', async ({
     context, extensionId, popupUrl, mockServerUrl,
   }) => {

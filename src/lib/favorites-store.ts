@@ -15,7 +15,7 @@ const FAVORITES_KEY = 'favorites'
 /** Hard cap on stored favorites. Surfaced as a UI message, never enforced by throwing. */
 export const MAX_FAVORITES = 50
 
-const MAX_LABEL_LENGTH = 100
+export const MAX_LABEL_LENGTH = 100
 
 /**
  * A stored entry is only usable if every field it is read through is a string.

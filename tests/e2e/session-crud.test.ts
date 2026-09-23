@@ -35,6 +35,40 @@ test.describe('Session CRUD', () => {
     await expect(popupPage.locator('.v2-card-name', { hasText: 'Work' })).toBeVisible()
   })
 
+  test('renaming a profile swaps the pencil for a save check and hides the other actions', async ({ popupPage }) => {
+    await seedSession(popupPage, 'Work', ['Other'])
+    // Not filtered by name: the label changes mid-test.
+    const card = popupPage.locator('.v2-card').first()
+    const renameBtn = card.locator('[data-action="rename-profile"]')
+
+    await card.hover()
+    await expect(card.locator('[data-action="duplicate-profile"]')).toBeVisible()
+
+    await renameBtn.click()
+    const input = card.locator('.v2-rename-input')
+    await expect(input).toBeVisible()
+    await card.hover()
+    await expect(renameBtn).toHaveClass(/editing/)
+    await expect(card.locator('[data-action="duplicate-profile"]')).toBeHidden()
+    await expect(card.locator('[data-action="delete-profile"]')).toBeHidden()
+
+    // The check saves.
+    await input.fill('Office')
+    await renameBtn.click()
+    await expect(card.locator('.v2-card-name')).toHaveText('Office')
+    await expect(input).toHaveCount(0)
+    await expect(renameBtn).not.toHaveClass(/editing/)
+    await card.hover()
+    await expect(card.locator('[data-action="duplicate-profile"]')).toBeVisible()
+
+    // A second rename still works after the name node was replaced; Enter saves.
+    await renameBtn.click()
+    await input.fill('Studio')
+    await input.press('Enter')
+    await expect(card.locator('.v2-card-name')).toHaveText('Studio')
+    await expect(popupPage.locator('.v2-rename-input')).toHaveCount(0)
+  })
+
   test('create multiple sessions — all appear in list', async ({ popupPage }) => {
     for (const name of ['Alpha', 'Beta', 'Gamma']) {
       await createSession(popupPage, name)

@@ -576,18 +576,6 @@ body {
   gap: 2px;
 }
 
-.v2-card-check {
-  width: 24px;
-  height: 24px;
-  display: grid;
-  place-items: center;
-  color: hsl(var(--hue, 210), 70%, 60%);
-}
-
-@media (prefers-color-scheme: light) {
-  .v2-card-check { color: hsl(var(--hue, 210), 70%, 40%); }
-}
-
 .v2-card-del,
 .v2-card-rename,
 .v2-card-dup {
@@ -607,6 +595,11 @@ body {
 .v2-card:hover .v2-card-del,
 .v2-card:hover .v2-card-rename,
 .v2-card:hover .v2-card-dup { opacity: 1; }
+
+/* Renaming a profile: the pencil becomes the save check; duplicate and
+   delete step aside until the edit ends. */
+.v2-card:has(.v2-rename-input) :is(.v2-card-dup, .v2-card-del) { display: none; }
+.v2-card-rename.editing { opacity: 1; color: var(--accent); }
 
 .v2-card-del:hover {
   background: color-mix(in srgb, var(--danger) 12%, transparent);
@@ -1094,19 +1087,28 @@ body {
 .v2-fav-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  max-height: 132px;
+  gap: 6px;
+  max-height: 160px;
   overflow-y: auto;
 }
 
+/* Card look shared with the profile list (.v2-card). */
 .v2-fav-row {
   display: flex;
-  align-items: stretch;
-  gap: 2px;
-  border-radius: var(--radius-sm);
+  align-items: center;
+  gap: 4px;
+  padding-block: 4px;
+  padding-inline: 8px 8px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.v2-fav-row:hover { background: var(--bg-2); }
+.v2-fav-row:hover {
+  background: var(--bg-3);
+  border-color: var(--border-strong);
+}
 
 .v2-fav-launch {
   display: flex;
@@ -1168,12 +1170,14 @@ body {
 
 .v2-fav-row.missing .v2-fav-label { color: var(--text-muted); }
 
+.v2-fav-rename,
 .v2-fav-remove {
   flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 26px;
+  height: 26px;
   background: transparent;
   border: none;
   border-radius: var(--radius-sm);
@@ -1183,9 +1187,35 @@ body {
   transition: opacity 0.12s ease, color 0.12s ease;
 }
 
+.v2-fav-row:hover .v2-fav-rename,
 .v2-fav-row:hover .v2-fav-remove { opacity: 1; }
-.v2-fav-remove:hover { color: var(--danger); }
+.v2-fav-rename:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+}
+.v2-fav-rename.editing { opacity: 1; color: var(--accent); }
+.v2-fav-rename:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; opacity: 1; }
+.v2-fav-remove:hover {
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+  color: var(--danger);
+}
 .v2-fav-remove:focus-visible { outline: 2px solid var(--danger); outline-offset: -2px; opacity: 1; }
+
+/* Inline rename: same footprint as .v2-fav-launch so the row doesn't jump. */
+.v2-fav-edit {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+  min-width: 0;
+  padding: 11px 8px;
+}
+.v2-fav-edit .v2-rename-input { font-size: 12px; }
+
+/* Delete confirm: label stays in place, cancel/confirm sit at the row's end. */
+.v2-fav-row:has(.v2-card-del-confirm) .v2-fav-launch { cursor: default; }
+.v2-fav-row > .v2-card-del-cancel,
+.v2-fav-row > .v2-card-del-confirm { flex: none; }
 
 /* Hero star — shares the theme/options button box so the actions row stays even. */
 .v2-fav-star {
