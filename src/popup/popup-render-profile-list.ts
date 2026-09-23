@@ -6,7 +6,7 @@ import type { PopupSession } from './popup-types.js';
 import { getSessionHue } from './popup-types.js';
 import { getSavedSessions, setSavedSessions } from './popup-session-storage.js';
 import { buildColorDot } from './popup-color-picker.js';
-import { startRename } from './popup-rename-handler.js';
+import { startRename, RENAME_ICON } from './popup-rename-handler.js';
 import { startDeleteConfirm, cancelActiveConfirm } from './popup-delete-handler.js';
 import { attachOpenInTabMenu } from './popup-open-in-tab-menu.js';
 import type { Localizer } from '../lib/localization.js';
@@ -140,21 +140,19 @@ export function renderSessionList(
     renameBtn.title = localizer.getMessage('renameTitle') || 'Rename';
     renameBtn.setAttribute('data-action', 'rename-profile');
     renameBtn.setAttribute('aria-label', localizer.getMessage('renameAriaLabel', [displayName]) || `Rename profile ${displayName}`);
-    renameBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2.5a1.5 1.5 0 0 1 2.12 2.12L4.85 12.88l-2.83.7.7-2.83L11 2.5Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    renameBtn.innerHTML = RENAME_ICON;
     renameBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      startRename(card, nameEl, renameBtn, session, tabId, currentSessionId);
+      startRename(card, renameBtn, session, tabId, currentSessionId);
     });
 
     actions.appendChild(dupBtn);
     actions.appendChild(renameBtn);
 
-    if (isActive) {
-      const check = document.createElement('div');
-      check.className = 'v2-card-check';
-      check.innerHTML = `<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      actions.appendChild(check);
-    } else {
+    // The active profile is marked by its ACTIVE pill and tinted border; it
+    // gets no delete button (deleting the profile this tab is using is not
+    // offered from the popup).
+    if (!isActive) {
       const delBtn = document.createElement('button');
       delBtn.className = 'v2-card-del';
       delBtn.title = localizer.getMessage('deleteTitle') || 'Delete';

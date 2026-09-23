@@ -1,6 +1,6 @@
 # SessionShift — Project Roadmap (forward-looking)
 
-**Current Version:** 0.1.0 (from `src/manifest.json` — the only version Chrome ships)  
+**Current Version:** 0.1.1 (from `src/manifest.json` — the only version Chrome ships)  
 **Status:** Published on the Chrome Web Store  
 **Last Updated:** 2026-09-20
 
@@ -14,7 +14,7 @@
 > A claim belongs in exactly one of them. Source-of-truth order for any version
 > or feature claim: `src/manifest.json` version > code and tests > git history >
 > prose. `src/manifest.json` is the only version Chrome ships; it is currently
-> **0.1.0**, and the repository has no git tags. Version strings like `v0.4.1`
+> **0.1.1**, and the repository has no git tags. Version strings like `v0.4.1`
 > or `v0.6.0` that appeared in earlier revisions of these files were
 > development milestone labels, never releases.
 
@@ -383,7 +383,8 @@ Derived from `docs/BACKLOG.md`; listed here for roadmap context.
 | 0.3.0 | Phase 3 (Tab Colors, Duplicate; export/import never built) | 2026-05-03 | 2026-05-03 | Milestone label — partially delivered |
 | 0.4.0 | Phase 4 (Keyboard Shortcuts, DNR Debounce, Accessibility) | 2026-05-04 | 2026-05-04 | ✅ Shipped |
 | 0.4.1 | Security patch (XSS fix, storage validation) | 2026-05-10 | 2026-05-10 | Milestone label — never a released manifest version |
-| 0.1.0 | Favorites (saved page + profile launchers) | 2026-09-20 | 2026-09-20 | ✅ **Shipped — current manifest version** |
+| 0.1.0 | Favorites (saved page + profile launchers) | 2026-09-20 | 2026-09-20 | ✅ Shipped |
+| 0.1.1 | Popup inline edit polish (favorite rename/delete, profile rename) | 2026-09-23 | 2026-09-23 | ✅ **Shipped — current manifest version** |
 | 0.5.0 | Phase 5.1 (Analytics, Performance) | 2027-06-30 | — | Planned |
 | 1.0.0 | Stability & GA | 2027-12-31 | — | Aspirational |
 

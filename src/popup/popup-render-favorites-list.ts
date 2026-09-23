@@ -5,12 +5,13 @@
 // path the context menu and the profile right-click menu already use — so this
 // section adds no new cookie-isolation surface.
 
-import { getFavorites, deleteFavorite } from '../lib/favorites-store.js';
+import { getFavorites, deleteFavorite, updateFavorite, MAX_LABEL_LENGTH } from '../lib/favorites-store.js';
 import { createInlineConfirmController } from '../lib/inline-confirm.js';
 import type { Favorite } from '../lib/types.js';
 import type { PopupSession } from './popup-types.js';
 import { getSessionHue, profileSwatchCss } from './popup-types.js';
 import type { Localizer } from '../lib/localization.js';
+import { RENAME_ICON, CONFIRM_ICON } from './popup-rename-handler.js';
 
 // One row across the whole favorites list can be in confirm mode at a time.
 // Independent of the profile list's own confirm controller (popup-delete-handler.ts) —
@@ -25,6 +26,83 @@ function hostnameOf(url: string): string {
   } catch {
     return url;
   }
+}
+
+/**
+ * Swap the launch button for an inline label input. Enter, blur, or the rename
+ * button (shown as a check while editing) saves; Escape backs out. Every exit
+ * restores the row in place (pencil back, × back), so the row never depends on
+ * a later list re-render to leave edit mode.
+ */
+function startFavoriteRename(
+  row: HTMLElement,
+  favorite: Favorite,
+  launch: HTMLElement,
+  labelEl: HTMLElement,
+  dot: HTMLElement,
+  rename: HTMLButtonElement,
+  hiddenElements: HTMLElement[],
+): void {
+  const existing = row.querySelector<HTMLInputElement>('.v2-rename-input');
+  if (existing) { existing.blur(); return; }
+  confirmController.cancelActive();
+
+  const edit = document.createElement('span');
+  edit.className = 'v2-fav-edit';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'v2-rename-input';
+  input.dir = 'auto'; // user-supplied label: isolate its own direction while typing
+  input.value = favorite.label;
+  input.maxLength = MAX_LABEL_LENGTH;
+  edit.append(dot.cloneNode(), input);
+
+  launch.style.display = 'none';
+  hiddenElements.forEach(el => { el.style.display = 'none'; });
+  launch.after(edit);
+  rename.innerHTML = CONFIRM_ICON;
+  rename.classList.add('editing');
+  // Keep focus in the input on press so the click is the one that saves
+  // (otherwise blur saves first and the click would reopen the editor).
+  const keepFocus = (e: MouseEvent): void => { e.preventDefault(); };
+  rename.addEventListener('mousedown', keepFocus);
+  input.focus();
+  input.select();
+
+  let done = false;
+  function restore(): void {
+    edit.remove();
+    rename.innerHTML = RENAME_ICON;
+    rename.classList.remove('editing');
+    rename.removeEventListener('mousedown', keepFocus);
+    launch.style.display = '';
+    hiddenElements.forEach(el => { el.style.display = ''; });
+  }
+
+  async function commit(): Promise<void> {
+    if (done) return;
+    done = true;
+    input.disabled = true;
+    if (input.value === favorite.label) { restore(); return; }
+    const result = await updateFavorite(favorite.id, { label: input.value }).catch(() => null);
+    if (result?.status === 'updated') {
+      favorite.label = result.favorite.label; // blank falls back to the hostname
+      labelEl.textContent = favorite.label;
+    }
+    restore();
+    if (result?.status === 'updated') document.dispatchEvent(new CustomEvent('favoritesChanged'));
+  }
+
+  input.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter') { e.preventDefault(); commit(); }
+    if (e.key === 'Escape') {
+      // Keep Escape from also closing the popup.
+      e.preventDefault();
+      done = true;
+      restore();
+    }
+  });
+  input.addEventListener('blur', () => commit());
 }
 
 /** Flip a row to the missing-profile state without dropping the saved URL. */
@@ -83,6 +161,8 @@ function buildRow(favorite: Favorite, profiles: PopupSession[], localizer: Local
   if (!profile) markMissing(row, launch, body, missingLabel);
 
   launch.addEventListener('click', async () => {
+    // The row stays visible while its delete confirm is open; don't launch then.
+    if (row.querySelector('.v2-card-del-confirm')) return;
     launch.disabled = true;
     const response = await chrome.runtime.sendMessage({
       action: 'createSessionTab',
@@ -98,6 +178,14 @@ function buildRow(favorite: Favorite, profiles: PopupSession[], localizer: Local
     window.close();
   });
 
+  const rename = document.createElement('button');
+  rename.type = 'button';
+  rename.className = 'v2-fav-rename';
+  rename.setAttribute('data-action', 'rename-favorite');
+  rename.title = text('renameTitle', 'Rename');
+  rename.setAttribute('aria-label', `${text('renameTitle', 'Rename')} ${favorite.label}`);
+  rename.innerHTML = RENAME_ICON;
+
   const remove = document.createElement('button');
   remove.type = 'button';
   remove.className = 'v2-fav-remove';
@@ -109,10 +197,11 @@ function buildRow(favorite: Favorite, profiles: PopupSession[], localizer: Local
   remove.addEventListener('click', (e) => {
     e.stopPropagation();
     // Same interaction and the same CSS classes as the profile card's delete
-    // confirm — cancel/confirm swap in place, Escape backs out.
+    // confirm — the label stays, only the × swaps for cancel/confirm, Escape
+    // backs out.
     confirmController.start({
       container: row,
-      hiddenElements: [launch, remove],
+      hiddenElements: [rename, remove],
       cancelClassName: 'v2-card-del-cancel',
       confirmClassName: 'v2-card-del-confirm',
       labels: {
@@ -128,7 +217,12 @@ function buildRow(favorite: Favorite, profiles: PopupSession[], localizer: Local
     });
   });
 
-  row.append(launch, remove);
+  rename.addEventListener('click', (e) => {
+    e.stopPropagation();
+    startFavoriteRename(row, favorite, launch, label, dot, rename, [remove]);
+  });
+
+  row.append(launch, rename, remove);
   return row;
 }
 
