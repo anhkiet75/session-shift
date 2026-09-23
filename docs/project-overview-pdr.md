@@ -4,7 +4,7 @@
 
 **SessionShift** is a Chrome extension (Manifest V3) that enables simultaneous multi-account login on any website by isolating each browser tab's session independently. A free, open-source alternative to SessionBox.
 
-**Current Version:** 0.1.0 (from `src/manifest.json`)  
+**Current Version:** 0.1.1 (from `src/manifest.json`)  
 **Status:** Shipped to Chrome Web Store  
 **License:** MIT  
 **Repository:** https://github.com/anhkiet75/session-shift

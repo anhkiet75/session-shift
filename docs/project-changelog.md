@@ -5,14 +5,32 @@ All significant changes to the SessionShift Chrome extension are documented here
 > **Version numbering.** The `vX.Y.Z` headings below are *development
 > milestones*, not shipped releases. The only version Chrome ships is
 > `src/manifest.json`, which has gone `0.0.4 → 0.0.6 → 0.0.7 → 0.0.8 → 0.0.9 →
-> **0.1.0** (current)`. No 0.2.x–0.6.x has ever been released, and the
+> 0.1.0 → **0.1.1** (current)`. No 0.2.x–0.6.x has ever been released, and the
 > repository has no git tags. Milestone headings are kept because the work they
 > describe is real and the dates are useful; read them as "milestone N", not as
 > a published version. Feature claims below have been reconciled against `src/`.
 
 ---
 
-## Current release: 0.1.0 (manifest)
+## Current release: 0.1.1 (manifest)
+
+**Shipped in 0.1.1:** Popup inline-edit polish.
+- Favorites list rows use the profile card look (padding, border, hover).
+- Deleting a favorite keeps its label visible; only the × swaps for
+  Cancel/Delete, and the row cannot launch while the confirm is open.
+- Favorites can be renamed inline from the popup (pencil → input; Enter, blur
+  or the check button saves, Escape cancels).
+- Profile rename: the pencil turns into a save check while editing; duplicate
+  and delete are hidden until the edit ends. A second rename on the same card
+  no longer runs against the replaced name node.
+- The active profile card no longer shows a trailing check mark; the ACTIVE
+  pill and tinted border mark it.
+
+Implementation: `popup/popup-render-favorites-list.ts`,
+`popup/popup-rename-handler.ts`, `popup/popup-render-profile-list.ts`,
+`popup/popup.css`. No new permissions or message keys.
+
+## Previous release: 0.1.0
 
 **Shipped in 0.1.0:** Favorites — saved `(url, profile)` launchers. Saved from
 the popup hero star, launched from the popup favorites list into that profile's

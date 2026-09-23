@@ -12,7 +12,7 @@
 > A claim belongs in exactly one of them. Source-of-truth order for any version
 > or feature claim: `src/manifest.json` version > code and tests > git history >
 > prose. `src/manifest.json` is the only version Chrome ships; it is currently
-> **0.1.0**, and the repository has no git tags. Version strings like `v0.4.1`
+> **0.1.1**, and the repository has no git tags. Version strings like `v0.4.1`
 > or `v0.6.0` that appeared in earlier revisions of these files were
 > development milestone labels, never releases.
 
@@ -22,7 +22,7 @@
 
 ## Current Status
 
-**Current Version:** 0.1.0 (from `src/manifest.json`)  
+**Current Version:** 0.1.1 (from `src/manifest.json`)  
 **Status:** Active hardening and profile UX work  
 **Repository:** https://github.com/anhkiet75/session-shift  
 **Chrome Web Store:** https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp
