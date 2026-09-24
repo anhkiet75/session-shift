@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "কীবোর্ড শর্টকাট"
+  },
+  "shortcutsSectionDesc": {
+    "message": "প্রোফাইল পরিবর্তন বর্তমান ট্যাবকে পরের বা আগের প্রোফাইলে সরিয়ে পুনরায় লোড করে। Ctrl/⌘+Shift+তীর যাতে টেক্সট নির্বাচন করতে থাকে তাই এটি ডিফল্টভাবে বন্ধ। Chrome-এর শর্টকাট সেটিংসে যেকোনো কী নির্ধারণ করুন।"
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift পপআপ খুলুন"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "ট্যাবটি পরের প্রোফাইলে নিন"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "ট্যাবটি আগের প্রোফাইলে নিন"
+  },
+  "shortcutNotSet": {
+    "message": "সেট করা নেই"
+  },
+  "shortcutsChangeButton": {
+    "message": "শর্টকাট পরিবর্তন করুন"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Tastaturgenveje"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profilskift flytter den aktuelle fane til den næste eller forrige profil og genindlæser den. Det er slået fra som standard, så Ctrl/⌘+Shift+pil fortsat markerer tekst. Tildel taster i Chromes indstillinger for genveje."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Åbn SessionShift-pop op-vinduet"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Flyt fanen til næste profil"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Flyt fanen til forrige profil"
+  },
+  "shortcutNotSet": {
+    "message": "Ikke angivet"
+  },
+  "shortcutsChangeButton": {
+    "message": "Skift genveje"
   }
 }

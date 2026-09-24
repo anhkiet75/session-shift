@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "키보드 단축키"
+  },
+  "shortcutsSectionDesc": {
+    "message": "프로필 전환은 현재 탭을 다음 또는 이전 프로필로 옮기고 새로고침합니다. Ctrl/⌘+Shift+화살표로 계속 텍스트를 선택할 수 있도록 기본적으로 꺼져 있습니다. Chrome 단축키 설정에서 원하는 키를 지정하세요."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift 팝업 열기"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "탭을 다음 프로필로 이동"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "탭을 이전 프로필로 이동"
+  },
+  "shortcutNotSet": {
+    "message": "설정 안 됨"
+  },
+  "shortcutsChangeButton": {
+    "message": "단축키 변경"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Быстрые клавиши"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Переключение профиля перемещает текущую вкладку в следующий или предыдущий профиль и перезагружает её. По умолчанию оно выключено, чтобы Ctrl/⌘+Shift+стрелка по-прежнему выделяли текст. Назначьте любые клавиши в настройках быстрых клавиш Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Открыть всплывающее окно SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Переместить вкладку в следующий профиль"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Переместить вкладку в предыдущий профиль"
+  },
+  "shortcutNotSet": {
+    "message": "Не задано"
+  },
+  "shortcutsChangeButton": {
+    "message": "Изменить быстрые клавиши"
   }
 }

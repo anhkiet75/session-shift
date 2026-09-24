@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "የቁልፍ ሰሌዳ አቋራጮች"
+  },
+  "shortcutsSectionDesc": {
+    "message": "የመገለጫ ዑደት የአሁኑን ትር ወደ ቀጣዩ ወይም ቀዳሚው መገለጫ ያንቀሳቅሰዋል እና እንደገና ይጭነዋል። Ctrl/⌘+Shift+ቀስት ጽሑፍ መምረጡን እንዲቀጥል በነባሪ ጠፍቷል። በChrome አቋራጭ ቅንብሮች ውስጥ ማንኛውንም ቁልፎች ይመድቡ።"
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "የSessionShift ብቅ-ባይን ክፈት"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "ትሩን ወደ ቀጣዩ መገለጫ ቀይር"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "ትሩን ወደ ቀዳሚው መገለጫ ቀይር"
+  },
+  "shortcutNotSet": {
+    "message": "አልተዘጋጀም"
+  },
+  "shortcutsChangeButton": {
+    "message": "አቋራጮችን ቀይር"
   }
 }

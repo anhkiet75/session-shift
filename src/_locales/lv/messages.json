@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Īsinājumtaustiņi"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profilu pārslēgšana pārvieto pašreizējo cilni uz nākamo vai iepriekšējo profilu un to pārlādē. Pēc noklusējuma tā ir izslēgta, lai Ctrl/⌘+Shift+bultiņa joprojām atlasītu tekstu. Piešķiriet taustiņus Chrome īsinājumtaustiņu iestatījumos."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Atvērt SessionShift uznirstošo logu"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Pārvietot cilni uz nākamo profilu"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Pārvietot cilni uz iepriekšējo profilu"
+  },
+  "shortcutNotSet": {
+    "message": "Nav iestatīts"
+  },
+  "shortcutsChangeButton": {
+    "message": "Mainīt īsinājumtaustiņus"
   }
 }

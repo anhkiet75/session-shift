@@ -14,6 +14,7 @@ import {
 import type { Localizer } from '../lib/localization.js'
 import { SUPPORTED_LOCALES } from '../lib/localization-types.js'
 import { initFavoritesPanel } from './options-favorites.js'
+import { initShortcutsPanel } from './options-shortcuts.js'
 import type { RuntimeLocalePreference } from '../lib/localization-types.js'
 
 function applyTheme(theme: string): void {
@@ -94,6 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await initFavoritesPanel(localizer)
 
     // Settings tab
+    await initShortcutsPanel(localizer)
     const settings = await getExtSettings()
     const currentTheme = settings.theme || 'system'
     applyTheme(currentTheme)
@@ -167,7 +169,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       populateLanguageSelect(languageSelect, localizer, chosen)
       // The Favorites rows are built in JS, so `localizeDocument` cannot reach
       // them — re-render the panel in place. The active tab is untouched.
+      // Same for the JS-built shortcut rows.
       await initFavoritesPanel(localizer)
+      await initShortcutsPanel(localizer)
     })
 
     // About tab

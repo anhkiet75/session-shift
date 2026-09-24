@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Sneltoetsen"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profielwisselen verplaatst het huidige tabblad naar het volgende of vorige profiel en laadt het opnieuw. Het staat standaard uit, zodat Ctrl/⌘+Shift+pijl tekst blijft selecteren. Wijs toetsen toe in de sneltoetsinstellingen van Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift-pop-up openen"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Tabblad naar volgend profiel verplaatsen"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Tabblad naar vorig profiel verplaatsen"
+  },
+  "shortcutNotSet": {
+    "message": "Niet ingesteld"
+  },
+  "shortcutsChangeButton": {
+    "message": "Sneltoetsen wijzigen"
   }
 }

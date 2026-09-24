@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "कीबोर्ड शॉर्टकट"
+  },
+  "shortcutsSectionDesc": {
+    "message": "प्रोफाइल बदलल्याने सध्याचा टॅब पुढील किंवा मागील प्रोफाइलमध्ये जातो आणि पुन्हा लोड होतो. Ctrl/⌘+Shift+बाण मजकूर निवडत राहावा म्हणून हे डीफॉल्टनुसार बंद आहे. Chrome च्या शॉर्टकट सेटिंग्जमध्ये कोणत्याही की नेमा."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift पॉपअप उघडा"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "टॅब पुढील प्रोफाइलमध्ये हलवा"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "टॅब मागील प्रोफाइलमध्ये हलवा"
+  },
+  "shortcutNotSet": {
+    "message": "सेट केलेले नाही"
+  },
+  "shortcutsChangeButton": {
+    "message": "शॉर्टकट बदला"
   }
 }

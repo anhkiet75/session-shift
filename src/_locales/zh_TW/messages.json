@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "鍵盤快速鍵"
+  },
+  "shortcutsSectionDesc": {
+    "message": "切換設定檔會將目前分頁移到下一個或上一個設定檔並重新載入。此功能預設為關閉，讓 Ctrl/⌘+Shift+方向鍵仍可用來選取文字。可在 Chrome 的快速鍵設定中指派任意按鍵。"
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "開啟 SessionShift 彈出式視窗"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "將分頁切換到下一個設定檔"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "將分頁切換到上一個設定檔"
+  },
+  "shortcutNotSet": {
+    "message": "未設定"
+  },
+  "shortcutsChangeButton": {
+    "message": "變更快速鍵"
   }
 }

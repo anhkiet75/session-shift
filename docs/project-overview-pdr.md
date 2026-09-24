@@ -31,7 +31,7 @@ Web browsers share cookies globally across all tabs for a given domain. This pre
 4. **Persistent across restarts** — Session assignments survive service worker restarts
 5. **Works on any site** — No per-site configuration; covers `<all_urls>`
 6. **No external dependencies** — Vanilla JS, Manifest V3, no bundler
-7. **Keyboard shortcuts** — Ctrl+Shift+S (popup), Ctrl+Shift+Right/Left (next/prev session)
+7. **Keyboard shortcuts** — Open popup and next/prev profile commands all ship unassigned (user binds them at `chrome://extensions/shortcuts`, linked from Options)
 8. **Global session list** — Cross-site view of all sessions with search/filter
 10. **Context menu** — "Open in session" for links
 12. **Duplicate session** — Clone session with cookies for quick variations

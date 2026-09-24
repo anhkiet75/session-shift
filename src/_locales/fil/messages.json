@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Mga keyboard shortcut"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Inililipat ng pagpapalit ng profile ang kasalukuyang tab sa susunod o nakaraang profile at nire-reload ito. Naka-off ito bilang default para patuloy na makapili ng text ang Ctrl/⌘+Shift+Arrow. Magtakda ng anumang key sa mga setting ng shortcut ng Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Buksan ang popup ng SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Ilipat ang tab sa susunod na profile"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Ilipat ang tab sa nakaraang profile"
+  },
+  "shortcutNotSet": {
+    "message": "Hindi nakatakda"
+  },
+  "shortcutsChangeButton": {
+    "message": "Baguhin ang mga shortcut"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Billentyűparancsok"
+  },
+  "shortcutsSectionDesc": {
+    "message": "A profilváltás az aktuális lapot a következő vagy előző profilba helyezi, és újratölti. Alapértelmezés szerint ki van kapcsolva, hogy a Ctrl/⌘+Shift+nyíl továbbra is szöveget jelöljön ki. Bármilyen billentyűt hozzárendelhet a Chrome billentyűparancs-beállításaiban."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift felugró ablak megnyitása"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Lap áthelyezése a következő profilba"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Lap áthelyezése az előző profilba"
+  },
+  "shortcutNotSet": {
+    "message": "Nincs beállítva"
+  },
+  "shortcutsChangeButton": {
+    "message": "Billentyűparancsok módosítása"
   }
 }

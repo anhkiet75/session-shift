@@ -468,5 +468,33 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Keyboard shortcuts",
+    "description": "Options Settings section title for the extension keyboard shortcut list."
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profile cycling moves the current tab to the next or previous profile and reloads it. It is off by default so Ctrl/⌘+Shift+Arrow keeps selecting text. Assign any keys in Chrome's shortcut settings.",
+    "description": "Options Settings description explaining that profile-cycling shortcuts move and reload the current tab, are unassigned by default, and are assigned in Chrome shortcut settings."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Open SessionShift popup",
+    "description": "Options shortcut row label for the command that opens the extension popup."
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Switch tab to next profile",
+    "description": "Options shortcut row label for the command that moves the active tab to the next profile."
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Switch tab to previous profile",
+    "description": "Options shortcut row label for the command that moves the active tab to the previous profile."
+  },
+  "shortcutNotSet": {
+    "message": "Not set",
+    "description": "Shown in place of a key combination when a command has no keyboard shortcut assigned."
+  },
+  "shortcutsChangeButton": {
+    "message": "Change shortcuts",
+    "description": "Button that opens Chrome keyboard shortcut settings for this extension."
   }
 }

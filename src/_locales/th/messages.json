@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "แป้นพิมพ์ลัด"
+  },
+  "shortcutsSectionDesc": {
+    "message": "การสลับโปรไฟล์จะย้ายแท็บปัจจุบันไปยังโปรไฟล์ถัดไปหรือก่อนหน้าแล้วโหลดใหม่ ค่าเริ่มต้นปิดไว้เพื่อให้ Ctrl/⌘+Shift+ลูกศร ยังเลือกข้อความได้ กำหนดปุ่มใดก็ได้ในการตั้งค่าแป้นพิมพ์ลัดของ Chrome"
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "เปิดป๊อปอัป SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "ย้ายแท็บไปยังโปรไฟล์ถัดไป"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "ย้ายแท็บไปยังโปรไฟล์ก่อนหน้า"
+  },
+  "shortcutNotSet": {
+    "message": "ไม่ได้ตั้งค่า"
+  },
+  "shortcutsChangeButton": {
+    "message": "เปลี่ยนแป้นพิมพ์ลัด"
   }
 }

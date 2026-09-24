@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Scorciatoie da tastiera"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Il cambio di profilo sposta la scheda corrente nel profilo successivo o precedente e la ricarica. È disattivato per impostazione predefinita, così Ctrl/⌘+Maiusc+Freccia continua a selezionare il testo. Assegna i tasti nelle impostazioni delle scorciatoie di Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Apri il popup di SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Sposta la scheda nel profilo successivo"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Sposta la scheda nel profilo precedente"
+  },
+  "shortcutNotSet": {
+    "message": "Non impostata"
+  },
+  "shortcutsChangeButton": {
+    "message": "Modifica scorciatoie"
   }
 }

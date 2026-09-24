@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Tastenkombinationen"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Der Profilwechsel verschiebt den aktuellen Tab in das nächste oder vorherige Profil und lädt ihn neu. Standardmäßig ist er aus, damit Strg/⌘+Umschalt+Pfeil weiterhin Text markiert. Weise in den Chrome-Tastenkombinationen beliebige Tasten zu."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift-Pop-up öffnen"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Tab ins nächste Profil verschieben"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Tab ins vorherige Profil verschieben"
+  },
+  "shortcutNotSet": {
+    "message": "Nicht festgelegt"
+  },
+  "shortcutsChangeButton": {
+    "message": "Tastenkombinationen ändern"
   }
 }

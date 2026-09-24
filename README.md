@@ -40,7 +40,7 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 - **Duplicate profile** — Clone a profile's cookies into a new profile with one click
 - **Persistent across restarts** — Session assignments survive service worker restarts
 - **55 languages** — Full UI localization with honest quality tiers, RTL support (Arabic, Farsi, Hebrew), and English fallback for destructive/security messages on unreviewed locales
-- **Keyboard shortcuts** — `Ctrl+Shift+S` to open popup; `Ctrl+Shift+Right/Left` to cycle profiles (customizable in `chrome://extensions/shortcuts`)
+- **Keyboard shortcuts** — Open popup and profile cycling (next/previous) ship unassigned, so they never collide with editor/OS chords like `Ctrl/⌘+Shift+Arrow` or `Ctrl/⌘+Shift+S`. Bindings are shown in Options → Settings → Keyboard shortcuts, which links to `chrome://extensions/shortcuts` to assign keys
 - **Theme switcher** — Dark / Light / System preference in Options, plus a quick toggle in the popup hero
 - **Works on any site** — No per-site configuration; covers all URLs
 - **No external services** — Fully offline; no analytics, no CDN, no runtime dependencies
@@ -130,14 +130,14 @@ Read the docs for deeper understanding:
 ## Usage
 
 ### Create a Profile
-1. Open the SessionShift popup (click toolbar icon or `Ctrl+Shift+S`)
+1. Open the SessionShift popup (click the toolbar icon, or a shortcut you assigned)
 2. Type a name (e.g., "Work", "Personal")
 3. Click **Create**
 4. The current tab now uses that profile; cookies are isolated
 
 ### Switch Profiles
 1. Open popup
-2. Click any profile in the list (or cycle with `Ctrl+Shift+Right/Left`)
+2. Click any profile in the list (or cycle with keys you assign in Options → Settings → Keyboard shortcuts)
 3. Page reloads with that profile's cookies
 
 ### Open Current Page in Another Profile

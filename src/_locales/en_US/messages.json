@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Keyboard shortcuts"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profile cycling moves the current tab to the next or previous profile and reloads it. It is off by default so Ctrl/⌘+Shift+Arrow keeps selecting text. Assign any keys in Chrome's shortcut settings."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Open SessionShift popup"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Switch tab to next profile"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Switch tab to previous profile"
+  },
+  "shortcutNotSet": {
+    "message": "Not set"
+  },
+  "shortcutsChangeButton": {
+    "message": "Change shortcuts"
   }
 }

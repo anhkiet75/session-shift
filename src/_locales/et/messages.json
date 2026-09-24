@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Klaviatuuri otseteed"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profiilide vahetamine viib praeguse vahekaardi järgmisesse või eelmisesse profiili ja laadib selle uuesti. Vaikimisi on see väljas, et Ctrl/⌘+Shift+nool jätkaks teksti valimist. Määra klahvid Chrome’i otseteede seadetes."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Ava SessionShifti hüpikaken"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Vii vahekaart järgmisesse profiili"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Vii vahekaart eelmisesse profiili"
+  },
+  "shortcutNotSet": {
+    "message": "Määramata"
+  },
+  "shortcutsChangeButton": {
+    "message": "Muuda otseteid"
   }
 }

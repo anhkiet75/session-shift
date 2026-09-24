@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Klávesové zkratky"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Přepínání profilů přesune aktuální kartu do dalšího nebo předchozího profilu a znovu ji načte. Ve výchozím stavu je vypnuto, aby Ctrl/⌘+Shift+šipka dál vybíraly text. Klávesy přiřadíte v nastavení zkratek Chromu."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Otevřít vyskakovací okno SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Přesunout kartu do dalšího profilu"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Přesunout kartu do předchozího profilu"
+  },
+  "shortcutNotSet": {
+    "message": "Nenastaveno"
+  },
+  "shortcutsChangeButton": {
+    "message": "Změnit zkratky"
   }
 }

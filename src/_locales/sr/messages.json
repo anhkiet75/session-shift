@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Тастерске пречице"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Промена профила премешта тренутну картицу у следећи или претходни профил и поново је учитава. Подразумевано је искључена да би Ctrl/⌘+Shift+стрелица и даље бирали текст. Доделите тастере у подешавањима пречица у Chrome-у."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Отвори искачући прозор SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Премести картицу у следећи профил"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Премести картицу у претходни профил"
+  },
+  "shortcutNotSet": {
+    "message": "Није подешено"
+  },
+  "shortcutsChangeButton": {
+    "message": "Промени пречице"
   }
 }

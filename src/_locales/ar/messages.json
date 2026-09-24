@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "اختصارات لوحة المفاتيح"
+  },
+  "shortcutsSectionDesc": {
+    "message": "ينقل التبديل بين الملفات الشخصية علامة التبويب الحالية إلى الملف الشخصي التالي أو السابق ويعيد تحميلها. وهو متوقف افتراضيًا حتى يظل Ctrl/⌘+Shift+السهم يحدد النص. عيّن أي مفاتيح من إعدادات اختصارات Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "فتح نافذة SessionShift المنبثقة"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "نقل التبويب إلى الملف الشخصي التالي"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "نقل التبويب إلى الملف الشخصي السابق"
+  },
+  "shortcutNotSet": {
+    "message": "غير معيّن"
+  },
+  "shortcutsChangeButton": {
+    "message": "تغيير الاختصارات"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Швидкі клавіші"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Перемикання профілю переміщує поточну вкладку в наступний або попередній профіль і перезавантажує її. За замовчуванням його вимкнено, щоб Ctrl/⌘+Shift+стрілка й далі виділяли текст. Призначте будь-які клавіші в налаштуваннях швидких клавіш Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Відкрити спливне вікно SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Перемістити вкладку в наступний профіль"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Перемістити вкладку в попередній профіль"
+  },
+  "shortcutNotSet": {
+    "message": "Не задано"
+  },
+  "shortcutsChangeButton": {
+    "message": "Змінити швидкі клавіші"
   }
 }

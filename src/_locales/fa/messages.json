@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "میان‌برهای صفحه‌کلید"
+  },
+  "shortcutsSectionDesc": {
+    "message": "جابه‌جایی نمایه، برگه فعلی را به نمایه بعدی یا قبلی منتقل می‌کند و دوباره بار می‌کند. به‌طور پیش‌فرض خاموش است تا Ctrl/⌘+Shift+پیکان همچنان متن را انتخاب کند. هر کلیدی را در تنظیمات میان‌بر Chrome اختصاص دهید."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "باز کردن پنجره بازشوی SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "انتقال برگه به نمایه بعدی"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "انتقال برگه به نمایه قبلی"
+  },
+  "shortcutNotSet": {
+    "message": "تنظیم نشده"
+  },
+  "shortcutsChangeButton": {
+    "message": "تغییر میان‌برها"
   }
 }

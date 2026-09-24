@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Клавишни комбинации"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Превключването на профили премества текущия раздел в следващия или предишния профил и го презарежда. По подразбиране е изключено, за да може Ctrl/⌘+Shift+стрелка да продължи да маркира текст. Задайте клавиши в настройките за комбинации на Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Отваряне на изскачащия прозорец на SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Преместване на раздела в следващия профил"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Преместване на раздела в предишния профил"
+  },
+  "shortcutNotSet": {
+    "message": "Не е зададено"
+  },
+  "shortcutsChangeButton": {
+    "message": "Промяна на комбинациите"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Συντομεύσεις πληκτρολογίου"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Η εναλλαγή προφίλ μεταφέρει την τρέχουσα καρτέλα στο επόμενο ή στο προηγούμενο προφίλ και την επαναφορτώνει. Είναι απενεργοποιημένη από προεπιλογή, ώστε το Ctrl/⌘+Shift+Βέλος να συνεχίζει να επιλέγει κείμενο. Ορίστε πλήκτρα στις ρυθμίσεις συντομεύσεων του Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Άνοιγμα αναδυόμενου παραθύρου SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Μεταφορά καρτέλας στο επόμενο προφίλ"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Μεταφορά καρτέλας στο προηγούμενο προφίλ"
+  },
+  "shortcutNotSet": {
+    "message": "Δεν έχει οριστεί"
+  },
+  "shortcutsChangeButton": {
+    "message": "Αλλαγή συντομεύσεων"
   }
 }

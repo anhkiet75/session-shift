@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Comenzi rapide de la tastatură"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Comutarea profilului mută fila curentă în profilul următor sau anterior și o reîncarcă. Este dezactivată implicit, astfel încât Ctrl/⌘+Shift+Săgeată să selecteze în continuare text. Atribuiți orice taste din setările pentru comenzi rapide ale Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Deschide fereastra pop-up SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Mută fila în profilul următor"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Mută fila în profilul anterior"
+  },
+  "shortcutNotSet": {
+    "message": "Nesetată"
+  },
+  "shortcutsChangeButton": {
+    "message": "Schimbă comenzile rapide"
   }
 }

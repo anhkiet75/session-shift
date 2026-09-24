@@ -416,24 +416,12 @@ Before committing, verify:
 ```json
 "commands": {
   "_execute_action": {
-    "suggested_key": {
-      "default": "Ctrl+Shift+S",
-      "mac": "Command+Shift+S"
-    },
     "description": "Open SessionShift popup"
   },
   "session-next": {
-    "suggested_key": {
-      "default": "Ctrl+Shift+Right",
-      "mac": "Command+Shift+Right"
-    },
     "description": "Switch to next session for this tab"
   },
   "session-prev": {
-    "suggested_key": {
-      "default": "Ctrl+Shift+Left",
-      "mac": "Command+Shift+Left"
-    },
     "description": "Switch to previous session for this tab"
   }
 }
@@ -456,7 +444,7 @@ chrome.commands.onCommand.addListener(async (command) => {
 ```
 
 ### User Customization
-Users can customize shortcuts at `chrome://extensions/shortcuts`.
+Users can customize shortcuts at `chrome://extensions/shortcuts`. Do not give a command a `suggested_key` that collides with a common OS/editor chord (for example `Ctrl/Cmd+Shift+Arrow` for text selection). Commands with side effects on the active tab ship unassigned.
 
 ---
 

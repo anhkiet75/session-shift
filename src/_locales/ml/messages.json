@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "കീബോർഡ് കുറുക്കുവഴികൾ"
+  },
+  "shortcutsSectionDesc": {
+    "message": "പ്രൊഫൈൽ മാറ്റം നിലവിലെ ടാബിനെ അടുത്തതോ മുമ്പത്തെയോ പ്രൊഫൈലിലേക്ക് നീക്കി വീണ്ടും ലോഡ് ചെയ്യുന്നു. Ctrl/⌘+Shift+അമ്പ് ടെക്സ്റ്റ് തിരഞ്ഞെടുക്കുന്നത് തുടരാൻ ഇത് ഡിഫോൾട്ടായി ഓഫാണ്. Chrome കുറുക്കുവഴി ക്രമീകരണങ്ങളിൽ ഏത് കീയും നൽകുക."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift പോപ്പ്അപ്പ് തുറക്കുക"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "ടാബ് അടുത്ത പ്രൊഫൈലിലേക്ക് നീക്കുക"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "ടാബ് മുമ്പത്തെ പ്രൊഫൈലിലേക്ക് നീക്കുക"
+  },
+  "shortcutNotSet": {
+    "message": "സജ്ജീകരിച്ചിട്ടില്ല"
+  },
+  "shortcutsChangeButton": {
+    "message": "കുറുക്കുവഴികൾ മാറ്റുക"
   }
 }

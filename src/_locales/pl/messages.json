@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Skróty klawiszowe"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Przełączanie profili przenosi bieżącą kartę do następnego lub poprzedniego profilu i ją odświeża. Domyślnie jest wyłączone, aby Ctrl/⌘+Shift+strzałka nadal zaznaczały tekst. Przypisz dowolne klawisze w ustawieniach skrótów Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Otwórz okienko SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Przenieś kartę do następnego profilu"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Przenieś kartę do poprzedniego profilu"
+  },
+  "shortcutNotSet": {
+    "message": "Nie ustawiono"
+  },
+  "shortcutsChangeButton": {
+    "message": "Zmień skróty"
   }
 }

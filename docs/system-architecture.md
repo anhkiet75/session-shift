@@ -252,24 +252,12 @@ v0.4.0 adds three keyboard shortcuts via `manifest.json` `commands` block:
 ```json
 "commands": {
   "_execute_action": {
-    "suggested_key": {
-      "default": "Ctrl+Shift+S",
-      "mac": "Command+Shift+S"
-    },
     "description": "Open SessionShift popup"
   },
   "session-next": {
-    "suggested_key": {
-      "default": "Ctrl+Shift+Right",
-      "mac": "Command+Shift+Right"
-    },
     "description": "Switch to next session for this tab"
   },
   "session-prev": {
-    "suggested_key": {
-      "default": "Ctrl+Shift+Left",
-      "mac": "Command+Shift+Left"
-    },
     "description": "Switch to previous session for this tab"
   }
 }
@@ -306,7 +294,14 @@ chrome.commands.onCommand.addListener(async (command) => {
 
 ### User Customization
 
-Users can customize shortcuts at `chrome://extensions/shortcuts`.
+No command ships a `suggested_key` (since 0.1.2). A default
+`Ctrl/Cmd+Shift+Left/Right` binding hijacked OS text selection and silently
+moved the active tab to another profile. `_execute_action` dropped
+`Ctrl/Cmd+Shift+S` too, because it shadowed Save As in many apps. Chrome drops the old default
+binding for existing installs on update (verified 0.1.1 → 0.1.2, same extension
+ID). Users assign keys at `chrome://extensions/shortcuts`; Options → Settings →
+Keyboard shortcuts shows the live bindings (`chrome.commands.getAll()`) and
+opens that page via `chrome.tabs.create` (extensions have no API to set a binding).
 
 ---
 

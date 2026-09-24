@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Tipkovnički prečaci"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Promjena profila premješta trenutačnu karticu u sljedeći ili prethodni profil i ponovno je učitava. Prema zadanim postavkama je isključena kako bi Ctrl/⌘+Shift+strelica i dalje označavala tekst. Dodijelite tipke u Chromeovim postavkama prečaca."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Otvori skočni prozor SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Premjesti karticu u sljedeći profil"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Premjesti karticu u prethodni profil"
+  },
+  "shortcutNotSet": {
+    "message": "Nije postavljeno"
+  },
+  "shortcutsChangeButton": {
+    "message": "Promijeni prečace"
   }
 }

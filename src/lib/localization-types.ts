@@ -173,7 +173,14 @@ export type MessageKey =
   | 'favoritesEmptySub'
   | 'favoriteInvalidUrl'
   | 'favoritesReorderedAnnouncement'
-  | 'favoriteRemovedAnnouncement';
+  | 'favoriteRemovedAnnouncement'
+  | 'shortcutsSectionTitle'
+  | 'shortcutsSectionDesc'
+  | 'shortcutOpenPopupLabel'
+  | 'shortcutNextProfileLabel'
+  | 'shortcutPrevProfileLabel'
+  | 'shortcutNotSet'
+  | 'shortcutsChangeButton';
 
 /** Keys only ever read from `manifest.json` via `__MSG_key__` tokens. */
 export const MANIFEST_ONLY_KEYS: readonly MessageKey[] = [

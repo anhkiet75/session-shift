@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "కీబోర్డ్ షార్ట్‌కట్‌లు"
+  },
+  "shortcutsSectionDesc": {
+    "message": "ప్రొఫైల్ మార్పు ప్రస్తుత ట్యాబ్‌ను తదుపరి లేదా మునుపటి ప్రొఫైల్‌కు తరలించి మళ్లీ లోడ్ చేస్తుంది. Ctrl/⌘+Shift+బాణం టెక్స్ట్‌ను ఎంచుకోవడం కొనసాగించేలా ఇది డిఫాల్ట్‌గా ఆఫ్‌లో ఉంటుంది. Chrome షార్ట్‌కట్ సెట్టింగ్‌లలో ఏవైనా కీలను కేటాయించండి."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift పాప్‌అప్‌ను తెరవండి"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "ట్యాబ్‌ను తదుపరి ప్రొఫైల్‌కు తరలించండి"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "ట్యాబ్‌ను మునుపటి ప్రొఫైల్‌కు తరలించండి"
+  },
+  "shortcutNotSet": {
+    "message": "సెట్ చేయలేదు"
+  },
+  "shortcutsChangeButton": {
+    "message": "షార్ట్‌కట్‌లను మార్చండి"
   }
 }

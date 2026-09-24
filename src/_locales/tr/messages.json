@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Klavye kısayolları"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profil değiştirme, geçerli sekmeyi sonraki veya önceki profile taşır ve yeniden yükler. Ctrl/⌘+Shift+Ok metin seçmeye devam etsin diye varsayılan olarak kapalıdır. Chrome kısayol ayarlarından istediğiniz tuşları atayın."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift açılır penceresini aç"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Sekmeyi sonraki profile taşı"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Sekmeyi önceki profile taşı"
+  },
+  "shortcutNotSet": {
+    "message": "Ayarlanmadı"
+  },
+  "shortcutsChangeButton": {
+    "message": "Kısayolları değiştir"
   }
 }

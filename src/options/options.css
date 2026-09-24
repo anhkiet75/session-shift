@@ -586,6 +586,49 @@ body {
   outline-offset: 2px;
 }
 
+/* ── KEYBOARD SHORTCUTS ─────────────────────────────────── */
+.opt-shortcut-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.opt-shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.opt-shortcut-key {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.opt-shortcut-key-unset {
+  color: var(--text-muted);
+  font-family: var(--sans);
+  border-style: dashed;
+}
+
+/* A <button> reusing the ghost-link look: drop the stretch-to-fill so it
+   sits at its natural width under the list. */
+.opt-shortcut-change {
+  flex: none;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
 /* ── REDUCED MOTION ─────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .opt-panel { animation: none; }

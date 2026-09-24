@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Raccourcis clavier"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Le changement de profil déplace l’onglet actuel vers le profil suivant ou précédent et le recharge. Il est désactivé par défaut pour que Ctrl/⌘+Maj+Flèche continue de sélectionner du texte. Attribuez des touches dans les paramètres de raccourcis de Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Ouvrir la fenêtre SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Déplacer l’onglet vers le profil suivant"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Déplacer l’onglet vers le profil précédent"
+  },
+  "shortcutNotSet": {
+    "message": "Non défini"
+  },
+  "shortcutsChangeButton": {
+    "message": "Modifier les raccourcis"
   }
 }

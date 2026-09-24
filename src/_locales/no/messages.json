@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Hurtigtaster"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profilbytte flytter gjeldende fane til neste eller forrige profil og laster den inn på nytt. Det er av som standard, slik at Ctrl/⌘+Shift+pil fortsatt merker tekst. Tildel taster i Chromes innstillinger for hurtigtaster."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Åpne SessionShift-forgrunnsvinduet"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Flytt fanen til neste profil"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Flytt fanen til forrige profil"
+  },
+  "shortcutNotSet": {
+    "message": "Ikke angitt"
+  },
+  "shortcutsChangeButton": {
+    "message": "Endre hurtigtaster"
   }
 }

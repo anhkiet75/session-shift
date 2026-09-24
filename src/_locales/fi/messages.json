@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Pikanäppäimet"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profiilin vaihto siirtää nykyisen välilehden seuraavaan tai edelliseen profiiliin ja lataa sen uudelleen. Se on oletuksena pois päältä, jotta Ctrl/⌘+Vaihto+nuoli valitsee edelleen tekstiä. Määritä näppäimet Chromen pikanäppäinasetuksissa."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Avaa SessionShiftin ponnahdusikkuna"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Siirrä välilehti seuraavaan profiiliin"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Siirrä välilehti edelliseen profiiliin"
+  },
+  "shortcutNotSet": {
+    "message": "Ei asetettu"
+  },
+  "shortcutsChangeButton": {
+    "message": "Muuta pikanäppäimiä"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Pintasan papan kekunci"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Tukar profil mengalihkan tab semasa ke profil seterusnya atau sebelumnya dan memuatkannya semula. Ia dimatikan secara lalai supaya Ctrl/⌘+Shift+Anak Panah terus memilih teks. Tetapkan sebarang kekunci dalam tetapan pintasan Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Buka tetingkap timbul SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Alihkan tab ke profil seterusnya"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Alihkan tab ke profil sebelumnya"
+  },
+  "shortcutNotSet": {
+    "message": "Tidak ditetapkan"
+  },
+  "shortcutsChangeButton": {
+    "message": "Tukar pintasan"
   }
 }

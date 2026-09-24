@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "键盘快捷键"
+  },
+  "shortcutsSectionDesc": {
+    "message": "切换配置文件会将当前标签页移到下一个或上一个配置文件并重新加载。该功能默认关闭，以便 Ctrl/⌘+Shift+方向键继续用于选择文本。可在 Chrome 快捷键设置中分配任意按键。"
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "打开 SessionShift 弹出窗口"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "将标签页切换到下一个配置文件"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "将标签页切换到上一个配置文件"
+  },
+  "shortcutNotSet": {
+    "message": "未设置"
+  },
+  "shortcutsChangeButton": {
+    "message": "更改快捷键"
   }
 }

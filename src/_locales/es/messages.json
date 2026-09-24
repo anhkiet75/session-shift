@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Atajos de teclado"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Cambiar de perfil mueve la pestaña actual al perfil siguiente o anterior y la recarga. Está desactivado de forma predeterminada para que Ctrl/⌘+Mayús+Flecha siga seleccionando texto. Asigna cualquier tecla en los ajustes de atajos de Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Abrir la ventana emergente de SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Mover la pestaña al perfil siguiente"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Mover la pestaña al perfil anterior"
+  },
+  "shortcutNotSet": {
+    "message": "Sin asignar"
+  },
+  "shortcutsChangeButton": {
+    "message": "Cambiar atajos"
   }
 }

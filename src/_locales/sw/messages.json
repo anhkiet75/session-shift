@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Njia za mkato za kibodi"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Kubadilisha wasifu huhamisha kichupo cha sasa hadi wasifu unaofuata au uliotangulia na kukipakia upya. Kimezimwa kwa chaguomsingi ili Ctrl/⌘+Shift+Mshale iendelee kuchagua maandishi. Weka vitufe vyovyote kwenye mipangilio ya njia za mkato ya Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Fungua dirisha ibukizi la SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Hamisha kichupo hadi wasifu unaofuata"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Hamisha kichupo hadi wasifu uliotangulia"
+  },
+  "shortcutNotSet": {
+    "message": "Haijawekwa"
+  },
+  "shortcutsChangeButton": {
+    "message": "Badilisha njia za mkato"
   }
 }

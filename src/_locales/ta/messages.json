@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "விசைப்பலகை குறுக்குவழிகள்"
+  },
+  "shortcutsSectionDesc": {
+    "message": "சுயவிவர மாற்றம் தற்போதைய தாவலை அடுத்த அல்லது முந்தைய சுயவிவரத்துக்கு நகர்த்தி மீண்டும் ஏற்றும். Ctrl/⌘+Shift+அம்புக்குறி உரையைத் தேர்ந்தெடுப்பதைத் தொடர இது இயல்பாக முடக்கப்பட்டுள்ளது. Chrome குறுக்குவழி அமைப்புகளில் எந்த விசைகளையும் ஒதுக்குங்கள்."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift பாப்அப்பைத் திற"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "தாவலை அடுத்த சுயவிவரத்துக்கு நகர்த்து"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "தாவலை முந்தைய சுயவிவரத்துக்கு நகர்த்து"
+  },
+  "shortcutNotSet": {
+    "message": "அமைக்கப்படவில்லை"
+  },
+  "shortcutsChangeButton": {
+    "message": "குறுக்குவழிகளை மாற்று"
   }
 }

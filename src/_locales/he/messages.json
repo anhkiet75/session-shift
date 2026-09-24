@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "קיצורי מקלדת"
+  },
+  "shortcutsSectionDesc": {
+    "message": "מעבר בין פרופילים מעביר את הכרטיסייה הנוכחית לפרופיל הבא או הקודם וטוען אותה מחדש. הוא כבוי כברירת מחדל כדי ש-Ctrl/⌘+Shift+חץ ימשיך לבחור טקסט. אפשר להקצות מקשים בהגדרות הקיצורים של Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "פתיחת החלון הקופץ של SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "העברת הכרטיסייה לפרופיל הבא"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "העברת הכרטיסייה לפרופיל הקודם"
+  },
+  "shortcutNotSet": {
+    "message": "לא הוגדר"
+  },
+  "shortcutsChangeButton": {
+    "message": "שינוי קיצורים"
   }
 }

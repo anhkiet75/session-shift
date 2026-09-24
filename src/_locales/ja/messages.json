@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "キーボード ショートカット"
+  },
+  "shortcutsSectionDesc": {
+    "message": "プロファイルの切り替えは、現在のタブを次または前のプロファイルに移動して再読み込みします。Ctrl/⌘+Shift+矢印キーでのテキスト選択を妨げないよう、既定ではオフです。Chrome のショートカット設定で任意のキーを割り当ててください。"
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift のポップアップを開く"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "タブを次のプロファイルに移動"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "タブを前のプロファイルに移動"
+  },
+  "shortcutNotSet": {
+    "message": "未設定"
+  },
+  "shortcutsChangeButton": {
+    "message": "ショートカットを変更"
   }
 }

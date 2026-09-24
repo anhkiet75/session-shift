@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು"
+  },
+  "shortcutsSectionDesc": {
+    "message": "ಪ್ರೊಫೈಲ್ ಬದಲಾವಣೆಯು ಪ್ರಸ್ತುತ ಟ್ಯಾಬ್ ಅನ್ನು ಮುಂದಿನ ಅಥವಾ ಹಿಂದಿನ ಪ್ರೊಫೈಲ್‌ಗೆ ಸರಿಸಿ ಮರುಲೋಡ್ ಮಾಡುತ್ತದೆ. Ctrl/⌘+Shift+ಬಾಣ ಪಠ್ಯ ಆಯ್ಕೆ ಮಾಡುವುದನ್ನು ಮುಂದುವರಿಸಲು ಇದು ಡೀಫಾಲ್ಟ್ ಆಗಿ ಆಫ್ ಆಗಿದೆ. Chrome ಶಾರ್ಟ್‌ಕಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಯಾವುದೇ ಕೀಗಳನ್ನು ನಿಯೋಜಿಸಿ."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "SessionShift ಪಾಪ್‌ಅಪ್ ತೆರೆಯಿರಿ"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "ಟ್ಯಾಬ್ ಅನ್ನು ಮುಂದಿನ ಪ್ರೊಫೈಲ್‌ಗೆ ಸರಿಸಿ"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "ಟ್ಯಾಬ್ ಅನ್ನು ಹಿಂದಿನ ಪ್ರೊಫೈಲ್‌ಗೆ ಸರಿಸಿ"
+  },
+  "shortcutNotSet": {
+    "message": "ಹೊಂದಿಸಿಲ್ಲ"
+  },
+  "shortcutsChangeButton": {
+    "message": "ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ಬದಲಿಸಿ"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Atalhos de teclado"
+  },
+  "shortcutsSectionDesc": {
+    "message": "A troca de perfil move a aba atual para o próximo perfil ou o anterior e a recarrega. Ela fica desativada por padrão para que Ctrl/⌘+Shift+Seta continue selecionando texto. Atribua quaisquer teclas nas configurações de atalhos do Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Abrir o pop-up do SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Mover a aba para o próximo perfil"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Mover a aba para o perfil anterior"
+  },
+  "shortcutNotSet": {
+    "message": "Não definido"
+  },
+  "shortcutsChangeButton": {
+    "message": "Alterar atalhos"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Bližnjice na tipkovnici"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Preklapljanje profilov premakne trenutni zavihek v naslednji ali prejšnji profil in ga znova naloži. Privzeto je izklopljeno, da Ctrl/⌘+Shift+puščica še naprej izbira besedilo. Tipke dodelite v Chromovih nastavitvah bližnjic."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Odpri pojavno okno SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Premakni zavihek v naslednji profil"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Premakni zavihek v prejšnji profil"
+  },
+  "shortcutNotSet": {
+    "message": "Ni nastavljeno"
+  },
+  "shortcutsChangeButton": {
+    "message": "Spremeni bližnjice"
   }
 }

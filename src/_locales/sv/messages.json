@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Kortkommandon"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profilbyte flyttar den aktuella fliken till nästa eller föregående profil och läser in den igen. Det är avstängt som standard så att Ctrl/⌘+Skift+pil fortsätter att markera text. Tilldela tangenter i Chromes inställningar för kortkommandon."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Öppna SessionShift-popupen"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Flytta fliken till nästa profil"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Flytta fliken till föregående profil"
+  },
+  "shortcutNotSet": {
+    "message": "Inte angivet"
+  },
+  "shortcutsChangeButton": {
+    "message": "Ändra kortkommandon"
   }
 }

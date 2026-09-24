@@ -32,6 +32,16 @@ describe('manifest permissions', () => {
     expect(manifest.commands['session-prev'].description).toBe('__MSG_commandSessionPrevDescription__')
   })
 
+  // Default chords collide with editor/OS shortcuts: Ctrl/Cmd+Shift+Left/Right
+  // is text selection (and silently moved the active tab between profiles),
+  // Ctrl/Cmd+Shift+S is Save As. Every command ships unbound; users opt in at
+  // chrome://extensions/shortcuts.
+  it('ships every command unbound', () => {
+    for (const [name, command] of Object.entries(manifest.commands)) {
+      expect(command.suggested_key, name).toBeUndefined()
+    }
+  })
+
   it('every __MSG_ token in the manifest resolves in the English catalog', () => {
     const english = JSON.parse(
       readFileSync(resolve(process.cwd(), 'src/_locales/en/messages.json'), 'utf8'),

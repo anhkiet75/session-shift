@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Phím tắt"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Chuyển hồ sơ sẽ đưa tab hiện tại sang hồ sơ kế tiếp hoặc trước đó rồi tải lại. Tính năng này tắt theo mặc định để Ctrl/⌘+Shift+Mũi tên vẫn chọn được văn bản. Gán phím bất kỳ trong cài đặt phím tắt của Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Mở cửa sổ SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Chuyển tab sang hồ sơ kế tiếp"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Chuyển tab sang hồ sơ trước đó"
+  },
+  "shortcutNotSet": {
+    "message": "Chưa đặt"
+  },
+  "shortcutsChangeButton": {
+    "message": "Đổi phím tắt"
   }
 }

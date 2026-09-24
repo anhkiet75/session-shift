@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Pintasan keyboard"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Ganti profil memindahkan tab saat ini ke profil berikutnya atau sebelumnya lalu memuat ulang. Fitur ini nonaktif secara default agar Ctrl/⌘+Shift+Panah tetap memilih teks. Tetapkan tombol apa pun di setelan pintasan Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Buka popup SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Pindahkan tab ke profil berikutnya"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Pindahkan tab ke profil sebelumnya"
+  },
+  "shortcutNotSet": {
+    "message": "Belum diatur"
+  },
+  "shortcutsChangeButton": {
+    "message": "Ubah pintasan"
   }
 }

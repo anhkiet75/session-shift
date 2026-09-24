@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Spartieji klavišai"
+  },
+  "shortcutsSectionDesc": {
+    "message": "Profilio perjungimas perkelia dabartinį skirtuką į kitą arba ankstesnį profilį ir jį įkelia iš naujo. Pagal numatytuosius nustatymus jis išjungtas, kad Ctrl/⌘+Shift+rodyklė ir toliau žymėtų tekstą. Klavišus priskirkite „Chrome“ sparčiųjų klavišų nustatymuose."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Atidaryti „SessionShift“ iššokantįjį langą"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Perkelti skirtuką į kitą profilį"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Perkelti skirtuką į ankstesnį profilį"
+  },
+  "shortcutNotSet": {
+    "message": "Nenustatyta"
+  },
+  "shortcutsChangeButton": {
+    "message": "Keisti sparčiuosius klavišus"
   }
 }

@@ -370,5 +370,26 @@
         "example": "Work inbox"
       }
     }
+  },
+  "shortcutsSectionTitle": {
+    "message": "Dreceres de teclat"
+  },
+  "shortcutsSectionDesc": {
+    "message": "El canvi de perfil mou la pestanya actual al perfil següent o anterior i la torna a carregar. Està desactivat per defecte perquè Ctrl/⌘+Maj+Fletxa continuï seleccionant text. Assigna qualsevol tecla a la configuració de dreceres de Chrome."
+  },
+  "shortcutOpenPopupLabel": {
+    "message": "Obre la finestra emergent de SessionShift"
+  },
+  "shortcutNextProfileLabel": {
+    "message": "Mou la pestanya al perfil següent"
+  },
+  "shortcutPrevProfileLabel": {
+    "message": "Mou la pestanya al perfil anterior"
+  },
+  "shortcutNotSet": {
+    "message": "No definida"
+  },
+  "shortcutsChangeButton": {
+    "message": "Canvia les dreceres"
   }
 }

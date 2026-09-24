@@ -138,10 +138,12 @@ do not exist — see `docs/BACKLOG.md` items #3 and #7. Settings are read/writte
 directly through `lib/settings-store.ts`, not via messages.)*
 
 **Keyboard Commands (v0.4.0+):**
-- `_execute_action` (Ctrl+Shift+S / Command+Shift+S) — Open popup (handled by Chrome)
-- `session-next` (Ctrl+Shift+Right / Command+Shift+Right) — Switch to next session on active tab
-- `session-prev` (Ctrl+Shift+Left / Command+Shift+Left) — Switch to previous session on active tab
-- Via `chrome.commands.onCommand` listener in message-handler.ts
+- `_execute_action` (unassigned by default) — Open popup (handled by Chrome)
+- `session-next` (unassigned by default) — Move active tab to next profile and reload
+- `session-prev` (unassigned by default) — Move active tab to previous profile and reload
+- Via `chrome.commands.onCommand` listener in `background/index.ts`
+- No command has a `suggested_key`: `Ctrl/Cmd+Shift+Left/Right` is the OS text-selection chord and `Ctrl/Cmd+Shift+S` is Save As in many apps (guarded by `tests/manifest-permissions.test.js`)
+- Options → Settings → Keyboard shortcuts (`options/options-shortcuts.ts`) shows live bindings via `chrome.commands.getAll()` and opens `chrome://extensions/shortcuts`
 
 ### content.js (ISOLATED World)
 **Responsibilities:**
