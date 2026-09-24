@@ -5,14 +5,37 @@ All significant changes to the SessionShift Chrome extension are documented here
 > **Version numbering.** The `vX.Y.Z` headings below are *development
 > milestones*, not shipped releases. The only version Chrome ships is
 > `src/manifest.json`, which has gone `0.0.4 → 0.0.6 → 0.0.7 → 0.0.8 → 0.0.9 →
-> 0.1.0 → **0.1.1** (current)`. No 0.2.x–0.6.x has ever been released, and the
+> 0.1.0 → 0.1.1 → **0.1.2** (current)`. No 0.2.x–0.6.x has ever been released, and the
 > repository has no git tags. Milestone headings are kept because the work they
 > describe is real and the dates are useful; read them as "milestone N", not as
 > a published version. Feature claims below have been reconciled against `src/`.
 
 ---
 
-## Current release: 0.1.1 (manifest)
+## Current release: 0.1.2 (manifest)
+
+**Shipped in 0.1.2:** All keyboard shortcuts are unassigned by default.
+- `session-next` / `session-prev` no longer ship `Ctrl+Shift+Right/Left`
+  (`Command+Shift+Right/Left` on mac). That chord is the OS text-selection
+  shortcut; Chrome gave it to the extension, so selecting text by word/line
+  broke on every page and each press moved the active tab to another profile
+  and reloaded it.
+- Existing installs: Chrome drops the old default binding on update (verified
+  0.1.1 → 0.1.2 with the same extension ID). A chord the user assigned
+  themselves is theirs to keep or clear.
+- The open-popup shortcut (`Ctrl+Shift+S` / `Command+Shift+S`) is also
+  unassigned by default; it shadowed Save As in many apps. The toolbar icon
+  still opens the popup.
+- New Options → Settings → **Keyboard shortcuts** group lists each command's
+  current binding ("Not set" when empty) and a **Change shortcuts** button
+  that opens `chrome://extensions/shortcuts`, where cycling can be re-enabled on
+  any keys.
+
+Implementation: `manifest.json` (dropped every `suggested_key`),
+`options/options-shortcuts.ts`, `options/options.html`, `options/options.css`.
+7 new message keys across all 55 locales. No new permissions.
+
+## Previous release: 0.1.1
 
 **Shipped in 0.1.1:** Popup inline-edit polish.
 - Favorites list rows use the profile card look (padding, border, hover).
@@ -30,7 +53,7 @@ Implementation: `popup/popup-render-favorites-list.ts`,
 `popup/popup-rename-handler.ts`, `popup/popup-render-profile-list.ts`,
 `popup/popup.css`. No new permissions or message keys.
 
-## Previous release: 0.1.0
+## Release: 0.1.0
 
 **Shipped in 0.1.0:** Favorites — saved `(url, profile)` launchers. Saved from
 the popup hero star, launched from the popup favorites list into that profile's
