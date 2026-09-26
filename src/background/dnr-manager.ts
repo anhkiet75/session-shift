@@ -6,10 +6,15 @@ import { tabSessions } from './session-manager.js';
 import { withCookieLock } from '../lib/cookie-write-lock.js';
 import { buildDnrRulesForCookieStore } from './dnr-cookie-rule-builder.js';
 import { getEtld1 } from '../lib/public-suffix.js';
+import { AUTH_BRIDGE_HEADER } from '../lib/auth-transition-bridge.js';
 import {
-  AUTH_BRIDGE_DNR_SETTLE_MS,
-  AUTH_BRIDGE_HEADER,
-} from '../lib/auth-transition-bridge.js';
+  beginCookieCapture,
+  endCookieCapture,
+  forgetRequestChain,
+  isStaleHopResponse,
+  noteRequestHop,
+  whenCapturesSettled,
+} from './redirect-hop-stale-cookie-guard.js';
 
 const MAX_DNR_RULES_PER_TAB = 100;
 const DNR_RULE_ID_STRIDE = 1_000_000;
@@ -100,6 +105,21 @@ export async function updateDNRRulesForTab(tabId: number, sessionId: string): Pr
   await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: ruleIds, addRules });
 }
 
+// Rules are per tab, but a profile's cookie store is shared by every tab using
+// it. After a store change, republish the rules of all those tabs — otherwise a
+// sibling tab keeps sending the cookies from before, e.g. a session id the
+// server destroyed at login, and the guest cookie it gets back logs the whole
+// profile out. Only the tab that caused the change is awaited: its redirect
+// chain and auth bridge depend on it, and sibling rebuilds must not lengthen
+// that critical path.
+export async function updateDNRRulesForProfileTabs(sessionId: string, originTabId: number): Promise<void> {
+  for (const [tabId, tabSessionId] of Object.entries(tabSessions)) {
+    if (tabSessionId !== sessionId || Number(tabId) === originTabId) continue;
+    void updateDNRRulesForTab(Number(tabId), sessionId).catch(() => {});
+  }
+  await updateDNRRulesForTab(originTabId, sessionId);
+}
+
 // Force the next navigation in this tab to that exact host to go out with no
 // Cookie header, overriding the normal navigation exemption. Used when a tab is
 // newly assigned to a profile whose cookie store has no entries yet for that
@@ -137,6 +157,27 @@ export async function handleHeadersReceived(
   );
   if (setCookieHeaders.length === 0) return;
 
+  // A redirect hop that left before the previous hop's capture finished carried
+  // stale cookies, so the server answered the wrong session; capturing its
+  // cookies would overwrite the fresh ones.
+  if (isStaleHopResponse(details.requestId, requestUrl)) return;
+
+  // Registered before the first await so the next hop of this chain, dispatched
+  // while the capture is in flight, is recognised as stale.
+  beginCookieCapture(details.requestId);
+  try {
+    await captureAndPublish(details, sessionId, setCookieHeaders);
+  } finally {
+    endCookieCapture(details.requestId);
+  }
+}
+
+async function captureAndPublish(
+  details: chrome.webRequest.OnHeadersReceivedDetails,
+  sessionId: string,
+  setCookieHeaders: chrome.webRequest.HttpHeader[],
+): Promise<void> {
+  const { tabId, url: requestUrl } = details;
   await withCookieLock(sessionId, async () => {
     const store = await getCookieStore(sessionId);
     if (tabSessions[tabId] !== sessionId) return;
@@ -173,8 +214,7 @@ export async function handleHeadersReceived(
   if (tabSessions[tabId] !== sessionId) return;
   const pendingBridge = authBridgeRequests.get(details.requestId);
   if (pendingBridge) bridgeNavigationStrips.set(tabId, pendingBridge.url);
-  await updateDNRRulesForTab(tabId, sessionId);
-  if (pendingBridge) await resolveAuthBridgeRequest(details.requestId);
+  await updateDNRRulesForProfileTabs(sessionId, tabId);
   // Note: we intentionally do NOT remove cookies from the global jar.
   // The DNR session rule overwrites the Cookie header for isolated tabs, making
   // the global jar irrelevant for them. Removing global cookies would log out
@@ -188,6 +228,8 @@ export function handleBeforeSendHeaders(
   if (tabId < 0) return;
   const sessionId = tabSessions[tabId];
   if (!sessionId || sessionId === 'default') return;
+
+  noteRequestHop(requestId, details.url);
 
   const bridgeHeader = requestHeaders?.find(
     (header) => header.name.toLowerCase() === AUTH_BRIDGE_HEADER.toLowerCase()
@@ -207,8 +249,12 @@ export async function handleRequestCompleted(
   | chrome.webRequest.OnCompletedDetails
   | chrome.webRequest.OnErrorOccurredDetails
 ): Promise<void> {
+  forgetRequestChain(details.requestId);
   if (authBridgeRequests.has(details.requestId)) {
-    await new Promise((resolve) => setTimeout(resolve, AUTH_BRIDGE_DNR_SETTLE_MS));
+    // Release the page only once the whole chain is over and every Set-Cookie
+    // it carried (any redirect hop included) is in the store, so the page's
+    // document.cookie refresh that precedes the release sees them.
+    await whenCapturesSettled(details.requestId);
     await resolveAuthBridgeRequest(details.requestId);
   }
   if (

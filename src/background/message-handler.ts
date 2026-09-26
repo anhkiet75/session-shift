@@ -3,13 +3,14 @@
 import { getCookieStore, setCookieStore, getProfiles, isInternalSession, duplicateSession, updateSessionHue } from '../lib/session-store.js';
 import { removeFavoritesForSession } from '../lib/favorites-store.js';
 import { withCookieLock } from '../lib/cookie-write-lock.js';
-import { serializeCookieHeader, parseCookieString, parseDocumentCookie, cookieKey, cookieMatchesRequest, defaultCookiePath, normalizeCookiePath, isValidCookieName, isValidCookieValue } from '../lib/cookie-parser.js';
+import { parseCookieString, parseDocumentCookie, cookieKey, cookieMatchesRequest, defaultCookiePath, normalizeCookiePath, isValidCookieName, isValidCookieValue } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { updateDNRRulesForTab, stripCookiesOnNextNavigation } from './dnr-manager.js';
+import { updateDNRRulesForTab, updateDNRRulesForProfileTabs, stripCookiesOnNextNavigation } from './dnr-manager.js';
 import { forceFreshLoadOnce } from './tab-fresh-load.js';
 import { getLanguagePreference, createLocalizer } from '../lib/localization.js';
 import { syncTabToGroup, syncProfileGroupAppearance } from './tab-group-sync.js';
+import { documentCookieUrl, serializeDocumentCookie } from './document-cookie-sync.js';
 
 export async function handleMessage(
   request: BackgroundMessage,
@@ -60,7 +61,7 @@ export async function handleMessage(
       const sessionId = tabSessions[tabId] || 'default';
       if (isInternalSession(sessionId)) return { sessionId: 'default', cookieStr: '' };
       const store = await getCookieStore(sessionId);
-      const cookieStr = serializeCookieHeader(store, { excludeHttpOnly: true });
+      const cookieStr = serializeDocumentCookie(store, documentCookieUrl(sender));
       return { sessionId, cookieStr };
     }
 
@@ -164,7 +165,7 @@ export async function handleMessage(
 
         await setCookieStore(sessionId, existing);
       });
-      await updateDNRRulesForTab(tabId, sessionId);
+      await updateDNRRulesForProfileTabs(sessionId, tabId);
       return { success: true };
     }
 

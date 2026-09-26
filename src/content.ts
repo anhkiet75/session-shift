@@ -45,6 +45,30 @@
 
   ensureIsolationBootstrap(activeSessionId, activeCookieStr);
 
+  // Pulls this frame's scoped cookie snapshot and hands it to the page proxy,
+  // which replaces its document.cookie map. Covers cookies set by XHR/fetch
+  // responses and by other tabs or frames of the same profile.
+  async function syncDocumentCookies(): Promise<void> {
+    if (!isolationBootstrapped || !activeNonce) return;
+    const targetOrigin = window.location.origin;
+    if (targetOrigin === 'null') return;
+    try {
+      const response = await chrome.runtime.sendMessage({ action: 'getSessionForBootstrap' }) as
+        { sessionId?: string; cookieStr?: string } | null;
+      // A profile switch is handled by sessionBootstrapChanged, not here.
+      if (!response || response.sessionId !== activeSessionId) return;
+      activeCookieStr = response.cookieStr || '';
+      window.postMessage({
+        source: 'ext-content',
+        nonce: activeNonce,
+        action: 'syncCookies',
+        cookieStr: activeCookieStr
+      }, targetOrigin);
+    } catch (error) {
+      console.debug('Failed to sync document cookies:', (error as Error).message);
+    }
+  }
+
   // Listen for page-api-proxy.js requesting the cookie bootstrap.
   // It sends a requestCookies message; we reply with the actual cookie string.
   // This fires before any page JS runs because both scripts run at document_start.
@@ -111,12 +135,22 @@
     ) {
       const targetOrigin = window.location.origin;
       if (targetOrigin === 'null') return;
-      window.postMessage({
-        source: 'ext-content',
-        nonce: activeNonce,
-        action: 'bridgeCookieSyncDone',
-        bridgeId: message.bridgeId
-      }, targetOrigin);
+      // Refresh document.cookie first: the page resumes its fetch/XHR on the
+      // release message and immediately reads cookies the response just set
+      // (axios copies XSRF-TOKEN into X-XSRF-TOKEN). postMessage keeps order.
+      void syncDocumentCookies().finally(() => {
+        window.postMessage({
+          source: 'ext-content',
+          nonce: activeNonce,
+          action: 'bridgeCookieSyncDone',
+          bridgeId: message.bridgeId
+        }, targetOrigin);
+      });
+      return;
+    }
+
+    if (message.action === 'cookiesChanged') {
+      void syncDocumentCookies();
       return;
     }
 

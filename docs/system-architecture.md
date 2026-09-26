@@ -228,11 +228,24 @@ This fixes multi-subdomain login flows such as `www.google.com` → `accounts.go
 
 Strict response-side `Set-Cookie` stripping on same-site subresources removes the shared-jar fallback that auth flows like `await fetch('/login'); location.href = '/dashboard'` used to rely on. The bridge (`src/lib/auth-transition-bridge.ts`) closes that gap without reopening the jar:
 
-1. `src/page-api-proxy.ts` wraps `window.fetch` in the MAIN world. Eligible requests (same-origin, `http`/`https`) get a unique `X-SessionShift-Bridge` header and the wrapped fetch does not resolve until a completion signal arrives or `AUTH_BRIDGE_TIMEOUT_MS` (2s) elapses — fail-open by design.
-2. `src/background/dnr-manager.ts` maps the bridge header to the originating `requestId`/`tabId`/`frameId` on `onBeforeSendHeaders`. On `onHeadersReceived`, it captures any `Set-Cookie`, calls `updateDNRRulesForTab()`, then sends `bridgeCookieSyncDone` to the tab so the page only resumes after isolated cookies are live in DNR. If no `Set-Cookie` arrives, `onCompleted`/`onErrorOccurred` resolve the bridge after a short settle delay (`AUTH_BRIDGE_DNR_SETTLE_MS`) instead of leaving it pending.
-3. `src/content.ts` relays `bridgeCookieSyncDone` from the service worker into the page's nonce-authenticated message channel.
+1. `src/page-api-proxy.ts` wraps `window.fetch` and `XMLHttpRequest` in the MAIN world. Eligible requests (same-origin, `http`/`https`, and async for XHR) get a unique `X-SessionShift-Bridge` header. The wrapped fetch does not resolve, and an XHR's `readystatechange` (DONE), `load` and `loadend` events are held and then re-dispatched in order, until a completion signal arrives or `AUTH_BRIDGE_TIMEOUT_MS` (2s) elapses. The design fails open. XHR matters because axios (Laravel, Inertia, Sanctum) reads `XSRF-TOKEN` from `document.cookie` as soon as the previous request settles.
+2. `src/background/dnr-manager.ts` maps the bridge header to the originating `requestId`/`tabId`/`frameId` on `onBeforeSendHeaders`. On `onCompleted`/`onErrorOccurred` it waits until every `Set-Cookie` capture of that request chain is published, redirect hops included (`whenCapturesSettled`). Only then does it send `bridgeCookieSyncDone`.
+3. `src/content.ts` first pulls the frame's fresh `document.cookie` snapshot and posts `syncCookies`, then relays `bridgeCookieSyncDone`. `postMessage` preserves order, so the page resumes with the response's cookies already visible.
 
-This is fetch-only; XHR is an explicit follow-up rather than bridged today. The page-side constants are duplicated in `page-api-proxy.ts` (rather than imported) because that file is injected as a standalone MAIN-world script with no module imports.
+The page-side constants are duplicated in `page-api-proxy.ts` (rather than imported), because that file is injected as a standalone MAIN-world script with no module imports.
+
+### Redirect Hop Guard
+
+Set-Cookie capture is asynchronous, but Chrome follows a redirect immediately. The next hop of the chain can therefore leave with the profile's previous cookies. After a login that rotates the session (Laravel, Rails, Django), the server answers that hop as a guest. `src/background/redirect-hop-stale-cookie-guard.ts` marks such a hop: one sent while an earlier hop's capture for the same `requestId` is still pending. It then drops that hop's `Set-Cookie`, so the guest cookie cannot overwrite the login cookie. The hop is not re-sent. It has already reached the server, and a second copy would consume one-shot session state such as flashed validation errors. Session redirect chains converge on their own.
+
+Residual limit: if an entire redirect chain completes faster than one capture, the final response may be rendered with the old session, while the store keeps the new one. This happens on localhost at about 1 ms per hop, and is rare on remote origins.
+
+### Live document.cookie Sync
+
+A profile tab's `document.cookie` is served from an in-page map, scoped to what Chrome would expose to the frame. That means non-HttpOnly cookies whose domain and path match the frame URL, minus Secure cookies on `http`. `about:blank` frames use the inherited origin. The logic lives in `src/background/document-cookie-sync.ts`. Profiles are global jars, so an unscoped snapshot would hand one site's cookies to every other site's scripts.
+
+- Any change to `cookies_<id>` in storage is debounced and broadcast as `cookiesChanged` to every tab of that profile. Each frame re-pulls its scoped snapshot through `getSessionForBootstrap`, and the page replaces its map (`syncCookies`). This covers cookies set by XHR/fetch responses, sibling frames, and other tabs of the same profile.
+- DNR rules are per tab, while a profile store is shared. A capture or page write therefore republishes the rules of every tab using that profile (`updateDNRRulesForProfileTabs`). Otherwise a sibling tab keeps sending a session ID the server already destroyed, and the guest cookie it gets back logs the whole profile out.
 
 ### Limitations
 
@@ -839,8 +852,16 @@ former `_snap_` snapshot machinery and all its handling paths have been removed.
 
 | Action | Payload | Response |
 |--------|---------|----------|
-| `getSessionForBootstrap` | None | `{ sessionId, cookieStr }` |
+| `getSessionForBootstrap` | None | `{ sessionId, cookieStr }`: `cookieStr` is scoped to the sender frame's URL (non-HttpOnly; no Secure on http) |
 | `updateCookie` | `{ name, value, domain, ... }` | None; updates storage + DNR |
+
+### Messages from Background to Content Script (background.js → content.js)
+
+| Action | Payload | Effect |
+|--------|---------|--------|
+| `cookiesChanged` | None | Every frame re-pulls its scoped snapshot and posts `syncCookies` to the page |
+| `bridgeCookieSyncDone` | `{ bridgeId }` | Content script syncs `document.cookie`, then releases the held fetch/XHR |
+| `sessionBootstrapChanged` | None | Re-bootstraps isolation after a profile switch |
 
 ### Message Flow Diagram
 

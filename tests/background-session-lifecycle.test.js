@@ -26,7 +26,7 @@ describe('getSessionForBootstrap', () => {
   it('returns sessionId + cookie string for an active session', async () => {
     await chrome.storage.local.set({
       profiles: [{ id: 'session_boot1', name: 'Boot', hue: 212 }],
-      'cookies_session_boot1': { tok: { value: 'abc', expires: null } },
+      'cookies_session_boot1': { tok: { name: 'tok', value: 'abc', domain: 'example.com', path: '/', expires: null } },
     })
     await handleMessage(
       { action: 'setSession', payload: { tabId: 55, sessionId: 'session_boot1' } },
@@ -34,7 +34,7 @@ describe('getSessionForBootstrap', () => {
     )
     const result = await handleMessage(
       { action: 'getSessionForBootstrap', payload: { tabId: 55 } },
-      SENDER
+      { ...SENDER, url: 'https://example.com/app' }
     )
     expect(result.sessionId).toBe('session_boot1')
     expect(result.cookieStr).toContain('tok=abc')
@@ -358,17 +358,54 @@ describe('getSessionForBootstrap httpOnly filtering (H1)', () => {
     await chrome.storage.local.set({
       profiles: [{ id: 'session_b2', name: 'B2', hue: 0 }],
       'cookies_session_b2': {
-        visible: { value: 'show', expires: null, httpOnly: false },
-        hidden:  { value: 'hide', expires: null, httpOnly: true },
+        visible: { name: 'visible', value: 'show', domain: 'example.com', path: '/', expires: null, httpOnly: false },
+        hidden:  { name: 'hidden', value: 'hide', domain: 'example.com', path: '/', expires: null, httpOnly: true },
       },
     })
     await handleMessage({ action: 'setSession', payload: { tabId: 204, sessionId: 'session_b2' } }, SENDER)
     const result = await handleMessage(
       { action: 'getSessionForBootstrap', payload: { tabId: 204 } },
-      SENDER
+      { ...SENDER, url: 'https://example.com/' }
     )
     expect(result.cookieStr).toContain('visible=show')
     expect(result.cookieStr).not.toContain('hidden=hide')
+  })
+})
+
+// Profiles are global jars: a frame's document.cookie must expose only what
+// Chrome would expose to that frame's URL, never another site's cookies.
+describe('getSessionForBootstrap scopes document.cookie to the frame URL', () => {
+  async function bootstrapFor(tabId, sessionId, store, sender) {
+    await chrome.storage.local.set({
+      profiles: [{ id: sessionId, name: sessionId, hue: 0 }],
+      [`cookies_${sessionId}`]: store,
+    })
+    await handleMessage({ action: 'setSession', payload: { tabId, sessionId } }, SENDER)
+    return (await handleMessage({ action: 'getSessionForBootstrap', payload: { tabId } }, { ...SENDER, ...sender })).cookieStr
+  }
+  const entry = (name, value, domain, extra = {}) => ({ name, value, domain, path: '/', expires: null, ...extra })
+
+  it('hides cookies that belong to another site in the same profile', async () => {
+    const cookieStr = await bootstrapFor(210, 'session_scope1', {
+      'XSRF-TOKEN|localhost|/': entry('XSRF-TOKEN', 'mine', 'localhost'),
+      'XSRF-TOKEN|127.0.0.1|/': entry('XSRF-TOKEN', 'theirs', '127.0.0.1'),
+      'secret|127.0.0.1|/': entry('secret', 'hunter2', '127.0.0.1'),
+    }, { url: 'http://localhost:8000/admin' })
+    expect(cookieStr).toBe('XSRF-TOKEN=mine')
+  })
+
+  it('keeps parent-domain cookies and drops Secure cookies on http', async () => {
+    const cookieStr = await bootstrapFor(211, 'session_scope2', {
+      'shared|.example.com|/': entry('shared', '1', '.example.com'),
+      'secure|app.example.com|/': entry('secure', '1', 'app.example.com', { secure: true }),
+    }, { url: 'http://app.example.com/' })
+    expect(cookieStr).toBe('shared=1')
+  })
+
+  it('uses the inherited origin for about:blank frames and hides everything without one', async () => {
+    const store = { 'a|example.com|/': entry('a', '1', 'example.com') }
+    expect(await bootstrapFor(212, 'session_scope3', store, { url: 'about:blank', origin: 'https://example.com' })).toBe('a=1')
+    expect(await bootstrapFor(213, 'session_scope4', store, { url: 'about:blank' })).toBe('')
   })
 })
 

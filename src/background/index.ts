@@ -5,6 +5,7 @@ import { dnrRuleIdsForTab, registerWebRequestListener, clearBridgeNavigationStri
 import { setupContextMenu, registerStorageListener } from './context-menu-manager.js';
 import { registerLinkedTabInheritance } from './linked-tab-inheritance.js';
 import { handleMessage } from './message-handler.js';
+import { registerDocumentCookieBroadcast } from './document-cookie-sync.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { getProfiles, isInternalSession } from '../lib/session-store.js';
 import { runExpiredPurge, runOrphanPurge } from './storage-gc.js';
@@ -27,6 +28,7 @@ const restored: Promise<void> = restoreTabSessions();
 setupContextMenu();
 registerStorageListener();
 registerWebRequestListener();
+registerDocumentCookieBroadcast();
 registerLinkedTabInheritance(restored);
 
 // Phase 4 tab-group sync (optional `tabGroups` permission — see

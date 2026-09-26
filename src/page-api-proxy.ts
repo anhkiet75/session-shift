@@ -143,6 +143,17 @@
   const cookieMap = new Map<string, string>();
   let cookiesReady = false;
 
+  // Replaces the whole map with a background-scoped snapshot. Replacing (not
+  // merging) is what applies server-side deletions and expiries.
+  function replaceCookieMap(cookieStr: string): void {
+    cookieMap.clear();
+    if (!cookieStr) return;
+    for (const pair of cookieStr.split('; ')) {
+      const eqIdx = pair.indexOf('=');
+      if (eqIdx !== -1) cookieMap.set(pair.substring(0, eqIdx), pair.substring(eqIdx + 1));
+    }
+  }
+
   function serializeCookieMap(): string {
     return Array.from(cookieMap.entries()).map(e => e[0] + '=' + e[1]).join('; ');
   }
@@ -231,6 +242,106 @@
         }
       },
     });
+  }
+
+  function isBridgeableUrl(rawUrl: string): boolean {
+    try {
+      const url = new URL(rawUrl, window.location.href);
+      return url.origin === window.location.origin && (url.protocol === 'https:' || url.protocol === 'http:');
+    } catch {
+      return false;
+    }
+  }
+
+  // XMLHttpRequest gets the same bridge as fetch: axios (Laravel, Inertia,
+  // Sanctum) uses XHR and reads XSRF-TOKEN from document.cookie the moment the
+  // previous request settles, so completion events are held until the
+  // response's cookies have reached this page's document.cookie.
+  // Held events: readystatechange at DONE, load, loadend — re-dispatched in
+  // order on release. Failed/aborted requests (status 0) are never held.
+  const NativeXHR = window.XMLHttpRequest;
+  if (NativeXHR) {
+    type XhrBridgeState = {
+      url: string
+      async: boolean
+      bridgeId: string | null
+      bridgeDone: Promise<void> | null
+      held: string[]
+      releasing: boolean
+    };
+    const HELD_XHR_EVENTS = ['readystatechange', 'load', 'loadend'];
+    const xhrStates = new WeakMap<XMLHttpRequest, XhrBridgeState>();
+    const nativeOpen = NativeXHR.prototype.open;
+    const nativeSend = NativeXHR.prototype.send;
+
+    function releaseHeldEvents(xhr: XMLHttpRequest, state: XhrBridgeState): void {
+      const held = state.held;
+      state.held = [];
+      state.bridgeId = null;
+      state.bridgeDone = null;
+      state.releasing = true;
+      try {
+        for (const type of held) {
+          xhr.dispatchEvent(type === 'readystatechange' ? new Event(type) : new ProgressEvent(type));
+        }
+      } finally {
+        state.releasing = false;
+      }
+    }
+
+    function holdCompletionEvent(this: XMLHttpRequest, event: Event): void {
+      const state = xhrStates.get(this);
+      if (!state || state.releasing || !state.bridgeId || !state.bridgeDone) return;
+      if (event.type === 'readystatechange' && this.readyState !== NativeXHR.DONE) return;
+      if (this.status === 0) {
+        // Network error or abort: no response cookies to wait for.
+        pendingAuthBridgeWaiters.delete(state.bridgeId);
+        state.bridgeId = null;
+        state.bridgeDone = null;
+        return;
+      }
+      event.stopImmediatePropagation();
+      state.held.push(event.type);
+      if (state.held.length === 1) {
+        void state.bridgeDone.then(() => releaseHeldEvents(this, state));
+      }
+    }
+
+    NativeXHR.prototype.open = function (this: XMLHttpRequest, ...args: unknown[]) {
+      let state = xhrStates.get(this);
+      if (!state) {
+        state = { url: '', async: true, bridgeId: null, bridgeDone: null, held: [], releasing: false };
+        xhrStates.set(this, state);
+        // Capture phase: at the target, capture listeners run before page
+        // listeners and the on* handler properties.
+        for (const type of HELD_XHR_EVENTS) this.addEventListener(type, holdCompletionEvent, true);
+      }
+      state.url = String(args[1]);
+      state.async = args.length < 3 || args[2] !== false;
+      state.bridgeId = null;
+      state.bridgeDone = null;
+      state.held = [];
+      return (nativeOpen as (...a: unknown[]) => void).apply(this, args);
+    };
+
+    NativeXHR.prototype.send = function (this: XMLHttpRequest, body?: Document | XMLHttpRequestBodyInit | null) {
+      const state = xhrStates.get(this);
+      // Synchronous XHR completes inside send(); its events cannot be held.
+      if (state && state.async && isBridgeableUrl(state.url)) {
+        const bridgeId = crypto.randomUUID();
+        try {
+          this.setRequestHeader(AUTH_BRIDGE_HEADER, bridgeId);
+          state.bridgeId = bridgeId;
+          // Armed before the request leaves: the release can arrive before the
+          // body finishes downloading.
+          state.bridgeDone = waitForAuthBridge(bridgeId);
+        } catch {
+          state.bridgeId = null;
+          state.bridgeDone = null;
+        }
+      }
+      return nativeSend.call(this, body);
+    };
   }
 
   const readyOrigin = window.location.origin;
@@ -363,15 +474,24 @@
     }
     window.removeEventListener('message', onBootstrap);
     cookiesReady = true;
-    const str: string = event.data.cookieStr || '';
-    if (str) {
-      str.split('; ').forEach(pair => {
-        const eqIdx = pair.indexOf('=');
-        if (eqIdx !== -1) {
-          cookieMap.set(pair.substring(0, eqIdx), pair.substring(eqIdx + 1));
-        }
-      });
+    replaceCookieMap(event.data.cookieStr || '');
+  });
+
+  // Live refresh: cookies set by XHR/fetch responses, other frames, or other
+  // tabs of the same profile. Snapshots are scoped to this frame's URL.
+  window.addEventListener('message', function onCookieSync(event: MessageEvent) {
+    if (
+      event.source !== window ||
+      !event.data ||
+      event.data.source !== 'ext-content' ||
+      event.data.action !== 'syncCookies' ||
+      event.data.nonce !== nonce ||
+      typeof event.data.cookieStr !== 'string'
+    ) {
+      return;
     }
+    cookiesReady = true;
+    replaceCookieMap(event.data.cookieStr);
   });
 
   // Request cookie bootstrap from content.js. content.js is async (awaits background),

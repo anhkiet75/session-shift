@@ -85,7 +85,7 @@ describe('handleHeadersReceived — cookie capture + DNR rebuild timing', () => 
     expect(chrome.declarativeNetRequest.updateSessionRules).not.toHaveBeenCalled()
   })
 
-  it('signals bridge completion after Set-Cookie capture and DNR rebuild', async () => {
+  it('signals bridge completion once the request completes, after Set-Cookie capture and DNR rebuild', async () => {
     tabSessions[23] = 'session_bridge'
     await chrome.storage.local.set({ profiles: [{ id: 'session_bridge', name: 'B', hue: 0 }] })
 
@@ -105,6 +105,10 @@ describe('handleHeadersReceived — cookie capture + DNR rebuild timing', () => 
       }),
       requestId: 'req-1',
     })
+    // The page is released only when the request is over, so a redirect hop's
+    // cookies are published before it resumes.
+    expect(chrome.tabs.sendMessage).not.toHaveBeenCalled()
+    await handleRequestCompleted({ requestId: 'req-1', tabId: 23, type: 'xmlhttprequest' })
 
     expect(chrome.tabs.sendMessage).toHaveBeenCalledWith(
       23,
@@ -131,5 +135,117 @@ describe('handleHeadersReceived — cookie capture + DNR rebuild timing', () => 
       { action: 'bridgeCookieSyncDone', bridgeId: 'bridge-2' },
       { frameId: 0 },
     )
+  })
+})
+
+// Regression: a fast origin (localhost) answers the redirect hop before the
+// login response's capture finishes. The hop carried the pre-login cookie, the
+// server answered as a guest, and capturing that guest cookie overwrote the
+// login cookie — the tab looped /admin <-> /login forever.
+describe('handleHeadersReceived — redirect hop outruns the previous hop capture', () => {
+  async function runChain({ tabId, sessionId, type, first, second }) {
+    tabSessions[tabId] = sessionId
+    await chrome.storage.local.set({ profiles: [{ id: sessionId, name: 'R', hue: 0 }] })
+    handleBeforeSendHeaders({ requestId: `chain-${tabId}`, tabId, type, url: first.url, requestHeaders: [] })
+    const firstCapture = handleHeadersReceived({ ...details({ tabId, type, ...first }), requestId: `chain-${tabId}` })
+    // Chrome follows the redirect before the first capture has finished.
+    handleBeforeSendHeaders({ requestId: `chain-${tabId}`, tabId, type, url: second.url, requestHeaders: [] })
+    const secondCapture = handleHeadersReceived({ ...details({ tabId, type, ...second }), requestId: `chain-${tabId}` })
+    await Promise.all([firstCapture, secondCapture])
+    await handleRequestCompleted({ requestId: `chain-${tabId}`, tabId, type })
+    return getCookieStore(sessionId)
+  }
+
+  it('keeps the rotated login cookie and never re-sends the navigation', async () => {
+    chrome.tabs.get.mockResolvedValue({ id: 30, url: 'http://localhost:8000/admin/login' })
+    chrome.tabs.update.mockClear()
+    const store = await runChain({
+      tabId: 30, sessionId: 'session_race', type: 'main_frame',
+      first: { url: 'http://localhost:8000/admin/login', setCookie: 'app_session=logged-in; Path=/' },
+      second: { url: 'http://localhost:8000/admin', setCookie: 'app_session=guest; Path=/' },
+    })
+    expect(Object.values(store).find(e => e.name === 'app_session')?.value).toBe('logged-in')
+    // A re-sent hop would consume one-shot session state (flashed validation errors).
+    expect(chrome.tabs.update).not.toHaveBeenCalled()
+  })
+
+  it('applies to XHR redirect chains too (Inertia login)', async () => {
+    chrome.tabs.get.mockResolvedValue({ id: 32, url: 'http://localhost:8000/login' })
+    const store = await runChain({
+      tabId: 32, sessionId: 'session_race_xhr', type: 'xmlhttprequest',
+      first: { url: 'http://localhost:8000/login', setCookie: 'app_session=logged-in; Path=/' },
+      second: { url: 'http://localhost:8000/dashboard', setCookie: 'app_session=guest; Path=/' },
+    })
+    expect(Object.values(store).find(e => e.name === 'app_session')?.value).toBe('logged-in')
+  })
+
+  it('captures the next hop normally when it was sent after the capture finished', async () => {
+    tabSessions[31] = 'session_no_race'
+    await chrome.storage.local.set({ profiles: [{ id: 'session_no_race', name: 'N', hue: 0 }] })
+
+    handleBeforeSendHeaders({ requestId: 'nav-2', tabId: 31, type: 'main_frame', url: 'https://example.com/login', requestHeaders: [] })
+    await handleHeadersReceived({
+      ...details({ tabId: 31, url: 'https://example.com/login', type: 'main_frame', setCookie: 'sid=fresh; Path=/' }),
+      requestId: 'nav-2',
+    })
+    handleBeforeSendHeaders({ requestId: 'nav-2', tabId: 31, type: 'main_frame', url: 'https://example.com/home', requestHeaders: [] })
+    await handleHeadersReceived({
+      ...details({ tabId: 31, url: 'https://example.com/home', type: 'main_frame', setCookie: 'sid=rotated; Path=/' }),
+      requestId: 'nav-2',
+    })
+
+    const store = await getCookieStore('session_no_race')
+    expect(Object.values(store).find(e => e.name === 'sid')?.value).toBe('rotated')
+  })
+})
+
+describe('auth bridge release waits for in-flight captures', () => {
+  it('releases the page only after a capture still running at completion has been published', async () => {
+    tabSessions[40] = 'session_settle'
+    await chrome.storage.local.set({ profiles: [{ id: 'session_settle', name: 'S', hue: 0 }] })
+    chrome.tabs.get.mockResolvedValue({ id: 40, url: 'http://localhost:8000/login' })
+    chrome.tabs.sendMessage.mockClear()
+
+    handleBeforeSendHeaders({
+      requestId: 'req-settle', tabId: 40, frameId: 0, type: 'xmlhttprequest', url: 'http://localhost:8000/login',
+      requestHeaders: [{ name: AUTH_BRIDGE_HEADER, value: 'bridge-settle' }],
+    })
+    const capture = handleHeadersReceived({
+      ...details({ tabId: 40, url: 'http://localhost:8000/login', type: 'xmlhttprequest', setCookie: 'XSRF-TOKEN=rotated; Path=/' }),
+      requestId: 'req-settle',
+    })
+    // onCompleted arrives while the capture is still writing the store.
+    const completed = handleRequestCompleted({ requestId: 'req-settle', tabId: 40, type: 'xmlhttprequest' })
+    await Promise.all([capture, completed])
+
+    const store = await getCookieStore('session_settle')
+    expect(Object.values(store).find(e => e.name === 'XSRF-TOKEN')?.value).toBe('rotated')
+    expect(chrome.tabs.sendMessage).toHaveBeenCalledWith(
+      40, { action: 'bridgeCookieSyncDone', bridgeId: 'bridge-settle' }, { frameId: 0 })
+  })
+})
+
+describe('cookie capture republishes every tab of the profile', () => {
+  it('rebuilds a sibling tab rules so it stops sending the pre-login session', async () => {
+    tabSessions[50] = 'session_shared'
+    tabSessions[51] = 'session_shared'
+    tabSessions[52] = 'session_other'
+    await chrome.storage.local.set({ profiles: [{ id: 'session_shared', name: 'S', hue: 0 }] })
+    chrome.tabs.get.mockResolvedValue({ id: 50, url: 'http://localhost:8000/login' })
+    chrome.declarativeNetRequest.updateSessionRules.mockClear()
+
+    await handleHeadersReceived({
+      ...details({ tabId: 50, url: 'http://localhost:8000/login', type: 'main_frame', setCookie: 'app_session=rotated; Path=/' }),
+      requestId: 'req-shared',
+    })
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const rebuiltTabs = chrome.declarativeNetRequest.updateSessionRules.mock.calls
+      .flatMap(([{ addRules }]) => addRules.map(rule => rule.condition.tabIds?.[0]))
+    expect(new Set(rebuiltTabs)).toEqual(new Set([50, 51]))
+    const siblingCookieRule = chrome.declarativeNetRequest.updateSessionRules.mock.calls
+      .flatMap(([{ addRules }]) => addRules)
+      .find(rule => rule.condition.tabIds?.[0] === 51 && /app_session=rotated/.test(rule.action.requestHeaders?.[0]?.value || ''))
+    expect(siblingCookieRule).toBeDefined()
   })
 })
