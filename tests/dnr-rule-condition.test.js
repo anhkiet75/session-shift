@@ -11,7 +11,7 @@ async function setupProfile({ sessionId, tabId, tabUrl, store = {} }) {
 }
 
 describe('updateDNRRulesForTab', () => {
-  it('base-strips Cookie and Set-Cookie for non-navigation resources', async () => {
+  it('base-strips Cookie and Set-Cookie for every resource type, navigations included', async () => {
     await setupProfile({
       sessionId: 'session_google',
       tabId: 10,
@@ -22,24 +22,26 @@ describe('updateDNRRulesForTab', () => {
 
     expect(chrome.declarativeNetRequest.updateSessionRules).toHaveBeenCalledTimes(1)
     const [{ addRules }] = chrome.declarativeNetRequest.updateSessionRules.mock.calls[0]
-    // addRules[0] = request-side Cookie strip, tab-scoped for subresources.
+    // addRules[0] = request-side Cookie strip, tab-scoped. Navigations are
+    // included: a profile tab never reads Chrome's own jar (the normal tabs').
     expect(addRules[0].action.requestHeaders[0]).toEqual({ header: 'Cookie', operation: 'remove' })
     expect(addRules[0].condition.requestDomains).toBeUndefined()
     expect(addRules[0].condition.urlFilter).toBeUndefined()
     expect(addRules[0].condition.excludedRequestDomains).toBeUndefined()
-    expect(addRules[0].condition.resourceTypes).not.toContain('main_frame')
-    expect(addRules[0].condition.resourceTypes).not.toContain('sub_frame')
+    expect(addRules[0].condition.resourceTypes).toContain('main_frame')
+    expect(addRules[0].condition.resourceTypes).toContain('sub_frame')
     const responseRules = addRules.filter((rule) => rule.action.responseHeaders?.[0]?.header === 'set-cookie')
     expect(responseRules.length).toBe(1)
     const [strictResponseRule] = responseRules
     expect(strictResponseRule.condition.excludedRequestDomains).toBeUndefined()
     expect(strictResponseRule.condition.requestDomains).toBeUndefined()
     expect(strictResponseRule.condition.urlFilter).toBeUndefined()
-    expect(strictResponseRule.condition.resourceTypes).not.toContain('main_frame')
-    expect(strictResponseRule.condition.resourceTypes).not.toContain('sub_frame')
+    // ...and never writes into it, not even from a navigation response.
+    expect(strictResponseRule.condition.resourceTypes).toContain('main_frame')
+    expect(strictResponseRule.condition.resourceTypes).toContain('sub_frame')
   })
 
-  it('keeps base stripping subresource-only for an http profile too', async () => {
+  it('base-strips navigations for an http profile too', async () => {
     await setupProfile({
       sessionId: 'session_http',
       tabId: 11,
@@ -50,13 +52,13 @@ describe('updateDNRRulesForTab', () => {
 
     const [{ addRules }] = chrome.declarativeNetRequest.updateSessionRules.mock.calls.at(-1)
     // The http scheme is still derived from the tab URL for cookie SET rules
-    // (Secure exclusion), but base strips stay navigation-safe.
+    // (Secure exclusion); the base strips are scheme-independent.
     const responseRules = addRules.filter((rule) => rule.action.responseHeaders?.[0]?.header === 'set-cookie')
     expect(addRules[0].condition.requestDomains).toBeUndefined()
     expect(addRules[0].condition.excludedRequestDomains).toBeUndefined()
     expect(responseRules.every((rule) => !rule.condition.excludedRequestDomains)).toBe(true)
-    expect(addRules[0].condition.resourceTypes).not.toContain('main_frame')
-    expect(responseRules.every((rule) => !rule.condition.resourceTypes.includes('main_frame'))).toBe(true)
+    expect(addRules[0].condition.resourceTypes).toContain('main_frame')
+    expect(responseRules.every((rule) => rule.condition.resourceTypes.includes('main_frame'))).toBe(true)
   })
 
   it('strips same-site subresource cookies too while response-side stripping stays strict', async () => {

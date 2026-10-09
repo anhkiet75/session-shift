@@ -28,11 +28,11 @@ describe('buildDnrRulesForCookieStore — rule budget', () => {
       [cookieKey('C', host, '/mid')]: hostCookie('C', host, '/mid'),
     }
 
-    // Budget: 2 base rules (request + response strip) + 2 cookie rules.
-    // Three scopes compete for two slots.
+    // Budget: 3 base rules (request strip, response strip, held-redirect
+    // Location removal) + 2 cookie rules. Three scopes compete for two slots.
     const rules = buildDnrRulesForCookieStore({
       tabId: 1,
-      ruleIds: [1, 2, 3, 4],
+      ruleIds: [1, 2, 3, 4, 5],
       boundHost: host,
       scheme: 'https',
       store,
@@ -40,11 +40,24 @@ describe('buildDnrRulesForCookieStore — rule budget', () => {
       resourceTypes: ['main_frame'],
     })
 
-    expect(rules.length).toBe(4)
+    expect(rules.length).toBe(5)
     const filters = rules.map((rule) => rule.condition.regexFilter ?? '')
     expect(filters.some((f) => f === '^https://shop\\.example\\.com(?::[0-9]+)?/')).toBe(true)
     expect(filters.some((f) => f.includes('/mid'))).toBe(true)
     expect(filters.some((f) => f.includes('/deep/page'))).toBe(false)
+  })
+})
+
+describe('buildDnrRulesForCookieStore — held redirects', () => {
+  it('removes Location only from cookie-setting navigation responses of the tab', () => {
+    const held = build({}).find((rule) => rule.action.responseHeaders?.[0]?.header === 'location')
+    expect(held.action.responseHeaders).toEqual([
+      { header: 'location', operation: 'remove' },
+      { header: 'server-timing', operation: 'append', value: 'sessionshift-held' },
+    ])
+    expect(held.condition.tabIds).toEqual([1])
+    expect(held.condition.resourceTypes).toEqual(['main_frame', 'sub_frame'])
+    expect(held.condition.responseHeaders).toEqual([{ header: 'set-cookie' }])
   })
 })
 

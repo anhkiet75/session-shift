@@ -5,14 +5,23 @@ All significant changes to the SessionShift Chrome extension are documented here
 > **Version numbering.** The `vX.Y.Z` headings below are *development
 > milestones*, not shipped releases. The only version Chrome ships is
 > `src/manifest.json`, which has gone `0.0.4 → 0.0.6 → 0.0.7 → 0.0.8 → 0.0.9 →
-> 0.1.0 → 0.1.1 → **0.1.2** (current)`. No 0.2.x–0.6.x has ever been released, and the
+> 0.1.0 → 0.1.1 → 0.1.2 → **0.1.3** (current)`. No 0.2.x–0.6.x has ever been released, and the
 > repository has no git tags. Milestone headings are kept because the work they
 > describe is real and the dates are useful; read them as "milestone N", not as
 > a published version. Feature claims below have been reconciled against `src/`.
 
 ---
 
-## Current release: 0.1.2 (manifest)
+## Current release: 0.1.3 (manifest)
+
+**Shipped in 0.1.3:** Laravel-style session cookies keep working in profile tabs, and the default (non-profile) jar is isolated from profile cookies.
+- Redirects are held until a tab has a profile assignment, and stale-cookie guards run on each redirect hop, so cookies set mid-redirect land in the right jar.
+- Linked-tab inheritance, fresh-load, and DNR cookie rules were adjusted to match.
+- `minimum_chrome_version` raised from 110 to 128.
+
+Implementation: `background/held-redirects.ts`, `background/pre-assignment-navigations.ts`, `background/dnr-*`, `background/redirect-hop-stale-cookie-guard.ts`. New unit and e2e tests (`held-redirects`, `default-jar-isolation`, Laravel mock server).
+
+## Previous release: 0.1.2
 
 **Shipped in 0.1.2:** All keyboard shortcuts are unassigned by default.
 - `session-next` / `session-prev` no longer ship `Ctrl+Shift+Right/Left`

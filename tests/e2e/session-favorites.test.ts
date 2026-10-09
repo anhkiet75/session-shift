@@ -89,7 +89,7 @@ test.describe('Session favorites', () => {
     )
 
     // Alpha starts clean: the default jar's cookie must not ride along on the
-    // very first load, which is what `stripCookiesOnNextNavigation` guarantees.
+    // very first load: the profile's rules are live before the tab navigates.
     const first = await launchFavorite(context, popupUrl, defaultTabId, targetUrl, 'Alpha mail', targetUrl, [defaultTab, helperPage])
     expect(cookiesOf(await first.opened.textContent('body')).user).toBeUndefined()
 
@@ -116,10 +116,8 @@ test.describe('Session favorites', () => {
       [defaultTab, helperPage, first.popup, first.opened, second.popup, second.opened, alphaAgain.popup, alphaAgain.opened])
     expect(cookiesOf(await betaAgain.opened.textContent('body')).user).toBe('beta')
 
-    // NOTE: whether the browser's own global jar stays free of an isolated
-    // tab's Set-Cookie is a property of the shared `createSessionTab` path, not
-    // of favorites — it behaves identically for the right-click "Open in new
-    // tab" flow. Deliberately not asserted here.
+    // Chrome's own jar staying untouched by profile tabs is asserted for every
+    // entry path (favorites share createSessionTab) in default-jar-isolation.test.ts.
 
     await helperPage.close()
   })

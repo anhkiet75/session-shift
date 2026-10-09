@@ -82,32 +82,3 @@ describe('forceFreshLoadOnce', () => {
     expect(chrome.tabs.reload).toHaveBeenCalledWith(402, { bypassCache: true })
   })
 })
-
-describe('forceFreshLoadOnce — beforeReload hook', () => {
-  it('awaits beforeReload before reloading', async () => {
-    const order = []
-    let resolveHook
-    const hook = () => new Promise((resolve) => { resolveHook = () => { order.push('hook'); resolve() } })
-    chrome.tabs.reload.mockImplementation(async () => { order.push('reload'); return {} })
-
-    forceFreshLoadOnce(401, hook)
-    chrome.tabs.onUpdated.__dispatch(401, { status: 'complete' }, {})
-
-    // Still waiting on the hook — the reload must not have fired yet.
-    await Promise.resolve()
-    await Promise.resolve()
-    expect(chrome.tabs.reload).not.toHaveBeenCalled()
-
-    resolveHook()
-    await flush()
-
-    expect(order).toEqual(['hook', 'reload'])
-  })
-
-  it('still reloads exactly once when beforeReload is omitted', async () => {
-    forceFreshLoadOnce(401)
-    chrome.tabs.onUpdated.__dispatch(401, { status: 'complete' }, {})
-    await flush()
-    expect(chrome.tabs.reload).toHaveBeenCalledTimes(1)
-  })
-})

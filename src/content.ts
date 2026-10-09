@@ -5,6 +5,33 @@
 // 3. Relays updateCookie messages from page-api-proxy.js to background.js
 
 (async () => {
+  // A held redirect: in a profile tab, a navigation response that sets cookies
+  // has its Location removed by DNR, so Chrome commits the 3xx here instead of
+  // following it (see background/held-redirects.ts). Stop the document before
+  // its body runs (e.g. a meta-refresh "Redirecting…" page), then finish the hop
+  // once the background has published the response's cookies. location.replace
+  // keeps the history of a native redirect.
+  // Only held documents carry the DNR-appended Server-Timing marker (mirrors
+  // HELD_REDIRECT_MARKER in dnr-cookie-rule-builder.ts); any other 3xx document
+  // renders natively. serverTiming is secure-context only, so plain-http pages
+  // fall back to asking the background for every 3xx.
+  const navigation = performance.getEntriesByType('navigation')[0] as
+    (PerformanceNavigationTiming & { responseStatus?: number }) | undefined;
+  const navigationStatus = navigation?.responseStatus ?? 0;
+  const markedHeld = navigation?.serverTiming
+    ? navigation.serverTiming.some((entry) => entry.name === 'sessionshift-held')
+    : true;
+  if (navigationStatus >= 300 && navigationStatus < 400 && markedHeld) {
+    window.stop();
+    try {
+      const response = await chrome.runtime.sendMessage({ action: 'resolveHeldRedirect' }) as { url?: string | null } | null;
+      if (response?.url) window.location.replace(response.url);
+    } catch (error) {
+      console.debug('Failed to resolve held redirect:', (error as Error).message);
+    }
+    return;
+  }
+
   let activeSessionId = 'default';
   let activeCookieStr = '';
   let activeNonce = '';

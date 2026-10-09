@@ -15,21 +15,11 @@
 //
 // The listener unregisters itself before issuing that reload — otherwise the
 // reload's own completion would re-trigger it, looping forever.
-//
-// `beforeReload` exists because a reload IS a second navigation, and a caller
-// that armed one-shot, per-navigation state for the first navigation (e.g.
-// `createSessionTab`'s `stripCookiesOnNextNavigation`) needs the chance to
-// re-arm it — that state is consumed and cleared once the first navigation
-// completes, so without this hook the forced reload would go out as a bare,
-// unprotected second navigation. It is awaited before the reload fires, so an
-// async DNR rule publish inside it is guaranteed live before that request
-// goes out.
 
-export function forceFreshLoadOnce(tabId: number, beforeReload?: () => Promise<void> | void): void {
+export function forceFreshLoadOnce(tabId: number): void {
   const onUpdated = async (updatedTabId: number, changeInfo: chrome.tabs.OnUpdatedInfo): Promise<void> => {
     if (updatedTabId !== tabId || changeInfo.status !== 'complete') return;
     stop();
-    await beforeReload?.();
     chrome.tabs.reload(tabId, { bypassCache: true }).catch(() => {});
   };
 

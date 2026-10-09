@@ -15,6 +15,12 @@ import {
   noteRequestHop,
   whenCapturesSettled,
 } from './redirect-hop-stale-cookie-guard.js';
+import {
+  forgetPreAssignmentRequest,
+  isPreAssignmentResponse,
+  noteNavigationRequest,
+} from './pre-assignment-navigations.js';
+import { heldRedirectTarget, noteHeldRedirect } from './held-redirects.js';
 
 const MAX_DNR_RULES_PER_TAB = 100;
 const DNR_RULE_ID_STRIDE = 1_000_000;
@@ -25,9 +31,6 @@ const ALL_RESOURCE_TYPES = [
   'webbundle', 'other',
 ] as chrome.declarativeNetRequest.ResourceType[];
 
-const NON_NAVIGATION_RESOURCE_TYPES = ALL_RESOURCE_TYPES.filter(
-  (type) => type !== 'main_frame' && type !== 'sub_frame'
-);
 
 type AuthBridgeRequest = {
   bridgeId: string
@@ -37,7 +40,6 @@ type AuthBridgeRequest = {
 }
 
 const authBridgeRequests = new Map<string, AuthBridgeRequest>();
-const bridgeNavigationStrips = new Map<number, string>();
 
 export function dnrRuleId(tabId: number): number {
   return (tabId % 1000000) + 1;
@@ -52,7 +54,6 @@ export async function updateDNRRulesForTab(tabId: number, sessionId: string): Pr
   const ruleIds = dnrRuleIdsForTab(tabId);
 
   if (!sessionId || sessionId === 'default') {
-    bridgeNavigationStrips.delete(tabId);
     await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: ruleIds, addRules: [] });
     return;
   }
@@ -79,13 +80,14 @@ export async function updateDNRRulesForTab(tabId: number, sessionId: string): Pr
   const serializeOpts: SerializeOptions = scheme === 'https' ? {} : { excludeSecure: true };
   const store = await getCookieStore(sessionId);
 
-  // Base-strip subresource cookies only. Top-level redirects can happen before
-  // async webRequest capture rebuilds DNR, so navigation requests/responses must
-  // let Chrome carry freshly set login cookies. Stored isolated cookies still get
-  // explicit higher-priority navigation `Cookie: set` rules below. Same-site
-  // auth XHR remains the one relaxed response path: it can bridge a just-set
-  // cookie into an immediate navigation, while other subresource responses stay
-  // stripped and cannot pollute Chrome's shared jar.
+  // Profile tabs never read or write Chrome's own cookie jar — that jar belongs
+  // to the user's normal (no-profile) tabs. Both base strip rules therefore
+  // cover every resource type, navigations included: the request-side
+  // `Cookie: remove` keeps jar cookies out of this tab, the response-side
+  // `set-cookie: remove` keeps this tab's cookies out of the jar. The profile
+  // store, published as higher-priority `Cookie: set` rules, is the only cookie
+  // source. Redirect hops that outrun a capture are handled by held redirects
+  // and the stale-hop guard, not by falling back to the jar.
   const addRules = buildDnrRulesForCookieStore({
     tabId,
     ruleIds,
@@ -95,9 +97,6 @@ export async function updateDNRRulesForTab(tabId: number, sessionId: string): Pr
     serializeOpts,
     resourceTypes: ALL_RESOURCE_TYPES,
     firstPartyDomain,
-    requestStripResourceTypes: NON_NAVIGATION_RESOURCE_TYPES,
-    responseStripResourceTypes: NON_NAVIGATION_RESOURCE_TYPES,
-    bridgeNavigationUrl: bridgeNavigationStrips.get(tabId) ?? null,
   });
 
   // Atomic remove+add: Chrome processes the removal before the addition within a
@@ -120,29 +119,11 @@ export async function updateDNRRulesForProfileTabs(sessionId: string, originTabI
   await updateDNRRulesForTab(originTabId, sessionId);
 }
 
-// Force the next navigation in this tab to that exact host to go out with no
-// Cookie header, overriding the normal navigation exemption. Used when a tab is
-// newly assigned to a profile whose cookie store has no entries yet for that
-// host: with no per-host override rule, the navigation-exempt base strip rule
-// would otherwise let Chrome attach the default jar's stale cookie for that
-// site, making a brand-new profile look logged in as the old account. Cleared
-// automatically by `handleRequestCompleted()` once that navigation finishes.
-export function stripCookiesOnNextNavigation(tabId: number, url: string): void {
-  bridgeNavigationStrips.set(tabId, url);
-}
-
-// Drop a tab's pending strip entry so a closed tab's numeric id can't be
-// reused later and inject a stale-URL strip condition for an unrelated tab.
-export function clearBridgeNavigationStrip(tabId: number): void {
-  bridgeNavigationStrips.delete(tabId);
-}
-
 // Capture Set-Cookie headers for an isolated tab and re-publish the DNR rules.
 //
-// Navigation Set-Cookie is intentionally not stripped by DNR because Chrome can
-// issue the redirect request before this async handler completes. The captured
-// copy still rebuilds DNR for later isolated requests. Subresource Set-Cookie is
-// stripped from the browser jar and captured here for the isolated store.
+// DNR strips every Set-Cookie of a profile tab from Chrome's jar; this listener
+// is the only place those cookies are kept, in the profile store, before the
+// tab's rules are republished.
 export async function handleHeadersReceived(
   details: chrome.webRequest.OnHeadersReceivedDetails
 ): Promise<void> {
@@ -157,6 +138,15 @@ export async function handleHeadersReceived(
   );
   if (setCookieHeaders.length === 0) return;
 
+  // A cookie-setting redirect in this tab is held by DNR (Location removed);
+  // record where it was going before anything awaits.
+  const heldTarget = heldRedirectTarget(details);
+  if (heldTarget) noteHeldRedirect(tabId, details.frameId, details.requestId, heldTarget);
+
+  // Sent before the tab joined this profile, with Chrome's own jar: the
+  // response belongs to the normal account, not to the profile.
+  if (isPreAssignmentResponse(details.requestId)) return;
+
   // A redirect hop that left before the previous hop's capture finished carried
   // stale cookies, so the server answered the wrong session; capturing its
   // cookies would overwrite the fresh ones.
@@ -164,7 +154,7 @@ export async function handleHeadersReceived(
 
   // Registered before the first await so the next hop of this chain, dispatched
   // while the capture is in flight, is recognised as stale.
-  beginCookieCapture(details.requestId);
+  beginCookieCapture(details.requestId, tabId, details.type === 'main_frame' || details.type === 'sub_frame');
   try {
     await captureAndPublish(details, sessionId, setCookieHeaders);
   } finally {
@@ -212,8 +202,6 @@ async function captureAndPublish(
   // Publish immediately so an auth response that sets a cookie and then triggers
   // navigation cannot outrun the profile's DNR Cookie-set rule.
   if (tabSessions[tabId] !== sessionId) return;
-  const pendingBridge = authBridgeRequests.get(details.requestId);
-  if (pendingBridge) bridgeNavigationStrips.set(tabId, pendingBridge.url);
   await updateDNRRulesForProfileTabs(sessionId, tabId);
   // Note: we intentionally do NOT remove cookies from the global jar.
   // The DNR session rule overwrites the Cookie header for isolated tabs, making
@@ -227,9 +215,13 @@ export function handleBeforeSendHeaders(
   const { requestId, requestHeaders, tabId, frameId } = details;
   if (tabId < 0) return;
   const sessionId = tabSessions[tabId];
-  if (!sessionId || sessionId === 'default') return;
+  const assigned = Boolean(sessionId) && sessionId !== 'default';
+  if (details.type === 'main_frame') {
+    noteNavigationRequest(tabId, requestId, details.method, details.timeStamp, assigned);
+  }
+  if (!assigned) return;
 
-  noteRequestHop(requestId, details.url);
+  noteRequestHop(requestId, details.url, tabId);
 
   const bridgeHeader = requestHeaders?.find(
     (header) => header.name.toLowerCase() === AUTH_BRIDGE_HEADER.toLowerCase()
@@ -250,23 +242,13 @@ export async function handleRequestCompleted(
   | chrome.webRequest.OnErrorOccurredDetails
 ): Promise<void> {
   forgetRequestChain(details.requestId);
+  forgetPreAssignmentRequest(details.requestId);
   if (authBridgeRequests.has(details.requestId)) {
     // Release the page only once the whole chain is over and every Set-Cookie
     // it carried (any redirect hop included) is in the store, so the page's
     // document.cookie refresh that precedes the release sees them.
     await whenCapturesSettled(details.requestId);
     await resolveAuthBridgeRequest(details.requestId);
-  }
-  if (
-    details.tabId >= 0 &&
-    bridgeNavigationStrips.has(details.tabId) &&
-    (details.type === 'main_frame' || details.type === 'sub_frame')
-  ) {
-    bridgeNavigationStrips.delete(details.tabId);
-    const sessionId = tabSessions[details.tabId];
-    if (sessionId && sessionId !== 'default') {
-      await updateDNRRulesForTab(details.tabId, sessionId);
-    }
   }
 }
 

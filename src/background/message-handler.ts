@@ -6,11 +6,12 @@ import { withCookieLock } from '../lib/cookie-write-lock.js';
 import { parseCookieString, parseDocumentCookie, cookieKey, cookieMatchesRequest, defaultCookiePath, normalizeCookiePath, isValidCookieName, isValidCookieValue } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { updateDNRRulesForTab, updateDNRRulesForProfileTabs, stripCookiesOnNextNavigation } from './dnr-manager.js';
+import { updateDNRRulesForTab, updateDNRRulesForProfileTabs } from './dnr-manager.js';
 import { forceFreshLoadOnce } from './tab-fresh-load.js';
 import { getLanguagePreference, createLocalizer } from '../lib/localization.js';
 import { syncTabToGroup, syncProfileGroupAppearance } from './tab-group-sync.js';
 import { documentCookieUrl, serializeDocumentCookie } from './document-cookie-sync.js';
+import { resolveHeldRedirect } from './held-redirects.js';
 
 export async function handleMessage(
   request: BackgroundMessage,
@@ -53,6 +54,12 @@ export async function handleMessage(
       const tabId = request.payload?.tabId ?? sender.tab?.id;
       if (tabId === undefined) return { sessionId: 'default' };
       return { sessionId: tabSessions[tabId] || 'default' };
+    }
+
+    case 'resolveHeldRedirect': {
+      const tabId = sender.tab?.id;
+      if (tabId === undefined) return { url: null };
+      return { url: await resolveHeldRedirect(tabId, sender.frameId ?? 0) };
     }
 
     case 'getSessionForBootstrap': {
@@ -213,10 +220,8 @@ export async function handleMessage(
       const tabId = newTab.id; // narrowed once — captured by closures below, where `newTab.id` itself would re-widen to `number | undefined`
       tabSessions[tabId] = sessionId;
       await persistTabSessions();
-      // The new profile has no captured cookies for this host yet, so no
-      // per-host override rule exists to cover navigation. Force a clean first
-      // load instead of letting the default jar's stale cookie pass through.
-      stripCookiesOnNextNavigation(tabId, url);
+      // Rules are live while the tab is still on about:blank, so the very
+      // first request already carries only this profile's cookies.
       await updateDNRRulesForTab(tabId, sessionId);
       updateBadge(tabId, sessionId);
       // Phase 4: no-op when tab grouping is off/unpermitted. `.catch()` here
@@ -227,17 +232,7 @@ export async function handleMessage(
       // 'complete' in the gap. Guarantees the page the user ends up looking at
       // was fetched under this profile's cookies, not read back from a disk
       // cache entry left over from another profile — see tab-fresh-load.ts.
-      //
-      // The forced reload is itself a second navigation, and the one-shot
-      // Cookie strip armed above is consumed and cleared the moment the first
-      // navigation completes (handleRequestCompleted). Without re-arming it
-      // here, the reload's request would go out unprotected and could pick up
-      // whatever the real shared browser cookie jar holds for this host — the
-      // exact leak this whole mechanism exists to prevent.
-      forceFreshLoadOnce(tabId, async () => {
-        stripCookiesOnNextNavigation(tabId, url);
-        await updateDNRRulesForTab(tabId, sessionId);
-      });
+      forceFreshLoadOnce(tabId);
       await chrome.tabs.update(tabId, { url });
       return { success: true, tabId };
     }

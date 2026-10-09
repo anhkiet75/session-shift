@@ -3,6 +3,12 @@ import type { CookieStoreEntry } from '../lib/session-store.js';
 import type { DNRRule } from '../lib/types.js';
 import { getEtld1 } from '../lib/public-suffix.js';
 
+/**
+ * Server-Timing entry DNR appends to a held redirect, so the content script can
+ * tell it apart from a genuine 3xx document synchronously (content.ts mirrors it).
+ */
+export const HELD_REDIRECT_MARKER = 'sessionshift-held';
+
 type CookieRuleScope = {
   type: 'host' | 'domain'
   host: string
@@ -20,7 +26,6 @@ type BuildRuleOptions = {
   firstPartyDomain?: string | null
   requestStripResourceTypes?: chrome.declarativeNetRequest.ResourceType[]
   responseStripResourceTypes?: chrome.declarativeNetRequest.ResourceType[]
-  bridgeNavigationUrl?: string | null
 }
 
 function normalizeStoredDomain(domain: string | null | undefined, boundHost: string | null): string | null {
@@ -163,27 +168,11 @@ function buildCookieCondition(
   return { requestDomains: [scope.host], resourceTypes };
 }
 
-function buildBridgeNavigationStripCondition(
-  bridgeNavigationUrl: string
-): chrome.declarativeNetRequest.RuleCondition | null {
-  try {
-    const url = new URL(bridgeNavigationUrl);
-    if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
-    return {
-      regexFilter: exactHostRegexFilter(url.protocol === 'https:' ? 'https' : 'http', url.hostname, '/'),
-      resourceTypes: ['main_frame', 'sub_frame'],
-    };
-  } catch {
-    return null;
-  }
-}
-
 export function buildDnrRulesForCookieStore(options: BuildRuleOptions): DNRRule[] {
-  // Split the legacy combined rule so request and response sides can scope
-  // independently. Request-side stripping is tab-scoped for all subresources so
-  // the shared jar never competes with an isolated cookie on same-site fetches
-  // or later navigations; response-side stripping stays strict and the auth
-  // bridge handles the timing gap between capture and the next navigation.
+  // Request and response strips are separate rules so each side can scope its
+  // resource types independently. Both default to every type the tab uses,
+  // navigations included: the tab's cookies come only from the `Cookie: set`
+  // rules below, never from Chrome's shared jar, and never land in it.
   const requestStripResourceTypes = options.requestStripResourceTypes ?? options.resourceTypes;
   const requestCondition = buildRequestStripCondition(
     options.boundHost, options.scheme, requestStripResourceTypes, options.firstPartyDomain);
@@ -211,18 +200,27 @@ export function buildDnrRulesForCookieStore(options: BuildRuleOptions): DNRRule[
     });
   }
 
-  if (options.bridgeNavigationUrl) {
-    const bridgeNavigationCondition = buildBridgeNavigationStripCondition(options.bridgeNavigationUrl);
-    if (bridgeNavigationCondition) {
-      bridgeNavigationCondition.tabIds = [options.tabId];
-      addRules.push({
-        id: options.ruleIds[addRules.length],
-        priority: 100,
-        action: { type: 'modifyHeaders', requestHeaders: [{ header: 'Cookie', operation: 'remove' }] },
-        condition: bridgeNavigationCondition,
-      });
-    }
-  }
+  // Held redirects: a navigation response that sets cookies loses its Location,
+  // so Chrome commits it instead of following it before those cookies are
+  // captured; SessionShift finishes the hop (see held-redirects.ts). The
+  // Server-Timing marker lets the content script stop only held documents.
+  // `responseHeaders` conditions need Chrome 128 (manifest minimum).
+  addRules.push({
+    id: options.ruleIds[addRules.length],
+    priority: 100,
+    action: {
+      type: 'modifyHeaders',
+      responseHeaders: [
+        { header: 'location', operation: 'remove' },
+        { header: 'server-timing', operation: 'append', value: HELD_REDIRECT_MARKER },
+      ],
+    },
+    condition: {
+      tabIds: [options.tabId],
+      resourceTypes: ['main_frame', 'sub_frame'],
+      responseHeaders: [{ header: 'set-cookie' }],
+    },
+  });
 
   const scopes = buildCookieRuleScopes(options.store, options.boundHost);
   for (let i = 0; i < scopes.length; i++) {

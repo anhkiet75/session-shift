@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { handleMessage } from '../background.js'
-import { handleRequestCompleted } from '../background/dnr-manager.js'
+import { handleRequestCompleted, updateDNRRulesForTab } from '../background/dnr-manager.js'
 import { tabSessions } from '../background/session-manager.js'
 
 const SENDER = { id: chrome.runtime.id }
@@ -103,10 +103,11 @@ describe('createSessionTab — new profile must not leak the default jar cookie'
     expect(chrome.tabs.create).not.toHaveBeenCalled()
   })
 
-  it('strips Cookie on the first navigation, then clears the strip once that navigation completes', async () => {
+  it('publishes a navigation-wide Cookie strip before the tab navigates, and keeps it', async () => {
     await chrome.storage.local.set({ profiles: [{ id: 'session_new1', name: 'New', hue: 0 }] })
     chrome.tabs.create.mockResolvedValue({ id: 401 })
     chrome.tabs.get.mockResolvedValue({ id: 401, url: 'https://example.com/dashboard' })
+    chrome.tabs.update.mockClear()
     chrome.declarativeNetRequest.updateSessionRules.mockClear()
 
     const result = await handleMessage(
@@ -115,27 +116,23 @@ describe('createSessionTab — new profile must not leak the default jar cookie'
     )
     expect(result.success).toBe(true)
 
-    // The very first DNR publish must strip Cookie on a main_frame/sub_frame
-    // navigation to that exact host — otherwise Chrome attaches the default
-    // jar's stale cookie and the brand-new profile looks logged in already.
-    let calls = chrome.declarativeNetRequest.updateSessionRules.mock.calls
-    let { addRules } = calls[calls.length - 1][0]
-    const stripRule = addRules.find(r =>
+    // Rules exist before the tab leaves about:blank, so the first request
+    // cannot pick up the normal account's cookie from Chrome's own jar.
+    const firstPublish = chrome.declarativeNetRequest.updateSessionRules.mock.invocationCallOrder[0]
+    const navigate = chrome.tabs.update.mock.invocationCallOrder[0]
+    expect(firstPublish).toBeLessThan(navigate)
+    const navStrip = (addRules) => addRules.find(r =>
       r.action.requestHeaders?.some(h => h.header === 'Cookie' && h.operation === 'remove') &&
       r.condition.resourceTypes?.includes('main_frame')
     )
-    expect(stripRule).toBeDefined()
+    expect(navStrip(chrome.declarativeNetRequest.updateSessionRules.mock.calls[0][0].addRules)).toBeDefined()
 
-    // Once the navigation to that host completes, the strip must be cleared so
-    // later navigations in this tab are not permanently cookie-less.
+    // Completing a navigation no longer lifts the strip: every later
+    // navigation stays out of the normal jar too.
     await handleRequestCompleted({ requestId: 'nav-1', tabId: 401, type: 'main_frame' })
-    calls = chrome.declarativeNetRequest.updateSessionRules.mock.calls
-    ;({ addRules } = calls[calls.length - 1][0])
-    const strippedAfter = addRules.find(r =>
-      r.action.requestHeaders?.some(h => h.header === 'Cookie' && h.operation === 'remove') &&
-      r.condition.resourceTypes?.includes('main_frame')
-    )
-    expect(strippedAfter).toBeUndefined()
+    await updateDNRRulesForTab(401, 'session_new1')
+    const calls = chrome.declarativeNetRequest.updateSessionRules.mock.calls
+    expect(navStrip(calls[calls.length - 1][0].addRules)).toBeDefined()
 
     delete tabSessions[401]
   })

@@ -1,11 +1,13 @@
 // index.ts — Service worker entry point: startup + Chrome API listener registration.
 
 import { restoreTabSessions, tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { dnrRuleIdsForTab, registerWebRequestListener, clearBridgeNavigationStrip } from './dnr-manager.js';
+import { dnrRuleIdsForTab, registerWebRequestListener } from './dnr-manager.js';
 import { setupContextMenu, registerStorageListener } from './context-menu-manager.js';
 import { registerLinkedTabInheritance } from './linked-tab-inheritance.js';
 import { handleMessage } from './message-handler.js';
 import { registerDocumentCookieBroadcast } from './document-cookie-sync.js';
+import { forgetHeldRedirectsForTab } from './held-redirects.js';
+import { forgetPreAssignmentTab } from './pre-assignment-navigations.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { getProfiles, isInternalSession } from '../lib/session-store.js';
 import { runExpiredPurge, runOrphanPurge } from './storage-gc.js';
@@ -98,7 +100,8 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
     await persistTabSessions();
   }
   chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: dnrRuleIdsForTab(tabId) }).catch(() => {});
-  clearBridgeNavigationStrip(tabId);
+  forgetHeldRedirectsForTab(tabId);
+  forgetPreAssignmentTab(tabId);
 });
 
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {

@@ -208,11 +208,7 @@
     const request = input instanceof Request
       ? new Request(input, init)
       : new Request(new URL(String(input), window.location.href).href, init);
-    const url = new URL(request.url, window.location.href);
-    if (
-      url.origin !== window.location.origin ||
-      (url.protocol !== 'https:' && url.protocol !== 'http:')
-    ) {
+    if (!isBridgeableUrl(request.url)) {
       return null;
     }
     const headers = new Headers(request.headers);

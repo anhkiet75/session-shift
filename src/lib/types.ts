@@ -75,5 +75,6 @@ export type BackgroundMessage =
   | { action: 'duplicateSession'; payload?: { sessionId: string } }
   | { action: 'colorSession'; payload: { sessionId: string; hue: number } }
   | { action: 'renameProfileGroups'; payload: { sessionId: string } }
+  | { action: 'resolveHeldRedirect'; payload?: undefined }
 
 export type DNRRule = chrome.declarativeNetRequest.Rule

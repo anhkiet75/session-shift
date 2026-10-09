@@ -249,3 +249,27 @@ describe('cookie capture republishes every tab of the profile', () => {
     expect(siblingCookieRule).toBeDefined()
   })
 })
+
+describe('parallel requests that left while the document was being captured', () => {
+  it('keeps the document session when a cookieless favicon request gets a guest session back', async () => {
+    tabSessions[90] = 'session_parallel'
+    await chrome.storage.local.set({ profiles: [{ id: 'session_parallel', name: 'P', hue: 0 }] })
+    chrome.tabs.get.mockResolvedValue({ id: 90, url: 'http://localhost:8000/login' })
+
+    handleBeforeSendHeaders({ requestId: 'doc', tabId: 90, type: 'main_frame', url: 'http://localhost:8000/login', requestHeaders: [] })
+    const documentCapture = handleHeadersReceived({
+      ...details({ tabId: 90, url: 'http://localhost:8000/login', type: 'main_frame', setCookie: 'app_session=document; Path=/' }),
+      requestId: 'doc',
+    })
+    // The favicon leaves before the document's session is in the rules.
+    handleBeforeSendHeaders({ requestId: 'icon', tabId: 90, type: 'other', url: 'http://localhost:8000/favicon.ico', requestHeaders: [] })
+    const iconCapture = handleHeadersReceived({
+      ...details({ tabId: 90, url: 'http://localhost:8000/favicon.ico', type: 'other', setCookie: 'app_session=guest; Path=/' }),
+      requestId: 'icon',
+    })
+    await Promise.all([documentCapture, iconCapture])
+
+    const store = await getCookieStore('session_parallel')
+    expect(Object.values(store).find(e => e.name === 'app_session')?.value).toBe('document')
+  })
+})
