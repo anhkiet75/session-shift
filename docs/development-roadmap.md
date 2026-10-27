@@ -12,7 +12,7 @@
 > A claim belongs in exactly one of them. Source-of-truth order for any version
 > or feature claim: `src/manifest.json` version > code and tests > git history >
 > prose. `src/manifest.json` is the only version Chrome ships; it is currently
-> **0.1.1**, and the repository has no git tags. Version strings like `v0.4.1`
+> **0.1.3**, and the repository has no git tags. Version strings like `v0.4.1`
 > or `v0.6.0` that appeared in earlier revisions of these files were
 > development milestone labels, never releases.
 
@@ -22,7 +22,7 @@
 
 ## Current Status
 
-**Current Version:** 0.1.1 (from `src/manifest.json`)  
+**Current Version:** 0.1.3 (from `src/manifest.json`)  
 **Status:** Active hardening and profile UX work  
 **Repository:** https://github.com/anhkiet75/session-shift  
 **Chrome Web Store:** https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp
@@ -38,11 +38,15 @@
 | **3** | UX Polish | v0.3.0 | ✅ Shipped | 2026-03 | Session colors, duplication, settings page (**export/import was never built**) |
 | **4** | Advanced Features | v0.4.0 | ✅ Shipped | 2026-05-04 | Keyboard shortcuts, lazy DNR debounce, test coverage, WCAG 2.1 AA |
 | **5** | Infrastructure & Sync | v0.5.0 | 🟡 In Progress | TBD | TypeScript + modularization (done), IndexedDB migration, cross-device sync, privacy audit |
-| **6** | Profile Model Hardening | v0.6.0 | 🟡 In Progress | TBD | Global profile model, auth transition bridge, first-navigation strip, popup profile open-in-tab |
+| **6** | Profile Model Hardening | v0.6.0 | 🟡 In Progress | TBD | Global profile model, auth transition bridge, first-navigation strip (replaced in 0.1.3), popup profile open-in-tab |
 | **7** | Favorites | **0.1.0 (shipped)** | ✅ Shipped | 2026-09-20 | Saved `(url, profile)` launchers: popup star + list, Options → Favorites CRUD/reorder, cascade purge on profile delete, 55-locale parity |
+| — | Popup inline edit polish | **0.1.1 (shipped)** | ✅ Shipped | 2026-09-23 | Favorite rename/delete, profile rename polish |
+| — | Shortcuts unbound | **0.1.2 (shipped)** | ✅ Shipped | 2026-09-24 | No command ships a `suggested_key`; Options → Keyboard shortcuts list |
+| — | Session-rotating logins | **0.1.3 (shipped)** | ✅ Shipped | 2026-10-09 | Profile tabs never touch Chrome's jar; held redirects, redirect hop guard, live `document.cookie`, linked-tab pre-assignment requests distrusted; Chrome 128 minimum |
 
 *Phase "version" labels 1–6 are development milestones, not releases. Phase 7 is
-the first row whose version is a real shipped manifest version.*
+the first row whose version is a real shipped manifest version. Per-release
+detail lives in [`project-changelog.md`](./project-changelog.md).*
 
 ---
 
@@ -267,8 +271,8 @@ until it is moved.*
 - No build tooling required (unpacked extension)
 
 **Browser Support:**
-- Chrome 127+ (MV3 required; MV2 deprecated)
-- Edge 127+ (Chromium-based)
+- Chrome 128+ (`minimum_chrome_version`; DNR `responseHeaders` conditions need 128)
+- Edge 128+ (Chromium-based)
 - Brave, Vivaldi, Opera (Chromium-based)
 
 ---

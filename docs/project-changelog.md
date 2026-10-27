@@ -15,8 +15,11 @@ All significant changes to the SessionShift Chrome extension are documented here
 ## Current release: 0.1.3 (manifest)
 
 **Shipped in 0.1.3:** Laravel-style session cookies keep working in profile tabs, and the default (non-profile) jar is isolated from profile cookies.
-- Redirects are held until a tab has a profile assignment, and stale-cookie guards run on each redirect hop, so cookies set mid-redirect land in the right jar.
-- Linked-tab inheritance, fresh-load, and DNR cookie rules were adjusted to match.
+- Profile tabs never read or write Chrome's own jar; the request-side Cookie strip now covers navigations too.
+- Navigation redirects that set cookies are held (DNR removes `Location`) and finished by the content script once the cookies are captured, so every hop carries the right session.
+- The redirect hop guard also drops Set-Cookie from a tab's parallel requests sent while its document's capture is pending.
+- `document.cookie` is scoped to the frame URL and kept live across the profile's tabs; XHR is bridged like fetch.
+- Linked tabs: rules are published before assignment; a request sent before the rules went live is never captured, and a GET is re-requested once under the profile. The old one-shot first-navigation strip is gone.
 - `minimum_chrome_version` raised from 110 to 128.
 
 Implementation: `background/held-redirects.ts`, `background/pre-assignment-navigations.ts`, `background/dnr-*`, `background/redirect-hop-stale-cookie-guard.ts`. New unit and e2e tests (`held-redirects`, `default-jar-isolation`, Laravel mock server).

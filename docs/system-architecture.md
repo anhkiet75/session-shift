@@ -97,11 +97,11 @@ Check: autoInheritProfileForLinkedTabs setting enabled?
   ↓
 Check: opener has non-internal profile?
   ↓
-tabSessions[newTabId] = openerProfileId
+Apply DNR rules for inherited profile (rules first)
   ↓
-Install cookie-strip DNR rule for first navigation
+tabSessions[newTabId] = openerProfileId; mark join time
   ↓
-Apply DNR rules for inherited profile
+Requests sent before the join are distrusted; a GET is re-requested once
   ↓
 New tab inherits Work profile's cookies
 ```
@@ -119,10 +119,12 @@ New tab inherits Work profile's cookies
   - Tabs already assigned to a profile
 
 **Why not `chrome.tabs.onCreated`:**
-`tabs.onCreated` fires before the destination URL is known for link-opened tabs (tab.url is empty, tab.pendingUrl is undefined). Too late to install a Cookie-strip DNR rule before the first request. `chrome.webNavigation.onCreatedNavigationTarget` is purpose-built for this case and delivers the URL synchronously.
+`tabs.onCreated` fires before the destination URL is known for link-opened tabs (tab.url is empty, tab.pendingUrl is undefined). `chrome.webNavigation.onCreatedNavigationTarget` is purpose-built for this tab-creation path.
 
-**First-request cookie leak (known limitation):**
-The very first network request from a newly-linked tab may not be hard-guaranteed cookie-clean because Chrome starts navigating the link-opened tab in a single browser-driven step the extension can't delay (unlike `createSessionTab`, which creates the tab as about:blank, installs DNR rules, then triggers navigation — fully controlling timing). Isolation is deterministic from the second request onward. This mirrors the existing behavior of `createSessionTab` itself.
+**Pre-assignment navigations (since 0.1.3):**
+Chrome starts navigating a link-opened tab in one browser-driven step the extension cannot delay, so the link's first request usually leaves before the profile's rules exist. It carries Chrome's own jar (the normal account), and the server answers that account. `createSessionTab` has no such gap: it installs rules while the tab is still `about:blank`, then navigates.
+
+`src/background/pre-assignment-navigations.ts` closes the gap for linked tabs. Event order cannot be trusted (a request's webRequest events can reach the service worker after the tab is assigned), so requests are judged by send time (`details.timeStamp`) against the moment the tab's rules went live. A response to an earlier request is never captured into the profile, and a GET is re-requested once under the profile. A POST (form `target=_blank`) is not replayed.
 
 **Opt-out via toggle:**
 - Default: On
@@ -222,7 +224,7 @@ v0.5.0 widens the response-stripping match from exact host to registrable domain
 
 This fixes multi-subdomain login flows such as `www.google.com` → `accounts.google.com` while keeping host-only and path-scoped cookies from leaking to sibling subdomains or unrelated paths.
 
-**Third-party Cookie strip:** the request-side `Cookie: remove` is widened to match cross-site subresources/iframes in the tab (every scheme, excluding the active top-level site's eTLD+1) so they stop sending the user's default-jar cookies to third parties. Navigation requests are excluded so login redirects can carry freshly set cookies before async DNR rebuilds complete. The response-side `set-cookie: remove` applies to all subresources, including same-site ones, so isolated tabs never write auth cookies into Chrome's shared jar — same-site fetch/XHR auth responses get strict response stripping with no jar passthrough.
+**Jar isolation (since 0.1.3):** a profile tab never reads or writes Chrome's own cookie jar; that jar belongs to the user's normal (no-profile) tabs. Both base strip rules are tab-scoped and cover every resource type and scheme, navigations included: request-side `Cookie: remove` keeps jar cookies out of the tab, response-side `set-cookie: remove` keeps the tab's cookies out of the jar. The profile store, published as higher-priority `Cookie: set` rules, is the only cookie source. Earlier versions let navigations through to the jar so login redirects could carry fresh cookies, which mixed the jar's cookies into profile navigations. That timing gap is now closed by held redirects and the redirect hop guard below. Owner: `updateDNRRulesForTab()` in `src/background/dnr-manager.ts`.
 
 ### Auth Transition Bridge
 
@@ -234,11 +236,21 @@ Strict response-side `Set-Cookie` stripping on same-site subresources removes th
 
 The page-side constants are duplicated in `page-api-proxy.ts` (rather than imported), because that file is injected as a standalone MAIN-world script with no module imports.
 
+### Held Redirects (since 0.1.3)
+
+Set-Cookie capture is asynchronous (MV3 webRequest is non-blocking), but Chrome follows a redirect immediately, about 1 ms later on a fast origin. A login redirect would therefore go out with the pre-login session and land on a logged-out page. Re-sending the hop afterwards is not safe: it already reached the server and consumed one-shot state such as flashed validation errors.
+
+So SessionShift, not Chrome, follows a navigation redirect that sets cookies (`src/background/held-redirects.ts`):
+
+1. A tab-scoped DNR rule matches `main_frame`/`sub_frame` responses that carry `set-cookie`. It removes `Location` and appends a `sessionshift-held` `Server-Timing` marker. Chrome commits the 3xx as an empty document. Matching on `responseHeaders` needs Chrome 128, which is why `minimum_chrome_version` is 128.
+2. `src/content.ts`, at `document_start`, sees a 3xx document with the marker, stops it, and sends `resolveHeldRedirect`. `serverTiming` is secure-context only, so on plain `http` every 3xx document asks.
+3. The background answers only after the response's cookies are captured and published (`whenCapturesSettled`). The content script finishes the hop with `location.replace`, which keeps the history of a native redirect.
+
+Every navigation hop is therefore sent with the right cookies.
+
 ### Redirect Hop Guard
 
-Set-Cookie capture is asynchronous, but Chrome follows a redirect immediately. The next hop of the chain can therefore leave with the profile's previous cookies. After a login that rotates the session (Laravel, Rails, Django), the server answers that hop as a guest. `src/background/redirect-hop-stale-cookie-guard.ts` marks such a hop: one sent while an earlier hop's capture for the same `requestId` is still pending. It then drops that hop's `Set-Cookie`, so the guest cookie cannot overwrite the login cookie. The hop is not re-sent. It has already reached the server, and a second copy would consume one-shot session state such as flashed validation errors. Session redirect chains converge on their own.
-
-Residual limit: if an entire redirect chain completes faster than one capture, the final response may be rendered with the old session, while the store keeps the new one. This happens on localhost at about 1 ms per hop, and is rare on remote origins.
+Requests that are not held can still leave before a capture finishes: a subresource redirect chain, or the tab's parallel requests (favicon, preloads, early XHR) while its document's cookies are being captured. After a session-rotating login (Laravel, Rails, Django) the server answers such a request as a guest. `src/background/redirect-hop-stale-cookie-guard.ts` marks a request as stale when it is sent while an earlier hop of the same `requestId`, or the tab's document, still has a capture pending. It then drops that request's `Set-Cookie`, so the guest cookie cannot overwrite the login cookie. The request is not re-sent, for the same one-shot-state reason as above.
 
 ### Live document.cookie Sync
 
@@ -489,8 +501,8 @@ serialized through the same chained-promise queue pattern as
 
 Favorites introduce **no new cookie-isolation surface**: launching one sends the
 existing `createSessionTab` message, which already rejects non-http(s) schemes,
-validates `sessionId` against `profiles`, and calls
-`stripCookiesOnNextNavigation` before navigating so the first load is clean.
+validates `sessionId` against `profiles`, and installs the profile's DNR rules
+while the tab is still `about:blank`, so the first load is clean.
 
 Orphan handling is two-layered: `deleteSession` cascade-purges that profile's
 favorites, and any favorite still referencing a missing profile renders in a

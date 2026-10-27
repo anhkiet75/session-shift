@@ -10,6 +10,11 @@
 | **background/dnr-manager.ts** | 148 | DNR rule management; Set-Cookie capture into session store + jar-pollution strip on isolated tabs |
 | **background/context-menu-manager.ts** | 40 | Context menu creation and cleanup lifecycle |
 | **background/linked-tab-inheritance.ts** | 35 | Listen for link-opened tabs; auto-assign profile if setting enabled (v0.6.0+) |
+| **background/pre-assignment-navigations.ts** | — | Linked-tab requests sent before profile rules went live: never captured; GET re-requested once (0.1.3) |
+| **background/held-redirects.ts** | — | Navigation redirects that set cookies are followed by SessionShift after capture, not by Chrome (0.1.3) |
+| **background/redirect-hop-stale-cookie-guard.ts** | — | Drops Set-Cookie of requests sent while a capture is pending; `whenCapturesSettled` for bridge + held redirects |
+| **background/document-cookie-sync.ts** | — | Frame-scoped `document.cookie` snapshot; broadcasts store changes to the profile's tabs |
+| **background/tab-fresh-load.ts** | — | One forced reload after `createSessionTab` so the page is not served from another profile's disk cache |
 | **background/message-handler.ts** | 137 | chrome.runtime.onMessage routing; all message types (setSession, updateCookie, deleteSession, etc.) |
 | **background/tab-group-sync.ts** | 213 | chrome.tabGroups mutation engine (Phase 4): create/move/recolor groups per profile; withTabGroups() permission guard; onUpdated self-write detection |
 | **background/tab-group-lifecycle.ts** | 83 | Phase 4 permission/setting orchestration: request/decline/revoke handling, ext_settings on/off transition, SW-startup reconcile |
@@ -110,7 +115,7 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 - Listens for `chrome.webNavigation.onCreatedNavigationTarget` (link-opened tabs)
 - Auto-inherits opener's profile unless setting `autoInheritProfileForLinkedTabs` is explicitly `false` (default: on)
 - Filters out internal sessions and already-assigned tabs
-- Installs cookie-strip DNR rule for first navigation to avoid first-request cookie leak
+- Publishes the profile's DNR rules before assigning the tab, then hands the join time to `pre-assignment-navigations.ts`, which distrusts the link's earlier first request
 
 **Key Functions:**
 - `registerLinkedTabInheritance(restored)` — Register webNavigation listener; awaits restoration before operating on tabSessions
@@ -445,8 +450,9 @@ unresolved profile selector in Options so its URL can be rebound.
 **Launch path.** Favorites add no new background message and no new
 cookie-isolation code. A row sends the existing
 `{ action: 'createSessionTab', payload: { url, sessionId } }`, which already
-enforces the http(s) scheme, validates `sessionId` against `profiles`, and calls
-`stripCookiesOnNextNavigation` for a clean first load.
+enforces the http(s) scheme, validates `sessionId` against `profiles`, and
+installs the profile's DNR rules while the tab is still `about:blank`, so the
+first load is clean.
 
 #### Settings
 Key: `ext_settings`
@@ -503,14 +509,13 @@ the same domain.
 1. The webRequest `onHeadersReceived` listener observes the response first and captures
    each `Set-Cookie` into the per-session store
 2. Base DNR rules (priority 100, scoped to the tab) strip `Cookie` and `Set-Cookie`
-   from cross-site subresource traffic before it reaches the network/browser jar
-3. Navigation and same-site subresource responses are not stripped, so login redirects
-   and fetch/XHR auth steps can carry freshly set cookies
+   from every request and response of the tab, navigations included (since 0.1.3)
+3. Higher-priority `Cookie: set` rules publish the profile store, the tab's only cookie source
 
-Why: Capturing into the session store preserves the isolated session's own cookies, while
-stripping third-party subresource response headers keeps background writes out of the
-shared jar. Same-site auth responses are the exception because Chrome can issue the
-next request before extension-side DNR updates complete.
+Why: a profile tab must never read or write Chrome's own jar, which belongs to the
+user's normal tabs. The timing gap between Chrome sending the next request and the
+DNR rebuild is closed by held redirects, the redirect hop guard and the auth bridge
+(see `system-architecture.md`), not by falling back to the jar.
 
 ### 5. Badge Label Derivation
 ```javascript
