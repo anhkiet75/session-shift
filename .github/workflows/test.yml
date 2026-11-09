@@ -19,6 +19,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run version:sync
       - run: npm run type-check
       - run: npm run validate:locales
       - run: npm run test:unit
@@ -33,6 +34,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run version:sync
       - run: npx playwright install chromium --with-deps
       - run: xvfb-run -a npm run test:e2e
         env:

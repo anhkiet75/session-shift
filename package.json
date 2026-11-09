@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "version:sync": "tsx scripts/sync-version.ts",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",

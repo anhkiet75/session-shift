@@ -21,21 +21,26 @@ export function readJsonObject(file: string): Record<string, unknown> {
   return parseJsonObject(readFileSync(file, 'utf8'), file)
 }
 
-export function validateVersions(packageVersion: unknown, manifestVersion: unknown, tag?: string): string {
-  if (typeof packageVersion !== 'string' || !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(packageVersion)) {
-    throw new Error('package.json version must be a stable X.Y.Z version')
+export function validateVersion(version: unknown, label = 'package.json'): string {
+  if (typeof version !== 'string' || !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version)) {
+    throw new Error(`${label} version must be a stable X.Y.Z version`)
   }
-  const parts = packageVersion.split('.').map(Number)
+  const parts = version.split('.').map(Number)
   if (parts.some(part => part > 65535) || parts.every(part => part === 0)) {
     throw new Error('Extension version components must be 0..65535 and not all zero')
   }
+  return version
+}
+
+export function validateVersions(packageVersion: unknown, manifestVersion: unknown, tag?: string): string {
+  const version = validateVersion(packageVersion)
   if (manifestVersion !== packageVersion) {
     throw new Error(`Manifest version ${String(manifestVersion)} does not match package.json ${packageVersion}`)
   }
   if (tag !== undefined && tag !== `v${packageVersion}`) {
     throw new Error(`Tag ${tag} does not match package.json v${packageVersion}`)
   }
-  return packageVersion
+  return version
 }
 
 export function readVersion(root = ROOT, tag?: string): string {

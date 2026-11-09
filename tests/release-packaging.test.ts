@@ -5,7 +5,7 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { deflateRawSync } from 'node:zlib'
-import { validateVersions, parseJsonObject } from '../scripts/release-version.js'
+import { validateVersions, parseJsonObject, readVersion } from '../scripts/release-version.js'
 import { validateRelease } from '../scripts/validate-release.js'
 import { buildCrx, loadPrivateKey, verifyCrx } from '../scripts/package-crx.js'
 import { readExtensionZip } from '../scripts/extension-zip.js'
@@ -80,16 +80,17 @@ describe('release signing and archive verification', () => {
   it.each(['pkcs1', 'pkcs8'] as const)('signs with the raw %s PEM used by GitHub variables', type => {
     const privateKey = generateKeyPairSync('rsa', { modulusLength: 2048 }).privateKey
     vi.stubEnv('CRX_PRIVATE_KEY', privateKey.export({ type, format: 'pem' }).toString())
-    expect(validateRelease('v0.1.3')).toBe('0.1.3')
+    const version = readVersion()
+    expect(validateRelease(`v${version}`)).toBe(version)
     const { key, source } = loadPrivateKey(true)
     expect(source).toBe('CRX_PRIVATE_KEY')
-    const { crx, extensionId } = buildCrx(key, zipFixture())
+    const { crx, extensionId } = buildCrx(key, zipFixture(version))
     const directory = mkdtempSync(path.join(tmpdir(), 'session-shift-pem-'))
     temporaryDirectories.push(directory)
     const file = path.join(directory, 'extension.crx')
     writeFileSync(file, crx)
-    expect(() => verifyCrx(file, extensionId, '0.1.3')).not.toThrow()
-    expect(buildCrx(privateKey, zipFixture()).extensionId).toBe(extensionId)
+    expect(() => verifyCrx(file, extensionId, version)).not.toThrow()
+    expect(buildCrx(privateKey, zipFixture(version)).extensionId).toBe(extensionId)
   })
   it('rejects malformed PEM, non-RSA keys, weak RSA keys and conflicting key sources', () => {
     vi.stubEnv('CRX_PRIVATE_KEY', 'invalid PEM')

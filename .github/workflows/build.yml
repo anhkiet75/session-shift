@@ -21,6 +21,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run version:sync
       - name: Validate release version and signing key before building
         env:
           RELEASE_TAG: ${{ github.ref_name }}
@@ -44,6 +45,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run version:sync
       - name: Build and verify ZIP and signed CRX
         env:
           CRX_PRIVATE_KEY: ${{ secrets.CRX_PRIVATE_KEY || vars.CRX_PRIVATE_KEY }}

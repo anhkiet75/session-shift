@@ -251,8 +251,19 @@ E2E suites in `tests/e2e/`:
 
 ## Tag releases
 
-The release workflow runs on pushed `vX.Y.Z` tags. The tag must match the
-versions in `package.json` and `src/manifest.json`. Tests must pass before it builds
+Edit only `src/manifest.json` to change the version. On branch pushes, the
+`Sync manifest version` workflow synchronizes `package.json` and both root
+version fields in `package-lock.json`, then commits the result to the same
+branch. Dependency versions stay unchanged. The workflow can also be run
+manually. Repository rules must allow GitHub Actions to push to that branch;
+if a protected branch blocks the push, run `npm run version:sync` locally
+and include the generated changes in your normal branch workflow. Pull the
+bot commit before making further pushes.
+
+The release workflow runs on pushed `vX.Y.Z` tags. The tag must match
+`src/manifest.json`. Test and release jobs synchronize package metadata in
+their checkouts before validation, so a tag does not need to wait for the bot
+commit. Tests must pass before it builds
 and publishes `session_shift_vX.Y.Z.zip` and `session_shift_vX.Y.Z.crx` to the
 GitHub Release.
 
