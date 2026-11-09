@@ -5,6 +5,14 @@ export interface Session {
   id: string
   name: string
   hue?: number
+  /** The site where this profile was created. Older profiles omit this field. */
+  site?: ProfileSite
+}
+
+export interface ProfileSite {
+  name: string
+  origin: string
+  url: string
 }
 
 /**

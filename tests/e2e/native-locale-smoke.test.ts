@@ -22,6 +22,8 @@ async function launchWithLang(lang: string): Promise<LangContext> {
   const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), `pw-ext-lang-${lang}-`))
   const context = await chromium.launchPersistentContext(userDataDir, {
     headless: process.env.PW_HEADLESS === '1',
+    channel: process.env.PW_HEADLESS === '1' ? 'chromium' : undefined,
+    locale: lang,
     args: [
       `--disable-extensions-except=${EXTENSION_PATH}`,
       `--load-extension=${EXTENSION_PATH}`,

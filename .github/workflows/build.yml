@@ -1,0 +1,67 @@
+name: Release packages
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run version:sync
+      - name: Validate release version and signing key before building
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          CRX_PRIVATE_KEY: ${{ secrets.CRX_PRIVATE_KEY || vars.CRX_PRIVATE_KEY }}
+          CRX_PRIVATE_KEY_BASE64: ${{ !(secrets.CRX_PRIVATE_KEY || vars.CRX_PRIVATE_KEY) && secrets.CRX_PRIVATE_KEY_BASE64 || '' }}
+        run: npx --no-install tsx scripts/validate-release.ts "$RELEASE_TAG"
+
+  tests:
+    needs: validate
+    uses: ./.github/workflows/test.yml
+
+  package:
+    needs: tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run version:sync
+      - name: Build and verify ZIP and signed CRX
+        env:
+          CRX_PRIVATE_KEY: ${{ secrets.CRX_PRIVATE_KEY || vars.CRX_PRIVATE_KEY }}
+          CRX_PRIVATE_KEY_BASE64: ${{ !(secrets.CRX_PRIVATE_KEY || vars.CRX_PRIVATE_KEY) && secrets.CRX_PRIVATE_KEY_BASE64 || '' }}
+          CRX_REQUIRE_KEY: '1'
+        run: npm run package:all
+      - name: Publish release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          version="${RELEASE_TAG#v}"
+          if ! gh release view "$RELEASE_TAG"; then
+            gh release create "$RELEASE_TAG" --verify-tag --target "$RELEASE_COMMIT" --title "$RELEASE_TAG" --generate-notes
+          fi
+          gh release upload "$RELEASE_TAG" "releases/session_shift_v${version}.zip" "releases/session_shift_v${version}.crx" --clobber

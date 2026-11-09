@@ -440,6 +440,18 @@ body {
   margin: -2px;
 }
 
+.v2-site-groups { display: flex; flex-direction: column; gap: 10px; padding: 2px; margin: -2px; }
+.v2-site-group { display: flex; flex-direction: column; gap: 6px; }
+.v2-site-profiles { display: flex; flex-direction: column; gap: 6px; }
+.v2-site-profiles[hidden] { display: none; }
+.v2-site-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 7px 6px; border: 0; border-bottom: 1px solid var(--border); background: transparent; color: var(--text); text-align: start; cursor: pointer; }
+.v2-site-heading:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 4px; }
+.v2-site-heading-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.v2-site-heading-text strong { font-size: 11px; font-weight: 700; }
+.v2-site-heading-text span { overflow: hidden; color: var(--text-muted); font-family: var(--mono); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.v2-site-chevron { color: var(--text-muted); transition: transform .15s ease; }
+.v2-site-group.collapsed .v2-site-chevron { transform: rotate(-90deg); }
+
 .v2-list::-webkit-scrollbar { width: 4px; }
 .v2-list::-webkit-scrollbar-track { background: transparent; }
 .v2-list::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
@@ -576,6 +588,9 @@ body {
   gap: 2px;
 }
 
+.v2-card-open { padding: 4px 7px; border: 1px solid var(--border-strong); border-radius: 5px; background: transparent; color: var(--text-dim); font: 600 10px var(--sans); cursor: pointer; }
+.v2-card-open:hover { background: var(--accent); border-color: var(--accent); color: white; }
+
 .v2-card-del,
 .v2-card-rename,
 .v2-card-dup {
@@ -598,7 +613,7 @@ body {
 
 /* Renaming a profile: the pencil becomes the save check; duplicate and
    delete step aside until the edit ends. */
-.v2-card:has(.v2-rename-input) :is(.v2-card-dup, .v2-card-del) { display: none; }
+.v2-card:has(.v2-rename-input) :is(.v2-card-open, .v2-card-dup, .v2-card-del) { display: none; }
 .v2-card-rename.editing { opacity: 1; color: var(--accent); }
 
 .v2-card-del:hover {

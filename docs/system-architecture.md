@@ -709,7 +709,7 @@ Object.defineProperty(window, 'localStorage', {
 - Unit testable (page-api-proxy.js runs in MAIN world; can't import modules)
 - Reusable logic across content script files
 - Clear separation of concerns
-- 11 unit tests in `tests/page-proxy-storage.test.js`
+- 11 unit tests in `tests/page-proxy-storage.test.ts`
 
 **Why prefix?** localStorage is shared across all tabs. Without a prefix, two tabs in different sessions would overwrite each other's keys.
 

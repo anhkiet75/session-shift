@@ -1,3 +1,4 @@
+import { parseCookieResponse } from './cookie-response'
 import { test, expect } from './extension-fixtures'
 import type { Page } from '@playwright/test'
 import { getTabIdByUrl, openPopupForTab, waitForOpenedPage } from './popup-helpers'
@@ -26,7 +27,7 @@ test.describe('Profile right-click open in new tab', () => {
     const defaultTab = await context.newPage()
     await defaultTab.goto(`${mockServerUrl}/set?user=default`)
     await defaultTab.goto(originUrl)
-    expect(JSON.parse(await defaultTab.textContent('body') ?? '{}').cookies.user).toBe('default')
+    expect(parseCookieResponse(await defaultTab.textContent('body')).cookies.user).toBe('default')
     const defaultTabId = await getTabIdByUrl(helperPage, 'source=right-click')
 
     await helperPage.evaluate(async ({ profileName }) => {
@@ -46,7 +47,7 @@ test.describe('Profile right-click open in new tab', () => {
 
     await openProfileFromRightClick(popup, profileName)
     const firstProfileTab = await waitForOpenedPage(context, originUrl, [defaultTab, helperPage, popup])
-    expect(JSON.parse(await firstProfileTab.textContent('body') ?? '{}').cookies.user).toBeUndefined()
+    expect(parseCookieResponse(await firstProfileTab.textContent('body')).cookies.user).toBeUndefined()
 
     await firstProfileTab.goto(`${mockServerUrl}/set?user=isolated`)
     await helperPage.waitForFunction(
@@ -67,7 +68,7 @@ test.describe('Profile right-click open in new tab', () => {
     const popupAgain = await openPopupForTab(context, popupUrl, defaultTabId, originUrl)
     await openProfileFromRightClick(popupAgain, profileName)
     const secondProfileTab = await waitForOpenedPage(context, originUrl, [defaultTab, helperPage, popup, popupAgain, firstProfileTab])
-    expect(JSON.parse(await secondProfileTab.textContent('body') ?? '{}').cookies.user).toBe('isolated')
+    expect(parseCookieResponse(await secondProfileTab.textContent('body')).cookies.user).toBe('isolated')
 
     await helperPage.close()
   })

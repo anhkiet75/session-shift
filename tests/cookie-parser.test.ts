@@ -1,0 +1,379 @@
+import { required } from './helpers/assert.js'
+import { describe, it, expect } from 'vitest'
+import { parseSetCookie, serializeCookieHeader, parseCookieString, cookieKey, parseDocumentCookie, isValidCookieName, isValidCookieValue } from '../src/lib/cookie-parser.js'
+
+describe('parseSetCookie', () => {
+  it('parses basic name=value with defaults from URL', () => {
+    const result = parseSetCookie('token=abc123', 'https://github.com/path')
+    expect(required(result).name).toBe('token')
+    expect(required(result).value).toBe('abc123')
+    expect(required(result).domain).toBe('github.com')
+    expect(required(result).path).toBe('/')
+    expect(required(result).secure).toBe(false)
+    expect(required(result).httpOnly).toBe(false)
+    expect(required(result).expires).toBeNull()
+  })
+
+  it('defaults missing Path to the request directory', () => {
+    expect(required(parseSetCookie('token=abc123', 'https://github.com/login/callback')).path).toBe('/login')
+    expect(required(parseSetCookie('token=abc123', 'https://github.com/login/')).path).toBe('/login')
+    expect(required(parseSetCookie('token=abc123', 'https://github.com/')).path).toBe('/')
+  })
+
+  it('parses Secure and HttpOnly flags', () => {
+    const result = parseSetCookie('sid=xyz; Secure; HttpOnly; Path=/', 'https://example.com/')
+    expect(required(result).secure).toBe(true)
+    expect(required(result).httpOnly).toBe(true)
+    expect(required(result).path).toBe('/')
+  })
+
+  it('parses Max-Age into future timestamp', () => {
+    const before = Date.now()
+    const result = parseSetCookie('x=1; Max-Age=3600', 'https://example.com/')
+    expect(required(result).expires).toBeGreaterThanOrEqual(before + 3600 * 1000 - 10)
+    expect(required(result).expires).toBeLessThanOrEqual(Date.now() + 3600 * 1000 + 10)
+  })
+
+  it('parses Expires header', () => {
+    const result = parseSetCookie('x=1; Expires=Thu, 01 Jan 2099 00:00:00 GMT', 'https://example.com/')
+    expect(required(result).expires).toBeGreaterThan(Date.now())
+  })
+
+  it('Max-Age=0 sets expires to 0 (deletion signal)', () => {
+    const result = parseSetCookie('x=1; Max-Age=0', 'https://example.com/')
+    expect(required(result).expires).toBe(0)
+  })
+
+  it('Max-Age takes precedence over Expires', () => {
+    const before = Date.now()
+    const result = parseSetCookie(
+      'x=1; Expires=Thu, 01 Jan 2099 00:00:00 GMT; Max-Age=60',
+      'https://example.com/'
+    )
+    expect(required(result).expires).toBeLessThan(before + 65_000)
+  })
+
+  it('parses explicit Domain attribute with dot prefix', () => {
+    const result = parseSetCookie('x=1; Domain=example.com', 'https://sub.example.com/')
+    expect(required(result).domain).toBe('.example.com')
+  })
+
+  it('does not double-dot when Domain already starts with dot', () => {
+    const result = parseSetCookie('x=1; Domain=.example.com', 'https://example.com/')
+    expect(required(result).domain).toBe('.example.com')
+  })
+
+  it('parses SameSite attribute', () => {
+    const result = parseSetCookie('x=1; SameSite=Lax', 'https://example.com/')
+    expect(required(result).sameSite).toBe('Lax')
+  })
+
+  it('returns null when name=value is missing =', () => {
+    expect(parseSetCookie('invalidcookie', 'https://example.com/')).toBeNull()
+  })
+
+  it('handles empty value', () => {
+    const result = parseSetCookie('token=', 'https://example.com/')
+    expect(required(result).name).toBe('token')
+    expect(required(result).value).toBe('')
+  })
+
+  it('preserves = in value (JWT tokens)', () => {
+    const result = parseSetCookie('jwt=abc.def=ghi', 'https://example.com/')
+    expect(required(result).value).toBe('abc.def=ghi')
+  })
+
+  it('handles invalid requestUrl gracefully', () => {
+    const result = parseSetCookie('x=1', 'not-a-url')
+    expect(required(result).name).toBe('x')
+    expect(required(result).domain).toBeNull()
+    expect(required(result).path).toBeNull()
+  })
+})
+
+describe('serializeCookieHeader', () => {
+  it('serializes store to cookie string', () => {
+    const store = {
+      token: { value: 'abc', expires: null },
+      session: { value: 'xyz', expires: null },
+    }
+    const result = serializeCookieHeader(store)
+    expect(result).toContain('token=abc')
+    expect(result).toContain('session=xyz')
+  })
+
+  it('returns empty string for empty store', () => {
+    expect(serializeCookieHeader({})).toBe('')
+  })
+
+  it('excludes expired cookies', () => {
+    const store = {
+      old: { value: 'x', expires: Date.now() - 1000 },
+      valid: { value: 'y', expires: null },
+    }
+    const result = serializeCookieHeader(store)
+    expect(result).not.toContain('old=')
+    expect(result).toContain('valid=y')
+  })
+
+  it('includes cookies with future expires', () => {
+    const store = {
+      future: { value: 'z', expires: Date.now() + 100_000 },
+    }
+    expect(serializeCookieHeader(store)).toContain('future=z')
+  })
+
+  it('includes cookies with expires=null (session cookies)', () => {
+    const store = { sess: { value: 'v', expires: null } }
+    expect(serializeCookieHeader(store)).toBe('sess=v')
+  })
+
+  it('keeps same-name cookies with different composite keys', () => {
+    const store = {
+      [cookieKey('SID', '.google.com', '/')]: {
+        name: 'SID',
+        value: 'root',
+        domain: '.google.com',
+        path: '/',
+        expires: null,
+      },
+      [cookieKey('SID', 'accounts.google.com', '/')]: {
+        name: 'SID',
+        value: 'accounts',
+        domain: 'accounts.google.com',
+        path: '/',
+        expires: null,
+      },
+    }
+    expect(serializeCookieHeader(store)).toBe('SID=root; SID=accounts')
+  })
+
+  it('orders cookies by path length descending', () => {
+    const store = {
+      [cookieKey('SID', '.example.com', '/')]: {
+        name: 'SID',
+        value: 'root',
+        domain: '.example.com',
+        path: '/',
+        expires: null,
+      },
+      [cookieKey('SID', '.example.com', '/deep')]: {
+        name: 'SID',
+        value: 'deep',
+        domain: '.example.com',
+        path: '/deep',
+        expires: null,
+      },
+    }
+    expect(serializeCookieHeader(store)).toBe('SID=deep; SID=root')
+  })
+
+  it('keeps legacy flat-key entries working during lazy migration', () => {
+    expect(serializeCookieHeader({ SID: { value: 'legacy', expires: null } })).toBe('SID=legacy')
+  })
+
+  it('filters cookies by request host and path when requestUrl is provided', () => {
+    const store = {
+      [cookieKey('ROOT', '.google.com', '/')]: {
+        name: 'ROOT',
+        value: 'root',
+        domain: '.google.com',
+        path: '/',
+        expires: null,
+      },
+      [cookieKey('ACCT', 'accounts.google.com', '/')]: {
+        name: 'ACCT',
+        value: 'acct',
+        domain: 'accounts.google.com',
+        path: '/',
+        expires: null,
+      },
+      [cookieKey('ADMIN', '.google.com', '/admin')]: {
+        name: 'ADMIN',
+        value: 'admin',
+        domain: '.google.com',
+        path: '/admin',
+        expires: null,
+      },
+    }
+    expect(serializeCookieHeader(store, { requestUrl: 'https://www.google.com/' })).toBe('ROOT=root')
+    expect(serializeCookieHeader(store, { requestUrl: 'https://accounts.google.com/admin/panel' }))
+      .toBe('ADMIN=admin; ROOT=root; ACCT=acct')
+  })
+})
+
+describe('parseCookieString', () => {
+  it('splits cookie string into name/value pairs', () => {
+    const map = parseCookieString('a=1; b=2; c=3')
+    expect(map.size).toBe(3)
+    expect(map.get('a')).toBe('1')
+    expect(map.get('b')).toBe('2')
+    expect(map.get('c')).toBe('3')
+  })
+
+  it('returns empty Map for empty string', () => {
+    expect(parseCookieString('').size).toBe(0)
+  })
+
+  it('returns empty Map for null/undefined', () => {
+    expect(parseCookieString(null as unknown as string).size).toBe(0)
+  })
+
+  it('preserves = in values', () => {
+    const map = parseCookieString('jwt=abc.def=ghi')
+    expect(map.get('jwt')).toBe('abc.def=ghi')
+  })
+
+  it('handles single cookie', () => {
+    const map = parseCookieString('only=one')
+    expect(map.get('only')).toBe('one')
+  })
+})
+
+describe('serializeCookieHeader — security options', () => {
+  it('excludes httpOnly cookies when excludeHttpOnly is true (H1)', () => {
+    const store = {
+      visible: { value: 'a', expires: null, httpOnly: false },
+      secret:  { value: 'b', expires: null, httpOnly: true },
+    }
+    const result = serializeCookieHeader(store, { excludeHttpOnly: true })
+    expect(result).toContain('visible=a')
+    expect(result).not.toContain('secret=b')
+  })
+
+  it('includes httpOnly cookies on the network (DNR) path — no option', () => {
+    const store = {
+      visible: { value: 'a', expires: null, httpOnly: false },
+      secret:  { value: 'b', expires: null, httpOnly: true },
+    }
+    const result = serializeCookieHeader(store)
+    expect(result).toContain('visible=a')
+    expect(result).toContain('secret=b')
+  })
+
+  it('excludes Secure cookies when excludeSecure is true (M2 HTTP-bound)', () => {
+    const store = {
+      normal: { value: 'x', expires: null, secure: false },
+      locked: { value: 'y', expires: null, secure: true },
+    }
+    const result = serializeCookieHeader(store, { excludeSecure: true })
+    expect(result).toContain('normal=x')
+    expect(result).not.toContain('locked=y')
+  })
+
+  it('includes all cookies when no options are set', () => {
+    const store = {
+      a: { value: '1', expires: null, httpOnly: true, secure: true },
+      b: { value: '2', expires: null },
+    }
+    const result = serializeCookieHeader(store)
+    expect(result).toContain('a=1')
+    expect(result).toContain('b=2')
+  })
+})
+
+describe('parseSetCookie — Domain validation (M5)', () => {
+  it('rejects cross-domain Domain attribute', () => {
+    expect(parseSetCookie('SID=val; Domain=evil.com', 'https://victim.com/')).toBeNull()
+  })
+
+  it('accepts Domain matching the request host exactly', () => {
+    const result = parseSetCookie('SID=val; Domain=example.com', 'https://example.com/')
+    expect(result).not.toBeNull()
+    expect(required(result).domain).toBe('.example.com')
+  })
+
+  it('accepts Domain that is a parent of the request host', () => {
+    const result = parseSetCookie('SID=val; Domain=example.com', 'https://api.example.com/')
+    expect(result).not.toBeNull()
+    expect(required(result).domain).toBe('.example.com')
+  })
+
+  it('rejects single-label Domain attribute', () => {
+    expect(parseSetCookie('SID=val; Domain=corp', 'https://corp/')).toBeNull()
+  })
+
+  it('accepts localhost Domain for local-dev cookies', () => {
+    const result = parseSetCookie('SID=val; Domain=localhost', 'http://localhost/')
+    expect(result).not.toBeNull()
+  })
+
+  it('rejects a public-suffix Domain attribute', () => {
+    expect(parseSetCookie('SID=val; Domain=co.il', 'https://foo.co.il/')).toBeNull()
+    expect(parseSetCookie('SID=val; Domain=.com', 'https://example.com/')).toBeNull()
+    expect(parseSetCookie('SID=val; Domain=github.io', 'https://foo.github.io/')).toBeNull()
+  })
+
+  it('accepts a registrable parent Domain attribute', () => {
+    const result = parseSetCookie('SID=val; Domain=.google.com', 'https://accounts.google.com/')
+    expect(result).not.toBeNull()
+    expect(required(result).domain).toBe('.google.com')
+  })
+})
+
+describe('parseDocumentCookie', () => {
+  const URL = 'https://app.example.com/sub/page'
+
+  it('parses name=value with default path from the request URL', () => {
+    const c = parseDocumentCookie('foo=bar', URL)
+    expect(c).toEqual({ name: 'foo', value: 'bar', path: '/sub', expires: null })
+  })
+
+  it('adopts a page-supplied Path', () => {
+    expect(required(parseDocumentCookie('foo=bar; Path=/admin', URL)).path).toBe('/admin')
+  })
+
+  it('IGNORES a cousin/invalid Domain instead of dropping the cookie', () => {
+    // parseSetCookie returns null for a public-suffix domain; parseDocumentCookie must NOT.
+    const c = parseDocumentCookie('foo=bar; Domain=com', URL)
+    expect(c).not.toBeNull()
+    expect(required(c).name).toBe('foo')
+    expect(c).not.toHaveProperty('domain')
+  })
+
+  it('does not drop the cookie for a sibling Domain (no null-drop)', () => {
+    const c = parseDocumentCookie('foo=bar; Domain=.evil.com', URL)
+    expect(c).not.toBeNull()
+    expect(JSON.stringify(c)).not.toContain('evil')
+  })
+
+  it('Max-Age=0 yields expires:0 (deletion sentinel)', () => {
+    expect(required(parseDocumentCookie('foo=bar; Max-Age=0', URL)).expires).toBe(0)
+  })
+
+  it('negative Max-Age yields expires:0', () => {
+    expect(required(parseDocumentCookie('foo=bar; Max-Age=-1', URL)).expires).toBe(0)
+  })
+
+  it('returns null when there is no =', () => {
+    expect(parseDocumentCookie('novalue', URL)).toBeNull()
+  })
+})
+
+describe('cookie name/value validators', () => {
+  it('rejects CRLF and NUL in values', () => {
+    expect(isValidCookieValue('ok')).toBe(true)
+    expect(isValidCookieValue('a\r\nSet-Cookie: evil=1')).toBe(false)
+    expect(isValidCookieValue('a\u0000b')).toBe(false)
+  })
+
+  it('rejects empty/space/oversize names', () => {
+    expect(isValidCookieName('sid')).toBe(true)
+    expect(isValidCookieName('')).toBe(false)
+    expect(isValidCookieName('bad name')).toBe(false)
+    expect(isValidCookieName('a'.repeat(1025))).toBe(false)
+  })
+})
+
+describe('cookieKey', () => {
+  it('builds composite key with pipe separators', () => {
+    expect(cookieKey('token', 'github.com', '/')).toBe('token|github.com|/')
+  })
+
+  it('includes all three components', () => {
+    const key = cookieKey('sid', '.example.com', '/app')
+    expect(key).toContain('sid')
+    expect(key).toContain('.example.com')
+    expect(key).toContain('/app')
+  })
+})

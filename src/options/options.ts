@@ -16,6 +16,7 @@ import { SUPPORTED_LOCALES } from '../lib/localization-types.js'
 import { initFavoritesPanel } from './options-favorites.js'
 import { initShortcutsPanel } from './options-shortcuts.js'
 import type { RuntimeLocalePreference } from '../lib/localization-types.js'
+import { initTransferPanel } from './options-transfer.js'
 
 function applyTheme(theme: string): void {
   if (theme === 'system') {
@@ -93,6 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Favorites tab
     await initFavoritesPanel(localizer)
+    initTransferPanel(localizer)
 
     // Settings tab
     await initShortcutsPanel(localizer)

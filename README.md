@@ -3,7 +3,7 @@
 A Chrome extension that gives each tab its own isolated session, letting you stay logged into multiple accounts on the same site simultaneously. A free, open-source alternative to SessionBox.
 
 **[Install from Chrome Web Store](https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp)**  
-**Current Version:** 0.1.3
+**Current Version:** 0.2.0
 
 ---
 
@@ -22,6 +22,22 @@ A Chrome extension that gives each tab its own isolated session, letting you sta
 4. Navigate: `chrome://extensions`
 5. Enable **Developer mode** (top-right toggle)
 6. Click **Load unpacked** → select the `dist/` directory
+
+### Build CRX and ZIP Packages
+
+`npm run package` writes `releases/session_shift_v<version>.zip`. Add `npm run package:crx` to sign the same build into `releases/session_shift_v<version>.crx` with a PEM-encoded RSA key:
+
+```bash
+openssl genrsa -out key.pem 2048
+npm run package
+CRX_PRIVATE_KEY_PATH=key.pem npm run package:crx
+```
+
+The release workflow runs only when a stable tag such as `v0.1.3` is pushed. The tag must equal `v<package.json.version>`, and `src/manifest.json` must carry the same Chrome-compatible numeric version. Invalid versions or a missing/invalid signing key fail before extension compilation. Configure the `CRX_PRIVATE_KEY_BASE64` repository secret with a base64-encoded PEM RSA private key of at least 2048 bits (`base64 -w0 key.pem`). Keep this key stable to preserve the extension ID.
+
+After validation, the workflow runs all type checks, locale checks, unit tests and E2E tests. Only then does it build and verify `session_shift_v<version>.zip` and `.crx`, create a GitHub Release with generated notes, and upload both files. Reruns reuse the same tag's Release and replace same-name assets. Ordinary branch pushes and PRs run CI without release packaging. Local packaging may use a temporary key when no key is provided; formal releases always require the repository secret.
+
+Maintained source, tests and Node tools use TypeScript. Run `npm ci` and `npm run type-check` to check all four configurations. Tools use pinned `tsx@4.23.15`; the login test server has its own lockfile and uses `npm ci` before `npm start`.
 
 ---
 
@@ -232,6 +248,37 @@ E2E suites in `tests/e2e/`:
 - `native-locale-smoke.test.ts` — native `chrome.i18n` locale smoke tests
 
 ---
+
+## Tag releases
+
+Edit only `src/manifest.json` to change the version. On branch pushes, the
+`Sync manifest version` workflow synchronizes `package.json` and both root
+version fields in `package-lock.json`, then commits the result to the same
+branch. Dependency versions stay unchanged. The workflow can also be run
+manually. Repository rules must allow GitHub Actions to push to that branch;
+if a protected branch blocks the push, run `npm run version:sync` locally
+and include the generated changes in your normal branch workflow. Pull the
+bot commit before making further pushes.
+
+The release workflow runs on pushed `vX.Y.Z` tags. The tag must match
+`src/manifest.json`. Test and release jobs synchronize package metadata in
+their checkouts before validation, so a tag does not need to wait for the bot
+commit. Tests must pass before it builds
+and publishes `session_shift_vX.Y.Z.zip` and `session_shift_vX.Y.Z.crx` to the
+GitHub Release.
+
+Generate a signing key once with `openssl genrsa -out key.pem 2048`. Set the
+repository Actions variable `CRX_PRIVATE_KEY` to the complete contents of
+`key.pem`, including the PEM header, footer and real line breaks. No Base64
+encoding is needed. An Actions secret with the same name is also supported and
+takes precedence; secrets keep the private key masked in Actions logs. Reuse
+the same key for subsequent releases to preserve the extension ID.
+
+The legacy `CRX_PRIVATE_KEY_BASE64` secret is used only when neither raw PEM
+setting is present. A missing or invalid release key fails before building.
+Locally, `npm run package:all` accepts `CRX_PRIVATE_KEY`,
+`CRX_PRIVATE_KEY_BASE64`, or `CRX_PRIVATE_KEY_PATH` (one at a time). Without a
+key, local packaging uses a temporary key.
 
 ## Contributing
 

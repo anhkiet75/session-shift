@@ -1,3 +1,4 @@
+import { parseCookieResponse } from './cookie-response'
 import { test, expect } from './extension-fixtures'
 
 test.describe('Cookie isolation', () => {
@@ -86,12 +87,12 @@ test.describe('Cookie isolation', () => {
 
     // tab1 → DNR injects only Session A cookies
     await tab1.goto(`${mockServerUrl}/cookies?t=1`)
-    const tab1Result = JSON.parse(await tab1.textContent('body') ?? '{}')
+    const tab1Result = parseCookieResponse(await tab1.textContent('body'))
     expect(tab1Result.cookies.user).toBe('alice')
 
     // tab2 → DNR injects only Session B cookies
     await tab2.goto(`${mockServerUrl}/cookies?t=2`)
-    const tab2Result = JSON.parse(await tab2.textContent('body') ?? '{}')
+    const tab2Result = parseCookieResponse(await tab2.textContent('body'))
     expect(tab2Result.cookies.user).toBe('bob')
   })
 
@@ -122,7 +123,7 @@ test.describe('Cookie isolation', () => {
     const defaultTab = await context.newPage()
     await defaultTab.goto(`${mockServerUrl}/set?user=alice`)
     await defaultTab.goto(`${mockServerUrl}/cookies?t=a`)
-    expect(JSON.parse(await defaultTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
+    expect(parseCookieResponse(await defaultTab.textContent('body')).cookies.user).toBe('alice')
 
     // Tab B: assign isolated session B.
     const tabB = await context.newPage()
@@ -162,16 +163,16 @@ test.describe('Cookie isolation', () => {
     // First-party global jar must be untouched: a fresh default tab still sees alice.
     const checkTab = await context.newPage()
     await checkTab.goto(`${mockServerUrl}/cookies?t=check`)
-    expect(JSON.parse(await checkTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
+    expect(parseCookieResponse(await checkTab.textContent('body')).cookies.user).toBe('alice')
 
     // Third-party global jar must not receive bob from the isolated subresource.
     const thirdPartyCheckTab = await context.newPage()
     await thirdPartyCheckTab.goto(`${thirdPartyUrl}/cookies?t=check`)
-    expect(JSON.parse(await thirdPartyCheckTab.textContent('body') ?? '{}').cookies.user).toBeUndefined()
+    expect(parseCookieResponse(await thirdPartyCheckTab.textContent('body')).cookies.user).toBeUndefined()
 
     // B's tab still sees its own cookie (capture + DNR injection both work).
     await tabB.goto(`${thirdPartyUrl}/cookies?t=b`)
-    expect(JSON.parse(await tabB.textContent('body') ?? '{}').cookies.user).toBe('bob')
+    expect(parseCookieResponse(await tabB.textContent('body')).cookies.user).toBe('bob')
   })
 
   test('isolated navigation redirect carries Set-Cookie to redirected request', async ({
@@ -206,7 +207,7 @@ test.describe('Cookie isolation', () => {
     )
 
     await tab.goto(`${mockServerUrl}/set?user=bob`)
-    expect(JSON.parse(await tab.textContent('body') ?? '{}').cookies.user).toBe('bob')
+    expect(parseCookieResponse(await tab.textContent('body')).cookies.user).toBe('bob')
   })
 
   test('isolated same-site auth fetch can set cookie before immediate navigation', async ({
@@ -228,7 +229,7 @@ test.describe('Cookie isolation', () => {
     const defaultTab = await context.newPage()
     await defaultTab.goto(`${mockServerUrl}/set?user=alice`)
     await defaultTab.goto(`${mockServerUrl}/cookies?t=default-before-fetch`)
-    expect(JSON.parse(await defaultTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
+    expect(parseCookieResponse(await defaultTab.textContent('body')).cookies.user).toBe('alice')
 
     const tab = await context.newPage()
     await tab.goto(`${mockServerUrl}/cookies?t=fetch-nav`)
@@ -250,11 +251,11 @@ test.describe('Cookie isolation', () => {
       window.location.href = `${url}/cookies?t=after-fetch`
     }, mockServerUrl)
     await tab.waitForURL('**/cookies?t=after-fetch')
-    expect(JSON.parse(await tab.textContent('body') ?? '{}').cookies.user).toBe('bob')
+    expect(parseCookieResponse(await tab.textContent('body')).cookies.user).toBe('bob')
 
     const checkTab = await context.newPage()
     await checkTab.goto(`${mockServerUrl}/cookies?t=default-after-fetch`)
-    expect(JSON.parse(await checkTab.textContent('body') ?? '{}').cookies.user).toBe('alice')
+    expect(parseCookieResponse(await checkTab.textContent('body')).cookies.user).toBe('alice')
   })
 
   /**

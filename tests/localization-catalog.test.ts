@@ -1,3 +1,6 @@
+import localeData from '../src/lib/locale-data.json'
+import englishMessages from '../src/_locales/en/messages.json'
+import qualityMessages from '../src/_locales/translation-quality.json'
 // localization-catalog.test.ts — Catalog and reference contract tests.
 // Verifies the English catalog is complete, the 55-locale metadata table is
 // lossless, and the validator rejects the documented failure classes.
@@ -15,8 +18,8 @@ import {
   CRITICAL_MESSAGE_KEYS,
   isSupportedLocale,
   directionFor,
-} from '../lib/localization-types.js'
-import type { MessageKey, ChromeMessageCatalog, TranslationQualityData } from '../lib/localization-types.js'
+} from '../src/lib/localization-types.js'
+import type { MessageKey, ChromeMessageCatalog, TranslationQualityData } from '../src/lib/localization-types.js'
 import {
   main as runValidator,
   validateCatalogEntries,
@@ -25,16 +28,11 @@ import {
   validateQualityMetadata,
   checkTreeSafety,
   DISALLOWED_CHAR_PATTERN,
-} from '../scripts/validate-locales.mjs'
+} from '../scripts/validate-locales.ts'
 
 const ROOT = process.cwd()
-const localeData = JSON.parse(readFileSync(resolve(ROOT, 'src/lib/locale-data.json'), 'utf8'))
-const englishCatalog: ChromeMessageCatalog = JSON.parse(
-  readFileSync(resolve(ROOT, 'src/_locales/en/messages.json'), 'utf8'),
-)
-const qualityData: TranslationQualityData = JSON.parse(
-  readFileSync(resolve(ROOT, 'src/_locales/translation-quality.json'), 'utf8'),
-)
+const englishCatalog: ChromeMessageCatalog = englishMessages
+const qualityData: TranslationQualityData = qualityMessages as TranslationQualityData
 
 describe('locale allowlist single source of truth', () => {
   it('locale-data.json matches localization-types.ts exactly (55 codes)', () => {

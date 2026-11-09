@@ -1,16 +1,24 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ES2022",
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowJs": true,
-    "checkJs": false,
+    "allowJs": false,
     "strict": true,
     "noEmit": true,
-    "lib": ["ES2022", "DOM"],
-    "types": ["chrome"],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "types": [
+      "chrome"
+    ],
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

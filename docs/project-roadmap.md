@@ -198,7 +198,7 @@ per-milestone detail see [`project-changelog.md`](./project-changelog.md).
    - [x] New `lib/storage-proxy.js` exports `makeStorageProxy(realStorage, prefix)`
    - [x] Per-session localStorage/sessionStorage isolation
    - [x] Extracted from `page-api-proxy.js` for testability
-   - [x] Used in `tests/page-proxy-storage.test.js` (11 tests)
+   - [x] Used in `tests/page-proxy-storage.test.ts` (11 tests)
 
 4. **Accessibility Improvements** ✅ Shipped (v0.4.0, 2026-05-04)
    - [x] `:focus-visible` rings on all interactive elements in `popup.css` + `options.css`
@@ -226,9 +226,9 @@ per-milestone detail see [`project-changelog.md`](./project-changelog.md).
 - [x] Modify: `options/options.css` (+4 LOC; `:focus-visible` rules)
 - [x] Modify: `options/options.html` (+8 LOC; `role`, `aria-*` attributes)
 - [x] Modify: `options/options.js` (+4 LOC; aria toggle on tab switch)
-- [x] New: `tests/cookie-parser.test.js` (25 tests)
-- [x] New: `tests/page-proxy-storage.test.js` (11 tests)
-- [x] New: `tests/background-session-lifecycle.test.js` (11 tests)
+- [x] New: `tests/cookie-parser.test.ts` (25 tests)
+- [x] New: `tests/page-proxy-storage.test.ts` (11 tests)
+- [x] New: `tests/background-session-lifecycle.test.ts` (11 tests)
 
 ---
 

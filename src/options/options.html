@@ -107,6 +107,18 @@
         </button>
       </section>
 
+      <section class="opt-section">
+        <h2 class="opt-section-title"><span data-i18n="dataTransferTitle">Data transfer</span></h2>
+        <p class="opt-setting-desc" data-i18n="dataTransferDesc">Export profiles and login sessions to move them to another device.</p>
+        <p class="opt-transfer-warning" data-i18n="dataTransferWarning">Export files contain login cookies. Store them privately and delete them when no longer needed.</p>
+        <div class="opt-transfer-actions">
+          <button type="button" class="opt-cta" id="exportProfilesBtn" data-i18n="exportProfilesButton">Export profiles</button>
+          <button type="button" class="opt-ghost-link" id="importProfilesBtn" data-i18n="importProfilesButton">Import profiles</button>
+          <input type="file" id="importProfilesFile" accept="application/json,.json" hidden>
+        </div>
+        <p class="opt-fav-status" id="transferStatus" role="status" aria-live="polite"></p>
+      </section>
+
     </div>
 
     <!-- Favorites panel -->

@@ -22,6 +22,6 @@ cp "$SRC"/options/options.html "$SRC"/options/options.css "$DIST/options/"
 cp "$SRC"/popup/popup.html "$SRC"/popup/popup.css "$DIST/popup/"
 cp -r "$SRC/popup/fonts" "$DIST/popup/"
 
-node "$ROOT/scripts/validate-locales.mjs"
+npx --no-install tsx "$ROOT/scripts/validate-locales.ts"
 
 echo "Built: $DIST"

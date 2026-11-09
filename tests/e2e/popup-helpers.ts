@@ -33,13 +33,12 @@ export async function openPopupForTab(
 ): Promise<Page> {
   const page = await context.newPage()
   await page.addInitScript(({ id, url }: { id: number; url: string }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cr = (window as any).chrome
+    const cr = chrome
     const originalQuery = cr.tabs.query.bind(cr.tabs)
-    cr.tabs.query = async (queryInfo: { active?: boolean; currentWindow?: boolean }) =>
+    cr.tabs.query = (async (queryInfo: { active?: boolean; currentWindow?: boolean }) =>
       queryInfo?.active && queryInfo?.currentWindow
         ? [{ id, url, windowId: 1, active: true, index: 0, highlighted: true, pinned: false, discarded: false, autoDiscardable: true, groupId: -1, incognito: false }]
-        : originalQuery(queryInfo)
+        : originalQuery(queryInfo)) as typeof chrome.tabs.query
     // The popup closes itself after acting; reload instead so assertions can
     // continue against a freshly initialized popup.
     window.close = () => window.location.reload()

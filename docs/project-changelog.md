@@ -101,7 +101,7 @@ permissions; launch reuses the existing `createSessionTab` message.
 - `src/lib/localization.ts` — Runtime adapter, System/fallback backend selection, getMessage() with critical-key English enforcement
 - `src/_locales/{55-locale-codes}/messages.json` — Full Chrome i18n catalogs
 - `src/_locales/translation-quality.json` — Honest quality tier + critical-key eligibility per locale
-- `scripts/validate-locales.mjs` — Validator (mechanical parity, charset, UTF-8, no blanks)
+- `scripts/validate-locales.ts` — Validator (mechanical parity, charset, UTF-8, no blanks)
 
 #### Documentation
 - `docs/translation-contributing.md` — Contribution workflow, review SLA, Weblate integration, tier definitions, promotion rules
@@ -152,7 +152,7 @@ permissions; launch reuses the existing `createSessionTab` message.
 - `src/lib/settings-store.ts` — Shared ExtSettings persistence (options page + background)
 
 #### Test Coverage
-- Added unit tests: `tests/linked-tab-inheritance.test.js`
+- Added unit tests: `tests/linked-tab-inheritance.test.ts`
 - Added e2e test: `tests/e2e/linked-tab-profile-inheritance.test.ts`
 
 #### Backward Compatibility
@@ -278,10 +278,10 @@ Plan: `plans/260614-1726-isolation-hardening-p1-p2-p4`. Closes page-API isolatio
 
 #### Test Coverage Added
 
-- `tests/public-suffix.test.js` — eTLD+1 resolution, wildcard rules, exception rules, private suffixes, public-suffix checks
-- `tests/dnr-rule-condition.test.js` — DNR rule shape for HTTPS, HTTP, snap-session fallback, and host/path-specific cookie rules
-- Extended `tests/cookie-parser.test.js` for composite-key coexistence, path ordering, request URL filtering, default paths, and public-suffix `Domain=` rejection
-- Extended `tests/background-session-lifecycle.test.js` for current-document cookie writes and scoped deletion
+- `tests/public-suffix.test.ts` — eTLD+1 resolution, wildcard rules, exception rules, private suffixes, public-suffix checks
+- `tests/dnr-rule-condition.test.ts` — DNR rule shape for HTTPS, HTTP, snap-session fallback, and host/path-specific cookie rules
+- Extended `tests/cookie-parser.test.ts` for composite-key coexistence, path ordering, request URL filtering, default paths, and public-suffix `Domain=` rejection
+- Extended `tests/background-session-lifecycle.test.ts` for current-document cookie writes and scoped deletion
 
 ### 2026-05-19 — Security Hardening (Phases 1–9)
 
@@ -407,9 +407,9 @@ npm run test:all      # Both unit + E2E
 - CSS files — Focus ring styles, contrast improvements
 
 #### Test Files Created
-- `tests/cookie-parser.test.js` (156 LOC, 32 tests)
-- `tests/page-proxy-storage.test.js` (118 LOC, 18 tests)
-- `tests/background-session-lifecycle.test.js` (94 LOC, 12 tests)
+- `tests/cookie-parser.test.ts` (156 LOC, 32 tests)
+- `tests/page-proxy-storage.test.ts` (118 LOC, 18 tests)
+- `tests/background-session-lifecycle.test.ts` (94 LOC, 12 tests)
 
 ---
 

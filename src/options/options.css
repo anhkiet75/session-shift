@@ -339,6 +339,10 @@ body {
   display: none;
 }
 
+.opt-transfer-actions { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.opt-transfer-actions .opt-cta, .opt-transfer-actions .opt-ghost-link { cursor: pointer; }
+.opt-transfer-warning { margin: 8px 0 0; font-size: 12px; line-height: 1.5; color: var(--danger); }
+
 /* ── TOGGLE CHECKBOX ────────────────────────────────────── */
 .opt-toggle-checkbox {
   flex-shrink: 0;
