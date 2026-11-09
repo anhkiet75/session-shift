@@ -127,7 +127,7 @@ test.describe('Options data transfer', () => {
     }
   })
 
-  test('merges conflicting profile ids and names instead of overwriting local data', async ({
+  test('skips a conflicting profile id and preserves local data', async ({
     page, optionsUrl,
   }) => {
     const transfer = JSON.stringify({
@@ -155,21 +155,45 @@ test.describe('Options data transfer', () => {
       buffer: Buffer.from(transfer),
     })
 
-    await expect(page.locator('#transferStatus')).toHaveText('Imported profiles: 1.')
+    await expect(page.locator('#transferStatus')).toHaveText('Imported profiles: 0.')
 
     const profiles = await readProfiles(page)
-    expect(profiles).toHaveLength(2)
-    const local = profiles.find((profile) => profile.id === 'transfer_dup')
-    expect(local).toEqual({ id: 'transfer_dup', name: 'Work', hue: 24 })
-
-    const imported = profiles.find((profile) => profile.id !== 'transfer_dup')
-    expect(imported).toBeDefined()
-    expect(imported?.name).toBe('Work (imported)')
-    expect(imported?.site).toEqual(SITE)
-
-    // The imported cookie store moved with the rewritten id; the local one is untouched.
+    expect(profiles).toEqual([{ id: 'transfer_dup', name: 'Work', hue: 24 }])
     expect((await readCookieStore(page, 'transfer_dup')).user.value).toBe('local')
-    expect((await readCookieStore(page, imported?.id as string)).user.value).toBe('imported')
+  })
+
+  test('keeps the profile count stable when the same backup is imported twice', async ({
+    page, optionsUrl,
+  }) => {
+    const transfer = JSON.stringify({
+      format: 'sessionshift-profile-export',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      profiles: [{ id: 'transfer_repeat', name: 'Repeat', hue: 120, site: SITE }],
+      cookies: {
+        transfer_repeat: { user: { name: 'user', value: 'imported', domain: 'localhost', path: '/' } },
+      },
+    })
+
+    await page.goto(optionsUrl)
+    await page.evaluate(async () => { await chrome.storage.local.set({ profiles: [] }) })
+    await page.reload()
+
+    const file = {
+      name: 'backup.json',
+      mimeType: 'application/json',
+      buffer: Buffer.from(transfer),
+    }
+    await page.setInputFiles('#importProfilesFile', file)
+    await expect(page.locator('#transferStatus')).toHaveText('Imported profiles: 1.')
+
+    await page.setInputFiles('#importProfilesFile', file)
+    await expect(page.locator('#transferStatus')).toHaveText('Imported profiles: 0.')
+
+    expect(await readProfiles(page)).toEqual([
+      { id: 'transfer_repeat', name: 'Repeat', hue: 120, site: SITE },
+    ])
+    expect((await readCookieStore(page, 'transfer_repeat')).user.value).toBe('imported')
   })
 
   test('reports localized errors for malformed and unsupported files', async ({ page, optionsUrl }) => {

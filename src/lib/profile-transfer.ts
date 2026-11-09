@@ -194,25 +194,22 @@ export async function importProfileTransfer(payload: ProfileTransferPayload): Pr
   const idIsAvailable = (id: string): boolean =>
     !usedIds.has(id) && !(('cookies_' + id) in existingCookieKeys)
 
-  const makeUniqueId = (): string => {
-    let id = 'session_' + crypto.randomUUID()
-    while (!idIsAvailable(id)) id = 'session_' + crypto.randomUUID()
-    return id
-  }
-
   for (const source of payload.profiles) {
-    const hasConflict = !idIsAvailable(source.id) || usedNames.has(source.name)
-    const id = hasConflict ? makeUniqueId() : source.id
-    const name = hasConflict ? nextImportedName(source.name, usedNames) : source.name
+    // An occupied id belongs to local data, including orphaned cookie stores.
+    if (!idIsAvailable(source.id)) continue
+    const id = source.id
+    const name = usedNames.has(source.name) ? nextImportedName(source.name, usedNames) : source.name
     imported.push({ ...source, id, name })
     usedIds.add(id)
     usedNames.add(name)
     cookieWrites.push({ id, store: payload.cookies[source.id] ?? {} })
   }
 
-  const writes: Record<string, unknown> = { profiles: [...existing, ...imported] }
-  for (const write of cookieWrites) writes['cookies_' + write.id] = write.store
-  await chrome.storage.local.set(writes)
+  if (imported.length > 0) {
+    const writes: Record<string, unknown> = { profiles: [...existing, ...imported] }
+    for (const write of cookieWrites) writes['cookies_' + write.id] = write.store
+    await chrome.storage.local.set(writes)
+  }
 
   return {
     importedProfiles: imported.length,

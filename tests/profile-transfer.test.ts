@@ -172,25 +172,29 @@ describe('importProfileTransfer', () => {
     expect((written.cookies_session_a as import("../src/lib/session-store.js").CookieStore).sid.value).toBe('token-a')
   })
 
-  it('renames a duplicate id, keeps local cookies, and rewrites the imported store key', async () => {
+  it('skips an existing id and preserves local metadata and cookies even when the export differs', async () => {
     await chrome.storage.local.set({
-      profiles: [{ id: 'session_a', name: 'Local alpha', hue: 212 }],
+      profiles: [{
+        id: 'session_a', name: 'Local alpha', hue: 7,
+        site: { name: 'Local site', origin: 'https://local.example', url: 'https://local.example/' },
+      }],
       cookies_session_a: { sid: { value: 'local-token' } },
     })
 
     const result = await importProfileTransfer(parseProfileTransfer(JSON.stringify(validPayload())))
 
     const { profiles } = await chrome.storage.local.get(['profiles'])
-    const imported = profiles.find(profile => profile.name === 'Alpha (imported)')
-    expect(required(imported).id).toMatch(/^session_/)
-    expect(required(imported).id).not.toBe('session_a')
-    expect(result.importedProfiles).toBe(2)
+    expect(profiles.filter(profile => profile.id === 'session_a')).toHaveLength(1)
+    expect(required(profiles.find(profile => profile.id === 'session_a'))).toEqual({
+      id: 'session_a', name: 'Local alpha', hue: 7,
+      site: { name: 'Local site', origin: 'https://local.example', url: 'https://local.example/' },
+    })
+    expect(profiles.some(profile => profile.name.startsWith('Alpha'))).toBe(false)
+    expect(result).toEqual({ importedProfiles: 1, importedCookieStores: 0 })
     expect((await chrome.storage.local.get(['cookies_session_a'])).cookies_session_a.sid.value).toBe('local-token')
-    const rewritten = await chrome.storage.local.get(['cookies_' + required(imported).id])
-    expect((rewritten["cookies_" + required(imported).id] as import("../src/lib/session-store.js").CookieStore).sid.value).toBe('token-a')
   })
 
-  it('renames a duplicate name even when the id is unique', async () => {
+  it('renames a duplicate name while keeping the export id', async () => {
     await chrome.storage.local.set({
       profiles: [{ id: 'session_other', name: 'Alpha', hue: 1 }],
     })
@@ -200,11 +204,11 @@ describe('importProfileTransfer', () => {
     const { profiles } = await chrome.storage.local.get(['profiles'])
     const imported = profiles.find(profile => profile.name === 'Alpha (imported)')
     expect(imported).toBeDefined()
-    expect(required(imported).id).not.toBe('session_a')
+    expect(required(imported).id).toBe('session_a')
     expect(required(profiles.find(profile => profile.id === 'session_other')).name).toBe('Alpha')
   })
 
-  it('never overwrites an existing cookie store with no matching profile', async () => {
+  it('skips an id whose cookie store exists without a matching profile', async () => {
     await chrome.storage.local.set({
       profiles: [],
       cookies_session_a: { sid: { value: 'orphan-token' } },
@@ -213,21 +217,56 @@ describe('importProfileTransfer', () => {
     await importProfileTransfer(parseProfileTransfer(JSON.stringify(validPayload())))
 
     const { profiles } = await chrome.storage.local.get(['profiles'])
-    const imported = profiles.find(profile => profile.name === 'Alpha (imported)')
-    expect(required(imported).id).not.toBe('session_a')
+    expect(profiles.some(profile => profile.name.startsWith('Alpha'))).toBe(false)
     expect((await chrome.storage.local.get(['cookies_session_a'])).cookies_session_a.sid.value).toBe('orphan-token')
-    expect(((await chrome.storage.local.get(["cookies_" + required(imported).id]))["cookies_" + required(imported).id] as import("../src/lib/session-store.js").CookieStore).sid.value).toBe('token-a')
   })
 
-  it('merges the same file twice without duplicating ids or names', async () => {
+  it('imports the same file twice without adding profiles', async () => {
     const parsed = parseProfileTransfer(JSON.stringify(validPayload()))
     await importProfileTransfer(parsed)
-    await importProfileTransfer(parsed)
+    const second = await importProfileTransfer(parsed)
 
     const { profiles } = await chrome.storage.local.get(['profiles'])
-    expect(profiles).toHaveLength(4)
-    expect(new Set(profiles.map(profile => profile.id)).size).toBe(4)
-    expect(new Set(profiles.map(profile => profile.name)).size).toBe(4)
+    expect(profiles.map(profile => profile.id)).toEqual(['session_a', 'session_legacy'])
+    expect(new Set(profiles.map(profile => profile.name)).size).toBe(2)
+    expect(second).toEqual({ importedProfiles: 0, importedCookieStores: 0 })
+  })
+
+  it('imports only new ids from a mixed export', async () => {
+    await chrome.storage.local.set({ profiles: [{ id: 'session_a', name: 'Local alpha', hue: 3 }] })
+
+    const result = await importProfileTransfer(parseProfileTransfer(JSON.stringify(validPayload())))
+
+    const { profiles } = await chrome.storage.local.get(['profiles'])
+    expect(profiles).toEqual([
+      { id: 'session_a', name: 'Local alpha', hue: 3 },
+      { id: 'session_legacy', name: 'Legacy', hue: 24 },
+    ])
+    expect(result).toEqual({ importedProfiles: 1, importedCookieStores: 0 })
+  })
+
+  it('does not write storage when every profile is already present', async () => {
+    const parsed = parseProfileTransfer(JSON.stringify(validPayload()))
+    await importProfileTransfer(parsed)
+    const setSpy = chrome.storage.local.set
+    setSpy.mockClear()
+
+    const result = await importProfileTransfer(parsed)
+
+    expect(result).toEqual({ importedProfiles: 0, importedCookieStores: 0 })
+    expect(setSpy).not.toHaveBeenCalled()
+  })
+
+  it('accepts an empty export without replacing local profiles', async () => {
+    await chrome.storage.local.set({ profiles: [{ id: 'session_local', name: 'Local', hue: 10 }] })
+    const parsed = parseProfileTransfer(JSON.stringify(validPayload({ profiles: [], cookies: {} })))
+    const setSpy = chrome.storage.local.set
+    setSpy.mockClear()
+
+    const result = await importProfileTransfer(parsed)
+
+    expect(result).toEqual({ importedProfiles: 0, importedCookieStores: 0 })
+    expect(setSpy).not.toHaveBeenCalled()
   })
 })
 
