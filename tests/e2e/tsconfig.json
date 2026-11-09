@@ -4,9 +4,20 @@
     "module": "ES2022",
     "moduleResolution": "bundler",
     "strict": true,
-    "lib": ["ES2022", "DOM"],
-    "types": ["node", "chrome"],
-    "skipLibCheck": true
+    "allowJs": false,
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "types": [
+      "node",
+      "chrome"
+    ],
+    "skipLibCheck": true,
+    "noEmit": true
   },
-  "include": ["./**/*.ts", "../../playwright.config.ts"]
+  "include": [
+    "./**/*.ts",
+    "../../playwright.config.ts"
+  ]
 }

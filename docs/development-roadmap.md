@@ -70,9 +70,9 @@ detail lives in [`project-changelog.md`](./project-changelog.md).*
 #### 3. Test Coverage Expansion
 - ✅ 94 tests across 9 suites (up from ~36)
 - ✅ New test files:
-  - `tests/cookie-parser.test.js` — Set-Cookie parsing edge cases (>90% coverage)
-  - `tests/page-proxy-storage.test.js` — localStorage/sessionStorage proxy
-  - `tests/background-session-lifecycle.test.js` — Session lifecycle + keyboard handlers
+  - `tests/cookie-parser.test.ts` — Set-Cookie parsing edge cases (>90% coverage)
+  - `tests/page-proxy-storage.test.ts` — localStorage/sessionStorage proxy
+  - `tests/background-session-lifecycle.test.ts` — Session lifecycle + keyboard handlers
 - ✅ Total coverage: ~75% of testable JS (up from ~40%)
 
 #### 4. Accessibility Audit (WCAG 2.1 AA)
@@ -95,9 +95,9 @@ detail lives in [`project-changelog.md`](./project-changelog.md).*
 - `lib/cookie-parser.js` — Full test coverage (no logic changes)
 
 ### Files Created
-- `tests/cookie-parser.test.js` (156 LOC, 32 test cases)
-- `tests/page-proxy-storage.test.js` (118 LOC, 18 test cases)
-- `tests/background-session-lifecycle.test.js` (94 LOC, 12 test cases)
+- `tests/cookie-parser.test.ts` (156 LOC, 32 test cases)
+- `tests/page-proxy-storage.test.ts` (118 LOC, 18 test cases)
+- `tests/background-session-lifecycle.test.ts` (94 LOC, 12 test cases)
 
 ### Quality Metrics
 - **Tests:** 94/94 passing (100% pass rate)

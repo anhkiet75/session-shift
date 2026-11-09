@@ -17,9 +17,9 @@ cp -r "$SRC/popup/fonts" "$DIST/popup/"
 
 echo "Watching for changes..."
 
-node "$ROOT/scripts/dev-watch-static.mjs" &
+npx --no-install tsx "$ROOT/scripts/dev-watch-static.ts" &
 STATIC_PID=$!
 
 trap 'kill $STATIC_PID 2>/dev/null' EXIT INT TERM
 
-node "$ROOT/scripts/dev-esbuild.mjs"
+npx --no-install tsx "$ROOT/scripts/dev-esbuild.ts"

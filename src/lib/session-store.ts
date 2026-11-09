@@ -11,7 +11,7 @@ export type CookieStoreEntry = {
   secure?: boolean
   httpOnly?: boolean
 }
-type CookieStore = Record<string, CookieStoreEntry>
+export type CookieStore = Record<string, CookieStoreEntry>
 
 export async function getCookieStore(sessionId: string): Promise<CookieStore> {
   const result = await chrome.storage.local.get([`cookies_${sessionId}`]);
@@ -77,7 +77,7 @@ export async function duplicateSession(
   if (!source) throw new Error(`Session not found: ${sessionId}`);
 
   const newId = 'session_' + crypto.randomUUID();
-  const newSession = { id: newId, name: buildDuplicateName(source.name), hue: source.hue };
+  const newSession = { id: newId, name: buildDuplicateName(source.name), hue: source.hue, site: source.site };
 
   // List-then-store ordering: write the profiles reference BEFORE the cookie store.
   // A GC snapshot taken mid-flight then sees a referenced (recoverable) store, never

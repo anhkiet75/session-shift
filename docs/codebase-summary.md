@@ -147,7 +147,7 @@ directly through `lib/settings-store.ts`, not via messages.)*
 - `session-next` (unassigned by default) — Move active tab to next profile and reload
 - `session-prev` (unassigned by default) — Move active tab to previous profile and reload
 - Via `chrome.commands.onCommand` listener in `background/index.ts`
-- No command has a `suggested_key`: `Ctrl/Cmd+Shift+Left/Right` is the OS text-selection chord and `Ctrl/Cmd+Shift+S` is Save As in many apps (guarded by `tests/manifest-permissions.test.js`)
+- No command has a `suggested_key`: `Ctrl/Cmd+Shift+Left/Right` is the OS text-selection chord and `Ctrl/Cmd+Shift+S` is Save As in many apps (guarded by `tests/manifest-permissions.test.ts`)
 - Options → Settings → Keyboard shortcuts (`options/options-shortcuts.ts`) shows live bindings via `chrome.commands.getAll()` and opens `chrome://extensions/shortcuts`
 
 ### content.js (ISOLATED World)
@@ -284,7 +284,7 @@ if (settings.autoInheritProfileForLinkedTabs === false) {
 
 **Purpose:** 
 - Isolate localStorage/sessionStorage per session via key prefix (`__ext_${sessionId}_`)
-- Extracted from page-api-proxy.js for testability (11 unit tests in `tests/page-proxy-storage.test.js`)
+- Extracted from page-api-proxy.js for testability (11 unit tests in `tests/page-proxy-storage.test.ts`)
 - Enables prefix-scoped storage operations: getItem, setItem, removeItem, clear, key, length
 
 **Usage in page-api-proxy.js:**
@@ -531,9 +531,9 @@ Why: Provides visual feedback at a glance; truncated to avoid overflow.
 **Tests:**
 - `tests/background-batch.test.js` — Unit tests for background.js message handlers
 - `tests/options-filter.test.js` — Unit tests for cookie-parser.js
-- `tests/cookie-parser.test.js` — Set-Cookie parsing edge cases (>90% coverage)
-- `tests/page-proxy-storage.test.js` — localStorage/sessionStorage proxy isolation
-- `tests/background-session-lifecycle.test.js` — Session lifecycle + keyboard handlers
+- `tests/cookie-parser.test.ts` — Set-Cookie parsing edge cases (>90% coverage)
+- `tests/page-proxy-storage.test.ts` — localStorage/sessionStorage proxy isolation
+- `tests/background-session-lifecycle.test.ts` — Session lifecycle + keyboard handlers
 
 **Run unit tests:** `npm test`
 

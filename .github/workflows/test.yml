@@ -2,8 +2,12 @@ name: Tests
 
 on:
   push:
-    branches: [main, "feat/**"]
+    branches: [main, "feat/**", "issue/**", "issue-*"]
   pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
 
 jobs:
   unit:
@@ -15,6 +19,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run type-check
+      - run: npm run validate:locales
       - run: npm run test:unit
 
   e2e:
@@ -28,7 +34,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install chromium --with-deps
-      - run: npm run build
       - run: xvfb-run -a npm run test:e2e
         env:
           CI: true

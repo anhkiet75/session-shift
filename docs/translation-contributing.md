@@ -53,7 +53,7 @@ It is **development tooling only**:
 
 1. **Export**: `src/_locales/en/messages.json` is the frozen source catalog.
    Any key addition/removal goes through English first, then the validator
-   (`node scripts/validate-locales.mjs`) fails other locales for
+   (`npx --no-install tsx scripts/validate-locales.ts`) fails other locales for
    missing/extra keys until they catch up — this is deliberate churn control.
 2. **Translate/review in Weblate**: contributors work per-locale against the
    English source. Weblate preserves each key's `description` field (shown
@@ -63,7 +63,7 @@ It is **development tooling only**:
    `src/_locales/<locale>/messages.json`, preserving valid Chrome
    `{ "message": ..., "placeholders": {...} }` JSON shape. `description` is
    omitted from non-English catalogs (English-only, not shown in the UI).
-4. **Validate**: `node scripts/validate-locales.mjs` must pass — key parity,
+4. **Validate**: `npx --no-install tsx scripts/validate-locales.ts` must pass — key parity,
    placeholder parity, UTF-8, no blank messages, no unapproved bidi/
    default-ignorable control characters, tree safety (no symlinks/extra
    files).

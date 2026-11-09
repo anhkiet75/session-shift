@@ -9,20 +9,26 @@
     "pretest:e2e": "npm run build",
     "test:e2e:docker": "bash scripts/docker-test-e2e.sh",
     "test": "npm run test:unit && npm run test:e2e",
-    "type-check": "tsc --noEmit",
-    "validate:locales": "node scripts/validate-locales.mjs",
-    "validate:localization-artifacts": "node scripts/validate-localization-artifacts.mjs",
-    "generate:psl": "node scripts/generate-public-suffix-list.mjs",
+    "type-check": "tsc --noEmit && tsc -p tsconfig.tools.json && tsc -p tests/tsconfig.json && tsc -p tests/e2e/tsconfig.json",
+    "validate:locales": "tsx scripts/validate-locales.ts",
+    "validate:localization-artifacts": "tsx scripts/validate-localization-artifacts.ts",
+    "generate:psl": "tsx scripts/generate-public-suffix-list.ts",
     "dev": "bash scripts/dev.sh",
     "build": "bash scripts/build.sh",
-    "package": "bash scripts/package.sh"
+    "package": "bash scripts/package.sh",
+    "package:crx": "tsx scripts/package-crx.ts",
+    "package:all": "bash scripts/package.sh && tsx scripts/package-crx.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@types/chrome": "^0.1.42",
+    "@types/jsdom": "21.1.7",
     "@types/node": "^25.8.0",
     "esbuild": "^0.28.0",
     "jsdom": "^25.0.0",
+    "tsx": "4.23.15",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.6"
-  }
+  },
+  "version": "0.1.3"
 }

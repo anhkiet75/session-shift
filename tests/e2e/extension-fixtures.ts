@@ -29,7 +29,14 @@ export const test = base.extend<ExtensionFixtures>({
       // classic headless. Default stays headed (matches playwright.config.ts);
       // set PW_HEADLESS=1 to force headless for this run only.
       headless: process.env.PW_HEADLESS === '1',
+      locale: 'en-US',
+      // Playwright's default headless binary is chrome-headless-shell, which
+      // cannot load extensions (no service worker ever registers). The
+      // `chromium` channel is the full build, whose new headless mode keeps
+      // --load-extension working.
+      channel: process.env.PW_HEADLESS === '1' ? 'chromium' : undefined,
       args: [
+        '--lang=en-US',
         `--disable-extensions-except=${EXTENSION_PATH}`,
         `--load-extension=${EXTENSION_PATH}`,
       ],
@@ -76,20 +83,19 @@ export const test = base.extend<ExtensionFixtures>({
 
     // Inject before any page script runs — shadow chrome.tabs.query
     await page.addInitScript(({ fakeUrl }: { fakeUrl: string }) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const cr = (window as any).chrome
+      const cr = chrome
 
       // 1. Mock chrome.tabs.query — popup early-returns for chrome-extension:// URLs.
       //    Return a fake real page so the popup initializes fully.
       const originalQuery = cr.tabs.query.bind(cr.tabs)
-      cr.tabs.query = async function (queryInfo: { active?: boolean; currentWindow?: boolean }) {
+      cr.tabs.query = (async function (queryInfo: { active?: boolean; currentWindow?: boolean }) {
         if (queryInfo?.active && queryInfo?.currentWindow) {
           return [{ id: 1, url: fakeUrl, windowId: 1, active: true, index: 0,
                     highlighted: true, pinned: false, discarded: false,
                     autoDiscardable: true, groupId: -1, incognito: false }]
         }
         return originalQuery(queryInfo)
-      }
+      }) as typeof chrome.tabs.query
 
       // 2. After creating a session the popup calls window.close().
       //    Override to reload instead — init script re-runs on reload so mock persists.

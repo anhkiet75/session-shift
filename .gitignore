@@ -15,6 +15,7 @@ CLAUDE.md
 .opencode
 release-manifest.json
 .env
+*.pem
 # Playwright
 test-results/
 playwright-report/

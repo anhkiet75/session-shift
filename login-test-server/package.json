@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.mjs"
+    "start": "tsx server.ts"
+  },
+  "dependencies": {
+    "tsx": "4.23.15"
   }
 }

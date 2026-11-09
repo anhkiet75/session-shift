@@ -1,3 +1,4 @@
+import { parseCookieResponse } from './cookie-response'
 import { test, expect } from './extension-fixtures'
 import type { BrowserContext, Page } from '@playwright/test'
 import { getTabIdByUrl, openPopupForTab, waitForOpenedPage } from './popup-helpers'
@@ -60,7 +61,7 @@ async function launchFavorite(
 }
 
 function cookiesOf(body: string | null): Record<string, string> {
-  return JSON.parse(body ?? '{}').cookies ?? {}
+  return parseCookieResponse(body).cookies
 }
 
 test.describe('Session favorites', () => {

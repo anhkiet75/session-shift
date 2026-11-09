@@ -1,3 +1,4 @@
+import { chrome } from './setup.js'
 // localization-runtime.test.ts — Adapter-facing regression seam. Phase 1 proved
 // stored names are generated/localized once and never re-localized. Phase 2
 // adds the full runtime locale adapter: preference resolution, System/manual
@@ -5,8 +6,8 @@
 // ordering/coalescing safety.
 
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { duplicateSession, getProfiles, setProfiles } from '../lib/session-store.js'
-import { handleMessage } from '../background/message-handler.js'
+import { duplicateSession, getProfiles, setProfiles } from '../src/lib/session-store.js'
+import { handleMessage } from '../src/background/message-handler.js'
 import {
   getLanguagePreference,
   createLocalizer,
@@ -16,9 +17,9 @@ import {
   localizeDocument,
   createGenerationGuard,
   loadCatalog,
-} from '../lib/localization.js'
-import { getExtSettings, mutateExtSettingsField } from '../lib/settings-store.js'
-import { setupContextMenu, registerStorageListener } from '../background/context-menu-manager.js'
+} from '../src/lib/localization.js'
+import { getExtSettings, mutateExtSettingsField } from '../src/lib/settings-store.js'
+import { setupContextMenu, registerStorageListener } from '../src/background/context-menu-manager.js'
 
 describe('generatedSessionName contract', () => {
   it.each([1, 2, 3, 42])('resolves "Session %i" via chrome.i18n for index %i', (index) => {
@@ -229,7 +230,7 @@ describe('critical-key beta fallback (translation-quality.json)', () => {
     // fresh module instance guarantees this test's fetch mock is actually
     // exercised for the English load, not served from a stale cache hit.
     vi.resetModules()
-    const fresh = await import('../lib/localization.js')
+    const fresh = await import('../src/lib/localization.js')
     try {
       const localizer = await fresh.createLocalizer('hr')
       // Critical key: must never fall through to the beta manual draft.
@@ -372,7 +373,7 @@ describe('context-menu rebuild — coalesced single-flight + language-change tri
       profiles: [{ id: 'session_x', name: 'X', hue: 1 }],
     })
     vi.resetModules()
-    const fresh = await import('../background/context-menu-manager.js')
+    const fresh = await import('../src/background/context-menu-manager.js')
 
     await fresh.setupContextMenu()
 

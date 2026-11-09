@@ -1,3 +1,4 @@
+import { parseCookieResponse } from './cookie-response'
 import { test, expect } from './extension-fixtures'
 
 /**
@@ -85,10 +86,10 @@ test.describe('Linked tab profile inheritance', () => {
 
     await linked.waitForTimeout(200) // let updateDNRRulesForTab's async chain settle
     const fetchResult = await linked.evaluate(
-      async (url) => (await fetch(url, { credentials: 'include' })).json(),
+      async (url) => (await fetch(url, { credentials: 'include' })).text(),
       `${mockServerUrl}/cookies?t=linked-on-next`,
     )
-    expect(fetchResult.cookies.user).toBeUndefined()
+    expect(parseCookieResponse(fetchResult).cookies.user).toBeUndefined()
   })
 
   test('toggled OFF: a tab opened from a link stays on the default jar', async ({
@@ -132,7 +133,7 @@ test.describe('Linked tab profile inheritance', () => {
     )
 
     const linked = await openLinkInNewTab(context, opener, `${mockServerUrl}/cookies?t=linked-off`)
-    const linkedResult = JSON.parse(await linked.textContent('body') ?? '{}')
+    const linkedResult = parseCookieResponse(await linked.textContent('body'))
     expect(linkedResult.cookies.user).toBe('default-jar-off')
   })
 })

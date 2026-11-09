@@ -1,8 +1,8 @@
 FROM node:20-alpine
 WORKDIR /app
-COPY package.json ./
-RUN npm install --omit=dev
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 COPY public ./public
-COPY server.mjs ./
+COPY server.ts ./
 EXPOSE 3000
-CMD ["node", "server.mjs"]
+CMD ["npm", "start"]

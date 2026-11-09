@@ -10,6 +10,7 @@ import { renderFavoritesList } from './popup-render-favorites-list.js';
 import { initSaveFavoriteButton } from './popup-save-favorite.js';
 import { getLanguagePreference, createLocalizer, applyDocumentLocale, localizeDocument, createGenerationGuard } from '../lib/localization.js';
 import type { Localizer } from '../lib/localization.js';
+import { profileSiteFromUrl } from '../lib/profile-site.js';
 
 async function getCurrentTab(): Promise<chrome.tabs.Tab> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -215,7 +216,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         || localizer.getMessage('generatedSessionName', [String(saved.length + 1)])
         || `Session ${saved.length + 1}`;
       const hue   = HUE_PALETTE[saved.length % HUE_PALETTE.length];
-      const newSession: PopupSession = { id: newId, name, hue };
+      const newSession: PopupSession = { id: newId, name, hue, site: profileSiteFromUrl(currentUrl, currentTab.title ?? undefined) };
       const sessions = await getSavedSessions();
       sessions.push(newSession);
       await setSavedSessions(sessions);

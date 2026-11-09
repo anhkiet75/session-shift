@@ -391,5 +391,77 @@
   },
   "shortcutsChangeButton": {
     "message": "Change shortcuts"
-  }
+  },
+  "unassignedSite": {
+    "message": "Unassigned",
+    "description": "Group title for legacy profiles without website metadata."
+  },
+  "unassignedSiteAddress": {
+    "message": "Profiles without a creation site",
+    "description": "Address shown for the legacy unassigned website group."
+  },
+  "openProfileButton": {
+    "message": "Open",
+    "description": "Button that opens a profile at its saved website."
+  },
+  "openProfileTitle": {
+    "message": "Open profile",
+    "description": "Tooltip for the profile open button."
+  },
+  "openProfileAriaLabel": {
+    "message": "Open profile $name$",
+    "description": "Accessible name for the profile open button.",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "dataTransferTitle": {
+    "message": "Data transfer",
+    "description": "Options section for profile export and import."
+  },
+  "dataTransferDesc": {
+    "message": "Export profiles and login sessions to move them to another device.",
+    "description": "Description of profile data transfer."
+  },
+  "exportProfilesButton": {
+    "message": "Export profiles",
+    "description": "Button that downloads profile data."
+  },
+  "importProfilesButton": {
+    "message": "Import profiles",
+    "description": "Button that selects a profile export file."
+  },
+  "exportProfilesSuccess": {
+    "message": "Profiles exported.",
+    "description": "Status after a successful export."
+  },
+  "importProfilesSuccess": {
+    "message": "Imported profiles: $count$.",
+    "description": "Status after a successful import.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "transferFailed": {
+    "message": "The transfer could not be completed.",
+    "description": "Generic profile transfer failure."
+  },
+  "invalidTransferJson": {
+    "message": "The selected file is not valid JSON.",
+    "description": "Error for invalid JSON transfer files."
+  },
+  "unsupportedTransferFile": {
+    "message": "This is not a supported SessionShift export.",
+    "description": "Error for unsupported transfer files."
+  },
+  "invalidTransferFile": {
+    "message": "The selected file contains invalid profile or cookie data.",
+    "description": "Error for malformed transfer files."
+  },
+  "dataTransferWarning": {"message":"Export files contain login cookies. Store them privately and delete them when no longer needed.","description":"Warning that exported profile files contain sensitive login cookies."},
+  "transferFileTooLarge": {"message":"This export file is too large to import.","description":"Error for an oversized transfer file."}
 }

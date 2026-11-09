@@ -76,7 +76,7 @@ These are wired into `getMessage()` and checked during catalog validation; any a
 No catalog is falsely marked "reviewed" without human evidence. Validation enforces shape integrity and rejects any tier carrying reviewer metadata it shouldn't have.
 
 **Updated Validation:**
-`scripts/validate-locales.mjs` now:
+`scripts/validate-locales.ts` now:
 - Requires exactly 55 locales (previously only en was mandatory)
 - Allows `translation-quality.json` as the one approved non-directory file at `_locales/` root
 - Validates quality metadata shape and cross-checks tier claims against evidence
@@ -120,7 +120,7 @@ No catalog is falsely marked "reviewed" without human evidence. Validation enfor
 
 ## Verification Summary
 
-- `node scripts/validate-locales.mjs`: ✓ 55 locales, 71 keys each, 0 errors
+- `npx --no-install tsx scripts/validate-locales.ts`: ✓ 55 locales, 71 keys each, 0 errors
 - `npx tsc --noEmit -p .`: ✓ 0 type errors
 - `npm run test:unit`: ✓ 298/298 passing
 - `npm run test:e2e`: ✓ 37/37 passing (includes critical-key fallback tests)

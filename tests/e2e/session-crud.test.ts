@@ -99,13 +99,12 @@ test.describe('Session CRUD', () => {
     // Now open the popup page with mocks pinned to the real tab id.
     const page = await context.newPage()
     await page.addInitScript(({ tabId, url }: { tabId: number; url: string }) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const cr = (window as any).chrome
+      const cr = chrome
       const orig = cr.tabs.query.bind(cr.tabs)
-      cr.tabs.query = async (q: { active?: boolean; currentWindow?: boolean }) =>
+      cr.tabs.query = (async (q: { active?: boolean; currentWindow?: boolean }) =>
         q?.active && q?.currentWindow
           ? [{ id: tabId, url, windowId: 1, active: true, index: 0, highlighted: true, pinned: false, discarded: false, autoDiscardable: true, groupId: -1, incognito: false }]
-          : orig(q)
+          : orig(q)) as typeof chrome.tabs.query
       window.close = () => window.location.reload()
       const origSend = cr.runtime.sendMessage.bind(cr.runtime)
       Object.defineProperty(cr.runtime, 'sendMessage', {

@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node",
+      "chrome"
+    ],
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "login-test-server/**/*.ts",
+    "vitest.config.ts",
+    "playwright.config.ts"
+  ]
+}
