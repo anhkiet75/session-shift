@@ -12,6 +12,18 @@ All significant changes to the SessionShift Chrome extension are documented here
 
 ---
 
+## Unreleased (after 0.1.3)
+
+**Fixed:** profile tabs lost cookies once a profile had been used on many sites. WordPress showed it first, as "Cookies are blocked or not supported by your browser" at login, or a silent bounce back to `wp-login.php?reauth=1`.
+- Cause: a tab has 100 DNR rules, a profile store holds cookies for every site it ever visited, and rules were handed out by host name. The site the tab was on could be the one left out, and its requests then went out with no cookies.
+- The sites a tab is on or navigating to now get their rules first. A site the rules leave out is covered on demand: nothing the cookieless request's redirect chain sets is captured (it would overwrite the stored login with a guest session), and a top-level GET is requested again when that helps.
+- At most 20 regex rules per tab, down from one per host. A profile open in about ten tabs used to exhaust Chrome's 1000 regex rules; every later rule update was then rejected without a trace and the tabs kept sending old cookies.
+- A rejected rule update is logged and retried with a minimal rule set. An older publish can no longer overwrite a newer one for the same tab.
+- A tab opened by the extension is built for the URL it was opened for, so its first request already carries Secure cookies.
+- **Security:** a `Domain=` rule no longer carries the host-only cookies of the domain's own host. On 0.1.3 a profile tab sent `example.com`'s host-only cookies (HttpOnly ones included) to any subdomain the profile held no host-only cookie for, whenever the profile also held a `Domain=.example.com` cookie. Confirmed in Chrome and covered by `tests/e2e/host-only-cookie-subdomain-isolation.test.ts`.
+
+Implementation: `background/dnr-tab-rule-publisher.ts`, `background/tab-cookie-rule-coverage.ts`, `background/left-out-request-recovery.ts`, `background/dnr-cookie-rule-scopes.ts`, `background/dnr-cookie-rule-builder.ts`, `background/dnr-manager.ts`, `background/held-redirects.ts`. New unit tests and an e2e spec (`large-profile-cookie-delivery`, WordPress-login mock server).
+
 ## Current release: 0.1.3 (manifest)
 
 **Shipped in 0.1.3:** Laravel-style session cookies keep working in profile tabs, and the default (non-profile) jar is isolated from profile cookies.

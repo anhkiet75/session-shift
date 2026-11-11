@@ -7,7 +7,12 @@
 | **background/index.ts** | 109 | Service worker entry point; listener registration for DNR, messages, commands, context menu |
 | **background/session-manager.ts** | 74 | In-memory tabSessions map; badge text/color/label-contrast; delegates icon rasterization |
 | **background/profile-icon-renderer.ts** | 106 | Per-hue action icon rasterization via OffscreenCanvas; per-hue + base-bitmap caches |
-| **background/dnr-manager.ts** | 148 | DNR rule management; Set-Cookie capture into session store + jar-pollution strip on isolated tabs |
+| **background/dnr-manager.ts** | 231 | webRequest listeners of profile tabs: Set-Cookie capture into the profile store, auth bridge, and the guards that keep wrongly-answered responses out of the store |
+| **background/dnr-tab-rule-publisher.ts** | 197 | Builds and publishes one tab's DNR session rules: per-tab rule and regex budgets, ordering of overlapping publishes, retry with a minimal rule set when Chrome refuses |
+| **background/dnr-cookie-rule-builder.ts** | 253 | Turns a profile store into base strip rules plus host/path `Cookie: set` rules, and reports which scopes got no rule |
+| **background/dnr-cookie-rule-scopes.ts** | 111 | Derives the host/path cookie scopes of a store and orders them: the tab's own sites first |
+| **background/tab-cookie-rule-coverage.ts** | 265 | What each tab's published rule sets cover and when each was live; which request chains left without the profile's cookies; promoted sites per tab |
+| **background/left-out-request-recovery.ts** | 175 | Judges each request against the rules live when it started; promotes a left-out site, rebuilds the rules, requests a top-level GET again when that helps |
 | **background/context-menu-manager.ts** | 40 | Context menu creation and cleanup lifecycle |
 | **background/linked-tab-inheritance.ts** | 35 | Listen for link-opened tabs; auto-assign profile if setting enabled (v0.6.0+) |
 | **background/pre-assignment-navigations.ts** | — | Linked-tab requests sent before profile rules went live: never captured; GET re-requested once (0.1.3) |
@@ -87,16 +92,33 @@ Modularized from original ~556 LOC monolithic background.js into 6 focused modul
 - `getIconSetForHue(hue)` — `Promise<{16: ImageData, 32: ImageData}>`; rejects (retryably)
   when `OffscreenCanvas` is unavailable or the logo cannot be fetched
 
-#### background/dnr-manager.ts (~148 LOC)
+#### background/dnr-manager.ts
 **Responsibilities:**
-- Manages DNR rules per-tab for cookie header rewriting
-- Rebuilds DNR after captured `Set-Cookie` so login redirects and auth fetches can use fresh cookies
-- Captures Set-Cookie responses into the session store (webRequest listener)
-- Strips Set-Cookie from isolated-tab responses so they never write to the shared global jar, keeping default-session tabs uncontaminated
+- Captures Set-Cookie responses into the profile store (webRequest listener) and republishes the rules of every tab of that profile
+- Keeps responses answered with the wrong cookies out of the store: pre-assignment requests, stale redirect hops, and request chains the tab's rules left without cookies
 
 **Key Functions:**
-- `updateDNRRulesForTab(tabId, sessionId)` — Update DNR rules for cookie rewriting
-- `registerWebRequestListener()` — Capture Set-Cookie into the per-session store
+- `registerWebRequestListener()` — Capture Set-Cookie into the per-profile store
+
+#### background/left-out-request-recovery.ts
+**Responsibilities:**
+- Records the start of every request and judges it against the rule sets that may have been live at that moment
+- Recovers a left-out request: promotes its site, rebuilds the rules, and requests a top-level GET again when that helps and is still the tab's latest navigation
+
+**Key Functions:**
+- `noteRequestStarted(details)` — `onBeforeRequest`: record and judge
+- `ensureRequestJudged(details, sessionId)` — Judge, before capture, a request that could not be judged when it started
+- `refreshRulesBeforeNavigation(tabId, url)` — Rebuild the rules before a navigation to a site they leave out
+
+#### background/dnr-tab-rule-publisher.ts
+**Responsibilities:**
+- Publishes per-tab DNR rules for cookie header rewriting, within 100 rules and 20 regex rules per tab
+- Places the sites the tab is on or heading to first, so they keep their rules when the profile holds more scopes than fit
+- Orders overlapping publishes of a tab so an older one never overwrites a newer one; retries a refused rule set as the priority sites only, without regex rules
+
+**Key Functions:**
+- `updateDNRRulesForTab(tabId, sessionId, navigationUrl?)` — Publish the tab's rules, or remove them for `default`
+- `updateDNRRulesForProfileTabs(sessionId, originTabId)` — Republish every tab of a profile after a store change
 - `dnrRuleId(tabId)` — Generate stable DNR rule ID
 
 #### background/context-menu-manager.ts (~40 LOC)
@@ -607,7 +629,8 @@ and `export-import.spec.ts`. None of those exist.)*
 - Split monolithic 556 LOC background.js into 6 focused modules, each <150 LOC
 - **background/index.ts** — Entry point with listener registration
 - **background/session-manager.ts** — Tab→session map, badge, icons
-- **background/dnr-manager.ts** — DNR rules, immediate cookie capture publishing
+- **background/dnr-manager.ts** — Set-Cookie capture and its guards
+- **background/dnr-tab-rule-publisher.ts** — DNR rule publishing, per-tab budgets
 - **background/context-menu-manager.ts** — Context menu lifecycle
 - **background/message-handler.ts** — Message routing with discriminated unions
 - Updated manifest.json: `service_worker` → `background/index.js`
