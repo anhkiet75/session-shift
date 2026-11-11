@@ -5,14 +5,14 @@ All significant changes to the SessionShift Chrome extension are documented here
 > **Version numbering.** The `vX.Y.Z` headings below are *development
 > milestones*, not shipped releases. The only version Chrome ships is
 > `src/manifest.json`, which has gone `0.0.4 → 0.0.6 → 0.0.7 → 0.0.8 → 0.0.9 →
-> 0.1.0 → 0.1.1 → 0.1.2 → **0.1.3** (current)`. No 0.2.x–0.6.x has ever been released, and the
+> 0.1.0 → 0.1.1 → 0.1.2 → 0.1.3 → **0.1.4** (current)`. No 0.2.x–0.6.x has ever been released, and the
 > repository has no git tags. Milestone headings are kept because the work they
 > describe is real and the dates are useful; read them as "milestone N", not as
 > a published version. Feature claims below have been reconciled against `src/`.
 
 ---
 
-## Unreleased (after 0.1.3)
+## Current release: 0.1.4 (manifest)
 
 **Fixed:** profile tabs lost cookies once a profile had been used on many sites. WordPress showed it first, as "Cookies are blocked or not supported by your browser" at login, or a silent bounce back to `wp-login.php?reauth=1`.
 - Cause: a tab has 100 DNR rules, a profile store holds cookies for every site it ever visited, and rules were handed out by host name. The site the tab was on could be the one left out, and its requests then went out with no cookies.
@@ -24,7 +24,7 @@ All significant changes to the SessionShift Chrome extension are documented here
 
 Implementation: `background/dnr-tab-rule-publisher.ts`, `background/tab-cookie-rule-coverage.ts`, `background/left-out-request-recovery.ts`, `background/dnr-cookie-rule-scopes.ts`, `background/dnr-cookie-rule-builder.ts`, `background/dnr-manager.ts`, `background/held-redirects.ts`. New unit tests and an e2e spec (`large-profile-cookie-delivery`, WordPress-login mock server).
 
-## Current release: 0.1.3 (manifest)
+## Previous release: 0.1.3
 
 **Shipped in 0.1.3:** Laravel-style session cookies keep working in profile tabs, and the default (non-profile) jar is isolated from profile cookies.
 - Profile tabs never read or write Chrome's own jar; the request-side Cookie strip now covers navigations too.

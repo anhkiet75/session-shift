@@ -12,7 +12,7 @@
 > A claim belongs in exactly one of them. Source-of-truth order for any version
 > or feature claim: `src/manifest.json` version > code and tests > git history >
 > prose. `src/manifest.json` is the only version Chrome ships; it is currently
-> **0.1.3**, and the repository has no git tags. Version strings like `v0.4.1`
+> **0.1.4**, and the repository has no git tags. Version strings like `v0.4.1`
 > or `v0.6.0` that appeared in earlier revisions of these files were
 > development milestone labels, never releases.
 
@@ -22,7 +22,7 @@
 
 ## Current Status
 
-**Current Version:** 0.1.3 (from `src/manifest.json`)  
+**Current Version:** 0.1.4 (from `src/manifest.json`)  
 **Status:** Active hardening and profile UX work  
 **Repository:** https://github.com/anhkiet75/session-shift  
 **Chrome Web Store:** https://chromewebstore.google.com/detail/sessionshift/incpbanbmacagomhkmbjmncnhimngcmp
@@ -43,6 +43,7 @@
 | — | Popup inline edit polish | **0.1.1 (shipped)** | ✅ Shipped | 2026-09-23 | Favorite rename/delete, profile rename polish |
 | — | Shortcuts unbound | **0.1.2 (shipped)** | ✅ Shipped | 2026-09-24 | No command ships a `suggested_key`; Options → Keyboard shortcuts list |
 | — | Session-rotating logins | **0.1.3 (shipped)** | ✅ Shipped | 2026-10-09 | Profile tabs never touch Chrome's jar; held redirects, redirect hop guard, live `document.cookie`, linked-tab pre-assignment requests distrusted; Chrome 128 minimum |
+| — | Large-profile cookie delivery | **0.1.4 (shipped)** | ✅ Shipped | 2026-11-11 | A tab's own sites get DNR rules first, left-out sites recovered on demand, 20 regex rules per tab, refused rule updates retried; host-only cookies no longer leak to subdomains |
 
 *Phase "version" labels 1–6 are development milestones, not releases. Phase 7 is
 the first row whose version is a real shipped manifest version. Per-release
