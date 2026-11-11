@@ -6,7 +6,7 @@ import { withCookieLock } from '../lib/cookie-write-lock.js';
 import { parseCookieString, parseDocumentCookie, cookieKey, cookieMatchesRequest, defaultCookiePath, normalizeCookiePath, isValidCookieName, isValidCookieValue } from '../lib/cookie-parser.js';
 import type { BackgroundMessage } from '../lib/types.js';
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { updateDNRRulesForTab, updateDNRRulesForProfileTabs } from './dnr-manager.js';
+import { updateDNRRulesForTab, updateDNRRulesForProfileTabs } from './dnr-tab-rule-publisher.js';
 import { forceFreshLoadOnce } from './tab-fresh-load.js';
 import { getLanguagePreference, createLocalizer } from '../lib/localization.js';
 import { syncTabToGroup, syncProfileGroupAppearance } from './tab-group-sync.js';
@@ -221,8 +221,9 @@ export async function handleMessage(
       tabSessions[tabId] = sessionId;
       await persistTabSessions();
       // Rules are live while the tab is still on about:blank, so the very
-      // first request already carries only this profile's cookies.
-      await updateDNRRulesForTab(tabId, sessionId);
+      // first request already carries only this profile's cookies — built for
+      // `url`, whose site must not be among the scopes a full profile leaves out.
+      await updateDNRRulesForTab(tabId, sessionId, url);
       updateBadge(tabId, sessionId);
       // Phase 4: no-op when tab grouping is off/unpermitted. `.catch()` here
       // (not just relying on the outer try/catch) because `void` doesn't

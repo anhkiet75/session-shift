@@ -1,7 +1,10 @@
 // index.ts — Service worker entry point: startup + Chrome API listener registration.
 
 import { restoreTabSessions, tabSessions, persistTabSessions, updateBadge } from './session-manager.js';
-import { dnrRuleIdsForTab, registerWebRequestListener } from './dnr-manager.js';
+import { registerWebRequestListener } from './dnr-manager.js';
+import { refreshRulesBeforeNavigation } from './left-out-request-recovery.js';
+import { updateDNRRulesForTab } from './dnr-tab-rule-publisher.js';
+import { restorePromotedSites } from './tab-cookie-rule-coverage.js';
 import { setupContextMenu, registerStorageListener } from './context-menu-manager.js';
 import { registerLinkedTabInheritance } from './linked-tab-inheritance.js';
 import { handleMessage } from './message-handler.js';
@@ -26,7 +29,7 @@ export { handleMessage };
 // listener registration and triggers "Service worker registration failed".
 // Kick off restoration eagerly; handlers below await `restored` before
 // touching tabSessions so they see the persisted map.
-const restored: Promise<void> = restoreTabSessions();
+const restored: Promise<void> = Promise.all([restoreTabSessions(), restorePromotedSites()]).then(() => {});
 setupContextMenu();
 registerStorageListener();
 registerWebRequestListener();
@@ -99,7 +102,9 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
     delete tabSessions[tabId];
     await persistTabSessions();
   }
-  chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: dnrRuleIdsForTab(tabId) }).catch(() => {});
+  // Through the publisher, not a bare rule removal: a publish still in flight
+  // for this tab would otherwise put the rules back after the tab is gone.
+  updateDNRRulesForTab(tabId, 'default').catch(() => {});
   forgetHeldRedirectsForTab(tabId);
   forgetPreAssignmentTab(tabId);
 });
@@ -115,6 +120,13 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
     const sessionId = tabSessions[tabId] || 'default';
     if (!isInternalSession(sessionId)) updateBadge(tabId, sessionId);
   }
+});
+
+// A profile tab heading to a site its rules leave out gets them rebuilt first.
+chrome.webNavigation.onBeforeNavigate.addListener(async (details) => {
+  if (details.frameId !== 0) return;
+  await restored;
+  await refreshRulesBeforeNavigation(details.tabId, details.url).catch(() => {});
 });
 
 // Phase 4: a tab dragged into another window must land in that window's

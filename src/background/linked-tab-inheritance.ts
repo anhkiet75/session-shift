@@ -3,7 +3,7 @@
 // absent/undefined (e.g. pre-existing users, freshly-installed extension) means enabled.
 
 import { tabSessions, persistTabSessions, updateBadge } from './session-manager.js'
-import { updateDNRRulesForTab } from './dnr-manager.js'
+import { updateDNRRulesForTab } from './dnr-tab-rule-publisher.js'
 import { markTabJoinedProfile } from './pre-assignment-navigations.js'
 import { isInternalSession } from '../lib/session-store.js'
 import { getExtSettings } from '../lib/settings-store.js'
@@ -17,7 +17,7 @@ import { getExtSettings } from '../lib/settings-store.js'
 export function registerLinkedTabInheritance(restored: Promise<void>): void {
   chrome.webNavigation.onCreatedNavigationTarget.addListener(async (details) => {
     await restored
-    const { sourceTabId, tabId } = details
+    const { sourceTabId, tabId, url } = details
     if (tabSessions[tabId] !== undefined) return // already assigned; don't clobber
 
     const settings = await getExtSettings()
@@ -29,7 +29,7 @@ export function registerLinkedTabInheritance(restored: Promise<void>): void {
     // Rules first, assignment second: responses to requests sent before the
     // rules were live are never captured into the profile (the tab has no
     // profile yet), and those requests are re-issued below.
-    await updateDNRRulesForTab(tabId, openerSessionId)
+    await updateDNRRulesForTab(tabId, openerSessionId, url)
     tabSessions[tabId] = openerSessionId
     // The link's first request usually left before these rules existed, with
     // Chrome's own jar (the normal account): it is distrusted and the page is

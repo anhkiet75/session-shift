@@ -129,6 +129,7 @@ function createChromeMock() {
     },
     webNavigation: {
       onCreatedNavigationTarget: { addListener: vi.fn() },
+      onBeforeNavigate: { addListener: vi.fn() },
     },
     action: {
       setBadgeText: vi.fn(),
@@ -138,6 +139,7 @@ function createChromeMock() {
       setIcon: vi.fn().mockResolvedValue({}),
     },
     webRequest: {
+      onBeforeRequest: { addListener: vi.fn() },
       onBeforeSendHeaders: { addListener: vi.fn() },
       onHeadersReceived: { addListener: vi.fn() },
       onCompleted: { addListener: vi.fn() },

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { handleMessage } from '../background.js'
-import { handleRequestCompleted, updateDNRRulesForTab } from '../background/dnr-manager.js'
+import { handleRequestCompleted } from '../background/dnr-manager.js'
+import { updateDNRRulesForTab } from '../background/dnr-tab-rule-publisher.js'
 import { tabSessions } from '../background/session-manager.js'
 
 const SENDER = { id: chrome.runtime.id }

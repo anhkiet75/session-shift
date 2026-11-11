@@ -1,12 +1,12 @@
-// dnr-manager.ts — Declarative Net Request rules, debounce, and cookie-capture listener.
+// dnr-manager.ts — webRequest listeners of profile tabs: Set-Cookie capture and
+// the guards that keep a response answered with the wrong cookies out of the store.
 
 import { getCookieStore, setCookieStore } from '../lib/session-store.js';
-import { parseSetCookie, cookieKey, type SerializeOptions } from '../lib/cookie-parser.js';
+import { parseSetCookie, cookieKey } from '../lib/cookie-parser.js';
 import { tabSessions } from './session-manager.js';
 import { withCookieLock } from '../lib/cookie-write-lock.js';
-import { buildDnrRulesForCookieStore } from './dnr-cookie-rule-builder.js';
-import { getEtld1 } from '../lib/public-suffix.js';
 import { AUTH_BRIDGE_HEADER } from '../lib/auth-transition-bridge.js';
+import { updateDNRRulesForTab, updateDNRRulesForProfileTabs } from './dnr-tab-rule-publisher.js';
 import {
   beginCookieCapture,
   endCookieCapture,
@@ -21,16 +21,8 @@ import {
   noteNavigationRequest,
 } from './pre-assignment-navigations.js';
 import { heldRedirectTarget, noteHeldRedirect } from './held-redirects.js';
-
-const MAX_DNR_RULES_PER_TAB = 100;
-const DNR_RULE_ID_STRIDE = 1_000_000;
-
-const ALL_RESOURCE_TYPES = [
-  'main_frame', 'sub_frame', 'stylesheet', 'script', 'image',
-  'xmlhttprequest', 'ping', 'csp_report', 'media', 'websocket',
-  'webbundle', 'other',
-] as chrome.declarativeNetRequest.ResourceType[];
-
+import { isDistrustedChain } from './tab-cookie-rule-coverage.js';
+import { ensureRequestJudged, noteRequestFinished, noteRequestStarted } from './left-out-request-recovery.js';
 
 type AuthBridgeRequest = {
   bridgeId: string
@@ -40,84 +32,6 @@ type AuthBridgeRequest = {
 }
 
 const authBridgeRequests = new Map<string, AuthBridgeRequest>();
-
-export function dnrRuleId(tabId: number): number {
-  return (tabId % 1000000) + 1;
-}
-
-export function dnrRuleIdsForTab(tabId: number): number[] {
-  const baseId = dnrRuleId(tabId);
-  return Array.from({ length: MAX_DNR_RULES_PER_TAB }, (_, index) => baseId + index * DNR_RULE_ID_STRIDE);
-}
-
-export async function updateDNRRulesForTab(tabId: number, sessionId: string): Promise<void> {
-  const ruleIds = dnrRuleIdsForTab(tabId);
-
-  if (!sessionId || sessionId === 'default') {
-    await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: ruleIds, addRules: [] });
-    return;
-  }
-
-  // Profiles span all sites, so there is no bound host. Scheme comes from the
-  // current tab URL — a profile has no single origin, and using the live scheme
-  // keeps Secure cookies out of plaintext http requests.
-  const boundHost = null;
-  let scheme: 'https' | 'http' | null = null;
-  let firstPartyDomain: string | null = null;
-  try {
-    const tab = await chrome.tabs.get(tabId);
-    const url = new URL(tab.url ?? '');
-    scheme = url.protocol === 'https:' ? 'https' : url.protocol === 'http:' ? 'http' : null;
-    if (scheme) firstPartyDomain = getEtld1(url.hostname);
-  } catch {
-    scheme = null;
-    firstPartyDomain = null;
-  }
-
-  // Fail closed on Secure cookies: only an explicitly-https tab gets them. http
-  // must never carry Secure cookies in plaintext, and an unresolved scheme (tab
-  // gone / chrome:// / tabs.get threw) is treated as not-https for safety.
-  const serializeOpts: SerializeOptions = scheme === 'https' ? {} : { excludeSecure: true };
-  const store = await getCookieStore(sessionId);
-
-  // Profile tabs never read or write Chrome's own cookie jar — that jar belongs
-  // to the user's normal (no-profile) tabs. Both base strip rules therefore
-  // cover every resource type, navigations included: the request-side
-  // `Cookie: remove` keeps jar cookies out of this tab, the response-side
-  // `set-cookie: remove` keeps this tab's cookies out of the jar. The profile
-  // store, published as higher-priority `Cookie: set` rules, is the only cookie
-  // source. Redirect hops that outrun a capture are handled by held redirects
-  // and the stale-hop guard, not by falling back to the jar.
-  const addRules = buildDnrRulesForCookieStore({
-    tabId,
-    ruleIds,
-    boundHost,
-    scheme,
-    store,
-    serializeOpts,
-    resourceTypes: ALL_RESOURCE_TYPES,
-    firstPartyDomain,
-  });
-
-  // Atomic remove+add: Chrome processes the removal before the addition within a
-  // single call, so concurrent callers for the same tab can't collide on rule ID.
-  await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: ruleIds, addRules });
-}
-
-// Rules are per tab, but a profile's cookie store is shared by every tab using
-// it. After a store change, republish the rules of all those tabs — otherwise a
-// sibling tab keeps sending the cookies from before, e.g. a session id the
-// server destroyed at login, and the guest cookie it gets back logs the whole
-// profile out. Only the tab that caused the change is awaited: its redirect
-// chain and auth bridge depend on it, and sibling rebuilds must not lengthen
-// that critical path.
-export async function updateDNRRulesForProfileTabs(sessionId: string, originTabId: number): Promise<void> {
-  for (const [tabId, tabSessionId] of Object.entries(tabSessions)) {
-    if (tabSessionId !== sessionId || Number(tabId) === originTabId) continue;
-    void updateDNRRulesForTab(Number(tabId), sessionId).catch(() => {});
-  }
-  await updateDNRRulesForTab(originTabId, sessionId);
-}
 
 // Capture Set-Cookie headers for an isolated tab and re-publish the DNR rules.
 //
@@ -147,6 +61,11 @@ export async function handleHeadersReceived(
   // response belongs to the normal account, not to the profile.
   if (isPreAssignmentResponse(details.requestId)) return;
 
+  // A hop of this chain left without the cookies the profile holds for its
+  // site (the tab's rules left the site out): the server answered a stranger,
+  // and its guest cookies would overwrite the profile's login.
+  if (isDistrustedChain(details.requestId)) return;
+
   // A redirect hop that left before the previous hop's capture finished carried
   // stale cookies, so the server answered the wrong session; capturing its
   // cookies would overwrite the fresh ones.
@@ -156,6 +75,10 @@ export async function handleHeadersReceived(
   // while the capture is in flight, is recognised as stale.
   beginCookieCapture(details.requestId, tabId, details.type === 'main_frame' || details.type === 'sub_frame');
   try {
+    // Normally judged when it started. A request that started before this
+    // worker did, or before the worker knew the tab's rules, is judged now.
+    await ensureRequestJudged(details, sessionId);
+    if (isDistrustedChain(details.requestId)) return;
     await captureAndPublish(details, sessionId, setCookieHeaders);
   } finally {
     endCookieCapture(details.requestId);
@@ -243,6 +166,10 @@ export async function handleRequestCompleted(
 ): Promise<void> {
   forgetRequestChain(details.requestId);
   forgetPreAssignmentRequest(details.requestId);
+  // Only once every capture of the chain is done: a capture still running may
+  // be about to judge the request, and would re-create the state dropped here.
+  await whenCapturesSettled(details.requestId);
+  noteRequestFinished(details);
   if (authBridgeRequests.has(details.requestId)) {
     // Release the page only once the whole chain is over and every Set-Cookie
     // it carried (any redirect hop included) is in the store, so the page's
@@ -269,6 +196,12 @@ async function resolveAuthBridgeRequest(requestId: string): Promise<void> {
 
 // webRequest listener — capture Set-Cookie headers for isolated tabs.
 export function registerWebRequestListener(): void {
+  chrome.webRequest.onBeforeRequest.addListener(
+    (details): undefined => {
+      noteRequestStarted(details);
+    },
+    { urls: ['<all_urls>'] }
+  );
   chrome.webRequest.onBeforeSendHeaders.addListener(
     (details): undefined => {
       handleBeforeSendHeaders(details);
@@ -278,7 +211,10 @@ export function registerWebRequestListener(): void {
   );
   chrome.webRequest.onHeadersReceived.addListener(
     (details): undefined => {
-      void handleHeadersReceived(details);
+      // A failed capture or rule publish must never pass silently: the tab
+      // would keep sending the cookies from before.
+      void handleHeadersReceived(details).catch((error: unknown) =>
+        console.error(`[dnr] capturing cookies for tab ${details.tabId} failed:`, error));
     },
     { urls: ['<all_urls>'] },
     ['responseHeaders', 'extraHeaders']

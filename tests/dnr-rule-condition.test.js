@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { updateDNRRulesForTab } from '../background/dnr-manager.js'
+import { updateDNRRulesForTab } from '../background/dnr-tab-rule-publisher.js'
 import { cookieKey } from '../lib/cookie-parser.js'
 
 async function setupProfile({ sessionId, tabId, tabUrl, store = {} }) {

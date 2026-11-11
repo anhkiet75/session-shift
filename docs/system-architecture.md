@@ -224,7 +224,7 @@ v0.5.0 widens the response-stripping match from exact host to registrable domain
 
 This fixes multi-subdomain login flows such as `www.google.com` → `accounts.google.com` while keeping host-only and path-scoped cookies from leaking to sibling subdomains or unrelated paths.
 
-**Jar isolation (since 0.1.3):** a profile tab never reads or writes Chrome's own cookie jar; that jar belongs to the user's normal (no-profile) tabs. Both base strip rules are tab-scoped and cover every resource type and scheme, navigations included: request-side `Cookie: remove` keeps jar cookies out of the tab, response-side `set-cookie: remove` keeps the tab's cookies out of the jar. The profile store, published as higher-priority `Cookie: set` rules, is the only cookie source. Earlier versions let navigations through to the jar so login redirects could carry fresh cookies, which mixed the jar's cookies into profile navigations. That timing gap is now closed by held redirects and the redirect hop guard below. Owner: `updateDNRRulesForTab()` in `src/background/dnr-manager.ts`.
+**Jar isolation (since 0.1.3):** a profile tab never reads or writes Chrome's own cookie jar; that jar belongs to the user's normal (no-profile) tabs. Both base strip rules are tab-scoped and cover every resource type and scheme, navigations included: request-side `Cookie: remove` keeps jar cookies out of the tab, response-side `set-cookie: remove` keeps the tab's cookies out of the jar. The profile store, published as higher-priority `Cookie: set` rules, is the only cookie source. Earlier versions let navigations through to the jar so login redirects could carry fresh cookies, which mixed the jar's cookies into profile navigations. That timing gap is now closed by held redirects and the redirect hop guard below. Owner: `updateDNRRulesForTab()` in `src/background/dnr-tab-rule-publisher.ts`.
 
 ### Auth Transition Bridge
 
@@ -252,6 +252,42 @@ Every navigation hop is therefore sent with the right cookies.
 
 Requests that are not held can still leave before a capture finishes: a subresource redirect chain, or the tab's parallel requests (favicon, preloads, early XHR) while its document's cookies are being captured. After a session-rotating login (Laravel, Rails, Django) the server answers such a request as a guest. `src/background/redirect-hop-stale-cookie-guard.ts` marks a request as stale when it is sent while an earlier hop of the same `requestId`, or the tab's document, still has a capture pending. It then drops that request's `Set-Cookie`, so the guest cookie cannot overwrite the login cookie. The request is not re-sent, for the same one-shot-state reason as above.
 
+### Rule Budget and On-Demand Coverage
+
+A profile is a global jar. Its store holds cookies for every site the profile ever visited, third-party trackers included, and session cookies are never garbage-collected. Chrome gives an extension 5000 session rules and 1000 regex session rules, shared by every tab. A tab therefore gets a fixed budget, 100 rules and 20 regex rules (`src/background/dnr-tab-rule-publisher.ts`), and a well-used profile holds more cookie scopes than that. Five news sites are enough to fill it.
+
+**Which scopes get a rule** is decided by what the tab needs, not by host name (`src/background/dnr-cookie-rule-scopes.ts`):
+
+1. The sites (eTLD+1) the tab is on and is navigating to: its committed URL, its pending URL, and the URL the extension opened it for.
+2. Sites the tab reached while its rules left them out, most recent first (up to 100, kept in `chrome.storage.session` under `tabPromotedSites`).
+3. Everything else, root paths before deeper paths.
+
+The first 20 exact-host rules use a regex, the only way to match a host on any port without also matching a URL whose userinfo spells the host. The rest use `urlFilter: "|scheme://host/path"`, exact but default-port only. A `Domain=` rule matches every host under its domain, so it carries `Domain=` cookies only; a host's host-only cookies exist in that host's own rules and nowhere else.
+
+**A scope without a rule is not harmless.** The base strip still removes the `Cookie` header, so the request reaches the server with no cookies at all, and a session-starting server answers with a guest cookie that would overwrite the profile's login. `src/background/tab-cookie-rule-coverage.ts` records what each published rule set leaves out, and every request of a profile tab is judged against it:
+
+- Chrome matches a request against the rules once, when the request starts (`onBeforeRequest`), and caches the result. A request is therefore judged by its start time. The worker only knows when it handed an update to Chrome and when Chrome confirmed it, so a request that started in between is judged against both rule sets and counts as left out if either leaves it out.
+- The response to a left-out request is never captured, and neither is any later hop of its redirect chain: each follows from an answer given to a stranger. WordPress, for example, redirects a cookieless visitor to `wp-login.php?reauth=1`, which clears the auth cookies of whoever arrives. This holds even for a site already placed first whose cookies still do not fit: losing a `Set-Cookie` is recoverable, an overwritten login is not.
+- The site is promoted and the tab's rules are rebuilt, once per site at a time. A site that is already first is not republished: the rules cannot serve it any better.
+
+**Requesting the page again** (`src/background/left-out-request-recovery.ts`). When the left-out request was the page the user is waiting for, it is requested again once the rebuilt rules are live. That happens only when it helps and is still wanted: a GET, of the tab's visible page (a prerendered page shares the tab's id and is never replayed), that is still the tab's latest top-level navigation, to a site the rebuilt rules now cover. The URL requested is the one that first went out bare, never the redirect target the stranger was sent to, and a held redirect of that navigation is not followed while the replay is pending. If the disk cache answers the replay, it is reloaded once past the cache. A POST is never replayed; the user sees the stranger's answer once, and the site is covered for the next attempt.
+
+`webNavigation.onBeforeNavigate` rebuilds the rules before a navigation to a left-out site. When that beats the request no replay is needed; when it does not, the request is caught as left out.
+
+**After a service worker restart** the rules are still live in Chrome, but the worker has forgotten what they cover and, for a moment, which tabs belong to a profile. The start of every request of every tab is therefore recorded, and a request that could not be judged when it started is judged before its response is captured. The worker's first publish for a tab first reconstructs what the live rules cover: they were built from the same store for the page the tab is on. That reconstruction assumes the full rule set, so it is wrong in the rare case where the live rules were the fallback set below.
+
+**Overlapping publishes.** Every capture republishes all the profile's tabs, and none may wait for another: a capture holds its tab's redirect chain until its own publish is live. Each publish is numbered when requested, and a later request always reads a store at least as new. A publish that finds a later one already handed to Chrome sends nothing and waits for that one, so the older store's rules can never be put back, and a tab's removal is never undone by a publish still in flight. Nothing is published for a tab that no longer exists.
+
+**When Chrome refuses an update** nothing changes, so the tab would keep sending the cookies from before. A refused rule set is logged and retried as the smallest useful one: the priority sites only, without regex rules. If that is refused too, the failure is logged and propagated instead of swallowed.
+
+Known limits:
+
+- A tab's rules are built for one scheme, the scheme of its committed URL, so the first request of a navigation that changes scheme can still leave without cookies.
+- A host served on a non-default port gets its cookies only while it holds one of the tab's 20 regex rules. The tab's own sites come first, so a development origin normally does. In the fallback set (no regex rules) such a host gets none, and its responses are not captured.
+- A site with more cookie scopes than the tab has rules cannot be fully covered. Requests that match a scope without a rule are sent bare and their responses are dropped; a warning is logged.
+- A left-out request in an iframe is not requested again; the frame shows the stranger's answer until it reloads.
+- The 50-profile-tab ceiling (50 × 100 rules) is unchanged.
+
 ### Live document.cookie Sync
 
 A profile tab's `document.cookie` is served from an in-page map, scoped to what Chrome would expose to the frame. That means non-HttpOnly cookies whose domain and path match the frame URL, minus Secure cookies on `http`. `about:blank` frames use the inherited origin. The logic lives in `src/background/document-cookie-sync.ts`. Profiles are global jars, so an unscoped snapshot would hand one site's cookies to every other site's scripts.
@@ -262,7 +298,7 @@ A profile tab's `document.cookie` is served from an in-page map, scoped to what 
 ### Limitations
 
 1. **DNR rules don't intercept Set-Cookie responses** — We use webRequest listener to capture them
-2. **Rules are cleared on service worker restart** — We reapply on next tab action
+2. **Rules are cleared on browser restart, not on service worker restart** — Tab assignments live in `chrome.storage.session` and go with them; a restarted worker republishes every profile tab's rules
 3. **Rules are ephemeral** — No persistence; we must regenerate from session store
 4. **Large cookie strings** — Each rule has size limits (practical: <10MB per extension)
 

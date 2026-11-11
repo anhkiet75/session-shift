@@ -24,6 +24,9 @@ const RESOLVE_TIMEOUT_MS = 2000;
 type HeldRedirect = { requestId: string; target: string };
 
 const heldRedirects = new Map<string, HeldRedirect>();
+// Frames whose navigation may be requested again from its start: the held
+// redirect is followed only if that turns out not to happen.
+const replays = new Map<string, { requestId: string; replayed: Promise<boolean> }>();
 const arrivalWaiters = new Map<string, Array<() => void>>();
 
 const frameKey = (tabId: number, frameId: number) => `${tabId}:${frameId}`;
@@ -77,12 +80,31 @@ export async function resolveHeldRedirect(tabId: number, frameId: number): Promi
   if (!held) return null;
   heldRedirects.delete(key);
   await whenCapturesSettled(held.requestId);
+  const replay = replays.get(key);
+  if (replay?.requestId === held.requestId) {
+    replays.delete(key);
+    if (await replay.replayed) return null;
+  }
   return held.target;
+}
+
+/**
+ * The navigation `requestId` of this frame was answered without the profile's
+ * cookies and may be requested again; `replayed` settles to whether it was.
+ * A held redirect of that navigation must not be followed in the meantime: its
+ * target was chosen for a stranger, and following it would race the replay.
+ */
+export function deferHeldRedirectToReplay(
+  tabId: number, frameId: number, requestId: string, replayed: Promise<boolean>,
+): void {
+  replays.set(frameKey(tabId, frameId), { requestId, replayed });
 }
 
 /** tabs.onRemoved: a closed tab's id may be reused. */
 export function forgetHeldRedirectsForTab(tabId: number): void {
-  for (const key of heldRedirects.keys()) {
-    if (key.startsWith(`${tabId}:`)) heldRedirects.delete(key);
+  for (const key of [...heldRedirects.keys(), ...replays.keys()]) {
+    if (!key.startsWith(`${tabId}:`)) continue;
+    heldRedirects.delete(key);
+    replays.delete(key);
   }
 }
