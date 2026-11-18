@@ -18,7 +18,9 @@ jobs:
       - run: npm run test:unit
 
   e2e:
-    runs-on: ubuntu-latest
+    # Playwright 1.60 cannot install browsers on ubuntu-latest (26.04); 24.04
+    # matches the noble base of Dockerfile.e2e.
+    runs-on: ubuntu-24.04
     needs: unit
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
